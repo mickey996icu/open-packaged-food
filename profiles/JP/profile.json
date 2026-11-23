@@ -1,0 +1,44 @@
+{
+  "jurisdiction": "JP",
+  "profiles": {
+    "JP/CAA-2015": {
+      "title": "Japan Food Labeling Standard (食品表示基準 / Consumer Affairs Agency)",
+      "mandatory_nutrients": [
+        "energy",
+        "protein",
+        "fat_total",
+        "carbs_total",
+        "salt_equivalent"
+      ],
+      "default_energy_unit": "kcal",
+      "default_basis": ["100g", "100ml", "serving"],
+      "carbohydrate_basis": "carbs_total",
+      "sodium_or_salt": "salt_equivalent",
+      "kj_per_kcal": "4.184",
+      "salt_per_sodium_ratio": "2.54",
+      "zero_thresholds_per_100": {
+        "energy_kcal": "5",
+        "protein": "0.5",
+        "fat_total": "0.5",
+        "carbs_total": "0.5",
+        "salt_equivalent": "0.005"
+      },
+      "nrv_reference": {
+        "energy_kcal": "2200",
+        "protein": "81",
+        "fat_total": "62",
+        "carbs_total": "320",
+        "salt_equivalent": "7.5"
+      },
+      "ingredients_grammar": {
+        "prefixes": ["原材料名：", "原材料名:"],
+        "top_level_delimiters": ["、", "，", ","],
+        "open_brackets": ["（", "(", "［", "["],
+        "close_brackets": ["）", ")", "］", "]"],
+        "trailing_punctuation": ["。"],
+        "additive_slash_split": ["／", "/"]
+      },
+      "registries": ["JP/CAA-FFC"]
+    }
+  }
+}

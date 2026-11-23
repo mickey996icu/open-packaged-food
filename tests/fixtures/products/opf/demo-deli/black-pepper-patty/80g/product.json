@@ -1,0 +1,34 @@
+{
+  "opf_schema": "0.2",
+  "id": "opf:demo-deli/black-pepper-patty/80g",
+  "tracks": [
+    {
+      "track": "CN/plant:SC10400000000009",
+      "market": "CN",
+      "label": [
+        {
+          "lang": "zh-Hans",
+          "text": "鲜厨示例备选厂"
+        },
+        {
+          "lang": "en",
+          "text": "Demo Deli Plant 9"
+        }
+      ],
+      "discriminator": {
+        "method": "sc_license",
+        "field": "attributes.parties[].license",
+        "instructions": [
+          {
+            "lang": "zh-Hans",
+            "text": "核对背面生产许可证编号 SC10400000000009"
+          },
+          {
+            "lang": "en",
+            "text": "Check back-panel SC license SC10400000000009"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,546 @@
+{
+  "opf_schema": "0.2",
+  "id": "gtin:00000000000024",
+  "edition_id": "01M7SVN6N0H3GVR0M0MJDQJNV6",
+  "rev": 1,
+  "track": "EU/code:A",
+  "supersedes": [],
+  "core": {
+    "regulatory_profile": "EU/1169-2011",
+    "net_content": [
+      {
+        "value": "150",
+        "unit": "g"
+      }
+    ],
+    "nutrition_declared": {
+      "basis": {
+        "value": "100",
+        "unit": "g"
+      },
+      "rows": [
+        {
+          "nutrient": "energy",
+          "value": "2150",
+          "unit": "kJ"
+        },
+        {
+          "nutrient": "protein",
+          "value": "7.2",
+          "unit": "g"
+        },
+        {
+          "nutrient": "fat_total",
+          "value": "27",
+          "unit": "g"
+        },
+        {
+          "nutrient": "fat_saturated",
+          "value": "11.5",
+          "unit": "g"
+        },
+        {
+          "nutrient": "carbs_available",
+          "value": "59",
+          "unit": "g"
+        },
+        {
+          "nutrient": "sugars_total",
+          "value": "34",
+          "unit": "g"
+        },
+        {
+          "nutrient": "dietary_fiber",
+          "value": "3.6",
+          "unit": "g"
+        },
+        {
+          "nutrient": "salt_equivalent",
+          "value": "0.28",
+          "unit": "g"
+        }
+      ]
+    },
+    "allergens_declared": {
+      "contains": [
+        "gluten_cereals",
+        "milk",
+        "soybeans",
+        "tree_nuts"
+      ],
+      "may_contain": [
+        "peanuts"
+      ]
+    },
+    "ingredients_tree": [
+      {
+        "lang": "de",
+        "nodes": [
+          {
+            "name": "Weizenmehl",
+            "allergens": [
+              "gluten_cereals"
+            ]
+          },
+          {
+            "name": "Zucker"
+          },
+          {
+            "name": "Palmöl"
+          },
+          {
+            "name": "geröstete Haselnüsse",
+            "allergens": [
+              "tree_nuts"
+            ]
+          },
+          {
+            "name": "Magermilchpulver",
+            "allergens": [
+              "milk"
+            ]
+          },
+          {
+            "name": "Lecithine",
+            "functional_class": "Emulgator",
+            "ins": "322",
+            "is_additive": true,
+            "children": [
+              {
+                "name": "Soja",
+                "is_additive": true,
+                "allergens": [
+                  "soybeans"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Natriumhydrogencarbonat",
+            "functional_class": "Backtriebmittel",
+            "ins": "500(ii)",
+            "is_additive": true
+          }
+        ]
+      },
+      {
+        "lang": "en",
+        "nodes": [
+          {
+            "name": "Wheat flour",
+            "allergens": [
+              "gluten_cereals"
+            ]
+          },
+          {
+            "name": "Sugar"
+          },
+          {
+            "name": "Palm oil"
+          },
+          {
+            "name": "Roasted hazelnuts",
+            "allergens": [
+              "tree_nuts"
+            ]
+          },
+          {
+            "name": "Skimmed milk powder",
+            "allergens": [
+              "milk"
+            ]
+          },
+          {
+            "name": "Lecithins",
+            "functional_class": "Emulsifier",
+            "ins": "322",
+            "is_additive": true,
+            "children": [
+              {
+                "name": "Soy",
+                "is_additive": true,
+                "allergens": [
+                  "soybeans"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Sodium hydrogen carbonate",
+            "functional_class": "Raising agent",
+            "ins": "500(ii)",
+            "is_additive": true
+          }
+        ]
+      },
+      {
+        "lang": "es",
+        "nodes": [
+          {
+            "name": "Harina de trigo",
+            "allergens": [
+              "gluten_cereals"
+            ]
+          },
+          {
+            "name": "Azúcar"
+          },
+          {
+            "name": "Aceite de palma"
+          },
+          {
+            "name": "Avellanas tostadas",
+            "allergens": [
+              "tree_nuts"
+            ]
+          },
+          {
+            "name": "Leche desnatada en polvo",
+            "allergens": [
+              "milk"
+            ]
+          },
+          {
+            "name": "lecitinas",
+            "functional_class": "Emulgente",
+            "ins": "322",
+            "is_additive": true,
+            "children": [
+              {
+                "name": "soja",
+                "is_additive": true,
+                "allergens": [
+                  "soybeans"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "bicarbonato sódico",
+            "functional_class": "Gasificante",
+            "ins": "500(ii)",
+            "is_additive": true
+          }
+        ]
+      },
+      {
+        "lang": "fr",
+        "nodes": [
+          {
+            "name": "Farine de blé",
+            "allergens": [
+              "gluten_cereals"
+            ]
+          },
+          {
+            "name": "Sucre"
+          },
+          {
+            "name": "Huile de palme"
+          },
+          {
+            "name": "Noisettes grillées",
+            "allergens": [
+              "tree_nuts"
+            ]
+          },
+          {
+            "name": "Lait écrémé en poudre",
+            "allergens": [
+              "milk"
+            ]
+          },
+          {
+            "name": "lécithines",
+            "functional_class": "Émulsifiant",
+            "ins": "322",
+            "is_additive": true,
+            "children": [
+              {
+                "name": "soja",
+                "is_additive": true,
+                "allergens": [
+                  "soybeans"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "bicarbonate de sodium",
+            "functional_class": "Poudre à lever",
+            "ins": "500(ii)",
+            "is_additive": true
+          }
+        ]
+      },
+      {
+        "lang": "it",
+        "nodes": [
+          {
+            "name": "Farina di grano tenero",
+            "allergens": [
+              "gluten_cereals"
+            ]
+          },
+          {
+            "name": "Zucchero"
+          },
+          {
+            "name": "Olio di palma"
+          },
+          {
+            "name": "Nocciole tostate",
+            "allergens": [
+              "tree_nuts"
+            ]
+          },
+          {
+            "name": "Latte scremato in polvere",
+            "allergens": [
+              "milk"
+            ]
+          },
+          {
+            "name": "lecitine",
+            "functional_class": "Emulsionante",
+            "ins": "322",
+            "is_additive": true,
+            "children": [
+              {
+                "name": "soia",
+                "is_additive": true,
+                "allergens": [
+                  "soybeans"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "bicarbonato di sodio",
+            "functional_class": "Agente lievitante",
+            "ins": "500(ii)",
+            "is_additive": true
+          }
+        ]
+      }
+    ]
+  },
+  "attributes": {
+    "product_name": [
+      {
+        "lang": "de",
+        "text": "Knusprige Haselnusswaffeln"
+      },
+      {
+        "lang": "en",
+        "text": "Crispy Hazelnut Wafer"
+      },
+      {
+        "lang": "es",
+        "text": "Barquillos Crujientes de Avellana"
+      },
+      {
+        "lang": "fr",
+        "text": "Gaufrettes Croustillantes aux Noisettes"
+      },
+      {
+        "lang": "it",
+        "text": "Wafer Croccanti alla Nocciola"
+      }
+    ],
+    "brand": "EuroDemo Kitchen",
+    "packaging_code": "A",
+    "ingredients_text": [
+      {
+        "lang": "de",
+        "text": "Zutaten: Weizenmehl, Zucker, Palmöl, geröstete Haselnüsse, Magermilchpulver, Emulgator: Lecithine (Soja), Backtriebmittel: Natriumhydrogencarbonat."
+      },
+      {
+        "lang": "en",
+        "text": "Ingredients: Wheat flour, Sugar, Palm oil, Roasted hazelnuts, Skimmed milk powder, Emulsifier: Lecithins (Soy), Raising agent: Sodium hydrogen carbonate."
+      },
+      {
+        "lang": "es",
+        "text": "Ingredientes: Harina de trigo, Azúcar, Aceite de palma, Avellanas tostadas, Leche desnatada en polvo, Emulgente: lecitinas (soja), Gasificante: bicarbonato sódico."
+      },
+      {
+        "lang": "fr",
+        "text": "Ingrédients : Farine de blé, Sucre, Huile de palme, Noisettes grillées, Lait écrémé en poudre, Émulsifiant : lécithines (soja), Poudre à lever : bicarbonate de sodium."
+      },
+      {
+        "lang": "it",
+        "text": "Ingredienti: Farina di grano tenero, Zucchero, Olio di palma, Nocciole tostate, Latte scremato in polvere, Emulsionante: lecitine (soia), Agente lievitante: bicarbonato di sodio."
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "type": "community_report",
+      "contributor": "github:fixture-claire",
+      "reported_at": "2026-08-20",
+      "vintage_month": "2026-08",
+      "evidence_id": "ev:01M7SVN6M29K9QFGGK23KKZ37H"
+    }
+  ],
+  "revisions": [
+    {
+      "rev": 1,
+      "kind": "initial",
+      "created_at": "2026-11-19T12:14:15Z",
+      "author": "github:fixture-claire",
+      "evidence_refs": [
+        "ev:01M7SVN6M29K9QFGGK23KKZ37H"
+      ],
+      "patch": []
+    }
+  ],
+  "normalized": {
+    "basis": "100g",
+    "nutrients": {
+      "energy_kj": {
+        "value": "2150",
+        "unit": "kJ",
+        "basis": "reported"
+      },
+      "protein": {
+        "value": "7.2",
+        "unit": "g",
+        "basis": "reported"
+      },
+      "fat_total": {
+        "value": "27",
+        "unit": "g",
+        "basis": "reported"
+      },
+      "fat_saturated": {
+        "value": "11.5",
+        "unit": "g",
+        "basis": "reported"
+      },
+      "carbs_available": {
+        "value": "59",
+        "unit": "g",
+        "basis": "reported"
+      },
+      "sugars_total": {
+        "value": "34",
+        "unit": "g",
+        "basis": "reported"
+      },
+      "dietary_fiber": {
+        "value": "3.6",
+        "unit": "g",
+        "basis": "reported"
+      },
+      "salt_equivalent": {
+        "value": "0.28",
+        "unit": "g",
+        "basis": "reported"
+      },
+      "energy_kcal": {
+        "value": "513.9",
+        "unit": "kcal",
+        "basis": "derived"
+      },
+      "sodium": {
+        "value": "112",
+        "unit": "mg",
+        "basis": "derived"
+      }
+    },
+    "additives_ins": [
+      "322",
+      "500(ii)"
+    ],
+    "allergens": {
+      "contains": [
+        "gluten_cereals",
+        "milk",
+        "soybeans",
+        "tree_nuts"
+      ],
+      "declared_contains": [
+        "gluten_cereals",
+        "milk",
+        "soybeans",
+        "tree_nuts"
+      ],
+      "inferred_from_ingredients": [
+        "gluten_cereals",
+        "milk",
+        "soybeans",
+        "tree_nuts"
+      ],
+      "may_contain": [
+        "peanuts"
+      ]
+    },
+    "per_unit": {
+      "unit_amount": {
+        "value": "150",
+        "unit": "g"
+      },
+      "nutrients": {
+        "energy_kj": {
+          "value": "3225",
+          "unit": "kJ",
+          "basis": "derived"
+        },
+        "protein": {
+          "value": "10.8",
+          "unit": "g",
+          "basis": "derived"
+        },
+        "fat_total": {
+          "value": "40.5",
+          "unit": "g",
+          "basis": "derived"
+        },
+        "fat_saturated": {
+          "value": "17.3",
+          "unit": "g",
+          "basis": "derived"
+        },
+        "carbs_available": {
+          "value": "88.5",
+          "unit": "g",
+          "basis": "derived"
+        },
+        "sugars_total": {
+          "value": "51",
+          "unit": "g",
+          "basis": "derived"
+        },
+        "dietary_fiber": {
+          "value": "5.4",
+          "unit": "g",
+          "basis": "derived"
+        },
+        "salt_equivalent": {
+          "value": "0.42",
+          "unit": "g",
+          "basis": "derived"
+        },
+        "energy_kcal": {
+          "value": "770.9",
+          "unit": "kcal",
+          "basis": "derived"
+        },
+        "sodium": {
+          "value": "168",
+          "unit": "mg",
+          "basis": "derived"
+        }
+      }
+    }
+  },
+  "quality_flags": [
+    {
+      "code": "SODIUM_DERIVED_FROM_SALT",
+      "field": "sodium",
+      "detail": "Derived from salt_equivalent using ratio 2.5"
+    }
+  ],
+  "core_fingerprint": "sha256:dfe0ffc1871280a6d7ed63fd1a890d515e4392ccc10feb4ecdba18434a369c75",
+  "label_fingerprint": "sha256:9a6570c4b700cbf0070c299817287e8c7297e811026713e8db2ac8297707eb35"
+}

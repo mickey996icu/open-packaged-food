@@ -1,0 +1,51 @@
+name: "🐛 Bug 反馈 / Bug Report (CLI, Parser, Validator & Web)"
+description: "反馈 CLI 命令、配料树无损解析、百克换算校验或纯静态网页端异常 / Report a bug in CLI, ingredient parser, normalizer, validator, or static web explorer"
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### 工具链与网页端 Bug 反馈 / Tooling & Web Explorer Bug Report
+        请提供可复现的最小输入样例与报错输出。**切勿在公开 Issue 中粘贴个人隐私、本地绝对路径或商业包装封面图。**
+        Please provide minimal reproducible inputs and outputs. **Do not include private data, local host paths, or front-of-pack cover images.**
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: "受影响模块 / Affected Component"
+      options:
+        - "CLI (bin/opf: submit / pr / validate / build)"
+        - "Ingredients Parser & Round-Trip (opf/ingredients.py)"
+        - "Normalizer & Rounding Bounds (opf/normalize.py)"
+        - "Validator & Media Check (opf/validator.py, opf/media.py)"
+        - "Static Web Explorer & Scanner (web/)"
+        - "Agent Skill & Schema (skills/opf/, spec/)"
+      default: 0
+    validations:
+      required: true
+
+  - type: input
+    id: version_env
+    attributes:
+      label: "版本与环境 / Version & Environment"
+      description: "如 commit/tag（`v0.2.0`）、Python 版本（3.12+）或浏览器内核与系统。 / Tag or commit, Python version (3.12+), or browser & OS."
+      placeholder: "v0.2.0 · Python 3.12 · macOS / Chrome 131"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: "复现步骤与最小样例 / Reproduction Steps & Minimal Input"
+      description: "请贴出复现命令、配料原文字符串或脱敏后的最小 JSON 片段。 / Paste the command, raw ingredient string, or sanitized minimal JSON snippet."
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_actual
+    attributes:
+      label: "预期结果与实际输出 / Expected vs. Actual Output"
+      description: "请说明规范预期输出与实际报错堆栈。 / Describe expected behavior alongside actual errors or output."
+    validations:
+      required: true

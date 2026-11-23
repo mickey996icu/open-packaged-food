@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openpackagedfood.org/spec/schema/product.v0.2.schema.json",
+  "title": "OpenPackagedFood Product Metadata Document (v0.2)",
+  "description": "Stored at products/gtin/{p1}/{p2}/{gtin14}/product.json or products/opf/{brand}/{product}/{spec}/product.json. Holds only product-level aliases and non-default track discriminator definitions; editions, supersedes edges, and revisions live in editions/<ulid>.json.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["opf_schema", "id"],
+  "properties": {
+    "opf_schema": {
+      "type": "string",
+      "const": "0.2"
+    },
+    "id": {
+      "$ref": "#/$defs/ProductId"
+    },
+    "aliases": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true,
+      "description": "Colloquial names, search aliases, or secondary retail pack names."
+    },
+    "tracks": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/TrackDefinition" },
+      "description": "Documentation and observable disambiguation rules for non-default tracks referenced by editions/<ulid>.json. Default tracks (<market>/default) do not require entries here."
+    }
+  },
+  "$defs": {
+    "ProductId": {
+      "type": "string",
+      "pattern": "^(gtin:[0-9]{14}|opf:[a-z0-9]+(-[a-z0-9]+)*/[a-z0-9]+(-[a-z0-9]+)*/[a-z0-9]+(-[a-z0-9]+)*)$",
+      "description": "Canonical primary identifier: either gtin:<14-digit-gtin> or opf:<brand-slug>/<product-slug>/<spec-slug>."
+    },
+    "LocalizedText": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lang", "text"],
+      "properties": {
+        "lang": {
+          "type": "string",
+          "pattern": "^[a-z]{2,3}(-[A-Z][a-z]{3})?(-[A-Z]{2})?$"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "NonDefaultTrackKey": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}/[a-z][a-z0-9_]*:([A-Za-z0-9._-]+|\\{[A-Za-z0-9._-]+(,[A-Za-z0-9._-]+)+\\})(\\+[a-z][a-z0-9_]*:([A-Za-z0-9._-]+|\\{[A-Za-z0-9._-]+(,[A-Za-z0-9._-]+)+\\}))*$",
+      "description": "Discriminated track identifier such as CN/plant:SC111, CN/plant:{SC111,SC222}, CN/code:A, or CN/origin:NZ."
+    },
+    "TrackDiscriminator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method", "instructions"],
+      "properties": {
+        "method": {
+          "type": "string",
+          "enum": [
+            "lot_code_prefix",
+            "sc_license",
+            "plant_code",
+            "origin",
+            "packaging_code",
+            "importer_sticker",
+            "channel_mark",
+            "other"
+          ]
+        },
+        "field": {
+          "type": "string",
+          "minLength": 1,
+          "description": "JSON pointer or field path on the Edition that corresponds to this discriminator (e.g. attributes.parties[].license)."
+        },
+        "instructions": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/LocalizedText" },
+          "description": "Human- and Agent-readable instructions explaining how to identify this track on a physical package."
+        }
+      }
+    },
+    "TrackDefinition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["track", "market", "discriminator"],
+      "properties": {
+        "track": {
+          "$ref": "#/$defs/NonDefaultTrackKey"
+        },
+        "market": {
+          "type": "string",
+          "pattern": "^[A-Z]{2}$"
+        },
+        "label": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/LocalizedText" }
+        },
+        "discriminator": {
+          "$ref": "#/$defs/TrackDiscriminator"
+        }
+      }
+    }
+  }
+}

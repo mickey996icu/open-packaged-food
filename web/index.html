@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f8f5ee" />
+  <title>OpenPackagedFood — Open Packaged Food Database</title>
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <header class="masthead">
+    <div class="masthead-top">
+      <div class="brand-cluster">
+        <div class="brand-mark">
+          <span class="code-tag">OPF · DATABASE</span>
+          <b>OpenPackagedFood</b>
+        </div>
+        <h1 class="display-title" id="masthead-title" data-i18n="header.mastheadTitle">What is printed on the package is what is in the database.</h1>
+      </div>
+      <div class="masthead-actions">
+        <a class="chip mono" href="v1/meta.json" target="_blank" rel="noopener">GET /v1/meta.json</a>
+        <a class="chip mono" href="v1/index/brands.json" target="_blank" rel="noopener">GET /v1/index/brands.json</a>
+        <button type="button" class="chip" id="legend-toggle" data-i18n="header.legendToggle">Verification &amp; Symbols</button>
+        <select class="md3-select lang-select" id="lang-select" data-i18n-aria-label="header.langToggleTitle" data-i18n-title="header.langToggleTitle"></select>
+        <button type="button" class="chip" id="theme-toggle" data-i18n="header.themeToggle" data-i18n-title="header.themeTitle">Light / Dark</button>
+      </div>
+    </div>
+    <section class="legend-sheet" id="legend-sheet" hidden data-i18n-aria-label="header.legendAriaLabel">
+      <p class="lead" id="masthead-lead" data-i18n-html="header.mastheadLead"></p>
+      <div id="legend-sheet-body"></div>
+    </section>
+  </header>
+
+  <section class="stats-strip" id="stats" data-i18n-aria-label="stats.ariaLabel"></section>
+
+  <section class="filter-workbench" id="filter-workbench" data-i18n-aria-label="search.workbenchAriaLabel">
+    <div class="wb-toolbar">
+      <div class="search-box">
+        <label class="search-input-label" for="q">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7" />
+            <path d="m20 20-3.5-3.5" />
+          </svg>
+          <input id="q" type="search" autocomplete="off" data-i18n-placeholder="search.placeholder" />
+        </label>
+        <span class="kbd-inline mono" aria-hidden="true">/</span>
+        <button type="button" class="icon-clear-btn" id="q-clear" hidden data-i18n-title="search.clearQueryTitle" data-i18n-aria-label="search.clearQueryTitle">×</button>
+        <button type="button" class="icon-scan-btn" id="scan-btn" data-i18n-title="scanner.openTitle" data-i18n-aria-label="scanner.openTitle">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 7V5a1 1 0 0 1 1-1h2M17 4h2a1 1 0 0 1 1 1v2M20 17v2a1 1 0 0 1-1 1h-2M7 20H5a1 1 0 0 1-1-1v-2" />
+            <path d="M7 9v6M10 9v6M13 9v6M17 9v6" />
+          </svg>
+          <span class="scan-btn-label" data-i18n="scanner.openBtn">Scan</span>
+        </button>
+      </div>
+      <div class="wb-markets" id="market-filters" role="group" data-i18n-aria-label="search.marketAriaLabel"></div>
+      <div class="wb-actions">
+        <button type="button" class="chip filter-toggle-btn" id="wb-toggle" aria-controls="filter-panel" aria-expanded="false"></button>
+        <select class="md3-select sort-select" id="sort-select" data-i18n-aria-label="search.sortAriaLabel"></select>
+        <span class="results-badge mono" id="results-count"></span>
+      </div>
+    </div>
+
+    <div class="wb-panel" id="filter-panel" hidden>
+      <div class="wb-grid">
+        <section class="wb-col" id="wb-col-facets"></section>
+        <section class="wb-col" id="wb-col-ingredients"></section>
+        <section class="wb-col" id="wb-col-nutrients"></section>
+      </div>
+    </div>
+
+    <div class="active-strip" id="active-filters-strip" hidden>
+      <span class="section-label" data-i18n="search.activeFiltersLabel">生效条件</span>
+      <div class="active-tags" id="active-filter-tags"></div>
+      <button type="button" class="chip reset-chip" id="reset-filters-btn" data-i18n="search.clearAllFilters">清除全部条件</button>
+    </div>
+  </section>
+
+  <main class="workspace" id="workspace" data-mobile-view="list">
+    <aside class="catalog-drawer" id="drawer" data-i18n-aria-label="search.drawerAriaLabel">
+      <div class="drawer-header">
+        <span class="section-label" id="drawer-title" data-i18n="search.drawerTitle">商品目录</span>
+        <span class="kbd-hint" id="kbd-hint" data-i18n="search.kbdHint">/ 搜索 · ↑↓ 选择</span>
+      </div>
+      <div class="drawer-list" id="list"></div>
+    </aside>
+
+    <article class="catalog-card" id="detail" aria-live="polite"></article>
+  </main>
+
+  <footer>
+    <div id="footer-license" data-i18n="app.footerLicense"></div>
+    <div class="mono" id="footer-schema">OpenPackagedFood Schema v0.2</div>
+  </footer>
+
+  <div class="scan-modal" id="scan-modal" hidden role="dialog" aria-modal="true" aria-labelledby="scan-modal-title">
+    <div class="scan-backdrop" id="scan-backdrop"></div>
+    <div class="scan-dialog" role="document">
+      <div class="scan-header">
+        <div>
+          <span class="section-label" data-i18n="scanner.badge">Static Scanner</span>
+          <h2 id="scan-modal-title" data-i18n="scanner.title">Scan Product Barcode or QR Code</h2>
+        </div>
+        <button type="button" class="icon-clear-btn" id="scan-close-btn" data-i18n-title="scanner.closeTitle" data-i18n-aria-label="scanner.closeTitle">×</button>
+      </div>
+      <p class="scan-subtitle" data-i18n="scanner.subtitle"></p>
+      <div class="scan-viewport" id="scan-viewport">
+        <video id="scan-video" playsinline muted autoplay></video>
+        <div class="scan-reticle" aria-hidden="true"></div>
+        <div class="scan-camera-placeholder" id="scan-camera-placeholder" data-i18n="scanner.cameraStandby"></div>
+      </div>
+      <div class="scan-controls">
+        <button type="button" class="chip" id="scan-camera-toggle" data-i18n="scanner.startCameraBtn"></button>
+        <label class="chip scan-file-label" for="scan-file" tabindex="0" role="button">
+          <span data-i18n="scanner.pickImageBtn"></span>
+        </label>
+        <input type="file" id="scan-file" accept="image/*" capture="environment" hidden />
+      </div>
+      <form class="scan-manual-form" id="scan-manual-form">
+        <label class="section-label" for="scan-manual-input" data-i18n="scanner.manualLabel"></label>
+        <div class="scan-manual-row">
+          <input id="scan-manual-input" type="text" autocomplete="off" data-i18n-placeholder="scanner.manualPlaceholder" />
+          <button type="submit" class="chip" id="scan-manual-submit" data-i18n="scanner.manualSubmitBtn"></button>
+        </div>
+      </form>
+      <div class="scan-status" id="scan-status" aria-live="polite" hidden></div>
+      <div class="scan-result" id="scan-result" hidden></div>
+    </div>
+  </div>
+
+  <script src="assets/app.js"></script>
+</body>
+</html>

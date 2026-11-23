@@ -1,0 +1,2242 @@
+{
+  "version": "0.2",
+  "source": "Codex Alimentarius CXG 36-1989 (INS), China GB 2760-2024, EU Regulation 1333/2008 & Japan Food Sanitation Act",
+  "additives": {
+    "100(i)": {
+      "ins": "100(i)",
+      "e_number": "E100",
+      "cn_cns": "08.004",
+      "functional_classes": [
+        "colour"
+      ],
+      "names": {
+        "zh-Hans": [
+          "姜黄素"
+        ],
+        "en": [
+          "Curcumin"
+        ],
+        "ja": [
+          "ウコン色素",
+          "クルクミン"
+        ],
+        "de": [
+          "Kurkumin",
+          "Curcumin"
+        ],
+        "fr": [
+          "Curcumine"
+        ],
+        "es": [
+          "Curcumina"
+        ],
+        "it": [
+          "Curcumina"
+        ]
+      }
+    },
+    "102": {
+      "ins": "102",
+      "e_number": "E102",
+      "cn_cns": "08.005",
+      "functional_classes": [
+        "colour"
+      ],
+      "names": {
+        "zh-Hans": [
+          "柠檬黄"
+        ],
+        "en": [
+          "Tartrazine",
+          "FD&C Yellow No. 5"
+        ],
+        "ja": [
+          "黄色4号"
+        ],
+        "de": [
+          "Tartrazin"
+        ],
+        "fr": [
+          "Tartrazine"
+        ],
+        "es": [
+          "Tartrazina"
+        ],
+        "it": [
+          "Tartrazina"
+        ]
+      }
+    },
+    "110": {
+      "ins": "110",
+      "e_number": "E110",
+      "cn_cns": "08.006",
+      "functional_classes": [
+        "colour"
+      ],
+      "names": {
+        "zh-Hans": [
+          "日落黄"
+        ],
+        "en": [
+          "Sunset yellow FCF",
+          "FD&C Yellow No. 6"
+        ],
+        "ja": [
+          "黄色5号"
+        ],
+        "de": [
+          "Gelborange S"
+        ],
+        "fr": [
+          "Jaune orangé S"
+        ],
+        "es": [
+          "Amarillo ocaso FCF"
+        ],
+        "it": [
+          "Giallo tramonto FCF"
+        ]
+      }
+    },
+    "129": {
+      "ins": "129",
+      "e_number": "E129",
+      "cn_cns": "08.012",
+      "functional_classes": [
+        "colour"
+      ],
+      "names": {
+        "zh-Hans": [
+          "诱惑红"
+        ],
+        "en": [
+          "Allura red AC",
+          "FD&C Red No. 40"
+        ],
+        "ja": [
+          "赤色40号"
+        ],
+        "de": [
+          "Allurarot AC"
+        ],
+        "fr": [
+          "Rouge allura AC"
+        ],
+        "es": [
+          "Rojo allura AC"
+        ],
+        "it": [
+          "Rosso allura AC"
+        ]
+      }
+    },
+    "133": {
+      "ins": "133",
+      "e_number": "E133",
+      "cn_cns": "08.007",
+      "functional_classes": [
+        "colour"
+      ],
+      "names": {
+        "zh-Hans": [
+          "亮蓝"
+        ],
+        "en": [
+          "Brilliant blue FCF",
+          "FD&C Blue No. 1"
+        ],
+        "ja": [
+          "青色1号"
+        ],
+        "de": [
+          "Brillantblau FCF"
+        ],
+        "fr": [
+          "Bleu brillant FCF"
+        ],
+        "es": [
+          "Azul brillante FCF"
+        ],
+        "it": [
+          "Blu brillante FCF"
+        ]
+      }
+    },
+    "150a": {
+      "ins": "150a",
+      "e_number": "E150a",
+      "cn_cns": "08.108",
+      "functional_classes": [
+        "colour"
+      ],
+      "names": {
+        "zh-Hans": [
+          "焦糖色"
+        ],
+        "en": [
+          "Caramel colour",
+          "Plain caramel"
+        ],
+        "ja": [
+          "カラメル色素",
+          "カラメル"
+        ],
+        "de": [
+          "Zuckerkulör",
+          "Einfaches Zuckerkulör"
+        ],
+        "fr": [
+          "Caramel ordinaire",
+          "Caramel"
+        ],
+        "es": [
+          "Caramelo natural",
+          "Caramelo"
+        ],
+        "it": [
+          "Caramello semplice",
+          "Caramello"
+        ]
+      }
+    },
+    "160a": {
+      "ins": "160a",
+      "e_number": "E160a",
+      "cn_cns": "08.010",
+      "functional_classes": [
+        "colour"
+      ],
+      "names": {
+        "zh-Hans": [
+          "β-胡萝卜素",
+          "胡萝卜素"
+        ],
+        "en": [
+          "Beta-carotene",
+          "Carotenes"
+        ],
+        "ja": [
+          "カロテン色素",
+          "β-カロテン"
+        ],
+        "de": [
+          "Beta-Carotin",
+          "Carotine"
+        ],
+        "fr": [
+          "Bêta-carotène",
+          "Carotènes"
+        ],
+        "es": [
+          "Betacaroteno",
+          "Carotenos"
+        ],
+        "it": [
+          "Beta-carotene",
+          "Caroteni"
+        ]
+      }
+    },
+    "200": {
+      "ins": "200",
+      "e_number": "E200",
+      "cn_cns": "17.003",
+      "functional_classes": [
+        "preservative"
+      ],
+      "names": {
+        "zh-Hans": [
+          "山梨酸"
+        ],
+        "en": [
+          "Sorbic acid"
+        ],
+        "ja": [
+          "ソルビン酸"
+        ],
+        "de": [
+          "Sorbinsäure"
+        ],
+        "fr": [
+          "Acide sorbique"
+        ],
+        "es": [
+          "Ácido sórbico"
+        ],
+        "it": [
+          "Acido sorbico"
+        ]
+      }
+    },
+    "202": {
+      "ins": "202",
+      "e_number": "E202",
+      "cn_cns": "17.004",
+      "functional_classes": [
+        "preservative"
+      ],
+      "names": {
+        "zh-Hans": [
+          "山梨酸钾"
+        ],
+        "en": [
+          "Potassium sorbate"
+        ],
+        "ja": [
+          "ソルビン酸カリウム",
+          "ソルビン酸K"
+        ],
+        "de": [
+          "Kaliumsorbat"
+        ],
+        "fr": [
+          "Sorbate de potassium"
+        ],
+        "es": [
+          "Sorbato potásico",
+          "Sorbato de potasio"
+        ],
+        "it": [
+          "Sorbato di potassio"
+        ]
+      }
+    },
+    "211": {
+      "ins": "211",
+      "e_number": "E211",
+      "cn_cns": "17.002",
+      "functional_classes": [
+        "preservative"
+      ],
+      "names": {
+        "zh-Hans": [
+          "苯甲酸钠"
+        ],
+        "en": [
+          "Sodium benzoate"
+        ],
+        "ja": [
+          "安息香酸ナトリウム",
+          "安息香酸Na"
+        ],
+        "de": [
+          "Natriumbenzoat"
+        ],
+        "fr": [
+          "Benzoate de sodium"
+        ],
+        "es": [
+          "Benzoato sódico",
+          "Benzoato de sodio"
+        ],
+        "it": [
+          "Benzoato di sodio"
+        ]
+      }
+    },
+    "223": {
+      "ins": "223",
+      "e_number": "E223",
+      "cn_cns": "05.004",
+      "functional_classes": [
+        "preservative",
+        "antioxidant",
+        "bleaching_agent"
+      ],
+      "names": {
+        "zh-Hans": [
+          "焦亚硫酸钠"
+        ],
+        "en": [
+          "Sodium metabisulphite",
+          "Sodium metabisulfite"
+        ],
+        "ja": [
+          "ピロ亜硫酸ナトリウム",
+          "ピロ亜硫酸Na"
+        ],
+        "de": [
+          "Natriummetabisulfit"
+        ],
+        "fr": [
+          "Métabisulfite de sodium"
+        ],
+        "es": [
+          "Metabisulfito sódico",
+          "Metabisulfito de sodio"
+        ],
+        "it": [
+          "Metabisolfito di sodio"
+        ]
+      }
+    },
+    "234": {
+      "ins": "234",
+      "e_number": "E234",
+      "cn_cns": "17.019",
+      "functional_classes": [
+        "preservative"
+      ],
+      "names": {
+        "zh-Hans": [
+          "乳酸链球菌素"
+        ],
+        "en": [
+          "Nisin"
+        ],
+        "ja": [
+          "ナイシン"
+        ],
+        "de": [
+          "Nisin"
+        ],
+        "fr": [
+          "Nisine"
+        ],
+        "es": [
+          "Nisina"
+        ],
+        "it": [
+          "Nisina"
+        ]
+      }
+    },
+    "249": {
+      "ins": "249",
+      "e_number": "E249",
+      "cn_cns": "05.003",
+      "functional_classes": [
+        "preservative",
+        "colour_retention_agent"
+      ],
+      "names": {
+        "zh-Hans": [
+          "亚硝酸钾"
+        ],
+        "en": [
+          "Potassium nitrite"
+        ],
+        "ja": [
+          "亜硝酸カリウム",
+          "亜硝酸K"
+        ],
+        "de": [
+          "Kaliumnitrit"
+        ],
+        "fr": [
+          "Nitrite de potassium"
+        ],
+        "es": [
+          "Nitrito potásico"
+        ],
+        "it": [
+          "Nitrito di potassio"
+        ]
+      }
+    },
+    "250": {
+      "ins": "250",
+      "e_number": "E250",
+      "cn_cns": "05.002",
+      "functional_classes": [
+        "preservative",
+        "colour_retention_agent"
+      ],
+      "names": {
+        "zh-Hans": [
+          "亚硝酸钠"
+        ],
+        "en": [
+          "Sodium nitrite"
+        ],
+        "ja": [
+          "亜硝酸ナトリウム",
+          "亜硝酸Na"
+        ],
+        "de": [
+          "Natriumnitrit"
+        ],
+        "fr": [
+          "Nitrite de sodium"
+        ],
+        "es": [
+          "Nitrito sódico",
+          "Nitrito de sodio"
+        ],
+        "it": [
+          "Nitrito di sodio"
+        ]
+      }
+    },
+    "260": {
+      "ins": "260",
+      "e_number": "E260",
+      "cn_cns": "01.107",
+      "functional_classes": [
+        "acidity_regulator",
+        "preservative"
+      ],
+      "names": {
+        "zh-Hans": [
+          "冰乙酸",
+          "乙酸"
+        ],
+        "en": [
+          "Acetic acid"
+        ],
+        "ja": [
+          "酢酸"
+        ],
+        "de": [
+          "Essigsäure"
+        ],
+        "fr": [
+          "Acide acétique"
+        ],
+        "es": [
+          "Ácido acético"
+        ],
+        "it": [
+          "Acido acetico"
+        ]
+      }
+    },
+    "270": {
+      "ins": "270",
+      "e_number": "E270",
+      "cn_cns": "01.102",
+      "functional_classes": [
+        "acidity_regulator"
+      ],
+      "names": {
+        "zh-Hans": [
+          "乳酸"
+        ],
+        "en": [
+          "Lactic acid"
+        ],
+        "ja": [
+          "乳酸"
+        ],
+        "de": [
+          "Milchsäure"
+        ],
+        "fr": [
+          "Acide lactique"
+        ],
+        "es": [
+          "Ácido láctico"
+        ],
+        "it": [
+          "Acido lattico"
+        ]
+      }
+    },
+    "282": {
+      "ins": "282",
+      "e_number": "E282",
+      "cn_cns": "17.005",
+      "functional_classes": [
+        "preservative"
+      ],
+      "names": {
+        "zh-Hans": [
+          "丙酸钙"
+        ],
+        "en": [
+          "Calcium propionate"
+        ],
+        "ja": [
+          "プロピオン酸カルシウム",
+          "プロピオン酸Ca"
+        ],
+        "de": [
+          "Calciumpropionat"
+        ],
+        "fr": [
+          "Propionate de calcium"
+        ],
+        "es": [
+          "Propionato cálcico"
+        ],
+        "it": [
+          "Propionato di calcio"
+        ]
+      }
+    },
+    "290": {
+      "ins": "290",
+      "e_number": "E290",
+      "cn_cns": "17.022",
+      "functional_classes": [
+        "carbonating_agent",
+        "propellant"
+      ],
+      "names": {
+        "zh-Hans": [
+          "二氧化碳"
+        ],
+        "en": [
+          "Carbon dioxide"
+        ],
+        "ja": [
+          "二酸化炭素",
+          "炭酸"
+        ],
+        "de": [
+          "Kohlendioxid"
+        ],
+        "fr": [
+          "Dioxyde de carbone"
+        ],
+        "es": [
+          "Dióxido de carbono"
+        ],
+        "it": [
+          "Anidride carbonica",
+          "Biossido di carbonio"
+        ]
+      }
+    },
+    "296": {
+      "ins": "296",
+      "e_number": "E296",
+      "cn_cns": "01.104",
+      "functional_classes": [
+        "acidity_regulator"
+      ],
+      "names": {
+        "zh-Hans": [
+          "DL-苹果酸",
+          "苹果酸",
+          "L-苹果酸"
+        ],
+        "en": [
+          "Malic acid",
+          "DL-Malic acid"
+        ],
+        "ja": [
+          "リンゴ酸",
+          "DL-リンゴ酸"
+        ],
+        "de": [
+          "Äpfelsäure"
+        ],
+        "fr": [
+          "Acide malique"
+        ],
+        "es": [
+          "Ácido málico"
+        ],
+        "it": [
+          "Acido malico"
+        ]
+      }
+    },
+    "300": {
+      "ins": "300",
+      "e_number": "E300",
+      "cn_cns": "04.014",
+      "functional_classes": [
+        "antioxidant",
+        "acidity_regulator"
+      ],
+      "names": {
+        "zh-Hans": [
+          "维生素C",
+          "L-抗坏血酸",
+          "抗坏血酸"
+        ],
+        "en": [
+          "Ascorbic acid",
+          "Vitamin C",
+          "L-Ascorbic acid"
+        ],
+        "ja": [
+          "ビタミンC",
+          "L-アスコルビン酸",
+          "V.C"
+        ],
+        "de": [
+          "Ascorbinsäure",
+          "L-Ascorbinsäure",
+          "Vitamin C"
+        ],
+        "fr": [
+          "Acide ascorbique",
+          "Acide L-ascorbique"
+        ],
+        "es": [
+          "Ácido ascórbico",
+          "Ácido L-ascórbico"
+        ],
+        "it": [
+          "Acido ascorbico",
+          "Acido L-ascorbico"
+        ]
+      }
+    },
+    "301": {
+      "ins": "301",
+      "e_number": "E301",
+      "cn_cns": "04.022",
+      "functional_classes": [
+        "antioxidant"
+      ],
+      "names": {
+        "zh-Hans": [
+          "抗坏血酸钠",
+          "L-抗坏血酸钠"
+        ],
+        "en": [
+          "Sodium ascorbate"
+        ],
+        "ja": [
+          "アスコルビン酸ナトリウム",
+          "L-アスコルビン酸Na"
+        ],
+        "de": [
+          "Natriumascorbat"
+        ],
+        "fr": [
+          "Ascorbate de sodium"
+        ],
+        "es": [
+          "Ascorbato sódico"
+        ],
+        "it": [
+          "Ascorbato di sodio"
+        ]
+      }
+    },
+    "307": {
+      "ins": "307",
+      "e_number": "E307",
+      "cn_cns": "04.015",
+      "functional_classes": [
+        "antioxidant"
+      ],
+      "names": {
+        "zh-Hans": [
+          "维生素E",
+          "dl-α-生育酚",
+          "混合生育酚浓缩物"
+        ],
+        "en": [
+          "Alpha-tocopherol",
+          "Tocopherols",
+          "Vitamin E"
+        ],
+        "ja": [
+          "ビタミンE",
+          "トコフェロール",
+          "V.E"
+        ],
+        "de": [
+          "Alpha-Tocopherol",
+          "Tocopherole"
+        ],
+        "fr": [
+          "Alpha-tocophérol",
+          "Tocophérols"
+        ],
+        "es": [
+          "Alfa-tocoferol",
+          "Tocoferoles"
+        ],
+        "it": [
+          "Alfa-tocoferolo",
+          "Tocoferoli"
+        ]
+      }
+    },
+    "316": {
+      "ins": "316",
+      "e_number": "E316",
+      "cn_cns": "04.004",
+      "functional_classes": [
+        "antioxidant"
+      ],
+      "names": {
+        "zh-Hans": [
+          "D-异抗坏血酸钠",
+          "异抗坏血酸钠"
+        ],
+        "en": [
+          "Sodium erythorbate"
+        ],
+        "ja": [
+          "エリソルビン酸ナトリウム",
+          "エリソルビン酸Na"
+        ],
+        "de": [
+          "Natriumerythorbat"
+        ],
+        "fr": [
+          "Érythorbate de sodium"
+        ],
+        "es": [
+          "Eritorbato sódico"
+        ],
+        "it": [
+          "Eritorbato di sodio"
+        ]
+      }
+    },
+    "319": {
+      "ins": "319",
+      "e_number": "E319",
+      "cn_cns": "04.007",
+      "functional_classes": [
+        "antioxidant"
+      ],
+      "names": {
+        "zh-Hans": [
+          "特丁基对苯二酚",
+          "TBHQ"
+        ],
+        "en": [
+          "Tertiary butylhydroquinone",
+          "TBHQ"
+        ],
+        "ja": [
+          "TBHQ"
+        ]
+      }
+    },
+    "320": {
+      "ins": "320",
+      "e_number": "E320",
+      "cn_cns": "04.001",
+      "functional_classes": [
+        "antioxidant"
+      ],
+      "names": {
+        "zh-Hans": [
+          "丁基羟基茴香醚",
+          "BHA"
+        ],
+        "en": [
+          "Butylated hydroxyanisole",
+          "BHA"
+        ],
+        "ja": [
+          "ブチルヒドロキシアニソール",
+          "BHA"
+        ]
+      }
+    },
+    "321": {
+      "ins": "321",
+      "e_number": "E321",
+      "cn_cns": "04.002",
+      "functional_classes": [
+        "antioxidant"
+      ],
+      "names": {
+        "zh-Hans": [
+          "二丁基羟基甲苯",
+          "BHT"
+        ],
+        "en": [
+          "Butylated hydroxytoluene",
+          "BHT"
+        ],
+        "ja": [
+          "ジブチルヒドロキシトルエン",
+          "BHT"
+        ]
+      }
+    },
+    "322": {
+      "ins": "322",
+      "e_number": "E322",
+      "cn_cns": "04.010",
+      "functional_classes": [
+        "emulsifier",
+        "antioxidant"
+      ],
+      "names": {
+        "zh-Hans": [
+          "磷脂",
+          "大豆磷脂",
+          "卵磷脂",
+          "向日葵仁磷脂"
+        ],
+        "en": [
+          "Lecithins",
+          "Lecithin",
+          "Soy lecithin",
+          "Sunflower lecithin"
+        ],
+        "ja": [
+          "レシチン",
+          "大豆レシチン"
+        ],
+        "de": [
+          "Lecithine",
+          "Lecithin",
+          "Sojalecithin",
+          "Sojalecithine",
+          "Sonnenblumenlecithin"
+        ],
+        "fr": [
+          "Lécithines",
+          "Lécithine",
+          "Lécithine de soja",
+          "Lécithines de soja",
+          "Lécithine de tournesol"
+        ],
+        "es": [
+          "Lecitinas",
+          "Lecitina",
+          "Lecitina de soja",
+          "Lecitina de girasol"
+        ],
+        "it": [
+          "Lecitine",
+          "Lecitina",
+          "Lecitina di soia",
+          "Lecitina di girasole"
+        ]
+      }
+    },
+    "322(i)": {
+      "ins": "322(i)",
+      "e_number": "E322(i)",
+      "cn_cns": "04.010",
+      "functional_classes": [
+        "emulsifier",
+        "antioxidant"
+      ],
+      "names": {
+        "zh-Hans": [
+          "磷脂酰胆碱"
+        ],
+        "en": [
+          "Phosphatidylcholine"
+        ],
+        "ja": [
+          "ホスファチジルコリン"
+        ],
+        "de": [
+          "Phosphatidylcholin"
+        ],
+        "fr": [
+          "Phosphatidylcholine"
+        ],
+        "es": [
+          "Fosfatidilcolina"
+        ],
+        "it": [
+          "Fosfatidilcolina"
+        ]
+      }
+    },
+    "325": {
+      "ins": "325",
+      "e_number": "E325",
+      "cn_cns": "15.012",
+      "functional_classes": [
+        "acidity_regulator",
+        "humectant"
+      ],
+      "names": {
+        "zh-Hans": [
+          "乳酸钠"
+        ],
+        "en": [
+          "Sodium lactate"
+        ],
+        "ja": [
+          "乳酸ナトリウム",
+          "乳酸Na"
+        ],
+        "de": [
+          "Natriumlactat"
+        ],
+        "fr": [
+          "Lactate de sodium"
+        ],
+        "es": [
+          "Lactato sódico"
+        ],
+        "it": [
+          "Lattato di sodio"
+        ]
+      }
+    },
+    "327": {
+      "ins": "327",
+      "e_number": "E327",
+      "cn_cns": "01.310",
+      "functional_classes": [
+        "acidity_regulator",
+        "firming_agent"
+      ],
+      "names": {
+        "zh-Hans": [
+          "乳酸钙"
+        ],
+        "en": [
+          "Calcium lactate"
+        ],
+        "ja": [
+          "乳酸カルシウム",
+          "乳酸Ca"
+        ],
+        "de": [
+          "Calciumlactat"
+        ],
+        "fr": [
+          "Lactate de calcium"
+        ],
+        "es": [
+          "Lactato cálcico"
+        ],
+        "it": [
+          "Lattato di calcio"
+        ]
+      }
+    },
+    "330": {
+      "ins": "330",
+      "e_number": "E330",
+      "cn_cns": "01.101",
+      "functional_classes": [
+        "acidity_regulator",
+        "antioxidant"
+      ],
+      "names": {
+        "zh-Hans": [
+          "柠檬酸"
+        ],
+        "en": [
+          "Citric acid"
+        ],
+        "ja": [
+          "クエン酸"
+        ],
+        "de": [
+          "Citronensäure",
+          "Zitronensäure"
+        ],
+        "fr": [
+          "Acide citrique"
+        ],
+        "es": [
+          "Ácido cítrico"
+        ],
+        "it": [
+          "Acido citrico"
+        ]
+      }
+    },
+    "331(iii)": {
+      "ins": "331(iii)",
+      "e_number": "E331(iii)",
+      "cn_cns": "01.301",
+      "functional_classes": [
+        "acidity_regulator",
+        "stabilizer"
+      ],
+      "names": {
+        "zh-Hans": [
+          "柠檬酸钠",
+          "柠檬酸三钠"
+        ],
+        "en": [
+          "Trisodium citrate",
+          "Sodium citrate"
+        ],
+        "ja": [
+          "クエン酸ナトリウム",
+          "クエン酸Na"
+        ],
+        "de": [
+          "Trinatriumcitrat",
+          "Natriumcitrat"
+        ],
+        "fr": [
+          "Citrate trisodique",
+          "Citrate de sodium"
+        ],
+        "es": [
+          "Citrato trisódico",
+          "Citrato de sodio"
+        ],
+        "it": [
+          "Citrato trisodico",
+          "Citrato di sodio"
+        ]
+      }
+    },
+    "338": {
+      "ins": "338",
+      "e_number": "E338",
+      "cn_cns": "01.106",
+      "functional_classes": [
+        "acidity_regulator"
+      ],
+      "names": {
+        "zh-Hans": [
+          "磷酸"
+        ],
+        "en": [
+          "Phosphoric acid"
+        ],
+        "ja": [
+          "リン酸"
+        ],
+        "de": [
+          "Phosphorsäure"
+        ],
+        "fr": [
+          "Acide phosphorique"
+        ],
+        "es": [
+          "Ácido fosfórico"
+        ],
+        "it": [
+          "Acido fosforico"
+        ]
+      }
+    },
+    "340": {
+      "ins": "340",
+      "e_number": "E340",
+      "cn_cns": "15.004",
+      "functional_classes": [
+        "acidity_regulator",
+        "stabilizer"
+      ],
+      "names": {
+        "zh-Hans": [
+          "磷酸氢二钾",
+          "磷酸二氢钾",
+          "磷酸三钾"
+        ],
+        "en": [
+          "Potassium phosphates",
+          "Dipotassium phosphate",
+          "Monopotassium phosphate"
+        ],
+        "ja": [
+          "リン酸カリウム",
+          "リン酸K"
+        ],
+        "de": [
+          "Kaliumphosphate"
+        ],
+        "fr": [
+          "Phosphates de potassium"
+        ],
+        "es": [
+          "Fosfatos de potasio"
+        ],
+        "it": [
+          "Fosfati di potassio"
+        ]
+      }
+    },
+    "341": {
+      "ins": "341",
+      "e_number": "E341",
+      "cn_cns": "15.007",
+      "functional_classes": [
+        "acidity_regulator",
+        "anticaking_agent",
+        "raising_agent"
+      ],
+      "names": {
+        "zh-Hans": [
+          "磷酸三钙",
+          "磷酸二氢钙",
+          "磷酸氢钙"
+        ],
+        "en": [
+          "Calcium phosphates",
+          "Tricalcium phosphate",
+          "Monocalcium phosphate"
+        ],
+        "ja": [
+          "リン酸カルシウム",
+          "リン酸Ca"
+        ],
+        "de": [
+          "Calciumphosphate"
+        ],
+        "fr": [
+          "Phosphates de calcium"
+        ],
+        "es": [
+          "Fosfatos de calcio"
+        ],
+        "it": [
+          "Fosfati di calcio"
+        ]
+      }
+    },
+    "385": {
+      "ins": "385",
+      "e_number": "E385",
+      "cn_cns": "04.020",
+      "functional_classes": [
+        "antioxidant",
+        "preservative",
+        "sequestrant"
+      ],
+      "names": {
+        "zh-Hans": [
+          "乙二胺四乙酸二钠",
+          "EDTA二钠"
+        ],
+        "en": [
+          "Calcium disodium EDTA",
+          "Disodium EDTA"
+        ],
+        "ja": [
+          "EDTA-Ca・Na",
+          "エデト酸カルシウム二ナトリウム"
+        ]
+      }
+    },
+    "401": {
+      "ins": "401",
+      "e_number": "E401",
+      "cn_cns": "20.004",
+      "functional_classes": [
+        "thickener",
+        "stabilizer"
+      ],
+      "names": {
+        "zh-Hans": [
+          "海藻酸钠"
+        ],
+        "en": [
+          "Sodium alginate"
+        ],
+        "ja": [
+          "アルギン酸ナトリウム",
+          "アルギン酸Na"
+        ],
+        "de": [
+          "Natriumalginat"
+        ],
+        "fr": [
+          "Alginate de sodium"
+        ],
+        "es": [
+          "Alginato sódico"
+        ],
+        "it": [
+          "Alginato di sodio"
+        ]
+      }
+    },
+    "406": {
+      "ins": "406",
+      "e_number": "E406",
+      "cn_cns": "20.001",
+      "functional_classes": [
+        "thickener",
+        "gelling_agent",
+        "stabilizer"
+      ],
+      "names": {
+        "zh-Hans": [
+          "琼脂"
+        ],
+        "en": [
+          "Agar"
+        ],
+        "ja": [
+          "寒天"
+        ],
+        "de": [
+          "Agar-Agar"
+        ],
+        "fr": [
+          "Agar-agar"
+        ],
+        "es": [
+          "Agar-agar"
+        ],
+        "it": [
+          "Agar-agar"
+        ]
+      }
+    },
+    "407": {
+      "ins": "407",
+      "e_number": "E407",
+      "cn_cns": "20.007",
+      "functional_classes": [
+        "thickener",
+        "stabilizer",
+        "gelling_agent"
+      ],
+      "names": {
+        "zh-Hans": [
+          "卡拉胶"
+        ],
+        "en": [
+          "Carrageenan"
+        ],
+        "ja": [
+          "カラギーナン"
+        ],
+        "de": [
+          "Carrageen"
+        ],
+        "fr": [
+          "Carraghénanes"
+        ],
+        "es": [
+          "Carragenanos"
+        ],
+        "it": [
+          "Carragenina"
+        ]
+      }
+    },
+    "410": {
+      "ins": "410",
+      "e_number": "E410",
+      "cn_cns": "20.023",
+      "functional_classes": [
+        "thickener",
+        "stabilizer"
+      ],
+      "names": {
+        "zh-Hans": [
+          "刺槐豆胶",
+          "槐豆胶"
+        ],
+        "en": [
+          "Locust bean gum",
+          "Carob bean gum"
+        ],
+        "ja": [
+          "ローカストビーンガム"
+        ],
+        "de": [
+          "Johannisbrotkernmehl"
+        ],
+        "fr": [
+          "Gomme de caroube",
+          "Farine de graines de caroube"
+        ],
+        "es": [
+          "Goma garrofín"
+        ],
+        "it": [
+          "Farina di semi di carrube"
+        ]
+      }
+    },
+    "412": {
+      "ins": "412",
+      "e_number": "E412",
+      "cn_cns": "20.025",
+      "functional_classes": [
+        "thickener",
+        "stabilizer"
+      ],
+      "names": {
+        "zh-Hans": [
+          "瓜尔胶"
+        ],
+        "en": [
+          "Guar gum"
+        ],
+        "ja": [
+          "グァーガム"
+        ],
+        "de": [
+          "Guarkernmehl"
+        ],
+        "fr": [
+          "Gomme guar"
+        ],
+        "es": [
+          "Goma guar"
+        ],
+        "it": [
+          "Gomma di guar"
+        ]
+      }
+    },
+    "414": {
+      "ins": "414",
+      "e_number": "E414",
+      "cn_cns": "20.008",
+      "functional_classes": [
+        "thickener",
+        "stabilizer",
+        "emulsifier"
+      ],
+      "names": {
+        "zh-Hans": [
+          "阿拉伯胶"
+        ],
+        "en": [
+          "Gum arabic",
+          "Acacia gum"
+        ],
+        "ja": [
+          "アラビアガム"
+        ],
+        "de": [
+          "Gummi arabicum"
+        ],
+        "fr": [
+          "Gomme arabique",
+          "Gomme d'acacia"
+        ],
+        "es": [
+          "Goma arábiga"
+        ],
+        "it": [
+          "Gomma arabica"
+        ]
+      }
+    },
+    "415": {
+      "ins": "415",
+      "e_number": "E415",
+      "cn_cns": "20.009",
+      "functional_classes": [
+        "thickener",
+        "stabilizer"
+      ],
+      "names": {
+        "zh-Hans": [
+          "黄原胶"
+        ],
+        "en": [
+          "Xanthan gum"
+        ],
+        "ja": [
+          "キサンタンガム"
+        ],
+        "de": [
+          "Xanthan"
+        ],
+        "fr": [
+          "Gomme xanthane"
+        ],
+        "es": [
+          "Goma xantana"
+        ],
+        "it": [
+          "Gomma di xantano"
+        ]
+      }
+    },
+    "418": {
+      "ins": "418",
+      "e_number": "E418",
+      "cn_cns": "20.037",
+      "functional_classes": [
+        "thickener",
+        "stabilizer",
+        "gelling_agent"
+      ],
+      "names": {
+        "zh-Hans": [
+          "结冷胶"
+        ],
+        "en": [
+          "Gellan gum"
+        ],
+        "ja": [
+          "ジェランガム"
+        ],
+        "de": [
+          "Gellan"
+        ],
+        "fr": [
+          "Gomme gellane"
+        ],
+        "es": [
+          "Goma gellan"
+        ],
+        "it": [
+          "Gomma di gellano"
+        ]
+      }
+    },
+    "420": {
+      "ins": "420",
+      "e_number": "E420",
+      "cn_cns": "19.006",
+      "functional_classes": [
+        "sweetener",
+        "humectant"
+      ],
+      "names": {
+        "zh-Hans": [
+          "山梨糖醇",
+          "山梨糖醇液"
+        ],
+        "en": [
+          "Sorbitol",
+          "Sorbitol syrup"
+        ],
+        "ja": [
+          "ソルビトール",
+          "D-ソルビトール"
+        ],
+        "de": [
+          "Sorbit",
+          "Sorbitsirup"
+        ],
+        "fr": [
+          "Sorbitol",
+          "Sirop de sorbitol"
+        ],
+        "es": [
+          "Sorbitol",
+          "Jarabe de sorbitol"
+        ],
+        "it": [
+          "Sorbitolo",
+          "Sciroppo di sorbitolo"
+        ]
+      }
+    },
+    "422": {
+      "ins": "422",
+      "e_number": "E422",
+      "cn_cns": "15.014",
+      "functional_classes": [
+        "humectant",
+        "thickener"
+      ],
+      "names": {
+        "zh-Hans": [
+          "丙三醇",
+          "甘油"
+        ],
+        "en": [
+          "Glycerol",
+          "Glycerin"
+        ],
+        "ja": [
+          "グリセリン"
+        ],
+        "de": [
+          "Glycerin"
+        ],
+        "fr": [
+          "Glycérol"
+        ],
+        "es": [
+          "Glicerina",
+          "Glicerol"
+        ],
+        "it": [
+          "Glicerolo"
+        ]
+      }
+    },
+    "440": {
+      "ins": "440",
+      "e_number": "E440",
+      "cn_cns": "20.006",
+      "functional_classes": [
+        "thickener",
+        "gelling_agent",
+        "stabilizer"
+      ],
+      "names": {
+        "zh-Hans": [
+          "果胶"
+        ],
+        "en": [
+          "Pectins",
+          "Pectin"
+        ],
+        "ja": [
+          "ペクチン"
+        ],
+        "de": [
+          "Pektine",
+          "Pektin"
+        ],
+        "fr": [
+          "Pectines",
+          "Pectine"
+        ],
+        "es": [
+          "Pectinas",
+          "Pectina"
+        ],
+        "it": [
+          "Pectine",
+          "Pectina"
+        ]
+      }
+    },
+    "450": {
+      "ins": "450",
+      "e_number": "E450",
+      "cn_cns": "15.004",
+      "functional_classes": [
+        "humectant",
+        "raising_agent",
+        "stabilizer"
+      ],
+      "names": {
+        "zh-Hans": [
+          "焦磷酸钠",
+          "焦磷酸二氢二钠",
+          "焦磷酸四钠"
+        ],
+        "en": [
+          "Diphosphates",
+          "Sodium acid pyrophosphate",
+          "Tetrasodium pyrophosphate"
+        ],
+        "ja": [
+          "ピロリン酸ナトリウム",
+          "ピロリン酸Na"
+        ],
+        "de": [
+          "Diphosphate"
+        ],
+        "fr": [
+          "Diphosphates"
+        ],
+        "es": [
+          "Difosfatos"
+        ],
+        "it": [
+          "Difosfati"
+        ]
+      }
+    },
+    "451(i)": {
+      "ins": "451(i)",
+      "e_number": "E451(i)",
+      "cn_cns": "15.003",
+      "functional_classes": [
+        "humectant",
+        "stabilizer"
+      ],
+      "names": {
+        "zh-Hans": [
+          "三聚磷酸钠"
+        ],
+        "en": [
+          "Pentasodium triphosphate",
+          "Sodium tripolyphosphate"
+        ],
+        "ja": [
+          "トリポリリン酸ナトリウム",
+          "ポリリン酸Na"
+        ]
+      }
+    },
+    "452(i)": {
+      "ins": "452(i)",
+      "e_number": "E452(i)",
+      "cn_cns": "15.002",
+      "functional_classes": [
+        "humectant",
+        "stabilizer",
+        "sequestrant"
+      ],
+      "names": {
+        "zh-Hans": [
+          "六偏磷酸钠"
+        ],
+        "en": [
+          "Sodium polyphosphate",
+          "Sodium hexametaphosphate"
+        ],
+        "ja": [
+          "メタリン酸ナトリウム",
+          "メタリン酸Na"
+        ]
+      }
+    },
+    "466": {
+      "ins": "466",
+      "e_number": "E466",
+      "cn_cns": "20.012",
+      "functional_classes": [
+        "thickener",
+        "stabilizer"
+      ],
+      "names": {
+        "zh-Hans": [
+          "羧甲基纤维素钠"
+        ],
+        "en": [
+          "Sodium carboxymethyl cellulose",
+          "CMC",
+          "Cellulose gum"
+        ],
+        "ja": [
+          "カルボキシメチルセルロースナトリウム",
+          "CMC-Na"
+        ],
+        "de": [
+          "Carboxymethylcellulose",
+          "Natriumcarboxymethylcellulose"
+        ],
+        "fr": [
+          "Carboxyméthylcellulose"
+        ],
+        "es": [
+          "Carboximetilcelulosa"
+        ],
+        "it": [
+          "Carbossimetilcellulosa"
+        ]
+      }
+    },
+    "471": {
+      "ins": "471",
+      "e_number": "E471",
+      "cn_cns": "10.001",
+      "functional_classes": [
+        "emulsifier",
+        "stabilizer"
+      ],
+      "names": {
+        "zh-Hans": [
+          "单，双甘油脂肪酸酯",
+          "单双甘油脂肪酸酯",
+          "单硬脂酸甘油酯"
+        ],
+        "en": [
+          "Mono- and diglycerides of fatty acids",
+          "Mono and diglycerides"
+        ],
+        "ja": [
+          "グリセリン脂肪酸エステル"
+        ],
+        "de": [
+          "Mono- und Diglyceride von Speisefettsäuren"
+        ],
+        "fr": [
+          "Mono- et diglycérides d'acides gras"
+        ],
+        "es": [
+          "Monoglicéridos y diglicéridos de ácidos grasos"
+        ],
+        "it": [
+          "Mono- e digliceridi degli acidi grassi"
+        ]
+      }
+    },
+    "473": {
+      "ins": "473",
+      "e_number": "E473",
+      "cn_cns": "10.003",
+      "functional_classes": [
+        "emulsifier"
+      ],
+      "names": {
+        "zh-Hans": [
+          "蔗糖脂肪酸酯"
+        ],
+        "en": [
+          "Sucrose esters of fatty acids"
+        ],
+        "ja": [
+          "ショ糖脂肪酸エステル"
+        ],
+        "de": [
+          "Zuckerester von Speisefettsäuren"
+        ],
+        "fr": [
+          "Sucroesters d'acides gras"
+        ],
+        "es": [
+          "Sucroésteres de ácidos grasos"
+        ],
+        "it": [
+          "Esteri di saccarosio degli acidi grassi"
+        ]
+      }
+    },
+    "500(i)": {
+      "ins": "500(i)",
+      "e_number": "E500(i)",
+      "cn_cns": "01.302",
+      "functional_classes": [
+        "acidity_regulator"
+      ],
+      "names": {
+        "zh-Hans": [
+          "碳酸钠"
+        ],
+        "en": [
+          "Sodium carbonate"
+        ],
+        "ja": [
+          "炭酸ナトリウム",
+          "炭酸Na"
+        ],
+        "de": [
+          "Natriumcarbonat"
+        ],
+        "fr": [
+          "Carbonate de sodium"
+        ],
+        "es": [
+          "Carbonato sódico",
+          "Carbonato de sodio"
+        ],
+        "it": [
+          "Carbonato di sodio"
+        ]
+      }
+    },
+    "500(ii)": {
+      "ins": "500(ii)",
+      "e_number": "E500(ii)",
+      "cn_cns": "06.001",
+      "functional_classes": [
+        "acidity_regulator",
+        "raising_agent"
+      ],
+      "names": {
+        "zh-Hans": [
+          "碳酸氢钠",
+          "小苏打"
+        ],
+        "en": [
+          "Sodium hydrogen carbonate",
+          "Sodium bicarbonate",
+          "Baking soda"
+        ],
+        "ja": [
+          "炭酸水素ナトリウム",
+          "重曹",
+          "炭酸水素Na"
+        ],
+        "de": [
+          "Natriumhydrogencarbonat",
+          "Natron"
+        ],
+        "fr": [
+          "Bicarbonate de sodium",
+          "Carbonate acide de sodium"
+        ],
+        "es": [
+          "Bicarbonato sódico",
+          "Bicarbonato de sodio",
+          "Carbonato ácido de sodio"
+        ],
+        "it": [
+          "Bicarbonato di sodio",
+          "Carbonato acido di sodio"
+        ]
+      }
+    },
+    "503(ii)": {
+      "ins": "503(ii)",
+      "e_number": "E503(ii)",
+      "cn_cns": "06.002",
+      "functional_classes": [
+        "raising_agent"
+      ],
+      "names": {
+        "zh-Hans": [
+          "碳酸氢铵"
+        ],
+        "en": [
+          "Ammonium hydrogen carbonate",
+          "Ammonium bicarbonate"
+        ],
+        "ja": [
+          "炭酸水素アンモニウム"
+        ],
+        "de": [
+          "Ammoniumhydrogencarbonat"
+        ],
+        "fr": [
+          "Bicarbonate d'ammonium",
+          "Carbonate acide d'ammonium"
+        ],
+        "es": [
+          "Bicarbonato amónico",
+          "Bicarbonato de amonio"
+        ],
+        "it": [
+          "Bicarbonato di ammonio",
+          "Carbonato acido di ammonio"
+        ]
+      }
+    },
+    "551": {
+      "ins": "551",
+      "e_number": "E551",
+      "cn_cns": "02.004",
+      "functional_classes": [
+        "anticaking_agent"
+      ],
+      "names": {
+        "zh-Hans": [
+          "二氧化硅"
+        ],
+        "en": [
+          "Silicon dioxide"
+        ],
+        "ja": [
+          "二酸化ケイ素",
+          "微粒二酸化ケイ素"
+        ],
+        "de": [
+          "Siliciumdioxid"
+        ],
+        "fr": [
+          "Dioxyde de silicium"
+        ],
+        "es": [
+          "Dióxido de silicio"
+        ],
+        "it": [
+          "Biossido di silicio"
+        ]
+      }
+    },
+    "621": {
+      "ins": "621",
+      "e_number": "E621",
+      "cn_cns": "12.001",
+      "functional_classes": [
+        "flavour_enhancer"
+      ],
+      "names": {
+        "zh-Hans": [
+          "谷氨酸钠",
+          "味精"
+        ],
+        "en": [
+          "Monosodium L-glutamate",
+          "Monosodium glutamate",
+          "MSG"
+        ],
+        "ja": [
+          "グルタミン酸ナトリウム",
+          "調味料（アミノ酸等）"
+        ],
+        "de": [
+          "Mononatriumglutamat",
+          "Glutamat"
+        ],
+        "fr": [
+          "Glutamate monosodique"
+        ],
+        "es": [
+          "Glutamato monosódico"
+        ],
+        "it": [
+          "Glutammato monosodico"
+        ]
+      }
+    },
+    "627": {
+      "ins": "627",
+      "e_number": "E627",
+      "cn_cns": "12.002",
+      "functional_classes": [
+        "flavour_enhancer"
+      ],
+      "names": {
+        "zh-Hans": [
+          "5'-鸟苷酸二钠",
+          "鸟苷酸二钠"
+        ],
+        "en": [
+          "Disodium 5'-guanylate",
+          "Disodium guanylate"
+        ],
+        "ja": [
+          "5'-グアニル酸二ナトリウム"
+        ]
+      }
+    },
+    "631": {
+      "ins": "631",
+      "e_number": "E631",
+      "cn_cns": "12.003",
+      "functional_classes": [
+        "flavour_enhancer"
+      ],
+      "names": {
+        "zh-Hans": [
+          "5'-肌苷酸二钠",
+          "肌苷酸二钠"
+        ],
+        "en": [
+          "Disodium 5'-inosinate",
+          "Disodium inosinate"
+        ],
+        "ja": [
+          "5'-イノシン酸二ナトリウム"
+        ]
+      }
+    },
+    "635": {
+      "ins": "635",
+      "e_number": "E635",
+      "cn_cns": "12.004",
+      "functional_classes": [
+        "flavour_enhancer"
+      ],
+      "names": {
+        "zh-Hans": [
+          "5'-呈味核苷酸二钠",
+          "呈味核苷酸二钠"
+        ],
+        "en": [
+          "Disodium 5'-ribonucleotides"
+        ],
+        "ja": [
+          "5'-リボヌクレオチド二ナトリウム"
+        ]
+      }
+    },
+    "950": {
+      "ins": "950",
+      "e_number": "E950",
+      "cn_cns": "19.011",
+      "functional_classes": [
+        "sweetener"
+      ],
+      "names": {
+        "zh-Hans": [
+          "安赛蜜",
+          "乙酰磺胺酸钾"
+        ],
+        "en": [
+          "Acesulfame potassium",
+          "Acesulfame K"
+        ],
+        "ja": [
+          "アセスルファムカリウム",
+          "アセスルファムK"
+        ],
+        "de": [
+          "Acesulfam K"
+        ],
+        "fr": [
+          "Acésulfame K"
+        ],
+        "es": [
+          "Acesulfamo K"
+        ],
+        "it": [
+          "Acesulfame K"
+        ]
+      }
+    },
+    "951": {
+      "ins": "951",
+      "e_number": "E951",
+      "cn_cns": "19.004",
+      "functional_classes": [
+        "sweetener"
+      ],
+      "names": {
+        "zh-Hans": [
+          "阿斯巴甜",
+          "阿斯巴甜（含苯丙氨酸）"
+        ],
+        "en": [
+          "Aspartame"
+        ],
+        "ja": [
+          "アスパルテーム",
+          "L-フェニルアラニン化合物"
+        ],
+        "de": [
+          "Aspartam"
+        ],
+        "fr": [
+          "Aspartame"
+        ],
+        "es": [
+          "Aspartamo"
+        ],
+        "it": [
+          "Aspartame"
+        ]
+      }
+    },
+    "955": {
+      "ins": "955",
+      "e_number": "E955",
+      "cn_cns": "19.016",
+      "functional_classes": [
+        "sweetener"
+      ],
+      "names": {
+        "zh-Hans": [
+          "三氯蔗糖"
+        ],
+        "en": [
+          "Sucralose"
+        ],
+        "ja": [
+          "スクラロース"
+        ],
+        "de": [
+          "Sucralose"
+        ],
+        "fr": [
+          "Sucralose"
+        ],
+        "es": [
+          "Sucralosa"
+        ],
+        "it": [
+          "Sucralosio"
+        ]
+      }
+    },
+    "960a": {
+      "ins": "960a",
+      "e_number": "E960a",
+      "cn_cns": "19.008",
+      "functional_classes": [
+        "sweetener"
+      ],
+      "names": {
+        "zh-Hans": [
+          "甜菊糖苷"
+        ],
+        "en": [
+          "Steviol glycosides"
+        ],
+        "ja": [
+          "ステビア"
+        ],
+        "de": [
+          "Steviolglycoside"
+        ],
+        "fr": [
+          "Glycosides de stéviol"
+        ],
+        "es": [
+          "Glucósidos de esteviol"
+        ],
+        "it": [
+          "Glicosidi steviolici"
+        ]
+      }
+    },
+    "965": {
+      "ins": "965",
+      "e_number": "E965",
+      "cn_cns": "19.005",
+      "functional_classes": [
+        "sweetener",
+        "humectant",
+        "stabilizer"
+      ],
+      "names": {
+        "zh-Hans": [
+          "麦芽糖醇",
+          "麦芽糖醇液"
+        ],
+        "en": [
+          "Maltitol",
+          "Maltitol syrup"
+        ],
+        "ja": [
+          "マルチトール",
+          "還元麦芽糖水飴"
+        ],
+        "de": [
+          "Maltit",
+          "Maltitsirup"
+        ],
+        "fr": [
+          "Maltitol",
+          "Sirop de maltitol"
+        ],
+        "es": [
+          "Maltitol",
+          "Jarabe de maltitol"
+        ],
+        "it": [
+          "Maltitolo",
+          "Sciroppo di maltitolo"
+        ]
+      }
+    },
+    "967": {
+      "ins": "967",
+      "e_number": "E967",
+      "cn_cns": "19.007",
+      "functional_classes": [
+        "sweetener",
+        "humectant"
+      ],
+      "names": {
+        "zh-Hans": [
+          "木糖醇"
+        ],
+        "en": [
+          "Xylitol"
+        ],
+        "ja": [
+          "キシリトール"
+        ],
+        "de": [
+          "Xylit"
+        ],
+        "fr": [
+          "Xylitol"
+        ],
+        "es": [
+          "Xilitol"
+        ],
+        "it": [
+          "Xilitolo"
+        ]
+      }
+    },
+    "968": {
+      "ins": "968",
+      "e_number": "E968",
+      "cn_cns": "19.018",
+      "functional_classes": [
+        "sweetener",
+        "humectant"
+      ],
+      "names": {
+        "zh-Hans": [
+          "赤藓糖醇"
+        ],
+        "en": [
+          "Erythritol"
+        ],
+        "ja": [
+          "エリスリトール"
+        ],
+        "de": [
+          "Erythrit"
+        ],
+        "fr": [
+          "Érythritol"
+        ],
+        "es": [
+          "Eritritol"
+        ],
+        "it": [
+          "Eritritolo"
+        ]
+      }
+    }
+  }
+}

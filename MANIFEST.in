@@ -1,0 +1,6 @@
+graft dictionaries
+graft profiles
+graft spec/schema
+graft web
+include LICENSE LICENSE-DATA LICENSE-MEDIA README*.md
+global-exclude __pycache__ *.py[cod] .DS_Store

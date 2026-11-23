@@ -1,0 +1,391 @@
+{
+  "version": "0.2",
+  "source": "Codex Alimentarius CXS 1-1985 & Regional Extensions (GB 7718 / EU 1169/2011 Annex II / US FASTER / JP CAA)",
+  "allergens": {
+    "gluten_cereals": {
+      "codex_core": true,
+      "jurisdictions": ["CN", "US", "EU", "JP"],
+      "keywords": {
+        "zh-Hans": ["小麦", "大麦", "黑麦", "燕麦", "麸质", "面粉", "小麦粉", "麦芽精", "麦芽提取物", "谷朊粉"],
+        "en": ["wheat", "barley", "rye", "oats", "oat", "gluten", "spelt", "kamut", "triticale", "malt"],
+        "ja": ["小麦", "大麦", "ライ麦", "オーツ麦"],
+        "de": [
+          "weizen", "weizenmehl", "weizenstärke", "weizengluten", "hartweizen", "hartweizengrieß",
+          "gerste", "gerstenmalz", "gerstenmalzextrakt", "roggen", "roggenmehl", "roggenvollkornmehl",
+          "hafer", "haferflocken", "hafermehl", "dinkel", "dinkelmehl", "grünkern",
+          "kamut", "emmer", "einkorn", "triticale", "gluten"
+        ],
+        "fr": ["blé", "froment", "orge", "seigle", "avoine", "épeautre", "kamut", "triticale", "gluten", "malt d'orge"],
+        "es": ["trigo", "cebada", "centeno", "avena", "espelta", "kamut", "triticale", "gluten", "malta de cebada"],
+        "it": ["grano", "frumento", "orzo", "segale", "avena", "farro", "kamut", "triticale", "glutine", "malto d'orzo"]
+      },
+      "exclude_keywords": {
+        "zh-Hans": ["荞麦", "苦荞", "甜荞", "麦芽糊精", "麦芽糖醇", "异麦芽酮糖", "麦冬"],
+        "en": ["buckwheat", "maltodextrin", "maltitol", "isomalt", "gluten-free", "gluten free"],
+        "ja": ["そば", "マルトデキストリン", "マルチトール"],
+        "de": ["buchweizen", "buchweizenmehl", "maltodextrin", "maltit", "maltitsirup", "isomalt", "glutenfrei"],
+        "fr": ["sarrasin", "blé noir", "maltodextrine", "maltitol", "isomalt", "sans gluten"],
+        "es": ["trigo sarraceno", "alforfón", "maltodextrina", "maltitol", "isomalt", "sin gluten"],
+        "it": ["grano saraceno", "maltodestrina", "maltitolo", "isomalto", "senza glutine"]
+      }
+    },
+    "crustaceans": {
+      "codex_core": true,
+      "jurisdictions": ["CN", "US", "EU", "JP"],
+      "keywords": {
+        "zh-Hans": ["虾", "蟹", "甲壳纲", "龙虾", "小龙虾", "磷虾"],
+        "en": ["shrimp", "prawn", "prawns", "crab", "lobster", "crayfish", "krill", "crustacean", "crustaceans"],
+        "ja": ["えび", "エビ", "海老", "かに", "カニ", "蟹"],
+        "de": ["krebstiere", "garnele", "garnelen", "krabbe", "krabben", "hummer", "languste", "krebs"],
+        "fr": ["crustacés", "crevette", "crevettes", "crabe", "homard", "langouste", "écrevisse"],
+        "es": ["crustáceos", "gamba", "gambas", "langostino", "langostinos", "cangrejo", "bogavante", "langosta"],
+        "it": ["crostacei", "gambero", "gamberi", "gamberetti", "granchio", "astice", "aragosta", "scampi"]
+      },
+      "exclude_keywords": {
+        "zh-Hans": ["虾夷葱", "蟹味菇", "蟹黄瓜子"],
+        "en": ["crabapple"],
+        "ja": [],
+        "de": [],
+        "fr": [],
+        "es": [],
+        "it": []
+      }
+    },
+    "eggs": {
+      "codex_core": true,
+      "jurisdictions": ["CN", "US", "EU", "JP"],
+      "keywords": {
+        "zh-Hans": ["鸡蛋", "蛋液", "全蛋液", "巴氏杀菌全蛋", "蛋黄", "蛋清", "鸡蛋白", "蛋白液", "蛋白粉", "全蛋粉", "禽蛋", "鸭蛋", "鹌鹑蛋"],
+        "en": ["egg", "eggs", "albumin", "ovalbumin", "egg yolk", "egg white", "lysozyme"],
+        "ja": ["卵", "鶏卵", "卵黄", "卵白", "全卵"],
+        "de": ["ei", "eier", "vollei", "volleipulver", "eigelb", "hühnerei", "hühnereieiweiß", "eiklar", "lysozym"],
+        "fr": ["œuf", "œufs", "oeuf", "oeufs", "jaune d'œuf", "blanc d'œuf", "jaune d'oeuf", "blanc d'oeuf", "lysozyme"],
+        "es": ["huevo", "huevos", "yema de huevo", "clara de huevo", "huevo en polvo", "ovoalbúmina", "lisozima"],
+        "it": ["uovo", "uova", "tuorlo", "albume", "uovo in polvere", "lisozima"]
+      },
+      "exclude_keywords": {
+        "zh-Hans": [
+          "蛋白质", "大豆蛋白", "大豆分离蛋白", "大豆浓缩蛋白", "大豆组织蛋白",
+          "植物蛋白", "水解植物蛋白", "豌豆蛋白", "小麦蛋白", "乳清蛋白",
+          "浓缩乳清蛋白", "分离乳清蛋白", "酪蛋白", "酪蛋白酸钠", "胶原蛋白",
+          "花生蛋白", "大米蛋白", "蛋白酶", "核蛋白", "蛋白糖"
+        ],
+        "en": ["eggplant", "eggplants"],
+        "ja": ["たんぱく質", "タンパク質", "大豆たんぱく", "乳たんぱく", "小麦たんぱく"],
+        "de": ["eiweiß", "milcheiweiß", "molkeneiweiß", "sojaeiweiß", "weizeneiweiß", "pflanzliches eiweiß"],
+        "fr": ["aubergine"],
+        "es": ["berenjena"],
+        "it": ["melanzana"]
+      }
+    },
+    "fish": {
+      "codex_core": true,
+      "jurisdictions": ["CN", "US", "EU", "JP"],
+      "keywords": {
+        "zh-Hans": ["鱼", "鳕鱼", "三文鱼", "鲑鱼", "金枪鱼", "鳀鱼", "鱼露", "鱼油", "鱼胶", "木鱼花", "鲣鱼"],
+        "en": ["fish", "cod", "salmon", "tuna", "anchovy", "anchovies", "pollock", "haddock", "tilapia", "bonito"],
+        "ja": ["さけ", "鮭", "さば", "鯖", "かつお", "魚介", "魚醤"],
+        "de": ["fisch", "kabeljau", "lachs", "thunfisch", "sardelle", "sardellen", "fischsauce", "fischöl"],
+        "fr": ["poisson", "poissons", "cabillaud", "saumon", "thon", "anchois", "sauce poisson"],
+        "es": ["pescado", "bacalao", "salmón", "atún", "anchoa", "anchoas", "salsa de pescado"],
+        "it": ["pesce", "merluzzo", "salmone", "tonno", "acciuga", "acciughe", "alici"]
+      },
+      "exclude_keywords": {
+        "zh-Hans": ["鱼腥草", "鱿鱼", "章鱼", "墨鱼", "鲍鱼", "甲鱼", "鳄鱼", "娃娃鱼"],
+        "en": ["shellfish", "crayfish", "jellyfish", "starfish", "cuttlefish"],
+        "ja": ["いか", "たこ", "あわび"],
+        "de": ["tintenfisch"],
+        "fr": [],
+        "es": [],
+        "it": []
+      }
+    },
+    "peanuts": {
+      "codex_core": true,
+      "jurisdictions": ["CN", "US", "EU", "JP"],
+      "keywords": {
+        "zh-Hans": ["花生", "花生油", "花生酱", "花生仁", "落花生"],
+        "en": ["peanut", "peanuts", "groundnut", "groundnuts", "arachis"],
+        "ja": ["落花生", "ピーナッツ"],
+        "de": ["erdnuss", "erdnüsse", "erdnussöl", "erdnussbutter", "erdnussmehl"],
+        "fr": ["arachide", "arachides", "cacahuète", "cacahuètes", "huile d'arachide", "beurre de cacahuète"],
+        "es": ["cacahuete", "cacahuetes", "maní", "aceite de cacahuete", "crema de cacahuete"],
+        "it": ["arachidi", "arachide", "olio di arachidi", "burro di arachidi"]
+      },
+      "exclude_keywords": {
+        "zh-Hans": [],
+        "en": [],
+        "ja": [],
+        "de": [],
+        "fr": [],
+        "es": [],
+        "it": []
+      }
+    },
+    "soybeans": {
+      "codex_core": true,
+      "jurisdictions": ["CN", "US", "EU", "JP"],
+      "keywords": {
+        "zh-Hans": ["大豆", "黄豆", "黑豆", "青豆", "豆粕", "大豆磷脂", "大豆蛋白", "大豆分离蛋白", "生抽", "老抽", "酱油", "豆腐", "豆浆", "豆乳", "豆豉"],
+        "en": ["soy", "soya", "soybean", "soybeans", "soy lecithin", "tofu", "edamame", "miso", "tempeh"],
+        "ja": ["大豆", "しょうゆ", "醤油", "味噌", "みそ", "豆乳", "豆腐"],
+        "de": ["soja", "sojabohnen", "sojalecithin", "sojalecithine", "sojaeiweiß", "sojaprotein", "sojamehl", "sojasauce", "tofu"],
+        "fr": ["soja", "graines de soja", "lécithine de soja", "lécithines de soja", "sauce soja", "tofu"],
+        "es": ["soja", "soya", "habas de soja", "lecitina de soja", "salsa de soja", "tofu"],
+        "it": ["soia", "lecitina di soia", "lecitine di soia", "salsa di soia", "tofu"]
+      },
+      "exclude_keywords": {
+        "zh-Hans": ["大豆异黄酮", "土豆", "马铃薯", "豌豆", "蚕豆", "绿豆", "红豆", "赤小豆", "芸豆", "四季豆", "扁豆", "咖啡豆", "可可豆", "豆蔻", "肉豆蔻"],
+        "en": ["pea", "peas", "chickpea", "lentil", "mung bean", "red bean", "kidney bean", "coffee bean", "cocoa bean", "vanilla bean", "nutmeg"],
+        "ja": ["えんどう豆", "小豆", "いんげん豆", "コーヒー豆", "カカオ豆"],
+        "de": ["kakaobohnen", "kaffeebohnen", "vanillebohnen", "grüne bohnen"],
+        "fr": ["fève de cacao", "grains de café", "haricot vert"],
+        "es": ["granos de cacao", "granos de café", "judías verdes"],
+        "it": ["fave di cacao", "chicchi di caffè", "fagiolini"]
+      }
+    },
+    "milk": {
+      "codex_core": true,
+      "jurisdictions": ["CN", "US", "EU", "JP"],
+      "keywords": {
+        "zh-Hans": ["牛乳", "牛奶", "生牛乳", "乳粉", "奶粉", "脱脂乳粉", "全脂乳粉", "乳清", "乳清粉", "乳清蛋白", "酪蛋白", "酪蛋白酸钠", "黄油", "无水奶油", "稀奶油", "奶油", "干酪", "芝士", "奶酪", "乳糖", "炼乳", "乳脂"],
+        "en": ["milk", "dairy", "whey", "casein", "caseinate", "butter", "cream", "cheese", "lactose", "yogurt", "ghee", "buttermilk"],
+        "ja": ["乳", "乳成分", "牛乳", "生乳", "脱脂粉乳", "全粉乳", "ホエイ", "カゼイン", "バター", "クリーム", "チーズ", "乳糖", "練乳"],
+        "de": [
+          "milch", "vollmilch", "magermilch", "milchpulver", "vollmilchpulver", "magermilchpulver",
+          "molke", "molkenpulver", "süßmolkenpulver", "molkenerzeugnis", "milcheiweiß", "milchzucker",
+          "laktose", "lactose", "butter", "butterreinfett", "buttermilch", "sahne", "rahm",
+          "käse", "joghurt", "kasein", "casein", "caseinat"
+        ],
+        "fr": [
+          "lait", "lait écrémé", "lait entier", "lait en poudre", "lactose", "lactosérum",
+          "petit-lait", "beurre", "crème", "fromage", "yaourt", "caséine", "caséinate", "protéines de lait"
+        ],
+        "es": [
+          "leche", "leche desnatada", "leche entera", "leche en polvo", "lácteos", "lácteo",
+          "lactosa", "suero de leche", "suero lácteo", "mantequilla", "nata", "queso", "yogur", "caseína", "caseinato"
+        ],
+        "it": [
+          "latte", "latte scremato", "latte intero", "latte in polvere", "lattosio", "siero di latte",
+          "burro", "panna", "formaggio", "yogurt", "caseina", "caseinato", "proteine del latte"
+        ]
+      },
+      "exclude_keywords": {
+        "zh-Hans": [
+          "乳酸", "乳酸钠", "乳酸钙", "乳酸亚铁", "乳酸菌",
+          "植物乳杆菌", "嗜酸乳杆菌", "保加利亚乳杆菌", "副干酪乳杆菌", "鼠李糖乳杆菌", "乳双歧杆菌",
+          "乳化剂", "乳木果", "乳香", "椰乳", "椰浆", "厚椰乳",
+          "豆乳", "豆奶", "燕麦奶", "巴旦木奶", "杏仁奶", "花生奶", "核桃奶",
+          "可可脂", "代可可脂", "植脂末"
+        ],
+        "en": [
+          "lactic acid", "sodium lactate", "calcium lactate", "ferrous lactate", "lactobacillus",
+          "coconut milk", "coconut cream", "soy milk", "oat milk", "almond milk", "rice milk",
+          "cocoa butter", "shea butter", "peanut butter", "almond butter", "cashew butter",
+          "cream of tartar", "emulsifier"
+        ],
+        "ja": ["乳酸", "乳酸Na", "乳酸Ca", "乳酸ナトリウム", "乳酸カルシウム", "乳酸菌", "乳化剤", "豆乳", "ココナッツミルク", "アーモンドミルク", "オーツミルク", "カカオバター", "ピーナッツバター"],
+        "de": [
+          "milchsäure", "natriumlactat", "calciumlactat", "milchsäurebakterien",
+          "kokosmilch", "sojamilch", "hafermilch", "mandelmilch", "reismilch",
+          "kakaobutter", "sheabutter", "erdnussbutter", "mandelbutter", "emulgator"
+        ],
+        "fr": [
+          "laitue", "acide lactique", "lactate de sodium", "lactate de calcium", "ferments lactiques",
+          "lait de coco", "crème de coco", "lait de soja", "lait d'amande", "lait d'avoine",
+          "beurre de cacao", "beurre de karité", "beurre de cacahuète", "émulsifiant"
+        ],
+        "es": [
+          "lechuga", "ácido láctico", "lactato sódico", "lactato cálcico", "fermentos lácticos",
+          "leche de coco", "crema de coco", "leche de soja", "leche de almendras", "leche de avena",
+          "manteca de cacao", "manteca de karité", "crema de cacahuete", "emulgente"
+        ],
+        "it": [
+          "lattuga", "acido lattico", "lattato di sodio", "lattato di calcio", "fermenti lattici",
+          "latte di cocco", "latte di soia", "latte di mandorla", "latte d'avena",
+          "burro di cacao", "burro di karité", "burro di arachidi", "emulsionante"
+        ]
+      }
+    },
+    "tree_nuts": {
+      "codex_core": true,
+      "jurisdictions": ["CN", "US", "EU", "JP"],
+      "keywords": {
+        "zh-Hans": ["核桃", "巴旦木", "扁桃仁", "杏仁", "腰果", "榛子", "榛仁", "开心果", "阿月浑子", "夏威夷果", "澳洲坚果", "碧根果", "山核桃", "松子", "巴西坚果", "板栗"],
+        "en": ["almond", "almonds", "walnut", "walnuts", "cashew", "cashews", "hazelnut", "hazelnuts", "pecan", "pecans", "pistachio", "pistachios", "macadamia", "brazil nut", "pine nut", "chestnut"],
+        "ja": ["くるみ", "クルミ", "アーモンド", "カシューナッツ", "ヘーゼルナッツ", "ピスタチオ", "マカダミアナッツ"],
+        "de": [
+          "mandel", "mandeln", "haselnuss", "haselnüsse", "haselnusskerne", "haselnussmark",
+          "walnuss", "walnüsse", "cashew", "cashewnüsse", "cashewkerne", "pekannuss", "pekannüsse",
+          "paranuss", "paranüsse", "pistazie", "pistazien", "macadamia", "macadamianüsse", "schalenfrüchte"
+        ],
+        "fr": ["amande", "amandes", "noisette", "noisettes", "noix", "noix de cajou", "noix de pécan", "noix du brésil", "pistache", "pistaches", "noix de macadamia", "fruits à coque"],
+        "es": ["almendra", "almendras", "avellana", "avellanas", "nuez", "nueces", "anacardo", "anacardos", "pacana", "pacanas", "nuez de brasil", "pistacho", "pistachos", "macadamia", "frutos de cáscara"],
+        "it": ["mandorla", "mandorle", "nocciola", "nocciole", "noce", "noci", "anacardo", "anacardi", "noce di pecan", "noce del brasile", "pistacchio", "pistacchi", "macadamia", "frutta a guscio"]
+      },
+      "exclude_keywords": {
+        "zh-Hans": ["肉豆蔻", "椰子", "椰浆", "椰乳", "椰子水", "椰子油"],
+        "en": ["nutmeg", "butternut", "water chestnut", "coconut"],
+        "ja": ["ココナッツ", "ナツメグ"],
+        "de": ["muskatnuss", "muskat", "kokosnuss", "kokos", "kokosraspeln", "kokosöl", "butternuss", "erdnuss", "erdnüsse"],
+        "fr": ["noix de muscade", "muscade", "noix de coco", "coco", "châtaigne d'eau"],
+        "es": ["nuez moscada", "nuez de coco", "coco"],
+        "it": ["noce moscata", "noce di cocco", "cocco"]
+      }
+    },
+    "celery": {
+      "codex_core": false,
+      "jurisdictions": ["EU"],
+      "keywords": {
+        "zh-Hans": ["芹菜", "旱芹", "芹菜籽"],
+        "en": ["celery", "celeriac", "celery seed"],
+        "ja": ["セロリ"],
+        "de": ["sellerie", "knollensellerie", "staudensellerie", "selleriesamen", "selleriepulver"],
+        "fr": ["céleri", "céleri-rave", "céleri en branche"],
+        "es": ["apio", "apio-nabo", "semilla de apio"],
+        "it": ["sedano", "sedano rapa"]
+      },
+      "exclude_keywords": {
+        "zh-Hans": [],
+        "en": [],
+        "ja": [],
+        "de": [],
+        "fr": [],
+        "es": [],
+        "it": []
+      }
+    },
+    "mustard": {
+      "codex_core": false,
+      "jurisdictions": ["EU", "US"],
+      "keywords": {
+        "zh-Hans": ["芥末", "黄芥末", "芥子", "芥菜籽"],
+        "en": ["mustard", "mustard seed", "mustard flour"],
+        "ja": ["マスタード", "からし", "辛子"],
+        "de": ["senf", "senfkörner", "senfsaat", "senfmehl", "dijonsenf"],
+        "fr": ["moutarde", "graines de moutarde", "farine de moutarde"],
+        "es": ["mostaza", "semilla de mostaza", "harina de mostaza"],
+        "it": ["senape", "semi di senape"]
+      },
+      "exclude_keywords": {
+        "zh-Hans": ["辣根", "山葵"],
+        "en": ["mustard greens"],
+        "ja": [],
+        "de": [],
+        "fr": [],
+        "es": [],
+        "it": []
+      }
+    },
+    "sesame": {
+      "codex_core": false,
+      "jurisdictions": ["CN", "US", "EU", "JP"],
+      "keywords": {
+        "zh-Hans": ["芝麻", "黑芝麻", "白芝麻", "芝麻油", "芝麻酱", "麻油"],
+        "en": ["sesame", "sesame seed", "sesame seeds", "tahini"],
+        "ja": ["ごま", "ゴマ", "胡麻"],
+        "de": ["sesam", "sesamsamen", "sesamöl", "tahini"],
+        "fr": ["sésame", "graines de sésame", "huile de sésame", "tahini"],
+        "es": ["sésamo", "ajonjolí", "semillas de sésamo", "aceite de sésamo", "tahini"],
+        "it": ["sesamo", "semi di sesamo", "olio di sesamo", "tahina"]
+      },
+      "exclude_keywords": {
+        "zh-Hans": ["野芝麻"],
+        "en": [],
+        "ja": [],
+        "de": [],
+        "fr": [],
+        "es": [],
+        "it": []
+      }
+    },
+    "sulphites": {
+      "codex_core": false,
+      "jurisdictions": ["EU", "AU", "CN"],
+      "keywords": {
+        "zh-Hans": ["二氧化硫", "亚硫酸盐", "焦亚硫酸钠", "亚硫酸氢钠"],
+        "en": ["sulphite", "sulphites", "sulfite", "sulfites", "sulphur dioxide", "sulfur dioxide", "sodium metabisulphite"],
+        "ja": ["亜硫酸塩", "二酸化硫黄", "ピロ亜硫酸ナトリウム"],
+        "de": ["sulfit", "sulfite", "schwefeldioxid", "natriummetabisulfit"],
+        "fr": ["sulfite", "sulfites", "anhydride sulfureux", "dioxyde de soufre", "métabisulfite de sodium"],
+        "es": ["sulfito", "sulfitos", "dióxido de azufre", "metabisulfito sódico"],
+        "it": ["solfito", "solfiti", "anidride solforosa", "metabisolfito di sodio"]
+      },
+      "exclude_keywords": {
+        "zh-Hans": [],
+        "en": [],
+        "ja": [],
+        "de": [],
+        "fr": [],
+        "es": [],
+        "it": []
+      }
+    },
+    "lupin": {
+      "codex_core": false,
+      "jurisdictions": ["EU"],
+      "keywords": {
+        "zh-Hans": ["羽扇豆"],
+        "en": ["lupin", "lupine", "lupin flour"],
+        "ja": ["ルピン"],
+        "de": ["lupine", "lupinen", "lupinenmehl", "lupinenprotein", "süßlupinenmehl"],
+        "fr": ["lupin", "farine de lupin", "graines de lupin"],
+        "es": ["altramuz", "altramuces", "harina de altramuz"],
+        "it": ["lupino", "lupini", "farina di lupini"]
+      },
+      "exclude_keywords": {
+        "zh-Hans": [],
+        "en": [],
+        "ja": [],
+        "de": [],
+        "fr": [],
+        "es": [],
+        "it": []
+      }
+    },
+    "molluscs": {
+      "codex_core": false,
+      "jurisdictions": ["EU"],
+      "keywords": {
+        "zh-Hans": ["软体动物", "鱿鱼", "章鱼", "牡蛎", "扇贝", "蛤蜊", "贻贝"],
+        "en": ["mollusc", "molluscs", "squid", "octopus", "oyster", "mussel", "clam", "scallop"],
+        "ja": ["いか", "たこ", "あわび", "牡蠣", "ホタテ"],
+        "de": ["weichtiere", "tintenfisch", "kalmar", "muscheln", "austern", "jakobsmuscheln"],
+        "fr": ["mollusques", "calmar", "poulpe", "huître", "huîtres", "moules", "coquilles saint-jacques"],
+        "es": ["moluscos", "calamar", "pulpo", "mejillones", "ostras", "almejas", "vieiras"],
+        "it": ["molluschi", "calamaro", "polpo", "cozze", "vongole", "ostriche", "capesante"]
+      },
+      "exclude_keywords": {
+        "zh-Hans": [],
+        "en": [],
+        "ja": [],
+        "de": [],
+        "fr": [],
+        "es": [],
+        "it": []
+      }
+    },
+    "buckwheat": {
+      "codex_core": false,
+      "jurisdictions": ["JP", "CN"],
+      "keywords": {
+        "zh-Hans": ["荞麦", "苦荞", "甜荞"],
+        "en": ["buckwheat"],
+        "ja": ["そば", "蕎麦"],
+        "de": ["buchweizen", "buchweizenmehl"],
+        "fr": ["sarrasin", "blé noir", "farine de sarrasin"],
+        "es": ["trigo sarraceno", "alforfón"],
+        "it": ["grano saraceno"]
+      },
+      "exclude_keywords": {
+        "zh-Hans": [],
+        "en": [],
+        "ja": [],
+        "de": [],
+        "fr": [],
+        "es": [],
+        "it": []
+      }
+    }
+  }
+}

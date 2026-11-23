@@ -1,0 +1,101 @@
+{
+  "id": "gtin:00000000000017",
+  "core": {
+    "regulatory_profile": "CN/GB28050-2011",
+    "net_content": [
+      {
+        "value": "500",
+        "unit": "ml"
+      }
+    ],
+    "nutrition_declared": {
+      "basis": {
+        "value": "100",
+        "unit": "ml"
+      },
+      "rows": [
+        {
+          "nutrient": "energy",
+          "value": "0",
+          "unit": "kJ",
+          "nrv_pct": "0"
+        },
+        {
+          "nutrient": "protein",
+          "value": "0",
+          "unit": "g",
+          "nrv_pct": "0"
+        },
+        {
+          "nutrient": "fat_total",
+          "value": "0",
+          "unit": "g",
+          "nrv_pct": "0"
+        },
+        {
+          "nutrient": "carbs_available",
+          "value": "0",
+          "unit": "g",
+          "nrv_pct": "0"
+        },
+        {
+          "nutrient": "sodium",
+          "value": "0",
+          "unit": "mg",
+          "nrv_pct": "0"
+        }
+      ]
+    }
+  },
+  "attributes": {
+    "product_name": [
+      {
+        "lang": "zh-Hans",
+        "text": "无糖茉莉清茶"
+      },
+      {
+        "lang": "en",
+        "text": "Unsweetened Jasmine Tea"
+      }
+    ],
+    "brand": "示例茶坊",
+    "ingredients_text": [
+      {
+        "lang": "zh-Hans",
+        "text": "水、茉莉花茶（绿茶茶坯）、维生素C、碳酸氢钠"
+      }
+    ],
+    "parties": [
+      {
+        "role": "commissioner",
+        "name": "示例茶坊饮品有限公司"
+      },
+      {
+        "role": "manufacturer",
+        "name": "示例饮品测试厂",
+        "license": "SC10600000000001"
+      }
+    ],
+    "shelf_life": {
+      "value": "9",
+      "unit": "month"
+    },
+    "translations": [
+      {
+        "lang": "en",
+        "field": "brand",
+        "text": "Demo Tea Lab",
+        "source": "contributor_translated",
+        "contributor": "github:example-contributor"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "type": "community_report",
+      "contributor": "github:example-contributor",
+      "reported_at": "2026-09-15",
+      "vintage_month": "2026-08"
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "opf_schema": "0.2",
+  "id": "gtin:00000000000024",
+  "tracks": [
+    {
+      "track": "EU/code:A",
+      "market": "EU",
+      "label": [
+        {
+          "lang": "de",
+          "text": "Variante A (Standardzucker, Ballaststoffe deklariert)"
+        },
+        {
+          "lang": "en",
+          "text": "Batch suffix A (original sugar profile, fiber declared)"
+        },
+        {
+          "lang": "es",
+          "text": "Variante A (azúcar estándar, fibra declarada)"
+        },
+        {
+          "lang": "fr",
+          "text": "Variante A (recette standard, fibres déclarées)"
+        },
+        {
+          "lang": "it",
+          "text": "Variante A (ricetta standard, fibre dichiarate)"
+        }
+      ],
+      "discriminator": {
+        "method": "packaging_code",
+        "field": "attributes.packaging_code",
+        "instructions": [
+          {
+            "lang": "de",
+            "text": "Chargen-/Verpackungscode-Suffix A prüfen"
+          },
+          {
+            "lang": "en",
+            "text": "Check batch stamp / packaging code suffix A"
+          },
+          {
+            "lang": "es",
+            "text": "Comprobar el código de envase/lote A"
+          },
+          {
+            "lang": "fr",
+            "text": "Vérifier le suffixe de code d'emballage/lot A"
+          },
+          {
+            "lang": "it",
+            "text": "Verificare il suffisso del codice confezione/lotto A"
+          }
+        ]
+      }
+    },
+    {
+      "track": "EU/code:B",
+      "market": "EU",
+      "label": [
+        {
+          "lang": "de",
+          "text": "Variante B (weniger Zucker, ohne Ballaststoffangabe)"
+        },
+        {
+          "lang": "en",
+          "text": "Batch suffix B (reduced sugar variant, fiber omitted)"
+        },
+        {
+          "lang": "es",
+          "text": "Variante B (menos azúcares, sin fibra declarada)"
+        },
+        {
+          "lang": "fr",
+          "text": "Variante B (teneur réduite en sucres, sans fibres affichées)"
+        },
+        {
+          "lang": "it",
+          "text": "Variante B (meno zuccheri, fibre omesse)"
+        }
+      ],
+      "discriminator": {
+        "method": "packaging_code",
+        "field": "attributes.packaging_code",
+        "instructions": [
+          {
+            "lang": "de",
+            "text": "Chargen-/Verpackungscode-Suffix B prüfen"
+          },
+          {
+            "lang": "en",
+            "text": "Check batch stamp / packaging code suffix B"
+          },
+          {
+            "lang": "es",
+            "text": "Comprobar el código de envase/lote B"
+          },
+          {
+            "lang": "fr",
+            "text": "Vérifier le suffixe de code d'emballage/lot B"
+          },
+          {
+            "lang": "it",
+            "text": "Verificare il suffisso del codice confezione/lotto B"
+          }
+        ]
+      }
+    }
+  ]
+}

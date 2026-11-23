@@ -1,0 +1,50 @@
+name: OPF CI & Reusable Validation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_call:
+    inputs:
+      data_dir:
+        description: "Path to product JSON directory to validate and build"
+        required: false
+        type: string
+        default: ""
+
+jobs:
+  validate-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Check CLI version (pure stdlib)
+        run: ./bin/opf --version
+
+      - name: Run pure-stdlib unit test suite (no Pillow)
+        run: python3 -m unittest discover -s tests -v
+
+      - name: Install package with Pillow media support
+        run: python3 -m pip install -e .
+
+      - name: Run full unit & integration test suite (with Pillow)
+        run: python3 -m unittest discover -s tests -v
+
+      - name: Check frontend JavaScript syntax
+        run: node --check web/app.js
+
+      - name: Dry-run Static API v1 build
+        run: |
+          TARGET_DIR="${{ inputs.data_dir }}"
+          if [ -z "$TARGET_DIR" ]; then
+            mkdir -p /tmp/opf-empty-products
+            TARGET_DIR="/tmp/opf-empty-products"
+          fi
+          ./bin/opf validate --allow-empty "$TARGET_DIR"
+          ./bin/opf build --data-dir "$TARGET_DIR" --out-dir /tmp/opf-site-preview

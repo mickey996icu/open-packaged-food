@@ -1,0 +1,66 @@
+{
+  "opf_schema": "0.2",
+  "id": "gtin:00000000000017",
+  "aliases": [
+    "示例茶坊无糖茉莉清茶 500ml",
+    "Demo Tea Lab Jasmine Tea 500ml"
+  ],
+  "tracks": [
+    {
+      "track": "CN/plant:SC10600000000001",
+      "market": "CN",
+      "label": [
+        {
+          "lang": "zh-Hans",
+          "text": "示例饮品一厂"
+        },
+        {
+          "lang": "en",
+          "text": "Demo Beverage Plant 1"
+        }
+      ],
+      "discriminator": {
+        "method": "sc_license",
+        "field": "attributes.parties[].license",
+        "instructions": [
+          {
+            "lang": "zh-Hans",
+            "text": "核对背面生产许可证编号 SC10600000000001"
+          },
+          {
+            "lang": "en",
+            "text": "Check back-panel SC license SC10600000000001"
+          }
+        ]
+      }
+    },
+    {
+      "track": "CN/plant:SC10600000000002",
+      "market": "CN",
+      "label": [
+        {
+          "lang": "zh-Hans",
+          "text": "示例饮品二厂"
+        },
+        {
+          "lang": "en",
+          "text": "Demo Beverage Plant 2"
+        }
+      ],
+      "discriminator": {
+        "method": "sc_license",
+        "field": "attributes.parties[].license",
+        "instructions": [
+          {
+            "lang": "zh-Hans",
+            "text": "核对背面生产许可证编号 SC10600000000002"
+          },
+          {
+            "lang": "en",
+            "text": "Check back-panel SC license SC10600000000002"
+          }
+        ]
+      }
+    }
+  ]
+}

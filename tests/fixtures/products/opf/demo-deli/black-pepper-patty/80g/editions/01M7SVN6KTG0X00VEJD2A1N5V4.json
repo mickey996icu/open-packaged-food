@@ -1,0 +1,9 @@
+{
+  "opf_schema": "0.2",
+  "id": "opf:demo-deli/black-pepper-patty/80g",
+  "edition_id": "01M7SVN6KTG0X00VEJD2A1N5V4",
+  "merged_into": "01M7SVN6KKF82ZD840QVRWJ4GF",
+  "merged_into_rev": 2,
+  "merged_at": "2026-11-19",
+  "reason": "Consolidate duplicate pre-track submission into canonical edition"
+}

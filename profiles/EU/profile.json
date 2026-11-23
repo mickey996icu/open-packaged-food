@@ -1,0 +1,58 @@
+{
+  "jurisdiction": "EU",
+  "profiles": {
+    "EU/1169-2011": {
+      "title": "EU Regulation No 1169/2011 on the provision of food information to consumers",
+      "mandatory_nutrients": [
+        "energy",
+        "fat_total",
+        "fat_saturated",
+        "carbs_available",
+        "sugars_total",
+        "protein",
+        "salt_equivalent"
+      ],
+      "default_energy_unit": "kJ",
+      "default_basis": ["100g", "100ml"],
+      "carbohydrate_basis": "carbs_available",
+      "sodium_or_salt": "salt_equivalent",
+      "kj_per_kcal": "4.184",
+      "salt_per_sodium_ratio": "2.5",
+      "zero_thresholds_per_100": {
+        "energy_kj": "17",
+        "fat_total": "0.5",
+        "fat_saturated": "0.1",
+        "carbs_available": "0.5",
+        "sugars_total": "0.5",
+        "protein": "0.5",
+        "salt_equivalent": "0.01"
+      },
+      "nrv_reference": {
+        "energy_kj": "8400",
+        "energy_kcal": "2000",
+        "fat_total": "70",
+        "fat_saturated": "20",
+        "carbs_available": "260",
+        "sugars_total": "90",
+        "protein": "50",
+        "salt_equivalent": "6"
+      },
+      "ingredients_grammar": {
+        "prefixes": [
+          "Ingredients:",
+          "Zutaten:",
+          "Ingrédients :",
+          "Ingrédients:",
+          "Ingredientes:",
+          "Ingredienti:"
+        ],
+        "top_level_delimiters": [",", ";"],
+        "open_brackets": ["(", "["],
+        "close_brackets": [")", "]"],
+        "trailing_punctuation": ["."],
+        "additive_slash_split": null
+      },
+      "registries": ["EU/EFSA"]
+    }
+  }
+}

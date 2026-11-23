@@ -1,0 +1,283 @@
+{
+  "opf_schema": "0.2",
+  "id": "opf:demo-deli/black-pepper-patty/80g",
+  "edition_id": "01M7SVN6KKF82ZD840QVRWJ4GF",
+  "rev": 2,
+  "track": "CN/default",
+  "supersedes": [],
+  "core": {
+    "regulatory_profile": "CN/GB28050-2011",
+    "net_content": [
+      {
+        "value": "80",
+        "unit": "g"
+      }
+    ],
+    "nutrition_declared": {
+      "basis": {
+        "value": "100",
+        "unit": "g"
+      },
+      "rows": [
+        {
+          "nutrient": "energy",
+          "value": "980",
+          "unit": "kJ",
+          "nrv_pct": "12"
+        },
+        {
+          "nutrient": "protein",
+          "value": "18.5",
+          "unit": "g",
+          "nrv_pct": "31"
+        },
+        {
+          "nutrient": "fat_total",
+          "value": "17.2",
+          "unit": "g",
+          "nrv_pct": "29"
+        },
+        {
+          "nutrient": "carbs_available",
+          "value": "2",
+          "unit": "g",
+          "nrv_pct": "1"
+        },
+        {
+          "nutrient": "sodium",
+          "value": "490",
+          "unit": "mg",
+          "nrv_pct": "25"
+        }
+      ]
+    },
+    "allergens_declared": {
+      "contains": [
+        "soybeans"
+      ],
+      "may_contain": []
+    },
+    "ingredients_tree": [
+      {
+        "lang": "zh-Hans",
+        "nodes": [
+          {
+            "name": "牛肉"
+          },
+          {
+            "name": "饮用水"
+          },
+          {
+            "name": "酿造酱油",
+            "allergens": [
+              "soybeans"
+            ],
+            "children": [
+              {
+                "name": "含大豆",
+                "allergens": [
+                  "soybeans"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "黑胡椒粉"
+          },
+          {
+            "name": "食用盐"
+          }
+        ]
+      }
+    ]
+  },
+  "attributes": {
+    "product_name": [
+      {
+        "lang": "zh-Hans",
+        "text": "黑椒牛肉饼"
+      },
+      {
+        "lang": "en",
+        "text": "Black Pepper Beef Patty"
+      }
+    ],
+    "brand": "鲜厨示例",
+    "ingredients_text": [
+      {
+        "lang": "zh-Hans",
+        "text": "牛肉、饮用水、酿造酱油（含大豆）、黑胡椒粉、食用盐"
+      }
+    ],
+    "translations": [
+      {
+        "lang": "en",
+        "field": "brand",
+        "text": "Demo Deli",
+        "source": "contributor_translated",
+        "contributor": "github:fixture-alice"
+      }
+    ],
+    "product_standard": [
+      "SB/T 10379"
+    ]
+  },
+  "evidence": [
+    {
+      "type": "community_report",
+      "contributor": "github:fixture-alice",
+      "reported_at": "2026-08-10",
+      "vintage_month": "2026-08",
+      "evidence_id": "ev:01M7SVN6KFNYH4XF5MVP2EPMBT"
+    },
+    {
+      "type": "community_report",
+      "contributor": "github:fixture-bob",
+      "reported_at": "2026-08-12",
+      "vintage_month": "2026-08",
+      "evidence_id": "ev:01M7SVN6KPREGN96H38CY2B1K9"
+    }
+  ],
+  "revisions": [
+    {
+      "rev": 1,
+      "kind": "initial",
+      "created_at": "2026-11-19T12:14:15Z",
+      "author": "github:fixture-alice",
+      "evidence_refs": [
+        "ev:01M7SVN6KFNYH4XF5MVP2EPMBT"
+      ],
+      "patch": []
+    },
+    {
+      "rev": 2,
+      "kind": "enrichment",
+      "created_at": "2026-11-19T12:14:15Z",
+      "author": "github:fixture-maintainer",
+      "reason": "Consolidate duplicate pre-track submission into canonical edition",
+      "evidence_refs": [
+        "ev:01M7SVN6KPREGN96H38CY2B1K9"
+      ],
+      "patch": [
+        {
+          "op": "add",
+          "path": "/attributes/product_standard",
+          "value": [
+            "SB/T 10379"
+          ]
+        }
+      ],
+      "reverse_patch": [
+        {
+          "op": "remove",
+          "path": "/attributes/product_standard"
+        }
+      ]
+    }
+  ],
+  "normalized": {
+    "basis": "100g",
+    "nutrients": {
+      "energy_kj": {
+        "value": "980",
+        "unit": "kJ",
+        "basis": "reported"
+      },
+      "protein": {
+        "value": "18.5",
+        "unit": "g",
+        "basis": "reported"
+      },
+      "fat_total": {
+        "value": "17.2",
+        "unit": "g",
+        "basis": "reported"
+      },
+      "carbs_available": {
+        "value": "2",
+        "unit": "g",
+        "basis": "reported"
+      },
+      "sodium": {
+        "value": "490",
+        "unit": "mg",
+        "basis": "reported"
+      },
+      "energy_kcal": {
+        "value": "234.2",
+        "unit": "kcal",
+        "basis": "derived"
+      },
+      "salt_equivalent": {
+        "value": "1.23",
+        "unit": "g",
+        "basis": "derived"
+      }
+    },
+    "additives_ins": [],
+    "allergens": {
+      "contains": [
+        "soybeans"
+      ],
+      "declared_contains": [
+        "soybeans"
+      ],
+      "inferred_from_ingredients": [
+        "soybeans"
+      ],
+      "may_contain": []
+    },
+    "per_unit": {
+      "unit_amount": {
+        "value": "80",
+        "unit": "g"
+      },
+      "nutrients": {
+        "energy_kj": {
+          "value": "784",
+          "unit": "kJ",
+          "basis": "derived"
+        },
+        "protein": {
+          "value": "14.8",
+          "unit": "g",
+          "basis": "derived"
+        },
+        "fat_total": {
+          "value": "13.8",
+          "unit": "g",
+          "basis": "derived"
+        },
+        "carbs_available": {
+          "value": "1.6",
+          "unit": "g",
+          "basis": "derived"
+        },
+        "sodium": {
+          "value": "392",
+          "unit": "mg",
+          "basis": "derived"
+        },
+        "energy_kcal": {
+          "value": "187.4",
+          "unit": "kcal",
+          "basis": "derived"
+        },
+        "salt_equivalent": {
+          "value": "0.98",
+          "unit": "g",
+          "basis": "derived"
+        }
+      }
+    }
+  },
+  "quality_flags": [
+    {
+      "code": "SALT_DERIVED_FROM_SODIUM",
+      "field": "salt_equivalent",
+      "detail": "Derived from sodium using ratio 2.5"
+    }
+  ],
+  "core_fingerprint": "sha256:6e76a07a814c6fcb79f012652d2780bb58cd056452253299a76cd7989d1a8757",
+  "label_fingerprint": "sha256:dd136b03f2f20c2645a160b40fd81b321c348be9b275c88c72f9d7a20bb9ed51"
+}

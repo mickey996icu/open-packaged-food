@@ -1,0 +1,277 @@
+{
+  "opf_schema": "0.2",
+  "id": "gtin:00000000000048",
+  "edition_id": "01M7SVN6PPQHKRJBGHRBBT03PQ",
+  "rev": 1,
+  "track": "JP/default",
+  "supersedes": [],
+  "core": {
+    "regulatory_profile": "JP/CAA-2015",
+    "net_content": [
+      {
+        "value": "120",
+        "unit": "g"
+      }
+    ],
+    "nutrition_declared": {
+      "basis": {
+        "value": "100",
+        "unit": "g"
+      },
+      "rows": [
+        {
+          "nutrient": "energy",
+          "value": "465",
+          "unit": "kcal"
+        },
+        {
+          "nutrient": "protein",
+          "value": "6.8",
+          "unit": "g"
+        },
+        {
+          "nutrient": "fat_total",
+          "value": "19.4",
+          "unit": "g"
+        },
+        {
+          "nutrient": "carbs_total",
+          "value": "65.8",
+          "unit": "g"
+        },
+        {
+          "nutrient": "salt_equivalent",
+          "value": "0.52",
+          "unit": "g"
+        }
+      ]
+    },
+    "allergens_declared": {
+      "contains": [
+        "gluten_cereals",
+        "soybeans"
+      ],
+      "may_contain": []
+    },
+    "ingredients_tree": [
+      {
+        "lang": "ja",
+        "nodes": [
+          {
+            "name": "小麦粉",
+            "allergens": [
+              "gluten_cereals"
+            ]
+          },
+          {
+            "name": "砂糖"
+          },
+          {
+            "name": "植物油脂"
+          },
+          {
+            "name": "オーツ麦",
+            "allergens": [
+              "gluten_cereals"
+            ]
+          },
+          {
+            "name": "抹茶"
+          },
+          {
+            "name": "膨張剤",
+            "is_additive": true
+          },
+          {
+            "name": "乳化剤",
+            "is_additive": true,
+            "children": [
+              {
+                "name": "大豆由来",
+                "is_additive": true,
+                "allergens": [
+                  "soybeans"
+                ]
+              }
+            ]
+          },
+          {
+            "name": "酸化防止剤",
+            "is_additive": true,
+            "children": [
+              {
+                "name": "ビタミンC",
+                "ins": "300",
+                "is_additive": true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "attributes": {
+    "product_name": [
+      {
+        "lang": "ja",
+        "text": "抹茶オーツビスケット"
+      },
+      {
+        "lang": "en",
+        "text": "Matcha Oat Biscuits"
+      }
+    ],
+    "brand": "ミドリ試作工房",
+    "ingredients_text": [
+      {
+        "lang": "ja",
+        "text": "原材料名：小麦粉、砂糖、植物油脂、オーツ麦、抹茶／膨張剤、乳化剤（大豆由来）、酸化防止剤（ビタミンC）"
+      }
+    ],
+    "translations": [
+      {
+        "lang": "en",
+        "field": "brand",
+        "text": "Midori Demo Lab",
+        "source": "contributor_translated",
+        "contributor": "github:fixture-ken"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "type": "community_report",
+      "contributor": "github:fixture-ken",
+      "reported_at": "2026-08-25",
+      "vintage_month": "2026-08",
+      "evidence_id": "ev:01M7SVN6PG9RHVG90T9VAG964P"
+    }
+  ],
+  "revisions": [
+    {
+      "rev": 1,
+      "kind": "initial",
+      "created_at": "2026-11-19T12:14:15Z",
+      "author": "github:fixture-ken",
+      "evidence_refs": [
+        "ev:01M7SVN6PG9RHVG90T9VAG964P"
+      ],
+      "patch": []
+    }
+  ],
+  "normalized": {
+    "basis": "100g",
+    "nutrients": {
+      "energy_kcal": {
+        "value": "465",
+        "unit": "kcal",
+        "basis": "reported"
+      },
+      "protein": {
+        "value": "6.8",
+        "unit": "g",
+        "basis": "reported"
+      },
+      "fat_total": {
+        "value": "19.4",
+        "unit": "g",
+        "basis": "reported"
+      },
+      "carbs_total": {
+        "value": "65.8",
+        "unit": "g",
+        "basis": "reported"
+      },
+      "salt_equivalent": {
+        "value": "0.52",
+        "unit": "g",
+        "basis": "reported"
+      },
+      "energy_kj": {
+        "value": "1945.6",
+        "unit": "kJ",
+        "basis": "derived"
+      },
+      "sodium": {
+        "value": "204.7",
+        "unit": "mg",
+        "basis": "derived"
+      }
+    },
+    "additives_ins": [
+      "300"
+    ],
+    "allergens": {
+      "contains": [
+        "gluten_cereals",
+        "soybeans"
+      ],
+      "declared_contains": [
+        "gluten_cereals",
+        "soybeans"
+      ],
+      "inferred_from_ingredients": [
+        "gluten_cereals",
+        "soybeans"
+      ],
+      "may_contain": []
+    },
+    "per_unit": {
+      "unit_amount": {
+        "value": "120",
+        "unit": "g"
+      },
+      "nutrients": {
+        "energy_kcal": {
+          "value": "558",
+          "unit": "kcal",
+          "basis": "derived"
+        },
+        "protein": {
+          "value": "8.2",
+          "unit": "g",
+          "basis": "derived"
+        },
+        "fat_total": {
+          "value": "23.3",
+          "unit": "g",
+          "basis": "derived"
+        },
+        "carbs_total": {
+          "value": "79",
+          "unit": "g",
+          "basis": "derived"
+        },
+        "salt_equivalent": {
+          "value": "0.62",
+          "unit": "g",
+          "basis": "derived"
+        },
+        "energy_kj": {
+          "value": "2334.7",
+          "unit": "kJ",
+          "basis": "derived"
+        },
+        "sodium": {
+          "value": "245.6",
+          "unit": "mg",
+          "basis": "derived"
+        }
+      }
+    }
+  },
+  "quality_flags": [
+    {
+      "code": "SODIUM_DERIVED_FROM_SALT",
+      "field": "sodium",
+      "detail": "Derived from salt_equivalent using ratio 2.54"
+    },
+    {
+      "code": "CARBS_TOTAL_INCLUDES_FIBER",
+      "field": "carbs_total",
+      "detail": "JP/CAA-2015 declares total carbohydrates including dietary fiber"
+    }
+  ],
+  "core_fingerprint": "sha256:61da4e90793c3d89299c322b076c2163a7e001e748f6e2a4a25dad032c56cab7",
+  "label_fingerprint": "sha256:ac675f8ca2df8d52d82e299941660b87d56a567f88349157fc6b3a6b44e9cb4f"
+}

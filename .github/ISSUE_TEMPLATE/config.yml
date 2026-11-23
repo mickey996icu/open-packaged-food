@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: "📖 开发者贡献指南 / Developer Contributing Guide (CONTRIBUTING.md)"
+    url: "https://github.com/mickey996icu/open-packaged-food/blob/main/CONTRIBUTING.md"
+    about: "了解如何通过标准纯 Git 双仓 PR 流程提交商品数据或参与工具开发 / Learn the pure-Git dual-PR developer workflow"
+  - name: "📦 数据勘误与官方导入提案 / Data Errata & Registry Imports (opf-data)"
+    url: "https://github.com/mickey996icu/opf-data/issues"
+    about: "提交已有商品数据勘误、拆轨合并、停产标记或官方库导入提案 / Submit data errata, track splits, or official registry proposals"

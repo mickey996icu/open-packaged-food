@@ -1,0 +1,48 @@
+name: "📚 法规 Profile / 添加剂与致敏原词典补充 (Profile & Dictionary)"
+description: "提议新增国家/地区法规 Profile，或补充 Codex INS/E 添加剂与多语致敏原词典 / Propose a regulatory profile or additive/allergen dictionary update"
+title: "[Profile/Dictionary]: "
+labels: ["enhancement", "dictionary-profile"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### 法规 Profile 与多语词典补充 / Regulatory Profile & Dictionary Proposal
+        欢迎为 `profiles/`、`dictionaries/additives_ins.json`、`dictionaries/allergens.json` 或 `web/locales/` 提交有官方标准依据的补充提案（亦欢迎直接提交 PR）。
+        Propose standard-backed updates to `profiles/`, `dictionaries/`, or `web/locales/` (PRs directly welcome as well).
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: "变更范围 / Target Scope"
+      options:
+        - "Regulatory Profile (profiles/<MARKET>/profile.json)"
+        - "Additives Dictionary (dictionaries/additives_ins.json)"
+        - "Allergens & Exclusion Keywords (dictionaries/allergens.json)"
+        - "Nutrients Dictionary / Web Locales (dictionaries/nutrients.json, web/locales/)"
+      default: 0
+    validations:
+      required: true
+
+  - type: input
+    id: jurisdiction_lang
+    attributes:
+      label: "法域与 BCP-47 语言标签 / Jurisdiction & BCP-47 Language"
+      placeholder: "例如 / e.g.: EU (de/fr), CN (zh-Hans), JP (ja)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: official_reference
+    attributes:
+      label: "官方标准或法规依据 / Official Standard or Regulatory Citation"
+      description: "请列出标准编号、条文号与公开官方链接（如 GB 2760、Codex CXG 36-1989、EU 1169/2011）。 / Cite official standard codes, sections, and public links."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed_entries
+    attributes:
+      label: "拟新增或修改的词条内容 / Proposed Entries or Rules"
+      description: "请写出拟添加的 INS/E 编码、多语同义词、防误报排除词（exclusion keywords）或标零修约阈值。 / List INS/E codes, multilingual synonyms, false-positive exclusion terms, or zero-rounding thresholds."
+    validations:
+      required: true

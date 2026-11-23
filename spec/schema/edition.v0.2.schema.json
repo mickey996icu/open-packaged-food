@@ -1,0 +1,652 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openpackagedfood.org/spec/schema/edition.v0.2.schema.json",
+  "title": "OpenPackagedFood Edition Document or Redirect (v0.2)",
+  "description": "Stored at products/.../editions/<edition_id>.json. Either a live/historical EditionRecord (separating structured core, enrichable attributes, compiled normalized profile, append-only evidence, supersedes edges, and content-only RFC 6902 revisions; status and evidence_level are derived at build time) or a permanent EditionRedirect stub ({merged_into}) left when duplicate editions are consolidated.",
+  "oneOf": [
+    { "$ref": "#/$defs/EditionRecord" },
+    { "$ref": "#/$defs/EditionRedirect" }
+  ],
+  "$defs": {
+    "ProductId": {
+      "type": "string",
+      "pattern": "^(gtin:[0-9]{14}|opf:[a-z0-9]+(-[a-z0-9]+)*/[a-z0-9]+(-[a-z0-9]+)*/[a-z0-9]+(-[a-z0-9]+)*)$"
+    },
+    "Ulid": {
+      "type": "string",
+      "pattern": "^[0-7][0-9A-HJKMNP-TV-Z]{25}$",
+      "description": "26-character uppercase Crockford Base32 ULID."
+    },
+    "TrackKey": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}/(default|[a-z][a-z0-9_]*:([A-Za-z0-9._-]+|\\{[A-Za-z0-9._-]+(,[A-Za-z0-9._-]+)+\\})(\\+[a-z][a-z0-9_]*:([A-Za-z0-9._-]+|\\{[A-Za-z0-9._-]+(,[A-Za-z0-9._-]+)+\\}))*)$",
+      "description": "Market default track (<market>/default) or discriminated track supporting single values and sorted sets (e.g. CN/plant:{SC111,SC222})."
+    },
+    "EvidenceId": {
+      "type": "string",
+      "pattern": "^(sha256:[a-f0-9]{64}|ev:[0-7][0-9A-HJKMNP-TV-Z]{25})$",
+      "description": "Collision-free evidence identifier: 'sha256:<cropped_or_snapshot_sha256>' for content-addressed media/snapshots, or 'ev:<ulid>' for non-photo records."
+    },
+    "Sha256Prefixed": {
+      "type": "string",
+      "pattern": "^sha256:[a-f0-9]{64}$"
+    },
+    "DecimalString": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)(\\.[0-9]*[1-9])?$",
+      "description": "Canonical non-negative decimal string without leading or trailing redundant zeros."
+    },
+    "Qualifier": {
+      "type": "string",
+      "enum": ["=", "<", "<=", ">", ">=", "~", "trace"]
+    },
+    "CoreQualifier": {
+      "type": "string",
+      "enum": ["<", "<=", ">", ">=", "~", "trace"],
+      "description": "Non-exact qualifier inside core ('=' is omitted in canonical core form)."
+    },
+    "LocalizedText": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lang", "text"],
+      "properties": {
+        "lang": {
+          "type": "string",
+          "pattern": "^[a-z]{2,3}(-[A-Z][a-z]{3})?(-[A-Z]{2})?$"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "TranslatedText": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lang", "field", "text", "source", "contributor"],
+      "properties": {
+        "lang": {
+          "type": "string",
+          "pattern": "^[a-z]{2,3}(-[A-Z][a-z]{3})?(-[A-Z]{2})?$"
+        },
+        "field": {
+          "type": "string",
+          "enum": ["product_name", "brand", "ingredients_text", "declared_category", "storage_text"]
+        },
+        "text": { "type": "string", "minLength": 1 },
+        "source": { "type": "string", "const": "contributor_translated" },
+        "contributor": { "type": "string", "minLength": 1 }
+      }
+    },
+    "CoreQuantity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "unit"],
+      "properties": {
+        "qualifier": { "$ref": "#/$defs/CoreQualifier" },
+        "value": { "$ref": "#/$defs/DecimalString" },
+        "unit": { "type": "string", "minLength": 1 }
+      }
+    },
+    "Quantity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "unit"],
+      "properties": {
+        "qualifier": { "$ref": "#/$defs/Qualifier" },
+        "value": { "$ref": "#/$defs/DecimalString" },
+        "unit": { "type": "string", "minLength": 1 },
+        "label": { "type": "string" }
+      }
+    },
+    "NutrientRow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["nutrient", "value", "unit"],
+      "properties": {
+        "nutrient": { "type": "string", "minLength": 1 },
+        "qualifier": { "$ref": "#/$defs/CoreQualifier" },
+        "value": { "$ref": "#/$defs/DecimalString" },
+        "unit": { "type": "string", "enum": ["kJ", "kcal", "g", "mg", "ug"] },
+        "nrv_pct": { "$ref": "#/$defs/DecimalString" }
+      }
+    },
+    "SemanticIngredientNode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "qualifier": { "type": "string", "minLength": 1 },
+        "functional_class": { "type": "string", "minLength": 1 },
+        "ins": { "type": "string", "minLength": 1 },
+        "is_additive": { "type": "boolean" },
+        "allergens": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "children": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/SemanticIngredientNode" }
+        }
+      }
+    },
+    "IngredientTreeLang": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lang", "nodes"],
+      "properties": {
+        "lang": {
+          "type": "string",
+          "pattern": "^[a-z]{2,3}(-[A-Z][a-z]{3})?(-[A-Z]{2})?$"
+        },
+        "nodes": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/SemanticIngredientNode" }
+        }
+      }
+    },
+    "CoreLayer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["regulatory_profile", "net_content", "nutrition_declared", "ingredients_tree"],
+      "description": "Canonical structured values only (never raw OCR strings or compiled normalized outputs). nutrition_declared.rows MUST be persisted in canonical §3 nutrient order; ingredients_tree MUST be sorted by lang.",
+      "properties": {
+        "regulatory_profile": {
+          "type": "string",
+          "enum": [
+            "CN/GB28050-2011",
+            "CN/GB28050-2025",
+            "US/FDA-NLEA",
+            "EU/1169-2011",
+            "JP/CAA-2015"
+          ]
+        },
+        "net_content": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/CoreQuantity" }
+        },
+        "serving_size": {
+          "$ref": "#/$defs/CoreQuantity"
+        },
+        "nutrition_declared": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["basis", "rows"],
+          "properties": {
+            "basis": { "$ref": "#/$defs/CoreQuantity" },
+            "rows": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "$ref": "#/$defs/NutrientRow" },
+              "description": "Persisted in strict canonical nutrient order (§3); validated by opf validate."
+            }
+          }
+        },
+        "ingredients_tree": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/IngredientTreeLang" }
+        },
+        "allergens_declared": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "contains": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 1 },
+              "uniqueItems": true
+            },
+            "may_contain": {
+              "type": "array",
+              "items": { "type": "string", "minLength": 1 },
+              "uniqueItems": true
+            }
+          }
+        }
+      }
+    },
+    "SpecialIndicator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "value", "unit"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "qualifier": { "$ref": "#/$defs/Qualifier" },
+        "value": { "$ref": "#/$defs/DecimalString" },
+        "unit": { "type": "string", "minLength": 1 }
+      }
+    },
+    "Party": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["role", "name"],
+      "properties": {
+        "role": {
+          "type": "string",
+          "enum": ["brand_owner", "manufacturer", "commissioner", "importer", "distributor"]
+        },
+        "name": { "type": "string", "minLength": 1 },
+        "address": { "type": "string" },
+        "plant_code": { "type": "string" },
+        "license": { "type": "string" }
+      }
+    },
+    "OriginInfo": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "country": { "type": "string", "pattern": "^[A-Z]{2}$" },
+        "region": { "type": "string", "minLength": 1 },
+        "raw_text": { "type": "string", "minLength": 1 }
+      }
+    },
+    "AttributesLayer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["product_name", "brand", "ingredients_text"],
+      "description": "Verbatim printed strings and enrichable supply-chain/compliance attributes.",
+      "properties": {
+        "product_name": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/LocalizedText" }
+        },
+        "brand": { "type": "string", "minLength": 1 },
+        "category": { "type": "string" },
+        "declared_category": { "type": "string" },
+        "net_content_label": { "type": "string" },
+        "serving_size_label": { "type": "string" },
+        "ingredients_text": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/LocalizedText" }
+        },
+        "allergens_raw_text": { "type": "string" },
+        "origin": { "$ref": "#/$defs/OriginInfo" },
+        "parties": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Party" }
+        },
+        "product_standard": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "packaging_code": { "type": "string" },
+        "lot_code_rule": { "type": "string" },
+        "shelf_life": { "$ref": "#/$defs/Quantity" },
+        "storage_text": { "type": "string" },
+        "usage_text": { "type": "string" },
+        "special_indicators": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/SpecialIndicator" }
+        },
+        "claims_text": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "in_store_barcodes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["retailer", "code"],
+            "properties": {
+              "retailer": { "type": "string", "minLength": 1 },
+              "code": { "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        "translations": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/TranslatedText" }
+        }
+      }
+    },
+    "NormalizedValue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "unit", "basis"],
+      "properties": {
+        "qualifier": { "$ref": "#/$defs/Qualifier" },
+        "value": { "$ref": "#/$defs/DecimalString" },
+        "unit": { "type": "string" },
+        "basis": { "type": "string", "enum": ["reported", "derived", "regulatory_upper_bound"] }
+      }
+    },
+    "NormalizedLayer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["basis", "nutrients"],
+      "properties": {
+        "basis": { "type": "string", "enum": ["100g", "100ml"] },
+        "nutrients": {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/NormalizedValue" }
+        },
+        "per_unit": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["unit_amount", "nutrients"],
+          "properties": {
+            "unit_amount": { "$ref": "#/$defs/Quantity" },
+            "nutrients": {
+              "type": "object",
+              "additionalProperties": { "$ref": "#/$defs/NormalizedValue" }
+            }
+          }
+        },
+        "additives_ins": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "allergens": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "contains": { "type": "array", "items": { "type": "string" } },
+            "declared_contains": { "type": "array", "items": { "type": "string" } },
+            "inferred_from_ingredients": { "type": "array", "items": { "type": "string" } },
+            "may_contain": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    },
+    "QualityFlag": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "field", "detail"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "enum": [
+            "REGULATORY_ZERO_ROUNDING_ARTIFACT",
+            "DERIVED_FROM_SERVING_BASIS",
+            "CARBS_TOTAL_INCLUDES_FIBER",
+            "SODIUM_DERIVED_FROM_SALT",
+            "SALT_DERIVED_FROM_SODIUM",
+            "ENERGY_KJ_KCAL_DECLARED_MISMATCH",
+            "NRV_PCT_DECLARED_MISMATCH"
+          ]
+        },
+        "field": { "type": "string" },
+        "detail": { "type": "string" }
+      }
+    },
+    "EvidenceItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["evidence_id", "type", "reported_at"],
+      "description": "Append-only evidence entry. Adding corroborating items here does NOT increment rev.",
+      "properties": {
+        "evidence_id": { "$ref": "#/$defs/EvidenceId" },
+        "type": {
+          "type": "string",
+          "enum": [
+            "label_photo",
+            "registry_check",
+            "official_document",
+            "official_registry_import",
+            "community_report"
+          ]
+        },
+        "region": {
+          "type": "string",
+          "description": "Functional text-only label region (full front-of-pack cover artwork is prohibited).",
+          "enum": [
+            "nutrition_table",
+            "ingredients_box",
+            "allergen_statement",
+            "manufacturer_block",
+            "barcode_net_content",
+            "full_back_label",
+            "other"
+          ]
+        },
+        "cropped_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$",
+          "description": "SHA-256 of the public, EXIF-stripped cropped label image. For label_photo, evidence_id MUST equal 'sha256:' + cropped_sha256."
+        },
+        "vault_raw_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "media_ref": {
+          "type": "string"
+        },
+        "artwork_note": {
+          "type": "string"
+        },
+        "registry": { "type": "string" },
+        "query": { "type": "string" },
+        "snapshot_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "contributor": { "type": "string", "minLength": 1 },
+        "reported_at": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}(-[0-9]{2})?$",
+          "description": "Date the contributor observed or submitted this evidence. Weak existence signal; cannot re-activate stale editions."
+        },
+        "specimen_id": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]{0,63}$",
+          "description": "Optional identifier grouping multiple photos captured from the same physical specimen in one submission."
+        },
+        "vintage_month": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}$",
+          "description": "Coarse package production month (or expiry_month minus shelf_life) printed on the package. Governs active market window without leaking exact batch timestamps."
+        }
+      }
+    },
+    "LifecycleOverride": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state", "reason", "evidence_refs"],
+      "description": "Optional explicit administrative override: retracted (erroneous entry; excluded from dedup and supersedes) or discontinued (sole mechanism for a track head to exit active status). Normal active/stale/superseded statuses are derived at build time.",
+      "properties": {
+        "state": {
+          "type": "string",
+          "enum": ["retracted", "discontinued"]
+        },
+        "effective_month": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}$"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/EvidenceId" },
+          "uniqueItems": true
+        }
+      }
+    },
+    "JsonPatchOp": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["op", "path"],
+      "properties": {
+        "op": {
+          "type": "string",
+          "enum": ["add", "replace", "remove", "move", "copy", "test"]
+        },
+        "path": {
+          "type": "string",
+          "pattern": "^/(core|attributes|track|supersedes|lifecycle)(/.*)?$"
+        },
+        "from": {
+          "type": "string",
+          "pattern": "^/(core|attributes|track|supersedes|lifecycle)(/.*)?$"
+        },
+        "value": {
+          "description": "JSON value applied by add, replace, or test."
+        }
+      }
+    },
+    "RevisionEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rev", "kind", "created_at", "author", "evidence_refs", "patch"],
+      "description": "Content-only revision entry. Corroborating evidence additions do not create RevisionEntry items or increment rev. reverse_patch MUST be tool-generated for rev >= 2.",
+      "properties": {
+        "rev": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "kind": {
+          "type": "string",
+          "enum": ["initial", "enrichment", "errata", "retrack", "lifecycle"]
+        },
+        "created_at": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}(T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?(Z|[+-][0-9]{2}:[0-9]{2}))?$"
+        },
+        "author": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/EvidenceId" },
+          "uniqueItems": true
+        },
+        "patch": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/JsonPatchOp" }
+        },
+        "reverse_patch": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/JsonPatchOp" }
+        }
+      }
+    },
+    "EditionRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "opf_schema",
+        "id",
+        "edition_id",
+        "rev",
+        "track",
+        "core_fingerprint",
+        "label_fingerprint",
+        "core",
+        "attributes",
+        "normalized",
+        "quality_flags",
+        "evidence",
+        "revisions"
+      ],
+      "properties": {
+        "opf_schema": {
+          "type": "string",
+          "const": "0.2"
+        },
+        "id": {
+          "$ref": "#/$defs/ProductId"
+        },
+        "edition_id": {
+          "$ref": "#/$defs/Ulid"
+        },
+        "rev": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Current content revision number (equals the last entry's rev in revisions[]). Locks /core, /attributes, /track, /supersedes, and /lifecycle; excludes evidence[]."
+        },
+        "track": {
+          "$ref": "#/$defs/TrackKey"
+        },
+        "supersedes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Ulid" },
+          "uniqueItems": true,
+          "description": "Sorted unique Edition ULIDs in the same product that this edition explicitly replaces (supports 1:1, N:1, and 1:N)."
+        },
+        "lifecycle": {
+          "$ref": "#/$defs/LifecycleOverride"
+        },
+        "core_fingerprint": {
+          "$ref": "#/$defs/Sha256Prefixed",
+          "description": "Derived SHA-256 of canonicalized core at current rev."
+        },
+        "label_fingerprint": {
+          "$ref": "#/$defs/Sha256Prefixed",
+          "description": "Derived SHA-256 of core_fingerprint + canonicalized parties, origin, product_standard, and packaging_code at current rev."
+        },
+        "core": {
+          "$ref": "#/$defs/CoreLayer"
+        },
+        "attributes": {
+          "$ref": "#/$defs/AttributesLayer"
+        },
+        "normalized": {
+          "$ref": "#/$defs/NormalizedLayer"
+        },
+        "quality_flags": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/QualityFlag" }
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/EvidenceItem" }
+        },
+        "revisions": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/RevisionEntry" }
+        }
+      }
+    },
+    "EditionRedirect": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["opf_schema", "id", "edition_id", "merged_into"],
+      "description": "Permanent redirect stub left behind when a duplicate Edition ULID from a concurrent PR or post-errata collision is consolidated into a canonical Edition.",
+      "properties": {
+        "opf_schema": {
+          "type": "string",
+          "const": "0.2"
+        },
+        "id": {
+          "$ref": "#/$defs/ProductId"
+        },
+        "edition_id": {
+          "$ref": "#/$defs/Ulid"
+        },
+        "merged_into": {
+          "$ref": "#/$defs/Ulid",
+          "description": "Target live Edition ULID in the same product directory."
+        },
+        "merged_into_rev": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Revision number on the target Edition at which this duplicate's attributes were absorbed."
+        },
+        "merged_at": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

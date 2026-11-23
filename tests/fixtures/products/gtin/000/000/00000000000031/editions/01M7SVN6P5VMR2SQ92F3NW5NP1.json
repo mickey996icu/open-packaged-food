@@ -1,0 +1,358 @@
+{
+  "opf_schema": "0.2",
+  "id": "gtin:00000000000031",
+  "edition_id": "01M7SVN6P5VMR2SQ92F3NW5NP1",
+  "rev": 1,
+  "track": "US/default",
+  "supersedes": [],
+  "core": {
+    "regulatory_profile": "US/FDA-NLEA",
+    "net_content": [
+      {
+        "value": "280",
+        "unit": "g"
+      }
+    ],
+    "serving_size": {
+      "value": "28",
+      "unit": "g"
+    },
+    "nutrition_declared": {
+      "basis": {
+        "value": "28",
+        "unit": "g"
+      },
+      "rows": [
+        {
+          "nutrient": "energy",
+          "value": "130",
+          "unit": "kcal",
+          "nrv_pct": "7"
+        },
+        {
+          "nutrient": "protein",
+          "value": "3",
+          "unit": "g",
+          "nrv_pct": "6"
+        },
+        {
+          "nutrient": "fat_total",
+          "value": "5",
+          "unit": "g",
+          "nrv_pct": "6"
+        },
+        {
+          "nutrient": "fat_saturated",
+          "value": "1.5",
+          "unit": "g",
+          "nrv_pct": "8"
+        },
+        {
+          "nutrient": "fat_trans",
+          "value": "0",
+          "unit": "g"
+        },
+        {
+          "nutrient": "cholesterol",
+          "value": "0",
+          "unit": "mg",
+          "nrv_pct": "0"
+        },
+        {
+          "nutrient": "carbs_total",
+          "value": "20",
+          "unit": "g",
+          "nrv_pct": "7"
+        },
+        {
+          "nutrient": "sugars_total",
+          "value": "6",
+          "unit": "g"
+        },
+        {
+          "nutrient": "sugars_added",
+          "value": "5",
+          "unit": "g",
+          "nrv_pct": "10"
+        },
+        {
+          "nutrient": "dietary_fiber",
+          "value": "3",
+          "unit": "g",
+          "nrv_pct": "11"
+        },
+        {
+          "nutrient": "sodium",
+          "value": "110",
+          "unit": "mg",
+          "nrv_pct": "5"
+        }
+      ]
+    },
+    "allergens_declared": {
+      "contains": [
+        "gluten_cereals"
+      ],
+      "may_contain": []
+    },
+    "ingredients_tree": [
+      {
+        "lang": "en",
+        "nodes": [
+          {
+            "name": "Whole grain rolled oats",
+            "allergens": [
+              "gluten_cereals"
+            ]
+          },
+          {
+            "name": "Cane sugar"
+          },
+          {
+            "name": "Sunflower oil"
+          },
+          {
+            "name": "Sea salt"
+          }
+        ]
+      }
+    ]
+  },
+  "attributes": {
+    "product_name": [
+      {
+        "lang": "en",
+        "text": "Rolled Oat Crunch"
+      }
+    ],
+    "brand": "Acme TestFoods",
+    "serving_size_label": "1 cup (28g)",
+    "ingredients_text": [
+      {
+        "lang": "en",
+        "text": "Ingredients: Whole grain rolled oats, Cane sugar, Sunflower oil, Sea salt."
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "type": "official_registry_import",
+      "registry": "US/USDA-FDC",
+      "query": "FDC-DEMO-0001",
+      "reported_at": "2026-01-15",
+      "vintage_month": "2026-01",
+      "evidence_id": "ev:01M7SVN6P3J7ARV0ZQWR1EP8SQ"
+    }
+  ],
+  "revisions": [
+    {
+      "rev": 1,
+      "kind": "initial",
+      "created_at": "2026-11-19T12:14:15Z",
+      "author": "opf:cli",
+      "evidence_refs": [
+        "ev:01M7SVN6P3J7ARV0ZQWR1EP8SQ"
+      ],
+      "patch": []
+    }
+  ],
+  "normalized": {
+    "basis": "100g",
+    "nutrients": {
+      "energy_kcal": {
+        "value": "464.3",
+        "unit": "kcal",
+        "basis": "derived"
+      },
+      "protein": {
+        "value": "10.7",
+        "unit": "g",
+        "basis": "derived"
+      },
+      "fat_total": {
+        "value": "17.9",
+        "unit": "g",
+        "basis": "derived"
+      },
+      "fat_saturated": {
+        "value": "5.4",
+        "unit": "g",
+        "basis": "derived"
+      },
+      "fat_trans": {
+        "qualifier": "<",
+        "value": "1.79",
+        "unit": "g",
+        "basis": "regulatory_upper_bound"
+      },
+      "cholesterol": {
+        "qualifier": "<",
+        "value": "7.14",
+        "unit": "mg",
+        "basis": "regulatory_upper_bound"
+      },
+      "carbs_total": {
+        "value": "71.4",
+        "unit": "g",
+        "basis": "derived"
+      },
+      "sugars_total": {
+        "value": "21.4",
+        "unit": "g",
+        "basis": "derived"
+      },
+      "sugars_added": {
+        "value": "17.9",
+        "unit": "g",
+        "basis": "derived"
+      },
+      "dietary_fiber": {
+        "value": "10.7",
+        "unit": "g",
+        "basis": "derived"
+      },
+      "sodium": {
+        "value": "392.9",
+        "unit": "mg",
+        "basis": "derived"
+      },
+      "energy_kj": {
+        "value": "1942.6",
+        "unit": "kJ",
+        "basis": "derived"
+      },
+      "salt_equivalent": {
+        "value": "0.98",
+        "unit": "g",
+        "basis": "derived"
+      },
+      "carbs_available": {
+        "value": "60.7",
+        "unit": "g",
+        "basis": "derived"
+      }
+    },
+    "additives_ins": [],
+    "allergens": {
+      "contains": [
+        "gluten_cereals"
+      ],
+      "declared_contains": [
+        "gluten_cereals"
+      ],
+      "inferred_from_ingredients": [
+        "gluten_cereals"
+      ],
+      "may_contain": []
+    },
+    "per_unit": {
+      "unit_amount": {
+        "value": "28",
+        "unit": "g"
+      },
+      "nutrients": {
+        "energy_kcal": {
+          "value": "130",
+          "unit": "kcal",
+          "basis": "derived"
+        },
+        "protein": {
+          "value": "3",
+          "unit": "g",
+          "basis": "derived"
+        },
+        "fat_total": {
+          "value": "5",
+          "unit": "g",
+          "basis": "derived"
+        },
+        "fat_saturated": {
+          "value": "1.5",
+          "unit": "g",
+          "basis": "derived"
+        },
+        "fat_trans": {
+          "value": "0.5",
+          "unit": "g",
+          "basis": "regulatory_upper_bound",
+          "qualifier": "<"
+        },
+        "cholesterol": {
+          "value": "2",
+          "unit": "mg",
+          "basis": "regulatory_upper_bound",
+          "qualifier": "<"
+        },
+        "carbs_total": {
+          "value": "20",
+          "unit": "g",
+          "basis": "derived"
+        },
+        "sugars_total": {
+          "value": "6",
+          "unit": "g",
+          "basis": "derived"
+        },
+        "sugars_added": {
+          "value": "5",
+          "unit": "g",
+          "basis": "derived"
+        },
+        "dietary_fiber": {
+          "value": "3",
+          "unit": "g",
+          "basis": "derived"
+        },
+        "sodium": {
+          "value": "110",
+          "unit": "mg",
+          "basis": "derived"
+        },
+        "energy_kj": {
+          "value": "543.9",
+          "unit": "kJ",
+          "basis": "derived"
+        },
+        "salt_equivalent": {
+          "value": "0.27",
+          "unit": "g",
+          "basis": "derived"
+        },
+        "carbs_available": {
+          "value": "17",
+          "unit": "g",
+          "basis": "derived"
+        }
+      }
+    }
+  },
+  "quality_flags": [
+    {
+      "code": "DERIVED_FROM_SERVING_BASIS",
+      "field": "nutrition_declared.basis",
+      "detail": "Normalized to 100g from declared basis 28g"
+    },
+    {
+      "code": "REGULATORY_ZERO_ROUNDING_ARTIFACT",
+      "field": "fat_trans",
+      "detail": "Declared 0 g per 28g under US/FDA-NLEA implies <0.5 g/serving (<1.79 g/100g)"
+    },
+    {
+      "code": "REGULATORY_ZERO_ROUNDING_ARTIFACT",
+      "field": "cholesterol",
+      "detail": "Declared 0 mg per 28g under US/FDA-NLEA implies <2 mg/serving (<7.14 mg/100g)"
+    },
+    {
+      "code": "SALT_DERIVED_FROM_SODIUM",
+      "field": "salt_equivalent",
+      "detail": "Derived from sodium using ratio 2.5"
+    },
+    {
+      "code": "CARBS_TOTAL_INCLUDES_FIBER",
+      "field": "carbs_total",
+      "detail": "US/FDA-NLEA declares total carbohydrates including dietary fiber"
+    }
+  ],
+  "core_fingerprint": "sha256:b8bedbd4f295cac857fe5706179f5abaedbb12f934b7aa17e28d461b2be064a7",
+  "label_fingerprint": "sha256:a544cfb2183e864e8fdd7ae819f2efbab54e409be24afd247d967ae789ceec67"
+}
