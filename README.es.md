@@ -1,40 +1,120 @@
-# OpenPackagedFood (`open-packaged-food` / CLI: `opf`)
+# OpenPackagedFood (`opf`)
 
-**[English](README.md) | [简体中文](README.zh-CN.md) | [日本語](README.ja.md) | [Deutsch](README.de.md) | [Français](README.fr.md) | [Español](README.es.md) | [Italiano](README.it.md)** · **[Contributing](CONTRIBUTING.md) | [贡献指南](CONTRIBUTING.zh-CN.md)** · **[Especificación (`v0.2`)](spec/SPEC.md)** · **[Diseño UI (`DESIGN.md`)](docs/DESIGN.md)**
+**[English](README.md) | [简体中文](README.zh-CN.md) | [日本語](README.ja.md) | [Deutsch](README.de.md) | [Français](README.fr.md) | [Español](README.es.md) | [Italiano](README.it.md)** · **[Contribuir](CONTRIBUTING.md)** · **[Especificación](spec/SPEC.md)** · **[Diseño](docs/DESIGN.md)**
 
-> **🌐 Explorador Web y API estática**: [https://mickey996icu.github.io/opf-data/](https://mickey996icu.github.io/opf-data/)
+> 🌐 **Consulta web y escáner local**: [https://mickey996icu.github.io/opf-data/](https://mickey996icu.github.io/opf-data/)
 >
-> **📦 Base de datos (`opf-data`)**: [mickey996icu/opf-data](https://github.com/mickey996icu/opf-data) · **🖼️ Imágenes de etiquetas (`opf-media`)**: [mickey996icu/opf-media](https://github.com/mickey996icu/opf-media) · **🧰 Herramientas y Skill IA**: [mickey996icu/open-packaged-food](https://github.com/mickey996icu/open-packaged-food)
+> 📦 **Datos**: [mickey996icu/opf-data](https://github.com/mickey996icu/opf-data) · 🖼️ **Imágenes**: [mickey996icu/opf-media](https://github.com/mickey996icu/opf-media) · 🧰 **Herramientas y Skill**: [mickey996icu/open-packaged-food](https://github.com/mickey996icu/open-packaged-food)
 
-**Conjunto de herramientas abiertas para alimentos envasados industriales basado en evidencia y libre de juicios subjetivos (`opf` v0.2): especificación formal, validador en Python 3.12 sin dependencias de ejecución, generador de API estática `/v1/` y Skill para Agentes de IA.**
+Quien haya programado una aplicación de nutrición o pedido a una IA que lea el reverso de un paquete habrá tropezado casi siempre con los mismos escollos silenciosos.
 
----
+El envase dice «0 g de grasas trans» y el modelo afirma sin dudar que está limpio, pasando por alto que las normas de EE. UU. permiten redondear a cero cualquier cantidad inferior a 0,5 g por ración, igual que otras normativas permiten imprimir 0 para trazas de sodio. Al leer listas largas de ingredientes, también es común que la IA omita algún aditivo o añada palabras que no estaban en la etiqueta. Y en el estante del supermercado la realidad se complica: dos botellas con idéntico código de barras pueden venir de fábricas distintas, o mezclar una receta antigua alta en azúcar con otra nueva reducida. Por comodidad, casi todas las bases de datos sobrescriben una con otra o calculan un promedio.
 
-## Características principales
+Cuando se trata de evitar alérgenos, planificar nutrición clínica o llevar cuentas serias de lo que se come, un «más o menos» no sirve.
 
-- **Fidelidad al etiquetado y cotas reglamentarias (`<`)**: Separa explícitamente los valores declarados, las conversiones deterministas por `100g`/`100ml` (`ƒ`) y los límites de redondeo legal a cero (`< regulatory_upper_bound`).
-- **Árbol de ingredientes verificado sin pérdidas**: Alineación monótona entre `core.ingredients_tree` y `attributes.ingredients_text`, con soporte de clases funcionales, alérgenos y números E / INS (p. ej. `Emulgente: lecitinas (soja)`).
-- **4 jurisdicciones y 7 idiomas**: `CN` (`zh-Hans` / `zh-CN`), `US` (`en`), `JP` (`ja`) y `EU` (`en`, `de`, `fr`, `es`, `it`).
-- **Privacidad y solo recortes funcionales**: Solo se admiten recortes de áreas textuales funcionales (7 valores `region`) en WebP sin metadatos EXIF/XMP (`<= 1000px`); quedan prohibidas las portadas frontales completas (`front_of_pack`), precios o fechas exactas de compra/caducidad.
-
-- **Escáner estático en el navegador**: Lectura local mediante cámara trasera, foto local o entrada manual (`BarcodeDetector` + dígito de control GS1 Mod-10) sin subir imágenes ni consultar APIs externas.
+Empecé **OpenPackagedFood (OPF)** por un motivo sencillo: poner en claro esas cuentas confusas. OPF no reparte notas ni semáforos de salud; decidir qué es sano corresponde a quien come y a su médico. Solo pretendo anotar lo que está impreso letra por letra en el envase, para que programas y asistentes de IA trabajen sobre hechos firmes.
 
 ---
 
-## Inicio rápido (Fase 1: flujo Git puro para desarrolladores)
+## Cuatro reglas sencillas
 
-> El explorador web ofrece consulta de solo lectura y escaneo local para usuarios finales; el envío mediante Agentes abrirá en la Fase 2 (`OPF_SUBMIT_URL`). La Fase 1 admite únicamente contribuciones de desarrolladores por Git puro:
+- **Un «0» impreso no equivale a un cero matemático**
+  Los valores redondeados a cero por norma legal se guardan como límites superiores (`<`), sin confundirse nunca con ausencia real. Todas las conversiones a 100 g o 100 ml se calculan con exactitud.
+- **Los ingredientes se comprueban carácter por carácter**
+  Los ingredientes analizados deben reconstruirse exactamente en el mismo orden que el texto original del paquete. Si falta una letra o sobra un signo de puntuación, la validación rechaza el registro sin dar pie a suposiciones de la IA.
+- **Mismo código de barras, distintas plantas o recetas van por separado**
+  Cuando varias fábricas o cambios de fórmula comparten código, cada variante conserva su propio historial sin pisarse. Si las versiones en venta difieren de verdad, la API omite los valores generales y pide mirar un momento la etiqueta del envase en mano en vez de dar un promedio engañoso.
+- **Datos, imágenes y herramientas en repositorios separados, servidos en estático**
+  Los JSON de producto, los recortes de texto de etiquetas y las herramientas CLI viven en tres repositorios Git distintos y se publican en GitHub Pages. Un script o agente de IA solo necesita una petición HTTP normal: sin claves de API ni servidor que mantener.
+
+---
+
+## Cómo empezar
+
+### 1. Escanear en el supermercado
+
+Abra el **[explorador web](https://mickey996icu.github.io/opf-data/)**, apunte la cámara trasera hacia el código de barras o elija una foto de su galería. La lectura se realiza íntegramente en su navegador (usando `BarcodeDetector` nativo si está disponible y cambiando automáticamente al decodificador sin conexión `ZXing` incluido en el resto de navegadores): no se suben fotos ni se consultan servicios externos.
+
+Si cuida alergias o nutrientes concretos, los filtros superiores permiten filtrar por mercado, excluir por separado alérgenos confirmados y posibles trazas, descartar aditivos por código o fijar umbrales por cada 100 g/100 ml.
+
+### 2. Añadir la Skill a su asistente de IA
+
+Enlace `skills/opf` en la carpeta de skills de su asistente. Al preguntarle por la foto de un alimento, consultará primero los registros estáticos `/v1/`; si el producto aún no figura, leerá directamente la imagen para responder con objetividad sin insistir en que envíe datos.
 
 ```bash
-git clone https://github.com/mickey996icu/open-packaged-food.git
-git clone https://github.com/mickey996icu/opf-data.git
-git clone https://github.com/mickey996icu/opf-media.git
+git clone https://github.com/mickey996icu/open-packaged-food.git ~/src/open-packaged-food
 
-./open-packaged-food/bin/opf submit --input draft.json --out-dir opf-data/products \
-  --photo nutrition_table=crop_nutrition.jpg --photo ingredients_box=crop_ingredients.jpg \
-  --vintage-month 2026-08 --media-out-dir opf-media
-./open-packaged-food/bin/opf validate opf-data/products
+# Elija la ruta de su herramienta
+mkdir -p .agents/skills && ln -s ~/src/open-packaged-food/skills/opf .agents/skills/opf
+mkdir -p ~/.claude/skills && ln -s ~/src/open-packaged-food/skills/opf ~/.claude/skills/opf
+mkdir -p ~/.codex/skills && ln -s ~/src/open-packaged-food/skills/opf ~/.codex/skills/opf
+mkdir -p ~/.gemini/config/skills && ln -s ~/src/open-packaged-food/skills/opf ~/.gemini/config/skills/opf
 ```
 
-- Haz `git commit -s` y `git push` en ambos repositorios y **fusione primero la PR de `opf-media`**, después la PR de `opf-data` (`opf check-media-refs`).
-- **Automatización opcional (`uvx` + `gh`)**: `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.1 opf pr ...` sigue disponible como atajo opcional. Más detalles en [README.md](README.md) y [CONTRIBUTING.md](CONTRIBUTING.md).
+### 3. Hacer una foto y abrir un PR
+
+Tanto la validación como la compilación del sitio usan solo la biblioteca estándar de Python (`Pillow` únicamente se carga al limpiar y comprimir imágenes WebP localmente).
+
+```bash
+# 1. Eliminar metadatos EXIF, recortar en WebP y generar el JSON normalizado
+./open-packaged-food/bin/opf submit \
+  --input draft.json \
+  --out-dir opf-data/products \
+  --photo nutrition_table=crop_nutrition.jpg \
+  --photo ingredients_box=crop_ingredients.jpg \
+  --vintage-month 2026-08 \
+  --media-out-dir opf-media
+
+# 2. Validar localmente datos, imágenes y referencias cruzadas
+./open-packaged-food/bin/opf validate opf-data/products
+./open-packaged-food/bin/opf validate-media opf-media
+./open-packaged-food/bin/opf check-media-refs --media-dir opf-media opf-data/products
+```
+
+Suba una rama y abra PRs en `opf-media` y `opf-data` (o use `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.1 opf pr ...` si ya tiene `uvx` y `gh`). Respete el orden: **fusione primero el PR de `opf-media` y después el de `opf-data`**, para que la CI encuentre las imágenes ya en `main`.
+
+Dos límites que no cruzamos:
+- **Envíe solo recortes de texto informativo** (tabla nutricional, ingredientes, fabricante, código de barras), nunca el diseño completo frontal del envase;
+- **Indique fechas solo por mes (`YYYY-MM`)**, sin incluir fechas exactas de fabricación, caducidad, tickets de compra ni números de lote.
+
+---
+
+## Cómo colaboran los tres repositorios
+
+```text
+  Consulta: Usuario / IA ──(HTTP GET)──▶ API estática y buscador en GitHub Pages (/v1/, /)
+                                                    ▲
+                                                    │ compilación y despliegue automático
+  Envío:    opf submit ──▶ opf-media (WebP recortados) ──(① fusionar primero)──▶ opf-data (JSON)
+```
+
+<details>
+<summary>Estructura del repositorio y vista previa local</summary>
+
+```text
+open-packaged-food/
+├── bin/opf                    # Punto de entrada CLI
+├── opf/                       # Validación, cotejo de ingredientes, conversiones, limpieza de imagen y build
+├── web/                       # Explorador en 7 idiomas, escáner sin conexión y filtros
+├── spec/                      # Especificación y esquemas JSON
+├── docs/DESIGN.md             # Convenciones de interfaz y presentación de datos
+├── profiles/ & dictionaries/  # Reglas CN/US/EU/JP y diccionarios de nutrientes, aditivos y alérgenos
+├── skills/opf/                # Agent Skill listo para usar y plantilla mínima
+└── tests/                     # Pruebas unitarias y de integración
+```
+
+```bash
+cd open-packaged-food
+python3 -m unittest discover -s tests -v
+./bin/opf serve --data-dir ../opf-data/products
+```
+
+</details>
+
+---
+
+## Licencias
+
+- **Herramientas y explorador web (`opf/`, `bin/`, `web/`, `.github/`)**: [AGPL-3.0-or-later](LICENSE)
+- **Base de datos y JSON de productos (`opf-data`)**: [ODbL-1.0](LICENSE-DATA) / `DbCL-1.0`
+- **Recortes de etiquetas (`opf-media`)**: [CC-BY-SA-4.0](LICENSE-MEDIA)
