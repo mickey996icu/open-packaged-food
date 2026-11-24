@@ -164,8 +164,17 @@ let currentFull = null;
 let selectedEditionId = null;
 let redirectedFromId = null;
 
-async function getJSON(p) {
-  const r = await fetch(rel(p));
+function withDataRev(p) {
+  const base = rel(p);
+  const ver = META && (META.opf_data_commit || META.generated_at);
+  if (!ver || !base.startsWith("v1/") || base === "v1/meta.json" || base.includes("?")) {
+    return base;
+  }
+  return `${base}?v=${encodeURIComponent(ver)}`;
+}
+
+async function getJSON(p, init) {
+  const r = await fetch(withDataRev(p), init);
   if (!r.ok) throw new Error(`${r.status} ${p}`);
   return r.json();
 }
@@ -1331,12 +1340,14 @@ async function init() {
   applyStaticChrome();
   initControls();
   try {
-    META = await getJSON("v1/meta.json");
+    META = await getJSON("v1/meta.json", { cache: "no-cache" });
     const schemaFooter = $("#footer-schema");
     if (schemaFooter && META.opf_schema) {
       schemaFooter.textContent = `OpenPackagedFood Schema v${META.opf_schema}`;
     }
-    const text = await (await fetch("v1/index/catalog.jsonl")).text();
+    const catResp = await fetch(withDataRev("v1/index/catalog.jsonl"));
+    if (!catResp.ok) throw new Error(`${catResp.status} v1/index/catalog.jsonl`);
+    const text = await catResp.text();
     CATALOG = text.split("\n").filter(Boolean).map((l) => JSON.parse(l));
     renderStats(META);
     renderWorkbenchControls();

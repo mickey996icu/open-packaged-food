@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -26,6 +28,15 @@ jobs:
 
       - name: Check CLI version (pure stdlib)
         run: ./bin/opf --version
+
+      - name: Validate PR metadata & DCO sign-off
+        if: github.event_name == 'pull_request'
+        run: |
+          ./bin/opf check-pr-meta \
+            --repo-kind tooling \
+            --event-path "$GITHUB_EVENT_PATH" \
+            --repo-dir . \
+            --base-ref "origin/${{ github.base_ref }}"
 
       - name: Run pure-stdlib unit test suite (no Pillow)
         run: python3 -m unittest discover -s tests -v

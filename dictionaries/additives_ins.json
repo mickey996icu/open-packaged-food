@@ -238,6 +238,49 @@
         ]
       }
     },
+    "160c": {
+      "ins": "160c",
+      "e_number": "E160c",
+      "cn_cns": "08.103",
+      "functional_classes": [
+        "colour"
+      ],
+      "names": {
+        "zh-Hans": [
+          "辣椒红",
+          "辣椒油树脂"
+        ],
+        "en": [
+          "Paprika extract",
+          "Capsanthin",
+          "Capsorubin"
+        ],
+        "ja": [
+          "パプリカ色素",
+          "トウガラシ色素"
+        ],
+        "de": [
+          "Paprikaextrakt",
+          "Capsanthin",
+          "Capsorubin"
+        ],
+        "fr": [
+          "Extrait de paprika",
+          "Capsanthine",
+          "Capsorubine"
+        ],
+        "es": [
+          "Extracto de pimentón",
+          "Capsantina",
+          "Capsorrubina"
+        ],
+        "it": [
+          "Estratto di paprica",
+          "Capsantina",
+          "Capsorubina"
+        ]
+      }
+    },
     "200": {
       "ins": "200",
       "e_number": "E200",

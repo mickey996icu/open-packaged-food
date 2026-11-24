@@ -91,6 +91,8 @@ If OPF returns HTTP `404` (or the user's product is not yet indexed):
 ## Step 3 — Submission Channels (Only When Triggered & After Explicit User Consent)
 
 Start from the minimal `v0.2` draft template [examples/draft.minimal.json](./examples/draft.minimal.json) when building the structured payload (`id`, `core`, `attributes`, `evidence`):
+- **Regulatory Profile Precision (`CN/GB28050-2011` vs `CN/GB28050-2025`)**: Do **not** blindly copy `CN/GB28050-2011` from the minimal template. On China Mainland labels, if the Nutrition Facts table uses the **1+6 mandatory framework** (declaring both **saturated fat (`饱和脂肪`)** and **sugars (`糖`)**) or prints the mandatory warning **`儿童青少年应避免过量摄入盐油糖`**, set `core.regulatory_profile` to **`"CN/GB28050-2025"`**; use `"CN/GB28050-2011"` only for legacy 1+4 tables.
+- **Strictly Evidenced Cropped Text Only (Zero Un-Evidenced Claims)**: Every recorded field (especially `attributes.claims_text`, `brand`, and `net_content_label`) **must appear verbatim inside the submitted functional label crops**. Never copy marketing slogans from un-uploaded front-of-pack cover art, and never infer or calculate claims (e.g., do not invent `"加量10%"` from `(20+2)克` unless those exact characters appear in a submitted crop).
 - **Multilingual `attributes` & EU Multi-Language Pack Rule**: `attributes.product_name` and `attributes.ingredients_text` are BCP-47 `LocalizedText[]` arrays preserving every language printed verbatim on the package. On multi-language EU labels (e.g., printed in `de`, `fr`, `es`, `it`, and `en`), capture each printed language verbatim as separate entries in `attributes.product_name[]`, `attributes.ingredients_text[]`, and `core.ingredients_tree[]`, whereas non-printed contributor translations (such as translated `"brand"` or `"product_name"` search aliases) belong in `attributes.translations[]` with `"source": "contributor_translated"`.
 
 ### 3.1 Privacy & Authenticity Guard (Non-Negotiable)
@@ -147,17 +149,17 @@ Pick the active submission path cleanly:
      ./open-packaged-food/bin/opf validate-media opf-media
      ./open-packaged-food/bin/opf check-media-refs --media-dir opf-media opf-data/products
      ```
-  4. Commit with DCO (`git commit -s`) and push branches in **both** repositories, then click the terminal's GitHub PR creation links:
+  4. Commit with DCO (`git commit -s`), push branches in **both** repositories, and open **cross-linked PRs with complete, non-empty descriptions** (when `gh` CLI is authenticated, prefer `./open-packaged-food/bin/opf pr --data-repo opf-data --media-repo opf-media ...` so both PR descriptions are generated and cross-linked automatically; if calling `gh pr create` manually: ① open the `opf-media` PR first with a non-empty description citing the `gtin:` ID and capture its real URL; ② open the `opf-data` PR pasting that exact `opf-media` PR URL; ③ run `gh pr edit` on the `opf-media` PR to backfill the `opf-data` PR URL — **never submit an empty PR description or leave unresolved placeholders like `<MEDIA_PR_URL>` or `填上...链接`, as CI `opf check-pr-meta` rejects them**):
      ```bash
      git -C opf-media switch -c contrib/media-label && git -C opf-media add -A && git -C opf-media commit -s -m "media(label): add cropped label evidence" && git -C opf-media push -u origin HEAD
      git -C opf-data switch -c contrib/product-record && git -C opf-data add -A && git -C opf-data commit -s -m "feat(product): add packaged food record" && git -C opf-data push -u origin HEAD
      ```
-  5. **Strict Dual-PR Merge Order**: Always merge the **`opf-media` PR FIRST**, and then merge the **`opf-data` PR SECOND** so `opf-data` CI (`opf check-media-refs`) verifies the WebP blobs exist on `opf-media/main`.
+  5. **Strict Dual-PR Merge Order**: Always merge the **`opf-media` PR FIRST**, and then merge (or re-run CI and merge) the **`opf-data` PR SECOND** so `opf-data` CI (`opf check-media-refs`) verifies the WebP blobs exist on `opf-media/main`.
 
 - **Optional One-Step Automation (`uvx` + `gh` CLI)**:
   Developers who already have `uvx` and an authenticated `gh` session (`gh auth status`) may optionally use `opf pr` instead of manual `git` branching/pushing:
   ```bash
-  uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.1 \
+  uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.2 \
     opf pr --input draft.json \
     --photo nutrition_table=crop_nutrition.jpg \
     --photo ingredients_box=crop_ingredients.jpg \
@@ -180,4 +182,5 @@ When working inside local checkouts (`./open-packaged-food/bin/opf` or via `uvx`
 - `opf validate opf-data/products` — schema v0.2, GS1, DAG, patch replay, and privacy checks (pure stdlib)
 - `opf validate-media opf-media` — pure-stdlib WebP dimension/EXIF/SHA-256 verification
 - `opf check-media-refs --media-base-url https://raw.githubusercontent.com/mickey996icu/opf-media/main opf-data/products` — CI gate preventing orphan `opf-media://` refs
+- `opf check-pr-meta --repo-kind {tooling,data,media} ...` — CI gate verifying non-empty PR descriptions, resolved companion PR links, file scope, and DCO sign-offs
 - `opf build --data-dir ... --out-dir ... --media-base-url ...` & `opf serve` — compile and preview static `/v1/` + Explorer
