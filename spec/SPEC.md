@@ -1,6 +1,6 @@
 # OpenPackagedFood Specification (v0.2)
 
-> **Status**: Draft M0 | **Schema Version**: `0.2` | **CI Tooling Pin**: `v0.2.1` | **License**: Code AGPL-3.0-or-later, Data ODbL-1.0, Label Media CC-BY-SA-4.0
+> **Status**: Draft M0 | **Schema Version**: `0.2` | **CI Tooling Pin**: `v0.2.2` | **License**: Code AGPL-3.0-or-later, Data ODbL-1.0, Label Media CC-BY-SA-4.0
 
 ## 1. Scope & Core Principles
 

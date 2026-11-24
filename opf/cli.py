@@ -55,6 +55,7 @@ from opf.patches import (
     extract_patchable_surface,
     invert_patch,
 )
+from opf.pr_check import register_pr_check_subparser
 from opf.validator import (
     FORBIDDEN_BATCH_KEYS,
     load_json_schema,
@@ -2634,6 +2635,8 @@ def main(argv: list[str] | None = None) -> int:
     p_serve.add_argument("--host", default="127.0.0.1", help="Bind host (default: 127.0.0.1)")
     p_serve.add_argument("--port", type=int, default=8765, help="Bind port (default: 8765)")
     p_serve.set_defaults(func=cmd_serve)
+
+    register_pr_check_subparser(sub)
 
     args = parser.parse_args(argv)
     return args.func(args)
