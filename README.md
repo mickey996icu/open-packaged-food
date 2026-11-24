@@ -58,7 +58,7 @@ Industrial packaged food labels look structured on paper, yet break down quickly
                                                         └─────────────────────────────────────────────────────────┘
 ```
 
-> [`mickey996icu/open-packaged-food`](https://github.com/mickey996icu/open-packaged-food) is checked out at pinned release `v0.2.0` across all CI workflows and runs `validate`, `validate-media`, `check-media-refs`, and `build` using **pure Python 3.12 stdlib** (`Pillow` is lazy-imported only for local WebP label transcoding).
+> [`mickey996icu/open-packaged-food`](https://github.com/mickey996icu/open-packaged-food) is checked out at pinned release `v0.2.1` across all CI workflows and runs `validate`, `validate-media`, `check-media-refs`, and `build` using **pure Python 3.12 stdlib** (`Pillow` is lazy-imported only for local WebP label transcoding).
 
 ---
 
@@ -68,7 +68,7 @@ Industrial packaged food labels look structured on paper, yet break down quickly
 
 Visit **[https://mickey996icu.github.io/opf-data/](https://mickey996icu.github.io/opf-data/)** (read-only 7-language explorer, Light & Dark Material 3 themes):
 
-- **Pure-Static Barcode & QR Scanner**: Scan via rear camera, local photo, or manual entry using native `BarcodeDetector` and GS1 Mod-10 check-digit verification—zero image uploads and zero external lookup APIs;
+- **Pure-Static Barcode & QR Scanner**: Scan via rear camera, local photo, or manual entry using native `BarcodeDetector` with bundled offline `ZXing` fallback and GS1 Mod-10 check-digit verification—zero image uploads and zero external lookup APIs;
 - **3-Column Filter Workbench**: Multi-select markets (`CN`, `US`, `EU`, `JP`, etc.), compact resolution modes, evidence seals, regulatory profiles, namespaces (`gtin` / `opf`), and brands;
 - **Multi-Select Safety Allergen Exclusion**: Safely excludes products declaring either definite ingredients (`contains`) or cross-contact warnings (`may_contain`);
 - **Ingredient & Additive (INS / E-number) Tags + Zero-Additive Shortcut**: Filter by required or excluded ingredient terms and additive codes;
@@ -123,7 +123,7 @@ git -C opf-data switch -c contrib/product-record && git -C opf-data add -A && gi
 **Optional One-Step Automation (`uvx` + `gh`)**: Developers with `uvx` and authenticated `gh` may optionally use `opf pr` instead of manual git branching/pushing:
 
 ```bash
-uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.0 \
+uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.1 \
   opf pr --input draft.json \
   --photo nutrition_table=crop_nutrition.jpg \
   --photo ingredients_box=crop_ingredients.jpg \

@@ -157,7 +157,7 @@ Pick the active submission path cleanly:
 - **Optional One-Step Automation (`uvx` + `gh` CLI)**:
   Developers who already have `uvx` and an authenticated `gh` session (`gh auth status`) may optionally use `opf pr` instead of manual `git` branching/pushing:
   ```bash
-  uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.0 \
+  uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.1 \
     opf pr --input draft.json \
     --photo nutrition_table=crop_nutrition.jpg \
     --photo ingredients_box=crop_ingredients.jpg \

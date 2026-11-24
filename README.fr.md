@@ -37,4 +37,4 @@ git clone https://github.com/mickey996icu/opf-media.git
 ```
 
 - Poussez les deux branches (`git commit -s` puis `git push`) et **fusionnez toujours la PR `opf-media` EN PREMIER**, puis la PR `opf-data` (`opf check-media-refs`).
-- **Automatisation optionnelle (`uvx` + `gh`)** : `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.0 opf pr ...` reste disponible en raccourci optionnel. Détails dans [README.md](README.md) et [CONTRIBUTING.md](CONTRIBUTING.md).
+- **Automatisation optionnelle (`uvx` + `gh`)** : `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.1 opf pr ...` reste disponible en raccourci optionnel. Détails dans [README.md](README.md) et [CONTRIBUTING.md](CONTRIBUTING.md).

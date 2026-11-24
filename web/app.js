@@ -1049,7 +1049,8 @@ function initControls() {
       }
       await ensureLocaleLoaded(LANG);
       applyStaticChrome();
-      updateScannerChromeText();
+      const sc = getScannerController();
+      if (sc) sc.updateChromeText();
       if (META) renderStats(META);
       renderWorkbenchControls();
       renderList(false);
@@ -1289,7 +1290,8 @@ function initControls() {
     const scanModal = $("#scan-modal");
     if (e.key === "Escape" && scanModal && !scanModal.hidden) {
       e.preventDefault();
-      closeScannerModal();
+      const sc = getScannerController();
+      if (sc) sc.closeModal();
       return;
     }
     if (scanModal && !scanModal.hidden) return;
@@ -1320,7 +1322,8 @@ function initControls() {
     if (item) selectCard(item, true, null);
   });
 
-  initScannerControls();
+  const sc = getScannerController();
+  if (sc) sc.init();
 }
 
 async function init() {
@@ -2320,511 +2323,32 @@ function bindDetailEvents(item, compact, full, views) {
   };
 }
 
-// Pure-static barcode & QR parser (GS1 Mod-10 validation + OPF routing)
-const BARCODE_FORMATS = [
-  "ean_13",
-  "ean_8",
-  "upc_a",
-  "upc_e",
-  "code_128",
-  "qr_code",
-  "data_matrix",
-];
-const OPF_ID_RE = /^opf:([a-z0-9]+(?:-[a-z0-9]+)*)\/([a-z0-9]+(?:-[a-z0-9]+)*)\/([a-z0-9]+(?:-[a-z0-9]+)*)$/i;
-const GTIN_LENGTHS = new Set([8, 12, 13, 14]);
-
-function isValidGs1CheckDigit(digits) {
-  if (typeof digits !== "string" || !/^\d+$/.test(digits) || !GTIN_LENGTHS.has(digits.length)) {
-    return false;
-  }
-  if (/^0+$/.test(digits)) return false;
-  const body = digits.slice(0, -1);
-  const check = Number(digits[digits.length - 1]);
-  let total = 0;
-  for (let i = 0; i < body.length; i += 1) {
-    total += Number(body[body.length - 1 - i]) * (i % 2 === 0 ? 3 : 1);
-  }
-  return check === (10 - (total % 10)) % 10;
-}
-
-function buildGtinApiPath(gtin14) {
-  return `v1/gtin/${gtin14.slice(1, 4)}/${gtin14.slice(4, 7)}/${gtin14}.json`;
-}
-
-function buildOpfApiPath(opfId) {
-  const m = OPF_ID_RE.exec(opfId);
-  if (!m) return null;
-  return `v1/opf/${m[1].toLowerCase()}/${m[2].toLowerCase()}/${m[3].toLowerCase()}.json`;
-}
-
-function classifyGtinCandidate(digits, rawText) {
-  if (!isValidGs1CheckDigit(digits)) {
-    return { kind: "invalid_gtin", raw: rawText, digits, valid: false };
-  }
-  const gtin14 = digits.padStart(14, "0");
-  return {
-    kind: "gtin",
-    raw: rawText,
-    digits,
-    gtin14,
-    id: `gtin:${gtin14}`,
-    apiPath: buildGtinApiPath(gtin14),
-    valid: true,
-  };
-}
-
-function extractOpfFromUrl(url) {
-  const cleanPath = url.pathname.replace(/\.(?:full\.)?json$/i, "");
-  const m = /\/v1\/opf\/([a-z0-9-]+)\/([a-z0-9-]+)\/([a-z0-9-]+)$/i.exec(cleanPath);
-  if (!m) return null;
-  const id = `opf:${m[1].toLowerCase()}/${m[2].toLowerCase()}/${m[3].toLowerCase()}`;
-  return OPF_ID_RE.test(id) ? id : null;
-}
-
-function extractDigitsFromUrl(url) {
-  const dlMatch = /(?:^|\/)01\/(\d{8,14})(?:\/|$)/.exec(url.pathname);
-  if (dlMatch) return dlMatch[1];
-
-  const paramNames = ["gtin", "ean", "barcode", "code"];
-  for (const [k, v] of url.searchParams.entries()) {
-    if (!paramNames.includes(k.toLowerCase())) continue;
-    const cleaned = v.trim().replace(/^gtin:/i, "");
-    if (/^\d{8,14}$/.test(cleaned)) return cleaned;
-  }
-
-  const segments = url.pathname.split("/").filter(Boolean);
-  for (let i = segments.length - 1; i >= 0; i -= 1) {
-    const seg = segments[i].replace(/\.(?:full\.)?json$/i, "");
-    if (/^\d{8,14}$/.test(seg)) return seg;
-  }
-  return null;
-}
-
-function parseScannedCode(rawText) {
-  const text = String(rawText ?? "").trim();
-  if (!text) return { kind: "empty", raw: "", valid: false };
-
-  const opfMatch = OPF_ID_RE.exec(text);
-  if (opfMatch) {
-    const id = `opf:${opfMatch[1].toLowerCase()}/${opfMatch[2].toLowerCase()}/${opfMatch[3].toLowerCase()}`;
-    return { kind: "opf", raw: text, id, apiPath: buildOpfApiPath(id), valid: true };
-  }
-
-  const gtinPrefMatch = /^gtin:\s*(\d+)$/i.exec(text);
-  if (gtinPrefMatch) {
-    return classifyGtinCandidate(gtinPrefMatch[1], text);
-  }
-
-  if (/^\d{8,14}$/.test(text)) {
-    return classifyGtinCandidate(text, text);
-  }
-
-  if (/^https?:\/\//i.test(text)) {
-    try {
-      const url = new URL(text);
-      const opfFromUrl = extractOpfFromUrl(url);
-      if (opfFromUrl) {
-        return { kind: "opf", raw: text, id: opfFromUrl, apiPath: buildOpfApiPath(opfFromUrl), valid: true };
-      }
-      const digits = extractDigitsFromUrl(url);
-      if (digits) return classifyGtinCandidate(digits, text);
-    } catch (_) {
-      // Treat malformed URL as plain search text
-    }
-  }
-
-  return { kind: "text", raw: text, query: text, valid: false };
-}
-
-const scannerState = {
-  stream: null,
-  rafId: null,
-  timerId: null,
-  token: 0,
-  detectBusy: false,
-  lastFocused: null,
-};
-
-function updateScannerChromeText() {
-  const toggleBtn = $("#scan-camera-toggle");
-  if (toggleBtn) {
-    const active = Boolean(scannerState.stream);
-    toggleBtn.textContent = t(active ? "scanner.stopCameraBtn" : "scanner.startCameraBtn");
-    toggleBtn.setAttribute("aria-pressed", String(active));
-  }
-}
-
-function setScanStatus(message, tone = "info") {
-  const el = $("#scan-status");
-  if (!el) return;
-  if (!message) {
-    el.hidden = true;
-    el.textContent = "";
-    delete el.dataset.tone;
-    return;
-  }
-  el.hidden = false;
-  el.dataset.tone = tone;
-  el.textContent = message;
-}
-
-function setScanResult(html = "") {
-  const el = $("#scan-result");
-  if (!el) return;
-  if (!html) {
-    el.hidden = true;
-    el.innerHTML = "";
-    return;
-  }
-  el.hidden = false;
-  el.innerHTML = html;
-}
-
-function stopTracksOnStream(stream) {
-  if (!stream || typeof stream.getTracks !== "function") return;
-  for (const track of stream.getTracks()) {
-    try {
-      track.stop();
-    } catch (_) {
-      // Ignore already-stopped track errors
-    }
-  }
-}
-
-function stopScannerCamera() {
-  scannerState.token += 1;
-  scannerState.detectBusy = false;
-  if (scannerState.rafId !== null && typeof cancelAnimationFrame === "function") {
-    cancelAnimationFrame(scannerState.rafId);
-  }
-  scannerState.rafId = null;
-  if (scannerState.timerId !== null) {
-    clearTimeout(scannerState.timerId);
-  }
-  scannerState.timerId = null;
-
-  stopTracksOnStream(scannerState.stream);
-  scannerState.stream = null;
-
-  const videoEl = $("#scan-video");
-  if (videoEl) {
-    if (videoEl.srcObject && videoEl.srcObject !== scannerState.stream) {
-      stopTracksOnStream(videoEl.srcObject);
-    }
-    if (typeof videoEl.pause === "function") videoEl.pause();
-    videoEl.srcObject = null;
-  }
-
-  const viewport = $("#scan-viewport");
-  if (viewport) viewport.dataset.active = "false";
-  updateScannerChromeText();
-}
-
-async function createBarcodeDetector() {
-  if (typeof window === "undefined" || typeof window.BarcodeDetector !== "function") {
-    return null;
-  }
-  const Detector = window.BarcodeDetector;
-  try {
-    if (typeof Detector.getSupportedFormats === "function") {
-      const supported = await Detector.getSupportedFormats();
-      const chosen = BARCODE_FORMATS.filter((fmt) => supported.includes(fmt));
-      if (chosen.length) return new Detector({ formats: chosen });
-    }
-    return new Detector({ formats: BARCODE_FORMATS });
-  } catch (_) {
-    try {
-      return new Detector();
-    } catch (__) {
-      return null;
-    }
-  }
-}
-
-function applySearchQueryFromScan(queryText, autoSelect = false) {
-  filter.text = queryText;
-  const qEl = $("#q");
-  if (qEl) qEl.value = queryText;
-  updateWorkbenchChromeAndStrip();
-  renderList(autoSelect);
-}
-
-async function processScannedPayload(rawText) {
-  const parsed = parseScannedCode(rawText);
-  if (parsed.kind === "empty") {
-    setScanStatus(t("scanner.emptyInput"), "warn");
-    return;
-  }
-  if (parsed.kind === "invalid_gtin") {
-    setScanStatus(t("scanner.invalidCheckDigit", { digits: parsed.digits }), "error");
-    setScanResult("");
-    return;
-  }
-  if (parsed.kind === "text") {
-    applySearchQueryFromScan(parsed.query, true);
-    setScanStatus(t("scanner.plainTextNotice", { text: parsed.query }), "warn");
-    setScanResult("");
-    return;
-  }
-
-  applySearchQueryFromScan(parsed.id, false);
-  const exactHit = CATALOG.find(
-    (item) => item.id === parsed.id || (Array.isArray(item.aliases) && item.aliases.includes(parsed.id))
-  );
-  if (exactHit) {
-    setScanStatus(t("scanner.hitFound", { id: parsed.id }), "info");
-    setScanResult("");
-    closeScannerModal();
-    await selectCard(exactHit, true);
-    return;
-  }
-
-  setScanStatus(t("scanner.lookupChecking", { id: parsed.id }), "info");
-  try {
-    const resp = await fetch(rel(parsed.apiPath));
-    if (resp.ok) {
-      const doc = await resp.json();
-      const targetId = doc && doc.id ? doc.id : parsed.id;
-      const catalogMatch = CATALOG.find((item) => item.id === targetId);
-      if (catalogMatch) {
-        closeScannerModal();
-        await selectCard(catalogMatch, true);
-        return;
-      }
-      setScanStatus("", "info");
-      setScanResult(`
-        <strong>${esc(t("scanner.directHitTitle", { id: targetId }))}</strong>
-        <p>${esc(t("scanner.directHitDesc", { path: parsed.apiPath }))}</p>
-        <div class="scan-result-code-row">
-          <code class="scan-code-pill mono">${esc(targetId)}</code>
-          <button type="button" class="chip copy-scan-id-btn" data-copy-text="${esc(targetId)}">${esc(t("scanner.copyCodeBtn"))}</button>
-        </div>`);
-      return;
-    }
-  } catch (_) {
-    // Treat network/404 failure uniformly as unindexed fallback
-  }
-
-  setScanStatus("", "info");
-  setScanResult(`
-    <strong>${esc(t("scanner.notFoundTitle", { id: parsed.id }))}</strong>
-    <p>${esc(t("scanner.notFoundDesc", { path: parsed.apiPath }))}</p>
-    <div class="scan-result-code-row">
-      <code class="scan-code-pill mono">${esc(parsed.id)}</code>
-      <button type="button" class="chip copy-scan-id-btn" data-copy-text="${esc(parsed.id)}">${esc(t("scanner.copyCodeBtn"))}</button>
-    </div>`);
-}
-
-function scheduleNextVideoScan(detector, videoEl, sessionToken) {
-  if (sessionToken !== scannerState.token) return;
-  const modal = $("#scan-modal");
-  if (!modal || modal.hidden || !scannerState.stream) return;
-
-  scannerState.timerId = setTimeout(() => {
-    if (sessionToken !== scannerState.token) return;
-    scannerState.rafId = requestAnimationFrame(async () => {
-      if (sessionToken !== scannerState.token || scannerState.detectBusy) return;
-      if (videoEl.readyState >= 2) {
-        scannerState.detectBusy = true;
-        try {
-          const codes = await detector.detect(videoEl);
-          if (sessionToken !== scannerState.token) return;
-          const hit = Array.isArray(codes) ? codes.find((c) => c && c.rawValue) : null;
-          if (hit) {
-            stopScannerCamera();
-            await processScannedPayload(hit.rawValue);
-            return;
-          }
-        } catch (err) {
-          if (sessionToken !== scannerState.token) return;
-          stopScannerCamera();
-          setScanStatus(t("scanner.cameraError", { reason: err && err.message ? err.message : "detect" }), "error");
-          return;
-        } finally {
-          scannerState.detectBusy = false;
-        }
-      }
-      scheduleNextVideoScan(detector, videoEl, sessionToken);
-    });
-  }, 180);
-}
-
-async function startScannerCamera() {
-  stopScannerCamera();
-  const sessionToken = scannerState.token;
-
-  if (typeof window !== "undefined" && window.isSecureContext === false) {
-    setScanStatus(t("scanner.insecureContext"), "warn");
-    return;
-  }
-  const detector = await createBarcodeDetector();
-  if (!detector) {
-    setScanStatus(t("scanner.unsupportedDetector"), "warn");
-    return;
-  }
-  if (!navigator.mediaDevices || typeof navigator.mediaDevices.getUserMedia !== "function") {
-    setScanStatus(t("scanner.cameraPermissionDenied"), "error");
-    return;
-  }
-
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: { ideal: "environment" } },
-      audio: false,
-    });
-    const modal = $("#scan-modal");
-    if (sessionToken !== scannerState.token || !modal || modal.hidden) {
-      stopTracksOnStream(stream);
-      return;
-    }
-    scannerState.stream = stream;
-    const videoEl = $("#scan-video");
-    const viewport = $("#scan-viewport");
-    if (videoEl) {
-      videoEl.srcObject = stream;
-      await videoEl.play();
-    }
-    if (viewport) viewport.dataset.active = "true";
-    updateScannerChromeText();
-    setScanStatus(t("scanner.cameraLive"), "info");
-    if (videoEl) scheduleNextVideoScan(detector, videoEl, sessionToken);
-  } catch (err) {
-    stopScannerCamera();
-    const name = err && err.name ? err.name : "";
-    if (name === "NotAllowedError" || name === "PermissionDeniedError" || name === "NotFoundError") {
-      setScanStatus(t("scanner.cameraPermissionDenied"), "error");
-    } else {
-      setScanStatus(t("scanner.cameraError", { reason: (err && err.message) || name || "error" }), "error");
-    }
-  }
-}
-
-async function handleScanImageFile(file) {
-  if (!file) return;
-  stopScannerCamera();
-  setScanResult("");
-  const detector = await createBarcodeDetector();
-  if (!detector) {
-    setScanStatus(t("scanner.unsupportedDetector"), "warn");
-    return;
-  }
-  setScanStatus(t("scanner.scanningImage"), "info");
-  let source = null;
-  let objectUrl = null;
-  try {
-    if (typeof createImageBitmap === "function") {
-      source = await createImageBitmap(file);
-    } else {
-      objectUrl = URL.createObjectURL(file);
-      source = await new Promise((resolve, reject) => {
-        const img = new Image();
-        img.onload = () => resolve(img);
-        img.onerror = () => reject(new Error("image load failed"));
-        img.src = objectUrl;
-      });
-    }
-    const codes = await detector.detect(source);
-    const hit = Array.isArray(codes) ? codes.find((c) => c && c.rawValue) : null;
-    if (!hit) {
-      setScanStatus(t("scanner.noBarcodeInImage"), "warn");
-      return;
-    }
-    await processScannedPayload(hit.rawValue);
-  } catch (err) {
-    setScanStatus(t("scanner.imageError", { reason: (err && err.message) || "error" }), "error");
-  } finally {
-    if (source && typeof source.close === "function") source.close();
-    if (objectUrl) URL.revokeObjectURL(objectUrl);
-  }
-}
-
-function openScannerModal() {
-  const modal = $("#scan-modal");
-  if (!modal) return;
-  scannerState.lastFocused = document.activeElement;
-  modal.hidden = false;
-  setScanStatus("", "info");
-  setScanResult("");
-  updateScannerChromeText();
-  if (typeof window !== "undefined" && window.isSecureContext === false) {
-    setScanStatus(t("scanner.insecureContext"), "warn");
-  } else if (typeof window === "undefined" || typeof window.BarcodeDetector !== "function") {
-    setScanStatus(t("scanner.unsupportedDetector"), "warn");
-  }
-  const manualInput = $("#scan-manual-input");
-  if (manualInput) manualInput.focus();
-}
-
-function closeScannerModal() {
-  stopScannerCamera();
-  const modal = $("#scan-modal");
-  if (modal) modal.hidden = true;
-  if (scannerState.lastFocused && typeof scannerState.lastFocused.focus === "function") {
-    scannerState.lastFocused.focus();
-  }
-  scannerState.lastFocused = null;
-}
-
-function initScannerControls() {
-  const openBtn = $("#scan-btn");
-  const closeBtn = $("#scan-close-btn");
-  const backdrop = $("#scan-backdrop");
-  const cameraToggle = $("#scan-camera-toggle");
-  const fileInput = $("#scan-file");
-  const fileLabel = document.querySelector(".scan-file-label");
-  const manualForm = $("#scan-manual-form");
-  const resultBox = $("#scan-result");
-
-  if (openBtn) openBtn.addEventListener("click", openScannerModal);
-  if (closeBtn) closeBtn.addEventListener("click", closeScannerModal);
-  if (backdrop) backdrop.addEventListener("click", closeScannerModal);
-
-  if (cameraToggle) {
-    cameraToggle.addEventListener("click", () => {
-      if (scannerState.stream) stopScannerCamera();
-      else startScannerCamera();
-    });
-  }
-
-  if (fileLabel && fileInput) {
-    fileLabel.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        fileInput.click();
-      }
-    });
-  }
-
-  if (fileInput) {
-    fileInput.addEventListener("change", async (e) => {
-      const f = e.target.files && e.target.files[0];
-      await handleScanImageFile(f);
-      e.target.value = "";
-    });
-  }
-
-  if (manualForm) {
-    manualForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      stopScannerCamera();
-      const inputEl = $("#scan-manual-input");
-      await processScannedPayload(inputEl ? inputEl.value : "");
-    });
-  }
-
-  if (resultBox) {
-    resultBox.addEventListener("click", (e) => {
-      const copyBtn = e.target.closest(".copy-scan-id-btn");
-      if (copyBtn && copyBtn.dataset.copyText) {
-        copyTextWithFeedback(copyBtn, copyBtn.dataset.copyText, t("scanner.copyCodeBtn"));
-      }
-    });
-  }
-
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) stopScannerCamera();
+let scannerController = null;
+function getScannerController() {
+  if (scannerController) return scannerController;
+  const api =
+    typeof globalThis !== "undefined" && globalThis.OPFScanner
+      ? globalThis.OPFScanner
+      : typeof require === "function"
+        ? require("./scanner.js")
+        : null;
+  if (!api || typeof api.createScannerController !== "function") return null;
+  scannerController = api.createScannerController({
+    t,
+    esc,
+    rel,
+    copyTextWithFeedback,
+    getCatalog: () => CATALOG,
+    applySearchQuery: (queryText, autoSelect = false) => {
+      filter.text = queryText;
+      const qEl = $("#q");
+      if (qEl) qEl.value = queryText;
+      updateWorkbenchChromeAndStrip();
+      renderList(autoSelect);
+    },
+    selectCatalogItem: (item, switchMobileToDetail) => selectCard(item, switchMobileToDetail),
   });
-  window.addEventListener("pagehide", stopScannerCamera);
+  return scannerController;
 }
 
 if (HAS_DOM) {
@@ -2832,10 +2356,14 @@ if (HAS_DOM) {
 }
 
 if (typeof module !== "undefined" && module.exports) {
+  const scannerApi =
+    typeof globalThis !== "undefined" && globalThis.OPFScanner
+      ? globalThis.OPFScanner
+      : require("./scanner.js");
   module.exports = {
-    isValidGs1CheckDigit,
-    parseScannedCode,
-    buildGtinApiPath,
-    buildOpfApiPath,
+    isValidGs1CheckDigit: scannerApi.isValidGs1CheckDigit,
+    parseScannedCode: scannerApi.parseScannedCode,
+    buildGtinApiPath: scannerApi.buildGtinApiPath,
+    buildOpfApiPath: scannerApi.buildOpfApiPath,
   };
 }

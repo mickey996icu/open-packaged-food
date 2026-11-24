@@ -36,6 +36,10 @@ class BundleResourcesBuildPy(build_py):
             raise RuntimeError("Wheel resource bundle missing dictionaries/nutrients.json")
         if not (bundled_root / "spec" / "schema" / "edition.v0.2.schema.json").is_file():
             raise RuntimeError("Wheel resource bundle missing spec/schema/edition.v0.2.schema.json")
+        if not (bundled_root / "web" / "scanner.js").is_file():
+            raise RuntimeError("Wheel resource bundle missing web/scanner.js")
+        if not (bundled_root / "web" / "vendor" / "zxing.min.js").is_file():
+            raise RuntimeError("Wheel resource bundle missing web/vendor/zxing.min.js")
 
 
 setup(cmdclass={"build_py": BundleResourcesBuildPy})

@@ -36,4 +36,4 @@ git clone https://github.com/mickey996icu/opf-media.git
 ```
 
 - それぞれブランチを切って `git commit -s`・`git push` し、**必ず `opf-media` PR を先にマージ**し、その後に `opf-data` 側 PR をマージしてください（`opf check-media-refs` 検証のため）。
-- **任意のワンステップ自動化 (`uvx` + `gh`)**：`uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.0 opf pr --input draft.json --photo ...` もオプションで利用できます。詳細は [README.md](README.md)・[CONTRIBUTING.md](CONTRIBUTING.md) および [spec/SPEC.md](spec/SPEC.md) をご参照ください。
+- **任意のワンステップ自動化 (`uvx` + `gh`)**：`uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.1 opf pr --input draft.json --photo ...` もオプションで利用できます。詳細は [README.md](README.md)・[CONTRIBUTING.md](CONTRIBUTING.md) および [spec/SPEC.md](spec/SPEC.md) をご参照ください。

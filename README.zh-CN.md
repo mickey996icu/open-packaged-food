@@ -58,7 +58,7 @@
                                                         └─────────────────────────────────────────────────────────┘
 ```
 
-> 工具仓 [`mickey996icu/open-packaged-food`](https://github.com/mickey996icu/open-packaged-food) 在上述三条 CI/Pages 流水线中均以 `v0.2.0` 固定版本被拉取执行，校验/构站路径零第三方运行依赖（`Pillow` 仅在本地生成 WebP 标签图时按需懒加载）。
+> 工具仓 [`mickey996icu/open-packaged-food`](https://github.com/mickey996icu/open-packaged-food) 在上述三条 CI/Pages 流水线中均以 `v0.2.1` 固定版本被拉取执行，校验/构站路径零第三方运行依赖（`Pillow` 仅在本地生成 WebP 标签图时按需懒加载）。
 
 ---
 
@@ -68,7 +68,7 @@
 
 直接访问 **[https://mickey996icu.github.io/opf-data/](https://mickey996icu.github.io/opf-data/)**（面向普通用户的只读检索前端，支持 7 语界面与浅色/深色主题）：
 
-- **纯前端静态扫码**：支持后置摄像头实时扫描、相册选图及手动输入（基于原生 `BarcodeDetector` 与 GS1 Mod-10 校验，不上传图片、不调用外部查码接口）；
+- **纯前端静态扫码**：支持后置摄像头实时扫描、相册选图及手动输入（优先原生 `BarcodeDetector` 并内置离线 `ZXing` 兜底解码与 GS1 Mod-10 校验，不上传图片、不调用外部查码接口）；
 - **顶部三栏高级筛选工作台**：支持销售市场（`CN` / `US` / `EU` / `JP` 等多选）、消歧模式 / 证据等级 / 法规 Profile / 品牌多选；
 - **安全致敏原多选排除**：同时按真实存在（`contains`）与交叉接触风险（`may_contain`）过滤商品；
 - **配料与 INS 添加剂包含/排除 + 零添加快捷筛选**：按配料词根或国际编码（如 `300`、`500(ii)`）正反向检索；
@@ -123,7 +123,7 @@ git -C opf-data switch -c contrib/product-record && git -C opf-data add -A && gi
 **可选一键自动化通道（`uvx` + `gh`）**：已安装 `uvx` 与登录 `gh auth login` 的开发者，也可选用 `opf pr` 替代上述手动建分支推送步骤：
 
 ```bash
-uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.0 \
+uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.1 \
   opf pr --input draft.json \
   --photo nutrition_table=crop_nutrition.jpg \
   --photo ingredients_box=crop_ingredients.jpg \

@@ -1067,8 +1067,15 @@ def _copy_web_assets(out_dir: Path) -> None:
     assets = out_dir / "assets"
     assets.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(web_dir / "index.html", out_dir / "index.html")
-    for name in ("style.css", "app.js"):
+    for name in ("style.css", "app.js", "scanner.js"):
         shutil.copyfile(web_dir / name, assets / name)
+    vendor_src = web_dir / "vendor"
+    if vendor_src.is_dir():
+        vendor_dst = assets / "vendor"
+        vendor_dst.mkdir(parents=True, exist_ok=True)
+        for vfile in sorted(vendor_src.iterdir()):
+            if vfile.is_file() and not vfile.name.startswith("."):
+                shutil.copyfile(vfile, vendor_dst / vfile.name)
     locales_src = web_dir / "locales"
     if locales_src.is_dir():
         locales_dst = out_dir / "locales"

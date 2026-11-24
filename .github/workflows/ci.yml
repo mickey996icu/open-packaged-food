@@ -37,7 +37,7 @@ jobs:
         run: python3 -m unittest discover -s tests -v
 
       - name: Check frontend JavaScript syntax
-        run: node --check web/app.js
+        run: node --check web/app.js && node --check web/scanner.js
 
       - name: Dry-run Static API v1 build
         run: |

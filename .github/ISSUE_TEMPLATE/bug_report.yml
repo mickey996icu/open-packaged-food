@@ -29,8 +29,8 @@ body:
     id: version_env
     attributes:
       label: "版本与环境 / Version & Environment"
-      description: "如 commit/tag（`v0.2.0`）、Python 版本（3.12+）或浏览器内核与系统。 / Tag or commit, Python version (3.12+), or browser & OS."
-      placeholder: "v0.2.0 · Python 3.12 · macOS / Chrome 131"
+      description: "如 commit/tag（`v0.2.1`）、Python 版本（3.12+）或浏览器内核与系统。 / Tag or commit, Python version (3.12+), or browser & OS."
+      placeholder: "v0.2.1 · Python 3.12 · macOS / Chrome 131"
     validations:
       required: true
 
