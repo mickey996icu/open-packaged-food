@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Any
 
 HTML_COMMENT_RE = re.compile(r"<!--.*?-->", re.DOTALL)
+CODE_SPAN_RE = re.compile(r"```.*?```|`[^`\n]+`", re.DOTALL)
 CHECKBOX_ANY_RE = re.compile(r"^\s*[-*]\s*\[[ xX]\]\s+", re.MULTILINE)
 CHECKBOX_CHECKED_RE = re.compile(r"^\s*[-*]\s*\[[xX]\]\s+", re.MULTILINE)
 DCO_SIGNOFF_RE = re.compile(r"^Signed-off-by:\s+\S.*?<[^>\s]+@[^>\s]+>\s*$", re.MULTILINE)
@@ -85,8 +86,9 @@ def validate_pr_metadata(
             "PR description must not be empty (at least 20 characters); summarize the change or complete the PR template."
         )
     else:
+        prose_body = CODE_SPAN_RE.sub("", clean_body)
         for pat, label in UNRESOLVED_PLACEHOLDER_PATTERNS:
-            if pat.search(clean_body):
+            if pat.search(prose_body):
                 errors.append(f"PR description contains unresolved placeholder ({label}); replace it with the real value.")
 
         if CHECKBOX_ANY_RE.search(clean_body) and not CHECKBOX_CHECKED_RE.search(clean_body):

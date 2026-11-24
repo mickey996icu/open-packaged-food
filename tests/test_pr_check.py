@@ -84,6 +84,13 @@ class TestPrMetadataAndFixes(unittest.TestCase):
         )
         self.assertTrue(any("Signed-off-by" in e for e in errs_dco))
 
+        errs_code_span = validate_pr_metadata(
+            repo_kind="tooling",
+            title="feat(ci): reject unresolved PR placeholders",
+            body="- [x] Tooling update\nRejects literal `<MEDIA_PR_URL>` and `填上...链接` placeholders.",
+        )
+        self.assertEqual(errs_code_span, [])
+
     def test_cli_check_pr_meta_with_event_payload(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             ev_file = Path(tmp) / "event.json"
