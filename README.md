@@ -71,7 +71,7 @@ Validation and static-site generation rely solely on Python's standard library (
 ./open-packaged-food/bin/opf check-media-refs --media-dir opf-media opf-data/products
 ```
 
-Push branches and open PRs on `opf-media` and `opf-data` (or run `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.3 opf pr ...` if you have `uvx` and `gh` ready). Keep the order straight: **merge `opf-media` first, then `opf-data`**, so CI finds the images already on `main`.
+Push branches and open PRs on `opf-media` and `opf-data` (or run `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.4 opf pr ...` if you have `uvx` and `gh` ready). Keep the order straight: **merge `opf-media` first, then `opf-data`**, so CI finds the images already on `main`.
 
 Two lines we do not cross:
 - **Crop only factual text panels** (nutrition table, ingredients box, manufacturer block, barcode)—never upload full front-of-pack cover artwork;

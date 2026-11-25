@@ -19,9 +19,15 @@ def _build_initial_edition(
     attributes: dict[str, Any],
     evidence: list[dict[str, Any]],
     author: str = "github:tester-a",
+    provenance: str = "external_contributor",
     created_at: str = "2026-01-15T00:00:00Z",
     supersedes: list[str] | None = None,
 ) -> dict[str, Any]:
+    ev_list = []
+    for ev in evidence:
+        ev_copy = copy.deepcopy(ev)
+        ev_copy.setdefault("provenance", provenance)
+        ev_list.append(ev_copy)
     ed: dict[str, Any] = {
         "opf_schema": "0.2",
         "id": product_id,
@@ -31,14 +37,15 @@ def _build_initial_edition(
         "supersedes": list(supersedes or []),
         "core": core,
         "attributes": attributes,
-        "evidence": evidence,
+        "evidence": ev_list,
         "revisions": [
             {
                 "rev": 1,
                 "kind": "initial",
                 "created_at": created_at,
                 "author": author,
-                "evidence_refs": [ev["evidence_id"] for ev in evidence],
+                "provenance": provenance,
+                "evidence_refs": [ev["evidence_id"] for ev in ev_list],
                 "patch": [],
             }
         ],

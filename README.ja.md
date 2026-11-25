@@ -73,7 +73,7 @@ mkdir -p ~/.gemini/config/skills && ln -s ~/src/open-packaged-food/skills/opf ~/
 ./open-packaged-food/bin/opf check-media-refs --media-dir opf-media opf-data/products
 ```
 
-検証が通ったら `opf-media` と `opf-data` にそれぞれブランチを切って PR を送ります（`uvx` と `gh` が使える環境なら `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.3 opf pr ...` でまとめて実行できます）。マージは**必ず画像倉（`opf-media`）を先、データ倉（`opf-data`）を後**にしてください。画像がメインブランチに入る前にデータ側をマージしようとすると CI が停止します。
+検証が通ったら `opf-media` と `opf-data` にそれぞれブランチを切って PR を送ります（`uvx` と `gh` が使える環境なら `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.4 opf pr ...` でまとめて実行できます）。マージは**必ず画像倉（`opf-media`）を先、データ倉（`opf-data`）を後**にしてください。画像がメインブランチに入る前にデータ側をマージしようとすると CI が停止します。
 
 投稿前に二つの点だけご留意ください：
 - **文字表示の切り抜き部分だけを送る**（栄養成分表、原材料枠、製造者欄、バーコード周辺）。商品表面のパッケージデザイン全体の写真は著作権配慮のため投稿しないでください。

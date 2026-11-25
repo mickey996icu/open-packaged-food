@@ -79,6 +79,7 @@ def _make_base_edition(
     ev_item: dict = {
         "evidence_id": f"sha256:{photo_sha}",
         "type": "label_photo",
+        "provenance": "external_contributor",
         "region": "nutrition_table",
         "cropped_sha256": photo_sha,
         "media_ref": f"opf-media://sha256/{photo_sha}",
@@ -138,6 +139,7 @@ def _make_base_edition(
                 "kind": "initial",
                 "created_at": "2026-02-14T10:15:00Z",
                 "author": contributor,
+                "provenance": "external_contributor",
                 "evidence_refs": [ev_item["evidence_id"]],
                 "patch": [],
             }
@@ -464,6 +466,7 @@ class TestPatchesAndRevisionValidation(unittest.TestCase):
                 "kind": "enrichment",
                 "created_at": "2026-02-15T10:00:00Z",
                 "author": "github:alice",
+                "provenance": "external_contributor",
                 "evidence_refs": [ed["evidence"][0]["evidence_id"]],
                 "patch": patch2,
                 "reverse_patch": rev2,
@@ -489,6 +492,7 @@ class TestPatchesAndRevisionValidation(unittest.TestCase):
                 "kind": "errata",
                 "created_at": "2026-02-16T10:00:00Z",
                 "author": "github:alice",
+                "provenance": "external_contributor",
                 "evidence_refs": [ed["evidence"][0]["evidence_id"]],
                 "patch": p3,
                 "reverse_patch": r3,
@@ -516,6 +520,7 @@ class TestLifecycleAndProductDir(unittest.TestCase):
             {
                 "evidence_id": "ev:01J8Z000000000000000000099",
                 "type": "community_report",
+                "provenance": "external_contributor",
                 "contributor": "github:late",
                 "reported_at": "2027-05-20",
             }

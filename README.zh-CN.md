@@ -71,7 +71,7 @@ mkdir -p ~/.gemini/config/skills && ln -s ~/src/open-packaged-food/skills/opf ~/
 ./open-packaged-food/bin/opf check-media-refs --media-dir opf-media opf-data/products
 ```
 
-接着把 `opf-media` 和 `opf-data` 分别推分支提 PR 就行（若装了 `uvx` 和 `gh`，也可运行 `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.3 opf pr ...` 一步完成）。请注意顺序：**先合入图片仓（`opf-media`），再合入数据仓（`opf-data`）**，CI 会拦截图片还没进主分支的数据提交。
+接着把 `opf-media` 和 `opf-data` 分别推分支提 PR 就行（若装了 `uvx` 和 `gh`，也可运行 `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.4 opf pr ...` 一步完成）。请注意顺序：**先合入图片仓（`opf-media`），再合入数据仓（`opf-data`）**，CI 会拦截图片还没进主分支的数据提交。
 
 投稿前有两条规矩别踩：
 - **只传局部文字裁剪图**（营养表、配料框、厂家与条码区），不要上传完整包装正面宣传图，免得惹上版权纠纷；

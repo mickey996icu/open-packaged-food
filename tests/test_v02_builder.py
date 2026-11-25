@@ -56,6 +56,7 @@ def _make_edition(
                 {
                     "evidence_id": f"sha256:{sha}",
                     "type": "label_photo",
+                    "provenance": "external_contributor",
                     "region": "nutrition_table",
                     "cropped_sha256": sha,
                     "media_ref": f"opf-media://sha256/{sha}",
@@ -69,6 +70,7 @@ def _make_edition(
             {
                 "evidence_id": f"ev:{edition_id}",
                 "type": "community_report",
+                "provenance": "external_contributor",
                 "contributor": "github:anon",
                 "reported_at": "2026-02-14",
                 "vintage_month": vintage_month,
@@ -135,6 +137,7 @@ def _make_edition(
                 "kind": "initial",
                 "created_at": "2026-02-14T10:15:00Z",
                 "author": contribs[0] if contribs else "github:anon",
+                "provenance": "external_contributor",
                 "evidence_refs": [evidence[0]["evidence_id"]],
                 "patch": [],
             }

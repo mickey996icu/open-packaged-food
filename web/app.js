@@ -2022,6 +2022,7 @@ function renderCatalogCard(item, compact, full) {
       return `<div class="revision-item">
         <div class="ulid-head mono">
           ${renderRevPill(r.rev)}
+          ${r.provenance ? `<span class="chip mono">${esc(r.provenance)}</span>` : ""}
           <span>${esc(kindLabel)} · ${esc(r.author)} · ${esc(r.created_at)}</span>
         </div>
         ${r.reason ? `<div style="margin-top:4px;">${esc(r.reason)}</div>` : ""}
@@ -2100,7 +2101,7 @@ function renderCatalogCard(item, compact, full) {
         const canPreview = !!mediaSrc;
         const pubSha = ev.cropped_sha256 || ev.snapshot_sha256;
         return `<div class="subcard mono">
-          <b>${esc(ev.evidence_id)}</b> [${esc(ev.type)}]
+          <b>${esc(ev.evidence_id)}</b> [${esc(ev.type)}${ev.provenance ? ` · ${esc(ev.provenance)}` : ""}]
           ${ev.region ? `region=${esc(ev.region)}` : ""}
           ${ev.registry ? `registry=${esc(ev.registry)} (${esc(ev.query || "")})` : ""}
           ${pubSha ? `sha256=${esc(pubSha.slice(0, 16))}…` : ""}

@@ -614,6 +614,7 @@ class TestBuildSubmitPrAndMediaV02(unittest.TestCase):
             {
                 "evidence_id": f"sha256:{sha}",
                 "type": "label_photo",
+                "provenance": "external_contributor",
                 "region": "nutrition_table",
                 "cropped_sha256": sha,
                 "vault_raw_sha256": raw,

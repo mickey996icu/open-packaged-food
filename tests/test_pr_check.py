@@ -140,6 +140,196 @@ class TestPrMetadataAndFixes(unittest.TestCase):
         self.assertIn('{ cache: "no-cache" }', app_js)
         self.assertIn('withDataRev("v1/index/catalog.jsonl")', app_js)
 
+    def test_pr_check_enforces_provenance_roles_and_immutability(self) -> None:
+        rel_ed = "products/gtin/000/000/00000000000109/editions/01JTESTCNTEA00000000000001.json"
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            data_repo = tmp_path / "opf-data"
+            ed_file = data_repo / rel_ed
+            ed_file.parent.mkdir(parents=True, exist_ok=True)
+            base_doc = {
+                "opf_schema": "0.2",
+                "id": "gtin:00000000000109",
+                "edition_id": "01JTESTCNTEA00000000000001",
+                "evidence": [
+                    {
+                        "evidence_id": "ev:01JTESTCNTEA00000000000001",
+                        "type": "community_report",
+                        "provenance": "maintainer",
+                    },
+                    {
+                        "evidence_id": "ev:01JTESTCNTEA00000000000010",
+                        "type": "community_report",
+                        "provenance": "external_contributor",
+                    },
+                ],
+                "revisions": [
+                    {"rev": 1, "kind": "initial", "provenance": "maintainer"},
+                ],
+            }
+            ed_file.write_text(json.dumps(base_doc), encoding="utf-8")
+            subprocess.run(["git", "-C", str(data_repo), "init", "-b", "main"], check=True, capture_output=True)
+            subprocess.run(["git", "-C", str(data_repo), "config", "user.email", "dev@example.org"], check=True, capture_output=True)
+            subprocess.run(["git", "-C", str(data_repo), "config", "user.name", "Dev"], check=True, capture_output=True)
+            subprocess.run(["git", "-C", str(data_repo), "add", "-A"], check=True, capture_output=True)
+            subprocess.run(
+                ["git", "-C", str(data_repo), "commit", "-s", "-m", "chore: initial baseline"],
+                check=True,
+                capture_output=True,
+            )
+
+            # 1. External contributor adds external_contributor evidence while keeping existing entries intact -> OK
+            subprocess.run(["git", "-C", str(data_repo), "switch", "-c", "feat/ext-corrob"], check=True, capture_output=True)
+            ok_doc = json.loads(ed_file.read_text(encoding="utf-8"))
+            ok_doc["evidence"].append(
+                {
+                    "evidence_id": "ev:01JTESTCNTEA00000000000002",
+                    "type": "community_report",
+                    "provenance": "external_contributor",
+                }
+            )
+            ed_file.write_text(json.dumps(ok_doc), encoding="utf-8")
+            subprocess.run(["git", "-C", str(data_repo), "add", "-A"], check=True, capture_output=True)
+            subprocess.run(
+                ["git", "-C", str(data_repo), "commit", "-s", "-m", "feat(product): gtin:00000000000109 corroborate"],
+                check=True,
+                capture_output=True,
+            )
+
+            def _run_gate(actor: str, extra_args: list[str] | None = None) -> subprocess.CompletedProcess[str]:
+                ev_p = tmp_path / f"ev_{actor}.json"
+                ev_p.write_text(
+                    json.dumps(
+                        {
+                            "pull_request": {
+                                "title": f"feat(product): gtin:00000000000109 update by {actor}",
+                                "body": f"Submission for gtin:00000000000109 from {actor}.",
+                                "user": {"login": actor},
+                                "base": {"repo": {"owner": {"login": "mickey996icu"}}},
+                            }
+                        }
+                    ),
+                    encoding="utf-8",
+                )
+                return subprocess.run(
+                    [
+                        sys.executable,
+                        str(REPO_ROOT / "bin" / "opf"),
+                        "check-pr-meta",
+                        "--repo-kind",
+                        "data",
+                        "--event-path",
+                        str(ev_p),
+                        "--repo-dir",
+                        str(data_repo),
+                        "--base-ref",
+                        "main",
+                        *(extra_args or []),
+                    ],
+                    capture_output=True,
+                    text=True,
+                    check=False,
+                )
+
+            res_ext_ok = _run_gate("external-user")
+            self.assertEqual(res_ext_ok.returncode, 0, res_ext_ok.stderr)
+
+            # 2. External contributor cannot write public_submission, brand_owner, partner, or maintainer
+            for forbidden in ("public_submission", "brand_owner", "partner", "maintainer"):
+                subprocess.run(["git", "-C", str(data_repo), "switch", "main"], check=True, capture_output=True)
+                bname = f"feat/ext-bad-{forbidden}"
+                subprocess.run(["git", "-C", str(data_repo), "switch", "-c", bname], check=True, capture_output=True)
+                d_bad = json.loads(ed_file.read_text(encoding="utf-8"))
+                d_bad["evidence"].append(
+                    {
+                        "evidence_id": f"ev:01JTESTCNTEA0000000000099{forbidden[0].upper()}",
+                        "type": "community_report",
+                        "provenance": forbidden,
+                    }
+                )
+                ed_file.write_text(json.dumps(d_bad), encoding="utf-8")
+                subprocess.run(["git", "-C", str(data_repo), "add", "-A"], check=True, capture_output=True)
+                subprocess.run(
+                    ["git", "-C", str(data_repo), "commit", "-s", "-m", f"feat(product): spoof {forbidden}"],
+                    check=True,
+                    capture_output=True,
+                )
+                res_bad = _run_gate("external-user")
+                self.assertEqual(res_bad.returncode, 1)
+                self.assertIn("external_contributor", res_bad.stderr)
+
+            # 3. Relay bot may only set provenance='public_submission'
+            subprocess.run(["git", "-C", str(data_repo), "switch", "main"], check=True, capture_output=True)
+            subprocess.run(["git", "-C", str(data_repo), "switch", "-c", "feat/relay-ok"], check=True, capture_output=True)
+            d_rel = json.loads(ed_file.read_text(encoding="utf-8"))
+            d_rel["evidence"].append(
+                {
+                    "evidence_id": "ev:01JTESTCNTEA00000000000088",
+                    "type": "community_report",
+                    "provenance": "public_submission",
+                }
+            )
+            ed_file.write_text(json.dumps(d_rel), encoding="utf-8")
+            subprocess.run(["git", "-C", str(data_repo), "add", "-A"], check=True, capture_output=True)
+            subprocess.run(
+                ["git", "-C", str(data_repo), "commit", "-s", "-m", "feat(product): public submission"],
+                check=True,
+                capture_output=True,
+            )
+            self.assertEqual(_run_gate("opf-relay-bot", ["--relay-login", "opf-relay-bot"]).returncode, 0)
+            # Relay bot spoofing external_contributor is rejected
+            d_rel["evidence"].append(
+                {
+                    "evidence_id": "ev:01JTESTCNTEA00000000000089",
+                    "type": "community_report",
+                    "provenance": "external_contributor",
+                }
+            )
+            ed_file.write_text(json.dumps(d_rel), encoding="utf-8")
+            subprocess.run(["git", "-C", str(data_repo), "add", "-A"], check=True, capture_output=True)
+            subprocess.run(
+                ["git", "-C", str(data_repo), "commit", "-s", "-m", "feat(product): relay spoof ext"],
+                check=True,
+                capture_output=True,
+            )
+            res_rel_bad = _run_gate("opf-relay-bot", ["--relay-login", "opf-relay-bot"])
+            self.assertEqual(res_rel_bad.returncode, 1)
+            self.assertIn("public_submission", res_rel_bad.stderr)
+
+            # 4. Existing provenance immutability: even maintainer cannot modify existing entry without Provenance-Correction trailer
+            subprocess.run(["git", "-C", str(data_repo), "switch", "main"], check=True, capture_output=True)
+            subprocess.run(["git", "-C", str(data_repo), "switch", "-c", "feat/mutate-existing"], check=True, capture_output=True)
+            d_mut = json.loads(ed_file.read_text(encoding="utf-8"))
+            d_mut["evidence"][1]["provenance"] = "maintainer"
+            ed_file.write_text(json.dumps(d_mut), encoding="utf-8")
+            subprocess.run(["git", "-C", str(data_repo), "add", "-A"], check=True, capture_output=True)
+            subprocess.run(
+                ["git", "-C", str(data_repo), "commit", "-s", "-m", "chore: silently reclassify provenance"],
+                check=True,
+                capture_output=True,
+            )
+            res_mut_no_trailer = _run_gate("mickey996icu")
+            self.assertEqual(res_mut_no_trailer.returncode, 1)
+            self.assertIn("Provenance-Correction:", res_mut_no_trailer.stderr)
+
+            # Adding explicit Provenance-Correction trailer allows maintainer correction, but NEVER external user
+            subprocess.run(
+                [
+                    "git",
+                    "-C",
+                    str(data_repo),
+                    "commit",
+                    "--amend",
+                    "-s",
+                    "-m",
+                    "chore: correct mislabeled entry\n\nProvenance-Correction: Original entry captured by maintainer account",
+                ],
+                check=True,
+                capture_output=True,
+            )
+            self.assertEqual(_run_gate("mickey996icu").returncode, 0)
+            self.assertEqual(_run_gate("external-user").returncode, 1)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -144,7 +144,8 @@
       "contributor": "github:fixture-ken",
       "reported_at": "2026-08-25",
       "vintage_month": "2026-08",
-      "evidence_id": "ev:01M7SVN6PG9RHVG90T9VAG964P"
+      "evidence_id": "ev:01M7SVN6PG9RHVG90T9VAG964P",
+      "provenance": "external_contributor"
     }
   ],
   "revisions": [
@@ -156,7 +157,8 @@
       "evidence_refs": [
         "ev:01M7SVN6PG9RHVG90T9VAG964P"
       ],
-      "patch": []
+      "patch": [],
+      "provenance": "external_contributor"
     }
   ],
   "normalized": {

@@ -93,6 +93,7 @@
   "evidence": [
     {
       "type": "community_report",
+      "provenance": "external_contributor",
       "contributor": "github:example-contributor",
       "reported_at": "2026-09-15",
       "vintage_month": "2026-08"

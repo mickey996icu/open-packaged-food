@@ -38,6 +38,14 @@ DATE_MONTH_RE = re.compile(r"^[0-9]{4}-[0-9]{2}(-[0-9]{2})?$")
 SHA256_HEX_RE = re.compile(r"^[a-f0-9]{64}$")
 FINGERPRINT_RE = re.compile(r"^sha256:[a-f0-9]{64}$")
 OPF_MEDIA_RE = re.compile(r"^opf-media://sha256/([a-f0-9]{64})$")
+VALID_PROVENANCES: tuple[str, ...] = (
+    "maintainer",
+    "external_contributor",
+    "public_submission",
+    "brand_owner",
+    "partner",
+)
+AGREEMENT_REQUIRED_PROVENANCES: frozenset[str] = frozenset({"brand_owner", "partner"})
 
 
 def public_image_sha(ev: dict[str, Any]) -> str:
@@ -220,6 +228,24 @@ def validate_against_json_schema(
             for opt in schema["enum"]
         ):
             errors.append(f"{path}: value {instance!r} not in enum {schema['enum']}")
+
+    for sub_schema in schema.get("allOf") or []:
+        if isinstance(sub_schema, dict):
+            errors.extend(
+                validate_against_json_schema(instance, sub_schema, root_schema, path)
+            )
+
+    if "if" in schema and isinstance(schema["if"], dict):
+        cond_errs = validate_against_json_schema(instance, schema["if"], root_schema, path)
+        if not cond_errs:
+            if isinstance(schema.get("then"), dict):
+                errors.extend(
+                    validate_against_json_schema(instance, schema["then"], root_schema, path)
+                )
+        elif isinstance(schema.get("else"), dict):
+            errors.extend(
+                validate_against_json_schema(instance, schema["else"], root_schema, path)
+            )
 
     return errors
 
@@ -566,6 +592,18 @@ def validate_edition_doc(doc: dict[str, Any]) -> list[str]:
         for e_idx, ev in enumerate(evidence_list):
             if not isinstance(ev, dict):
                 continue
+            if "provenance" not in ev:
+                errors.append(
+                    f"$.evidence[{e_idx}].provenance: migration required — set 'provenance' to one of {list(VALID_PROVENANCES)} (use updated `opf` tooling)."
+                )
+            elif ev.get("provenance") in AGREEMENT_REQUIRED_PROVENANCES and not str(ev.get("agreement_ref") or "").strip():
+                errors.append(
+                    f"$.evidence[{e_idx}].agreement_ref: provenance={ev.get('provenance')!r} requires a non-empty internal agreement_ref identifier"
+                )
+            if ev.get("transcription") == "independent_match" and ev.get("provenance") != "maintainer":
+                errors.append(
+                    f"$.evidence[{e_idx}].transcription: 'independent_match' requires provenance='maintainer'"
+                )
             ev_id = ev.get("evidence_id")
             if isinstance(ev_id, str):
                 if ev_id in evidence_ids:
@@ -626,6 +664,14 @@ def validate_edition_doc(doc: dict[str, Any]) -> list[str]:
                     errors.append(f"$.revisions[{idx}]: must be an object")
                     rev_ok = False
                     continue
+                if "provenance" not in r_entry:
+                    errors.append(
+                        f"$.revisions[{idx}].provenance: migration required — set 'provenance' to one of {list(VALID_PROVENANCES)} (use updated `opf` tooling)."
+                    )
+                elif r_entry.get("provenance") in AGREEMENT_REQUIRED_PROVENANCES and not str(r_entry.get("agreement_ref") or "").strip():
+                    errors.append(
+                        f"$.revisions[{idx}].agreement_ref: provenance={r_entry.get('provenance')!r} requires a non-empty internal agreement_ref identifier"
+                    )
                 if r_entry.get("rev") != expected_rev:
                     errors.append(
                         f"$.revisions[{idx}].rev: expected sequential rev {expected_rev}, got {r_entry.get('rev')!r}"

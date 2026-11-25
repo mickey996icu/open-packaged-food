@@ -57,7 +57,9 @@ from opf.patches import (
 )
 from opf.pr_check import register_pr_check_subparser
 from opf.validator import (
+    AGREEMENT_REQUIRED_PROVENANCES,
     FORBIDDEN_BATCH_KEYS,
+    VALID_PROVENANCES,
     load_json_schema,
     validate_against_json_schema,
     validate_edition_doc,
@@ -65,6 +67,48 @@ from opf.validator import (
     validate_product_doc,
     validate_products_root,
 )
+
+
+def _resolve_provenance(
+    explicit: str | None,
+    draft: dict[str, Any] | None = None,
+    *,
+    default: str = "external_contributor",
+) -> str:
+    if isinstance(explicit, str) and explicit in VALID_PROVENANCES:
+        return explicit
+    if isinstance(draft, dict):
+        top_prov = draft.get("provenance")
+        if isinstance(top_prov, str) and top_prov in VALID_PROVENANCES:
+            return top_prov
+        ev_provs = {
+            str(ev["provenance"])
+            for ev in (draft.get("evidence") or [])
+            if isinstance(ev, dict) and isinstance(ev.get("provenance"), str) and ev["provenance"] in VALID_PROVENANCES
+        }
+        if len(ev_provs) == 1:
+            return next(iter(ev_provs))
+    return default
+
+
+def _resolve_agreement_ref(
+    explicit: str | None,
+    draft: dict[str, Any] | None = None,
+) -> str | None:
+    if isinstance(explicit, str) and explicit.strip():
+        return explicit.strip()
+    if isinstance(draft, dict):
+        top_ref = draft.get("agreement_ref")
+        if isinstance(top_ref, str) and top_ref.strip():
+            return top_ref.strip()
+        ev_refs = {
+            str(ev["agreement_ref"]).strip()
+            for ev in (draft.get("evidence") or [])
+            if isinstance(ev, dict) and isinstance(ev.get("agreement_ref"), str) and ev["agreement_ref"].strip()
+        }
+        if len(ev_refs) == 1:
+            return next(iter(ev_refs))
+    return None
 
 
 def _now_iso() -> str:
@@ -533,6 +577,8 @@ def _consolidate_duplicate_into(
     redirects: dict[str, dict[str, Any]],
     *,
     author: str,
+    provenance: str = "external_contributor",
+    agreement_ref: str | None = None,
     reason: str,
     now_iso: str,
     today_ymd: str,
@@ -561,18 +607,20 @@ def _consolidate_duplicate_into(
                 or [updated_target["evidence"][0]["evidence_id"]]
             )
         )
-        updated_target["revisions"].append(
-            {
-                "rev": updated_target["rev"],
-                "kind": "enrichment",
-                "created_at": now_iso,
-                "author": author,
-                "reason": reason,
-                "evidence_refs": ev_refs,
-                "patch": enrich_ops,
-                "reverse_patch": rev_patch,
-            }
-        )
+        rev_entry: dict[str, Any] = {
+            "rev": updated_target["rev"],
+            "kind": "enrichment",
+            "created_at": now_iso,
+            "author": author,
+            "provenance": provenance,
+            "reason": reason,
+            "evidence_refs": ev_refs,
+            "patch": enrich_ops,
+            "reverse_patch": rev_patch,
+        }
+        if agreement_ref:
+            rev_entry["agreement_ref"] = agreement_ref
+        updated_target["revisions"].append(rev_entry)
         normalize_edition(updated_target)
 
     source_id = source_ed["edition_id"]
@@ -598,6 +646,8 @@ def _prepare_candidate_from_draft(
     *,
     track: str,
     specimen_id_override: str | None,
+    default_provenance: str = "external_contributor",
+    default_agreement_ref: str | None = None,
 ) -> tuple[dict[str, Any], list[str]]:
     if not isinstance(draft, dict):
         return {}, ["Submission JSON root must be an object"]
@@ -622,6 +672,10 @@ def _prepare_candidate_from_draft(
     for ev in ev_list:
         if not isinstance(ev, dict):
             continue
+        if not ev.get("provenance"):
+            ev["provenance"] = default_provenance
+        if ev.get("provenance") in AGREEMENT_REQUIRED_PROVENANCES and not ev.get("agreement_ref") and default_agreement_ref:
+            ev["agreement_ref"] = default_agreement_ref
         if ev.get("type") == "label_photo":
             if not ev.get("evidence_id") and ev.get("cropped_sha256"):
                 ev["evidence_id"] = f"sha256:{ev['cropped_sha256']}"
@@ -781,6 +835,14 @@ def _execute_submit(args: argparse.Namespace) -> tuple[int, dict[str, Any]]:
         or "opf:cli"
     )
     reason = getattr(args, "reason", None) or draft.get("reason")
+    provenance = _resolve_provenance(getattr(args, "provenance", None), draft)
+    agreement_ref = _resolve_agreement_ref(getattr(args, "agreement_ref", None), draft)
+    if provenance in AGREEMENT_REQUIRED_PROVENANCES and not agreement_ref:
+        print(
+            f"Provenance {provenance!r} requires --agreement-ref <id> (or agreement_ref in draft).",
+            file=sys.stderr,
+        )
+        return 1, {}
     cli_track = getattr(args, "track", None)
     specimen_id_override = getattr(args, "specimen_id", None)
 
@@ -857,7 +919,11 @@ def _execute_submit(args: argparse.Namespace) -> tuple[int, dict[str, Any]]:
             return 1, {}
 
     candidate, prep_errs = _prepare_candidate_from_draft(
-        draft, track=track, specimen_id_override=specimen_id_override
+        draft,
+        track=track,
+        specimen_id_override=specimen_id_override,
+        default_provenance=provenance,
+        default_agreement_ref=agreement_ref,
     )
     if prep_errs:
         for e in prep_errs:
@@ -904,6 +970,8 @@ def _execute_submit(args: argparse.Namespace) -> tuple[int, dict[str, Any]]:
                 collision,
                 redirects,
                 author=author,
+                provenance=provenance,
+                agreement_ref=agreement_ref,
                 reason=merge_reason,
                 now_iso=now_iso,
                 today_ymd=today_ymd,
@@ -938,10 +1006,13 @@ def _execute_submit(args: argparse.Namespace) -> tuple[int, dict[str, Any]]:
                     "kind": "errata",
                     "created_at": now_iso,
                     "author": author,
+                    "provenance": provenance,
                     "evidence_refs": ev_refs,
                     "patch": patch,
                     "reverse_patch": rev_patch,
                 }
+                if agreement_ref:
+                    rev_entry["agreement_ref"] = agreement_ref
                 if reason:
                     rev_entry["reason"] = reason
                 amended["revisions"].append(rev_entry)
@@ -957,18 +1028,20 @@ def _execute_submit(args: argparse.Namespace) -> tuple[int, dict[str, Any]]:
             new_id = generate_ulid()
         candidate["edition_id"] = new_id
         candidate["supersedes"] = sorted(set(supersede_targets))
-        candidate["revisions"] = [
-            {
-                "rev": 1,
-                "kind": "initial",
-                "created_at": now_iso,
-                "author": author,
-                "evidence_refs": [ev["evidence_id"] for ev in candidate["evidence"]],
-                "patch": [],
-            }
-        ]
+        init_rev: dict[str, Any] = {
+            "rev": 1,
+            "kind": "initial",
+            "created_at": now_iso,
+            "author": author,
+            "provenance": provenance,
+            "evidence_refs": [ev["evidence_id"] for ev in candidate["evidence"]],
+            "patch": [],
+        }
+        if agreement_ref:
+            init_rev["agreement_ref"] = agreement_ref
         if reason:
-            candidate["revisions"][0]["reason"] = reason
+            init_rev["reason"] = reason
+        candidate["revisions"] = [init_rev]
         normalize_edition(candidate)
         records[new_id] = candidate
         action = "superseded_edition"
@@ -979,18 +1052,20 @@ def _execute_submit(args: argparse.Namespace) -> tuple[int, dict[str, Any]]:
         if new_id in records or new_id in redirects or not is_valid_ulid(new_id):
             new_id = generate_ulid()
         candidate["edition_id"] = new_id
-        candidate["revisions"] = [
-            {
-                "rev": 1,
-                "kind": "initial",
-                "created_at": now_iso,
-                "author": author,
-                "evidence_refs": [ev["evidence_id"] for ev in candidate["evidence"]],
-                "patch": [],
-            }
-        ]
+        init_rev = {
+            "rev": 1,
+            "kind": "initial",
+            "created_at": now_iso,
+            "author": author,
+            "provenance": provenance,
+            "evidence_refs": [ev["evidence_id"] for ev in candidate["evidence"]],
+            "patch": [],
+        }
+        if agreement_ref:
+            init_rev["agreement_ref"] = agreement_ref
         if reason:
-            candidate["revisions"][0]["reason"] = reason
+            init_rev["reason"] = reason
+        candidate["revisions"] = [init_rev]
         normalize_edition(candidate)
         records[new_id] = candidate
         action = "created_variant"
@@ -1005,18 +1080,20 @@ def _execute_submit(args: argparse.Namespace) -> tuple[int, dict[str, Any]]:
             if new_id in records or new_id in redirects or not is_valid_ulid(new_id):
                 new_id = generate_ulid()
             candidate["edition_id"] = new_id
-            candidate["revisions"] = [
-                {
-                    "rev": 1,
-                    "kind": "initial",
-                    "created_at": now_iso,
-                    "author": author,
-                    "evidence_refs": [ev["evidence_id"] for ev in candidate["evidence"]],
-                    "patch": [],
-                }
-            ]
+            init_rev = {
+                "rev": 1,
+                "kind": "initial",
+                "created_at": now_iso,
+                "author": author,
+                "provenance": provenance,
+                "evidence_refs": [ev["evidence_id"] for ev in candidate["evidence"]],
+                "patch": [],
+            }
+            if agreement_ref:
+                init_rev["agreement_ref"] = agreement_ref
             if reason:
-                candidate["revisions"][0]["reason"] = reason
+                init_rev["reason"] = reason
+            candidate["revisions"] = [init_rev]
             normalize_edition(candidate)
             records[new_id] = candidate
             action = "created_edition"
@@ -1061,10 +1138,13 @@ def _execute_submit(args: argparse.Namespace) -> tuple[int, dict[str, Any]]:
                     "kind": "enrichment",
                     "created_at": now_iso,
                     "author": author,
+                    "provenance": provenance,
                     "evidence_refs": ev_refs,
                     "patch": enrich_ops,
                     "reverse_patch": rev_patch,
                 }
+                if agreement_ref:
+                    rev_entry["agreement_ref"] = agreement_ref
                 if reason:
                     rev_entry["reason"] = reason
                 updated["revisions"].append(rev_entry)
@@ -1129,6 +1209,8 @@ def _prepare_submission_inputs(
     media_stage_dir: Path | None = None,
     vintage_month: str | None = None,
     contributor: str | None = None,
+    provenance: str | None = None,
+    agreement_ref: str | None = None,
     specimen_id: str | None = None,
     temp_dir: Path,
 ) -> tuple[Path, list[dict[str, Any]], list[str]]:
@@ -1162,6 +1244,8 @@ def _prepare_submission_inputs(
         ),
         None,
     ) or "github:contributor"
+    inferred_provenance = _resolve_provenance(provenance, draft_obj)
+    inferred_agreement_ref = _resolve_agreement_ref(agreement_ref, draft_obj)
 
     if media_stage_dir is not None:
         sdir = Path(media_stage_dir)
@@ -1216,12 +1300,15 @@ def _prepare_submission_inputs(
                 extra_dest.write_bytes(Path(rep["output"]).read_bytes())
             ev_item: dict[str, Any] = {
                 "type": "label_photo",
+                "provenance": inferred_provenance,
                 "region": region,
                 "cropped_sha256": rep["sha256"],
                 "media_ref": rep["media_ref"],
                 "contributor": inferred_contributor,
                 "reported_at": _today_ymd(),
             }
+            if inferred_agreement_ref:
+                ev_item["agreement_ref"] = inferred_agreement_ref
             if inferred_vintage:
                 ev_item["vintage_month"] = inferred_vintage
             if specimen_id:
@@ -1274,6 +1361,8 @@ def cmd_submit(args: argparse.Namespace) -> int:
                 media_stage_dir=Path(media_stage_raw) if media_stage_raw else None,
                 vintage_month=vintage_month,
                 contributor=getattr(args, "author", None),
+                provenance=getattr(args, "provenance", None),
+                agreement_ref=getattr(args, "agreement_ref", None),
                 specimen_id=getattr(args, "specimen_id", None),
                 temp_dir=tmp_path,
             )
@@ -1393,15 +1482,23 @@ def cmd_retrack(args: argparse.Namespace) -> int:
         rev_patch = invert_patch(s_before, patch)
         ed["track"] = new_track
         ed["rev"] += 1
+        retrack_prov = getattr(args, "provenance", None) or "external_contributor"
+        retrack_ref = _resolve_agreement_ref(getattr(args, "agreement_ref", None))
+        if retrack_prov in AGREEMENT_REQUIRED_PROVENANCES and not retrack_ref:
+            print(f"Provenance {retrack_prov!r} requires --agreement-ref <id>.", file=sys.stderr)
+            return 1
         rev_entry: dict[str, Any] = {
             "rev": ed["rev"],
             "kind": "retrack",
             "created_at": _now_iso(),
             "author": args.author,
+            "provenance": retrack_prov,
             "evidence_refs": list(dict.fromkeys(args.evidence_ref)),
             "patch": patch,
             "reverse_patch": rev_patch,
         }
+        if retrack_ref:
+            rev_entry["agreement_ref"] = retrack_ref
         if args.reason:
             rev_entry["reason"] = args.reason
         ed["revisions"].append(rev_entry)
@@ -1475,12 +1572,20 @@ def cmd_merge(args: argparse.Namespace) -> int:
         )
         return 1
 
+    merge_prov = getattr(args, "provenance", None) or "external_contributor"
+    merge_ref = _resolve_agreement_ref(getattr(args, "agreement_ref", None))
+    if merge_prov in AGREEMENT_REQUIRED_PROVENANCES and not merge_ref:
+        print(f"Provenance {merge_prov!r} requires --agreement-ref <id>.", file=sys.stderr)
+        return 1
+
     merge_reason = args.reason or f"Merged duplicate edition {args.source} into {args.into}"
     updated_tgt, redir_stub, conflicts = _consolidate_duplicate_into(
         src,
         tgt,
         redirects,
         author=args.author,
+        provenance=merge_prov,
+        agreement_ref=merge_ref,
         reason=merge_reason,
         now_iso=_now_iso(),
         today_ymd=_today_ymd(),
@@ -1584,23 +1689,30 @@ def cmd_lifecycle(args: argparse.Namespace) -> int:
     patch, rev_patch = diff_to_patch(old_surface, new_surface)
     action = "unchanged"
     if patch:
+        lc_prov = getattr(args, "provenance", None) or "external_contributor"
+        lc_ref = _resolve_agreement_ref(getattr(args, "agreement_ref", None))
+        if lc_prov in AGREEMENT_REQUIRED_PROVENANCES and not lc_ref:
+            print(f"Provenance {lc_prov!r} requires --agreement-ref <id>.", file=sys.stderr)
+            return 1
         if "lifecycle" in new_surface:
             ed["lifecycle"] = new_surface["lifecycle"]
         if "supersedes" in new_surface:
             ed["supersedes"] = new_surface["supersedes"]
         ed["rev"] += 1
-        ed["revisions"].append(
-            {
-                "rev": ed["rev"],
-                "kind": "lifecycle",
-                "created_at": _now_iso(),
-                "author": args.author,
-                "reason": args.reason,
-                "evidence_refs": ev_refs,
-                "patch": patch,
-                "reverse_patch": rev_patch,
-            }
-        )
+        lc_rev_entry: dict[str, Any] = {
+            "rev": ed["rev"],
+            "kind": "lifecycle",
+            "created_at": _now_iso(),
+            "author": args.author,
+            "provenance": lc_prov,
+            "reason": args.reason,
+            "evidence_refs": ev_refs,
+            "patch": patch,
+            "reverse_patch": rev_patch,
+        }
+        if lc_ref:
+            lc_rev_entry["agreement_ref"] = lc_ref
+        ed["revisions"].append(lc_rev_entry)
         records[eid] = ed
         action = "lifecycle_updated"
 
@@ -2004,6 +2116,8 @@ def cmd_pr(args: argparse.Namespace) -> int:
             media_stage_dir=Path(media_stage_raw) if media_stage_raw else None,
             vintage_month=vintage_month,
             contributor=getattr(args, "author", None),
+            provenance=getattr(args, "provenance", None),
+            agreement_ref=getattr(args, "agreement_ref", None),
             specimen_id=getattr(args, "specimen_id", None),
             temp_dir=tmp_path,
         )
@@ -2046,6 +2160,8 @@ def cmd_pr(args: argparse.Namespace) -> int:
             new_variant=getattr(args, "new_variant", False),
             track=getattr(args, "track", None),
             author=getattr(args, "author", None),
+            provenance=getattr(args, "provenance", None),
+            agreement_ref=getattr(args, "agreement_ref", None),
             reason=getattr(args, "reason", None),
             specimen_id=getattr(args, "specimen_id", None),
             quiet=True,
@@ -2520,6 +2636,15 @@ def main(argv: list[str] | None = None) -> int:
     p_sub.add_argument("--new-variant", action="store_true", help="Create a concurrent variant edition")
     p_sub.add_argument("--track", help="Target track key (e.g. CN/default or CN/plant:SC111)")
     p_sub.add_argument("--author", help="Revision author (e.g. github:alice)")
+    p_sub.add_argument(
+        "--provenance",
+        choices=VALID_PROVENANCES,
+        help="Rights/origin provenance for new evidence/revision entries (default: inferred or 'external_contributor')",
+    )
+    p_sub.add_argument(
+        "--agreement-ref",
+        help="Internal agreement reference ID (required when provenance is 'brand_owner' or 'partner')",
+    )
     p_sub.add_argument("--reason", help="Revision reason")
     p_sub.add_argument("--specimen-id", help="Specimen grouping identifier for submitted label photos")
     p_sub.add_argument("--vintage-month", help="Coarse YYYY-MM production month attached to label photos")
@@ -2539,6 +2664,16 @@ def main(argv: list[str] | None = None) -> int:
     p_ret.add_argument("--edition", required=True, help="Target edition ULID")
     p_ret.add_argument("--track", required=True, help="New track key")
     p_ret.add_argument("--author", required=True, help="Revision author")
+    p_ret.add_argument(
+        "--provenance",
+        choices=VALID_PROVENANCES,
+        default="external_contributor",
+        help="Rights/origin provenance for the retrack revision (default: external_contributor)",
+    )
+    p_ret.add_argument(
+        "--agreement-ref",
+        help="Internal agreement reference ID (required for 'brand_owner' or 'partner')",
+    )
     p_ret.add_argument("--evidence-ref", action="extend", nargs="+", required=True, help="Evidence ID(s)")
     p_ret.add_argument("--reason", help="Reason for track assignment")
     p_ret.add_argument("--discriminator-method", help="Track discriminator method for product.json")
@@ -2557,6 +2692,16 @@ def main(argv: list[str] | None = None) -> int:
     p_mrg.add_argument("--source", required=True, help="Duplicate edition ULID to absorb and redirect")
     p_mrg.add_argument("--into", required=True, help="Surviving canonical edition ULID")
     p_mrg.add_argument("--author", default="opf:maintainer", help="Author for enrichment if attributes added")
+    p_mrg.add_argument(
+        "--provenance",
+        choices=VALID_PROVENANCES,
+        default="external_contributor",
+        help="Rights/origin provenance for enrichment revision if attributes added (default: external_contributor)",
+    )
+    p_mrg.add_argument(
+        "--agreement-ref",
+        help="Internal agreement reference ID (required for 'brand_owner' or 'partner')",
+    )
     p_mrg.add_argument("--reason", help="Reason for consolidation")
     p_mrg.add_argument("--force", action="store_true", help="Allow merge when core_fingerprints differ (if no attribute conflict)")
     p_mrg.add_argument("--quiet", action="store_true", help="Suppress JSON status output")
@@ -2567,6 +2712,16 @@ def main(argv: list[str] | None = None) -> int:
     p_lc.add_argument("--id", required=True, help="Canonical product ID")
     p_lc.add_argument("--edition", required=True, help="Target edition ULID")
     p_lc.add_argument("--author", required=True, help="Revision author")
+    p_lc.add_argument(
+        "--provenance",
+        choices=VALID_PROVENANCES,
+        default="external_contributor",
+        help="Rights/origin provenance for lifecycle revision (default: external_contributor)",
+    )
+    p_lc.add_argument(
+        "--agreement-ref",
+        help="Internal agreement reference ID (required for 'brand_owner' or 'partner')",
+    )
     p_lc.add_argument("--reason", required=True, help="Reason for lifecycle update")
     p_lc.add_argument("--evidence-ref", action="extend", nargs="+", required=True, help="Evidence ID(s)")
     p_lc.add_argument("--state", choices=["discontinued", "retracted"], help="Administrative lifecycle state")
@@ -2597,6 +2752,15 @@ def main(argv: list[str] | None = None) -> int:
     p_pr.add_argument("--new-variant", action="store_true", help="Forward --new-variant to submit")
     p_pr.add_argument("--track", help="Forward --track to submit")
     p_pr.add_argument("--author", help="Forward --author to submit")
+    p_pr.add_argument(
+        "--provenance",
+        choices=VALID_PROVENANCES,
+        help="Forward --provenance to submit",
+    )
+    p_pr.add_argument(
+        "--agreement-ref",
+        help="Forward --agreement-ref to submit",
+    )
     p_pr.add_argument("--reason", help="Forward --reason to submit")
     p_pr.add_argument("--specimen-id", help="Forward --specimen-id to submit")
     p_pr.add_argument("--vintage-month", help="Coarse YYYY-MM production month attached to label photos")

@@ -71,7 +71,7 @@ Tanto la validación como la compilación del sitio usan solo la biblioteca est�
 ./open-packaged-food/bin/opf check-media-refs --media-dir opf-media opf-data/products
 ```
 
-Suba una rama y abra PRs en `opf-media` y `opf-data` (o use `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.3 opf pr ...` si ya tiene `uvx` y `gh`). Respete el orden: **fusione primero el PR de `opf-media` y después el de `opf-data`**, para que la CI encuentre las imágenes ya en `main`.
+Suba una rama y abra PRs en `opf-media` y `opf-data` (o use `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.4 opf pr ...` si ya tiene `uvx` y `gh`). Respete el orden: **fusione primero el PR de `opf-media` y después el de `opf-data`**, para que la CI encuentre las imágenes ya en `main`.
 
 Dos límites que no cruzamos:
 - **Envíe solo recortes de texto informativo** (tabla nutricional, ingredientes, fabricante, código de barras), nunca el diseño completo frontal del envase;

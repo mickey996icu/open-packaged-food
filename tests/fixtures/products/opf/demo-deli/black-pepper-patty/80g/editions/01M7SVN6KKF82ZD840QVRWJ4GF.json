@@ -128,14 +128,16 @@
       "contributor": "github:fixture-alice",
       "reported_at": "2026-08-10",
       "vintage_month": "2026-08",
-      "evidence_id": "ev:01M7SVN6KFNYH4XF5MVP2EPMBT"
+      "evidence_id": "ev:01M7SVN6KFNYH4XF5MVP2EPMBT",
+      "provenance": "external_contributor"
     },
     {
       "type": "community_report",
       "contributor": "github:fixture-bob",
       "reported_at": "2026-08-12",
       "vintage_month": "2026-08",
-      "evidence_id": "ev:01M7SVN6KPREGN96H38CY2B1K9"
+      "evidence_id": "ev:01M7SVN6KPREGN96H38CY2B1K9",
+      "provenance": "external_contributor"
     }
   ],
   "revisions": [
@@ -147,7 +149,8 @@
       "evidence_refs": [
         "ev:01M7SVN6KFNYH4XF5MVP2EPMBT"
       ],
-      "patch": []
+      "patch": [],
+      "provenance": "external_contributor"
     },
     {
       "rev": 2,
@@ -172,7 +175,8 @@
           "op": "remove",
           "path": "/attributes/product_standard"
         }
-      ]
+      ],
+      "provenance": "maintainer"
     }
   ],
   "normalized": {

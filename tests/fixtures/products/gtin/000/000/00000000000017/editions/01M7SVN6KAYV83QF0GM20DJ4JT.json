@@ -141,7 +141,8 @@
       "contributor": "github:fixture-bob",
       "reported_at": "2026-08-18",
       "vintage_month": "2026-08",
-      "evidence_id": "ev:01M7SVN6HND7PSQAB7D8005KR2"
+      "evidence_id": "ev:01M7SVN6HND7PSQAB7D8005KR2",
+      "provenance": "external_contributor"
     }
   ],
   "revisions": [
@@ -153,7 +154,8 @@
       "evidence_refs": [
         "ev:01M7SVN6HND7PSQAB7D8005KR2"
       ],
-      "patch": []
+      "patch": [],
+      "provenance": "external_contributor"
     }
   ],
   "normalized": {
