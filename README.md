@@ -1,6 +1,6 @@
 # OpenPackagedFood (`opf`)
 
-**[English](README.md) | [简体中文](README.zh-CN.md) | [日本語](README.ja.md) | [Deutsch](README.de.md) | [Français](README.fr.md) | [Español](README.es.md) | [Italiano](README.it.md)** · **[Contributing](CONTRIBUTING.md)** · **[Specification](spec/SPEC.md)** · **[Design](docs/DESIGN.md)**
+**[English](README.md) | [简体中文](README.zh-CN.md) | [日本語](README.ja.md) | [Deutsch](README.de.md) | [Français](README.fr.md) | [Español](README.es.md) | [Italiano](README.it.md)** · **[Contributing](CONTRIBUTING.md)** · **[Governance](GOVERNANCE.md)** · **[ODbL Guide](docs/ODbL-GUIDE.md)** · **[Specification](spec/SPEC.md)** · **[Design](docs/DESIGN.md)**
 
 > 🌐 **Web Explorer & Local Scanner**: [https://mickey996icu.github.io/opf-data/](https://mickey996icu.github.io/opf-data/)
 >
@@ -71,7 +71,7 @@ Validation and static-site generation rely solely on Python's standard library (
 ./open-packaged-food/bin/opf check-media-refs --media-dir opf-media opf-data/products
 ```
 
-Push branches and open PRs on `opf-media` and `opf-data` (or run `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.3 opf pr ...` if you have `uvx` and `gh` ready). Keep the order straight: **merge `opf-media` first, then `opf-data`**, so CI finds the images already on `main`.
+Push branches and open PRs on `opf-media` and `opf-data` (or run `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.4 opf pr ...` if you have `uvx` and `gh` ready). Keep the order straight: **merge `opf-media` first, then `opf-data`**, so CI finds the images already on `main`.
 
 Two lines we do not cross:
 - **Crop only factual text panels** (nutrition table, ingredients box, manufacturer block, barcode)—never upload full front-of-pack cover artwork;
@@ -113,8 +113,10 @@ python3 -m unittest discover -s tests -v
 
 ---
 
-## Licensing
+## Licensing (REUSE Layered)
 
-- **Tooling & Web Explorer (`opf/`, `bin/`, `web/`, `.github/`)**: [AGPL-3.0-or-later](LICENSE)
-- **Database & Product JSON (`opf-data`)**: [ODbL-1.0](LICENSE-DATA) / `DbCL-1.0`
-- **Cropped Label Evidence Media (`opf-media`)**: [CC-BY-SA-4.0](LICENSE-MEDIA)
+- **Tooling & Web Explorer (`opf/`, `bin/`, `web/` excl. `web/vendor/`, `.github/`, `tests/`)**: [`AGPL-3.0-or-later`](LICENSE) outbound (**[`Apache-2.0`](LICENSES/Apache-2.0.txt) permissive inbound** for contributions + DCO `git commit -s`, see [`CONTRIBUTING.md`](CONTRIBUTING.md))
+- **Specifications, Schemas, Dictionaries, Profiles, Skills, Docs & Vendor (`spec/`, `dictionaries/`, `profiles/`, `skills/`, `docs/`, `web/vendor/`)**: [`Apache-2.0`](LICENSES/Apache-2.0.txt) (direct integration without copyleft propagation)
+- **Database & Product JSON (`opf-data`)**: [`ODbL-1.0`](LICENSE-DATA) / `DbCL-1.0` (guide: [`docs/ODbL-GUIDE.md`](docs/ODbL-GUIDE.md))
+- **Cropped Label Evidence Media (`opf-media`)**: [`CC-BY-SA-4.0`](LICENSE-MEDIA)
+- Machine-readable SPDX declarations for every path are in [`REUSE.toml`](REUSE.toml) and [`LICENSES/`](LICENSES/); sustainability and provenance rules in [`GOVERNANCE.md`](GOVERNANCE.md).

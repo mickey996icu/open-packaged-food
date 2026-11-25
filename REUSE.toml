@@ -1,0 +1,59 @@
+version = 1
+SPDX-PackageName = "open-packaged-food"
+SPDX-PackageDownloadLocation = "https://github.com/mickey996icu/open-packaged-food"
+
+# Core tooling, CLI, Web Explorer, CI workflows, build config, and tests
+[[annotations]]
+path = [
+  "bin/**",
+  "opf/**",
+  "tests/**",
+  ".github/**",
+  "web/app.js",
+  "web/scanner.js",
+  "web/index.html",
+  "web/style.css",
+  "web/locales/**",
+  "pyproject.toml",
+  "setup.py",
+  "MANIFEST.in",
+  ".gitignore",
+]
+precedence = "override"
+SPDX-FileCopyrightText = "OpenPackagedFood Contributors"
+SPDX-License-Identifier = "AGPL-3.0-or-later"
+
+# Bundled third-party ZXing barcode/QR library preserves upstream Apache-2.0 terms
+[[annotations]]
+path = "web/vendor/**"
+precedence = "override"
+SPDX-FileCopyrightText = "ZXing Authors"
+SPDX-License-Identifier = "Apache-2.0"
+
+# Specifications, JSON Schemas, regulatory profiles, factual dictionaries, Agent skills, and docs
+[[annotations]]
+path = [
+  "spec/**",
+  "dictionaries/**",
+  "profiles/**",
+  "skills/**",
+  "docs/**",
+  "README*.md",
+  "CONTRIBUTING*.md",
+  "GOVERNANCE*.md",
+]
+precedence = "override"
+SPDX-FileCopyrightText = "OpenPackagedFood Contributors"
+SPDX-License-Identifier = "Apache-2.0"
+
+# Repository license notices and REUSE manifest
+[[annotations]]
+path = [
+  "LICENSE",
+  "LICENSE-DATA",
+  "LICENSE-MEDIA",
+  "REUSE.toml",
+]
+precedence = "override"
+SPDX-FileCopyrightText = "OpenPackagedFood Contributors"
+SPDX-License-Identifier = "CC0-1.0"

@@ -141,7 +141,8 @@
       "query": "FDC-DEMO-0001",
       "reported_at": "2026-01-15",
       "vintage_month": "2026-01",
-      "evidence_id": "ev:01M7SVN6P3J7ARV0ZQWR1EP8SQ"
+      "evidence_id": "ev:01M7SVN6P3J7ARV0ZQWR1EP8SQ",
+      "provenance": "maintainer"
     }
   ],
   "revisions": [
@@ -153,7 +154,8 @@
       "evidence_refs": [
         "ev:01M7SVN6P3J7ARV0ZQWR1EP8SQ"
       ],
-      "patch": []
+      "patch": [],
+      "provenance": "external_contributor"
     }
   ],
   "normalized": {

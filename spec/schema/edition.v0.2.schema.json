@@ -27,6 +27,23 @@
       "pattern": "^(sha256:[a-f0-9]{64}|ev:[0-7][0-9A-HJKMNP-TV-Z]{25})$",
       "description": "Collision-free evidence identifier: 'sha256:<cropped_or_snapshot_sha256>' for content-addressed media/snapshots, or 'ev:<ulid>' for non-photo records."
     },
+    "Provenance": {
+      "type": "string",
+      "enum": [
+        "maintainer",
+        "external_contributor",
+        "public_submission",
+        "brand_owner",
+        "partner"
+      ],
+      "description": "Rights/origin provenance of this evidence artifact or structured transcription revision. 'maintainer' denotes authorship by the project maintainer (or entity personnel with written copyright assignment under PRC Copyright Law Art. 18); 'external_contributor' denotes DCO PR contributions; 'public_submission' denotes Phase 2 relay submissions."
+    },
+    "AgreementRef": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,127}$",
+      "description": "Internal agreement reference identifier (mandatory when provenance is 'brand_owner' or 'partner'; contract terms stay private)."
+    },
     "Sha256Prefixed": {
       "type": "string",
       "pattern": "^sha256:[a-f0-9]{64}$"
@@ -380,7 +397,7 @@
     "EvidenceItem": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["evidence_id", "type", "reported_at"],
+      "required": ["evidence_id", "type", "provenance", "reported_at"],
       "description": "Append-only evidence entry. Adding corroborating items here does NOT increment rev.",
       "properties": {
         "evidence_id": { "$ref": "#/$defs/EvidenceId" },
@@ -393,6 +410,18 @@
             "official_registry_import",
             "community_report"
           ]
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance",
+          "description": "Rights/origin provenance of this evidence artifact."
+        },
+        "agreement_ref": {
+          "$ref": "#/$defs/AgreementRef"
+        },
+        "transcription": {
+          "type": "string",
+          "enum": ["independent_match"],
+          "description": "Tool-recorded attestation that blind re-transcription from physical-package evidence matched the existing core formulation. Must only be set by tooling alongside provenance='maintainer'."
         },
         "region": {
           "type": "string",
@@ -441,7 +470,20 @@
           "pattern": "^[0-9]{4}-[0-9]{2}$",
           "description": "Coarse package production month (or expiry_month minus shelf_life) printed on the package. Governs active market window without leaking exact batch timestamps."
         }
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "provenance": { "enum": ["brand_owner", "partner"] }
+            },
+            "required": ["provenance"]
+          },
+          "then": {
+            "required": ["agreement_ref"]
+          }
+        }
+      ]
     },
     "LifecycleOverride": {
       "type": "object",
@@ -494,7 +536,7 @@
     "RevisionEntry": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["rev", "kind", "created_at", "author", "evidence_refs", "patch"],
+      "required": ["rev", "kind", "created_at", "author", "provenance", "evidence_refs", "patch"],
       "description": "Content-only revision entry. Corroborating evidence additions do not create RevisionEntry items or increment rev. reverse_patch MUST be tool-generated for rev >= 2.",
       "properties": {
         "rev": {
@@ -512,6 +554,13 @@
         "author": {
           "type": "string",
           "minLength": 1
+        },
+        "provenance": {
+          "$ref": "#/$defs/Provenance",
+          "description": "Rights/origin provenance of the structured transcription or amendment in this revision."
+        },
+        "agreement_ref": {
+          "$ref": "#/$defs/AgreementRef"
         },
         "reason": {
           "type": "string",
@@ -532,7 +581,20 @@
           "minItems": 1,
           "items": { "$ref": "#/$defs/JsonPatchOp" }
         }
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "provenance": { "enum": ["brand_owner", "partner"] }
+            },
+            "required": ["provenance"]
+          },
+          "then": {
+            "required": ["agreement_ref"]
+          }
+        }
+      ]
     },
     "EditionRecord": {
       "type": "object",

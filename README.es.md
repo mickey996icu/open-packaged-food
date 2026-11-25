@@ -71,7 +71,7 @@ Tanto la validación como la compilación del sitio usan solo la biblioteca est�
 ./open-packaged-food/bin/opf check-media-refs --media-dir opf-media opf-data/products
 ```
 
-Suba una rama y abra PRs en `opf-media` y `opf-data` (o use `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.3 opf pr ...` si ya tiene `uvx` y `gh`). Respete el orden: **fusione primero el PR de `opf-media` y después el de `opf-data`**, para que la CI encuentre las imágenes ya en `main`.
+Suba una rama y abra PRs en `opf-media` y `opf-data` (o use `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.4 opf pr ...` si ya tiene `uvx` y `gh`). Respete el orden: **fusione primero el PR de `opf-media` y después el de `opf-data`**, para que la CI encuentre las imágenes ya en `main`.
 
 Dos límites que no cruzamos:
 - **Envíe solo recortes de texto informativo** (tabla nutricional, ingredientes, fabricante, código de barras), nunca el diseño completo frontal del envase;
@@ -113,8 +113,10 @@ python3 -m unittest discover -s tests -v
 
 ---
 
-## Licencias
+## Licencias (capas REUSE)
 
-- **Herramientas y explorador web (`opf/`, `bin/`, `web/`, `.github/`)**: [AGPL-3.0-or-later](LICENSE)
-- **Base de datos y JSON de productos (`opf-data`)**: [ODbL-1.0](LICENSE-DATA) / `DbCL-1.0`
-- **Recortes de etiquetas (`opf-media`)**: [CC-BY-SA-4.0](LICENSE-MEDIA)
+- **Herramientas y explorador web (`opf/`, `bin/`, `web/` excl. `web/vendor/`, `.github/`, `tests/`)**: [`AGPL-3.0-or-later`](LICENSE) en salida (**[`Apache-2.0`](LICENSES/Apache-2.0.txt) permisiva en entrada** + DCO `git commit -s`, ver [`CONTRIBUTING.md`](CONTRIBUTING.md))
+- **Especificaciones, esquemas, diccionarios, perfiles, skills, docs y vendor (`spec/`, `dictionaries/`, `profiles/`, `skills/`, `docs/`, `web/vendor/`)**: [`Apache-2.0`](LICENSES/Apache-2.0.txt) (integración directa sin propagación copyleft)
+- **Base de datos y JSON de productos (`opf-data`)**: [`ODbL-1.0`](LICENSE-DATA) / `DbCL-1.0` (guía: [`docs/ODbL-GUIDE.md`](docs/ODbL-GUIDE.md))
+- **Recortes de etiquetas (`opf-media`)**: [`CC-BY-SA-4.0`](LICENSE-MEDIA)
+- Declaraciones SPDX legibles por máquina en [`REUSE.toml`](REUSE.toml) y [`LICENSES/`](LICENSES/); gobernanza en [`GOVERNANCE.md`](GOVERNANCE.md).

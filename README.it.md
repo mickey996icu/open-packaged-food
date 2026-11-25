@@ -71,7 +71,7 @@ Sia la validazione sia la compilazione del sito usano esclusivamente la libreria
 ./open-packaged-food/bin/opf check-media-refs --media-dir opf-media opf-data/products
 ```
 
-Create quindi un branch e aprite le PR su `opf-media` e `opf-data` (oppure usate `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.3 opf pr ...` se avete `uvx` e `gh`). Rispettate l'ordine: **eseguite sempre il merge prima sulla PR di `opf-media` e poi su quella di `opf-data`**, così la CI troverà le immagini già su `main`.
+Create quindi un branch e aprite le PR su `opf-media` e `opf-data` (oppure usate `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.4 opf pr ...` se avete `uvx` e `gh`). Rispettate l'ordine: **eseguite sempre il merge prima sulla PR di `opf-media` e poi su quella di `opf-data`**, così la CI troverà le immagini già su `main`.
 
 Due confini da non oltrepassare:
 - **Inviate solo ritagli delle parti testuali** (tabella nutrizionale, elenco ingredienti, produttore, codice a barre), mai il fronte grafico completo della confezione;
@@ -113,8 +113,10 @@ python3 -m unittest discover -s tests -v
 
 ---
 
-## Licenze
+## Licenze (strati REUSE)
 
-- **Strumenti ed esploratore web (`opf/`, `bin/`, `web/`, `.github/`)**: [AGPL-3.0-or-later](LICENSE)
-- **Database e JSON dei prodotti (`opf-data`)**: [ODbL-1.0](LICENSE-DATA) / `DbCL-1.0`
-- **Ritagli delle etichette (`opf-media`)**: [CC-BY-SA-4.0](LICENSE-MEDIA)
+- **Strumenti ed esploratore web (`opf/`, `bin/`, `web/` escl. `web/vendor/`, `.github/`, `tests/`)**: [`AGPL-3.0-or-later`](LICENSE) in uscita (**[`Apache-2.0`](LICENSES/Apache-2.0.txt) permissiva in ingresso** + DCO `git commit -s`, vedi [`CONTRIBUTING.md`](CONTRIBUTING.md))
+- **Specifiche, schemi, dizionari, profili, skill, docs e vendor (`spec/`, `dictionaries/`, `profiles/`, `skills/`, `docs/`, `web/vendor/`)**: [`Apache-2.0`](LICENSES/Apache-2.0.txt) (integrazione diretta senza propagazione copyleft)
+- **Database e JSON dei prodotti (`opf-data`)**: [`ODbL-1.0`](LICENSE-DATA) / `DbCL-1.0` (guida: [`docs/ODbL-GUIDE.md`](docs/ODbL-GUIDE.md))
+- **Ritagli delle etichette (`opf-media`)**: [`CC-BY-SA-4.0`](LICENSE-MEDIA)
+- Dichiarazioni SPDX complete in [`REUSE.toml`](REUSE.toml) e [`LICENSES/`](LICENSES/); governance in [`GOVERNANCE.md`](GOVERNANCE.md).

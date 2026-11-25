@@ -56,7 +56,7 @@
 ### 可选一键自动化通道（`uvx` + `gh` / 第二阶段 HTTP Relay）
 - **可选开发者快捷通道（`uvx` + `gh`）**：若本地已安装 `uvx` 且完成 `gh auth login`，也可选用 `opf pr` 一键完成 WebP 脱敏、稀疏 fork 检出并开出双仓互链 PR：
   ```bash
-  uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.3 \
+  uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.4 \
     opf pr --input draft.json \
     --photo nutrition_table=crop_nutrition.jpg \
     --photo ingredients_box=crop_ingredients.jpg \
@@ -92,5 +92,9 @@ python3 -m unittest discover -s tests -v
 3. **严禁猜测与机器翻译**：
    - 包装未标示的营养素留空，绝不用 `0` 或同类平均值填补；
    - `attributes` 层只抄录包装上实际印刷的语言文字；仅接受人工校对翻译（标记 `contributor_translated`），不接受未经校对的机器翻译。
-4. **开发者原创声明 (DCO) 与开源许可**：
-   - 提交代码遵循 **[AGPL-3.0-or-later](LICENSE)**，提交数据遵循 **[ODbL-1.0](LICENSE-DATA)**，提交裁剪标签图遵循 **[CC BY-SA 4.0](LICENSE-MEDIA)**。
+4. **开发者原创声明 (DCO) 与 REUSE 许可分层（`Apache-2.0` 宽松入站）**：
+   - 本仓库各路径的 SPDX 许可已在 [`REUSE.toml`](REUSE.toml) 与 [`LICENSES/`](LICENSES/) 中声明。`opf/`、`bin/`、`web/` 等工具链对外遵循 **[AGPL-3.0-or-later](LICENSE)**，**向 `open-packaged-food` 提交的代码、Schema、词典、法规规则插件与文档均按 [`Apache-2.0`](LICENSES/Apache-2.0.txt) 宽松入站**并附带 DCO 原创声明（`git commit -s`），无需签署个人 CLA；`spec/`、`dictionaries/`、`profiles/`、`skills/`、`docs/` 及 `web/vendor/`（ZXing）本身亦以 **`Apache-2.0`** 对外分发。
+   - 向 `opf-data` 提交数据遵循 **[ODbL-1.0](LICENSE-DATA)**，向 `opf-media` 提交裁剪标签图遵循 **[CC BY-SA 4.0](LICENSE-MEDIA)**。接入与可持续治理边界见 [`GOVERNANCE.zh-CN.md`](GOVERNANCE.zh-CN.md) 与 [`docs/ODbL-GUIDE.zh-CN.md`](docs/ODbL-GUIDE.zh-CN.md)。
+5. **双层 `provenance` 与 CI 防洗白门禁**：
+   - 外部 PR 提交的产品证据（`evidence[]`）与修订（`revisions[]`）统一标记 `provenance: "external_contributor"`（CLI 默认值）；免登录提交中转（Phase 2 Relay）标记为 `"public_submission"`。
+   - CI 门禁 `opf check-pr-meta` 会拒绝外部 PR 写入 `maintainer`、`brand_owner`、`partner` 或 `transcription: "independent_match"`，并禁止篡改既有条目的 `provenance`（除非授权维护者附带 `Provenance-Correction: <reason>` 提交说明）。

@@ -1,6 +1,6 @@
 # OpenPackagedFood Specification (v0.2)
 
-> **Status**: Draft M0 | **Schema Version**: `0.2` | **CI Tooling Pin**: `v0.2.3` | **License**: Code AGPL-3.0-or-later, Data ODbL-1.0, Label Media CC-BY-SA-4.0
+> **Status**: Draft M0 | **Schema Version**: `0.2` | **CI Tooling Pin**: `v0.2.4` | **License**: Code AGPL-3.0-or-later (Apache-2.0 inbound), Spec & Schemas Apache-2.0, Data ODbL-1.0, Label Media CC-BY-SA-4.0
 
 ## 1. Scope & Core Principles
 
@@ -241,6 +241,12 @@ Every `EditionRecord` stores the **materialized content state at latest `rev`** 
 | `lifecycle` | `/supersedes` or `/lifecycle` **only** | `opf lifecycle`: Records explicit `supersedes` links or `retracted` / `discontinued` overrides. |
 
 - **Corroboration Does NOT Increment `rev`**: When a contributor submits additional `label_photo` or `registry_check` evidence confirming an existing Edition without altering content, `opf submit` appends the new item(s) to `evidence[]` (`evidence[]` is strictly append-only) and leaves `rev` and `revisions[]` unchanged.
+- **Dual-Layer `provenance`, `agreement_ref`, and Blind Re-Transcription (`transcription`)**:
+  - Both `evidence[]` artifacts and `revisions[]` transcription entries MUST carry `provenance`: `"maintainer" | "external_contributor" | "public_submission" | "brand_owner" | "partner"`.
+  - **`maintainer` Scope & Copyright Law Art. 18**: `maintainer` applies strictly to independent capture/transcription by the project maintainer (or personnel of a future operating entity **only** where written agreements assign copyright in the work to the operating entity, consistent with PRC Copyright Law Art. 18 default rules for general works for hire). Official public-registry imports performed by maintainers carry `provenance: "maintainer"` alongside `type: "official_registry_import"` or `"official_document"`.
+  - **Contract Reference (`agreement_ref`)**: Entries with `provenance` in `{"brand_owner", "partner"}` MUST carry an internal `agreement_ref` identifier linking to the underlying written authorization (keeping contract terms private).
+  - **Blind Re-Transcription Attestation (`transcription: "independent_match"`)**: Adding a `maintainer` label photo to corroborate an existing `external_contributor` edition updates only `evidence[]` and preserves `revisions[].provenance`. Because corroboration does not create a `RevisionEntry`, `EvidenceItem` provides an optional tool-written field `transcription: "independent_match"` (forbidden for manual guessing or non-`maintainer` entries) to record that maintainers independently re-transcribed the physical label from scratch without reading the existing `core` and obtained an exact match. An edition's current `core` qualifies for a maintainer-origin subset only when every active value originates from `maintainer` revisions or is covered by an `independent_match` evidence entry with no subsequent unverified external modifications.
+  - **v0.2 Schema Changelog Note**: `provenance` (required on `EvidenceItem` and `RevisionEntry`), `agreement_ref` (required for `brand_owner`/`partner`), and `transcription` were introduced prior to any third-party production submissions; CI enforces strict schema validation and migration guidance for legacy drafts.
 - **Attribute Conflict Routing**: When `core_fingerprint` matches an existing Edition on the same track, but a non-empty incoming attribute conflicts with an existing non-empty value (e.g., `SC133...` vs `SC144...`), `opf submit` aborts automatic merging and prompts for explicit intent:
   1. `--amend <ulid>` (`errata` fixing a prior typo);
   2. `--supersede <ulid>` (creates a new Edition ULID on the same track with `supersedes: ["<ulid>"]`, e.g., plant relocation); or
@@ -308,6 +314,7 @@ Below, Alice initially submits a bottle on `CN/default` (`rev 1`), enriches its 
     {
       "evidence_id": "sha256:a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f90",
       "type": "label_photo",
+      "provenance": "external_contributor",
       "region": "nutrition_table",
       "cropped_sha256": "a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f90",
       "media_ref": "opf-media://sha256/a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f90",
@@ -318,6 +325,7 @@ Below, Alice initially submits a bottle on `CN/default` (`rev 1`), enriches its 
     {
       "evidence_id": "sha256:b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f90a1",
       "type": "label_photo",
+      "provenance": "external_contributor",
       "region": "manufacturer_block",
       "cropped_sha256": "b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f90a1",
       "media_ref": "opf-media://sha256/b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f90a1",
@@ -328,6 +336,7 @@ Below, Alice initially submits a bottle on `CN/default` (`rev 1`), enriches its 
     {
       "evidence_id": "sha256:c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2",
       "type": "label_photo",
+      "provenance": "external_contributor",
       "region": "full_back_label",
       "cropped_sha256": "c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2",
       "media_ref": "opf-media://sha256/c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2",
@@ -342,6 +351,7 @@ Below, Alice initially submits a bottle on `CN/default` (`rev 1`), enriches its 
       "kind": "initial",
       "created_at": "2026-02-14T10:15:00Z",
       "author": "github:alice",
+      "provenance": "external_contributor",
       "evidence_refs": ["sha256:a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f90"],
       "patch": []
     },
@@ -350,6 +360,7 @@ Below, Alice initially submits a bottle on `CN/default` (`rev 1`), enriches its 
       "kind": "enrichment",
       "created_at": "2026-02-15T09:20:00Z",
       "author": "github:alice",
+      "provenance": "external_contributor",
       "evidence_refs": ["sha256:b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f90a1"],
       "reason": "Add back-panel single-factory SC license, packaging code, and shelf life",
       "patch": [
@@ -375,6 +386,7 @@ Below, Alice initially submits a bottle on `CN/default` (`rev 1`), enriches its 
       "kind": "retrack",
       "created_at": "2026-03-02T08:40:00Z",
       "author": "github:maintainer",
+      "provenance": "maintainer",
       "evidence_refs": ["sha256:b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f90a1"],
       "reason": "Split from CN/default after concurrent second single-plant edition (SC10600000000002) was added",
       "patch": [
@@ -389,6 +401,7 @@ Below, Alice initially submits a bottle on `CN/default` (`rev 1`), enriches its 
       "kind": "errata",
       "created_at": "2026-03-05T12:00:00Z",
       "author": "github:alice",
+      "provenance": "external_contributor",
       "evidence_refs": ["sha256:a1b2c3d4e5f60718293a4b5c6d7e8f90a1b2c3d4e5f60718293a4b5c6d7e8f90"],
       "reason": "Fix sodium transcription typo (16mg -> 18mg) verified against nutrition crop",
       "patch": [

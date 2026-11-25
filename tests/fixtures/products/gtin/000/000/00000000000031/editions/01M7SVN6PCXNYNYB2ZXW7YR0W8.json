@@ -143,7 +143,8 @@
       "query": "FDC-DEMO-0002",
       "reported_at": "2026-08-22",
       "vintage_month": "2026-08",
-      "evidence_id": "ev:01M7SVN6P9Q7680F2CN141RA3V"
+      "evidence_id": "ev:01M7SVN6P9Q7680F2CN141RA3V",
+      "provenance": "maintainer"
     }
   ],
   "revisions": [
@@ -156,7 +157,8 @@
         "ev:01M7SVN6P9Q7680F2CN141RA3V"
       ],
       "patch": [],
-      "reason": "Reduced-sugar & reduced-sodium reformulation"
+      "reason": "Reduced-sugar & reduced-sodium reformulation",
+      "provenance": "external_contributor"
     }
   ],
   "normalized": {

@@ -141,14 +141,16 @@
       "contributor": "github:fixture-alice",
       "reported_at": "2026-08-15",
       "vintage_month": "2026-08",
-      "evidence_id": "ev:01M7SVN6FJYG39N3FRT0C702RS"
+      "evidence_id": "ev:01M7SVN6FJYG39N3FRT0C702RS",
+      "provenance": "external_contributor"
     },
     {
       "type": "community_report",
       "contributor": "github:fixture-alice",
       "reported_at": "2026-08-16",
       "vintage_month": "2026-08",
-      "evidence_id": "ev:01M7SVN6HESM4C58VRDZECV3DF"
+      "evidence_id": "ev:01M7SVN6HESM4C58VRDZECV3DF",
+      "provenance": "external_contributor"
     }
   ],
   "revisions": [
@@ -160,7 +162,8 @@
       "evidence_refs": [
         "ev:01M7SVN6FJYG39N3FRT0C702RS"
       ],
-      "patch": []
+      "patch": [],
+      "provenance": "external_contributor"
     },
     {
       "rev": 2,
@@ -185,7 +188,8 @@
           "path": "/attributes/product_standard"
         }
       ],
-      "reason": "Enrich missing product_standard GB/T 21733"
+      "reason": "Enrich missing product_standard GB/T 21733",
+      "provenance": "external_contributor"
     }
   ],
   "normalized": {

@@ -73,7 +73,7 @@ mkdir -p ~/.gemini/config/skills && ln -s ~/src/open-packaged-food/skills/opf ~/
 ./open-packaged-food/bin/opf check-media-refs --media-dir opf-media opf-data/products
 ```
 
-検証が通ったら `opf-media` と `opf-data` にそれぞれブランチを切って PR を送ります（`uvx` と `gh` が使える環境なら `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.3 opf pr ...` でまとめて実行できます）。マージは**必ず画像倉（`opf-media`）を先、データ倉（`opf-data`）を後**にしてください。画像がメインブランチに入る前にデータ側をマージしようとすると CI が停止します。
+検証が通ったら `opf-media` と `opf-data` にそれぞれブランチを切って PR を送ります（`uvx` と `gh` が使える環境なら `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.4 opf pr ...` でまとめて実行できます）。マージは**必ず画像倉（`opf-media`）を先、データ倉（`opf-data`）を後**にしてください。画像がメインブランチに入る前にデータ側をマージしようとすると CI が停止します。
 
 投稿前に二つの点だけご留意ください：
 - **文字表示の切り抜き部分だけを送る**（栄養成分表、原材料枠、製造者欄、バーコード周辺）。商品表面のパッケージデザイン全体の写真は著作権配慮のため投稿しないでください。
@@ -115,8 +115,10 @@ python3 -m unittest discover -s tests -v
 
 ---
 
-## ライセンス
+## ライセンス（REUSE 階層宣言）
 
-- **ツール・Web エクスプローラー（`opf/`・`bin/`・`web/`・`.github/`）**：[AGPL-3.0-or-later](LICENSE)
-- **データベース・商品 JSON（`opf-data`）**：[ODbL-1.0](LICENSE-DATA) / `DbCL-1.0`
-- **切り抜きラベル証拠画像（`opf-media`）**：[CC-BY-SA-4.0](LICENSE-MEDIA)
+- **ツール・Web エクスプローラー（`opf/`・`bin/`・`web/` ※`web/vendor/` を除く・`.github/`・`tests/`）**：公開は [`AGPL-3.0-or-later`](LICENSE)（貢献受け入れは **[`Apache-2.0`](LICENSES/Apache-2.0.txt)** + DCO `git commit -s`、詳細は [`CONTRIBUTING.md`](CONTRIBUTING.md)）
+- **仕様・スキーマ・辞書・地域ルール・Skill・ドキュメント・同梱ライブラリ（`spec/`・`dictionaries/`・`profiles/`・`skills/`・`docs/`・`web/vendor/`）**：[`Apache-2.0`](LICENSES/Apache-2.0.txt)（コピーレフト伝播なしで組み込み可能）
+- **データベース・商品 JSON（`opf-data`）**：[`ODbL-1.0`](LICENSE-DATA) / `DbCL-1.0`（利用ガイド：[`docs/ODbL-GUIDE.md`](docs/ODbL-GUIDE.md)）
+- **切り抜きラベル証拠画像（`opf-media`）**：[`CC-BY-SA-4.0`](LICENSE-MEDIA)
+- 全パスの SPDX 宣言は [`REUSE.toml`](REUSE.toml) と [`LICENSES/`](LICENSES/)、ガバナンスと `provenance` 原則は [`GOVERNANCE.md`](GOVERNANCE.md) を参照してください。

@@ -159,13 +159,14 @@ Pick the active submission path cleanly:
 - **Optional One-Step Automation (`uvx` + `gh` CLI)**:
   Developers who already have `uvx` and an authenticated `gh` session (`gh auth status`) may optionally use `opf pr` instead of manual `git` branching/pushing:
   ```bash
-  uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.3 \
+  uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.4 \
     opf pr --input draft.json \
     --photo nutrition_table=crop_nutrition.jpg \
     --photo ingredients_box=crop_ingredients.jpg \
     --vintage-month YYYY-MM
   ```
   This optional shortcut automates WebP transcoding (`<= 1000px`, EXIF-free), validation, sparse shallow forks/checkouts, and opening the cross-linked dual PRs (`opf-media` first, `opf-data` second).
+  By default, developer/CLI PRs tag new `evidence[]` and `revisions[]` entries with `"provenance": "external_contributor"`, whereas Phase 2 HTTP Relay (`OPF_SUBMIT_URL`) submissions receive `"public_submission"`; maintainers contributing under written agreements pass `--provenance {maintainer|brand_owner|partner}` and `--agreement-ref <id>`.
 
 - **Graceful Local Fallback**:
   If `OPF_SUBMIT_URL` is unavailable and automated pushing cannot run, do **not** emit scary stack traces or errors—share the validated `draft.json` cleanly and point developers to the pure-Git contributor steps in `https://github.com/mickey996icu/open-packaged-food/blob/main/CONTRIBUTING.md`.
@@ -177,10 +178,10 @@ Pick the active submission path cleanly:
 When working inside local checkouts (`./open-packaged-food/bin/opf` or via `uvx`):
 - `opf parse-ingredients --lang zh-Hans --profile CN/GB28050-2011 "<text>"` — verify monotonic span-free AST (`--with-spans` for offsets)
 - `opf sanitize-media <img...> --media-root opf-media` — transcode to `<= 1000px` EXIF-free content-addressed WebP (`--lossless-only` for legacy raw strip)
-- `opf submit --input draft.json --out-dir opf-data/products [--photo region=img] [--media-out-dir opf-media]`
+- `opf submit --input draft.json --out-dir opf-data/products [--photo region=img] [--media-out-dir opf-media] [--provenance external_contributor|...] [--agreement-ref REF]`
 - `opf retrack` / `opf merge` / `opf lifecycle` — manage track splits, duplicate `EditionRedirect` stubs, `discontinued`/`retracted`
-- `opf validate opf-data/products` — schema v0.2, GS1, DAG, patch replay, and privacy checks (pure stdlib)
+- `opf validate opf-data/products` — schema v0.2, GS1, DAG, patch replay, dual-layer `provenance`, `agreement_ref`, and privacy checks (pure stdlib)
 - `opf validate-media opf-media` — pure-stdlib WebP dimension/EXIF/SHA-256 verification
 - `opf check-media-refs --media-base-url https://raw.githubusercontent.com/mickey996icu/opf-media/main opf-data/products` — CI gate preventing orphan `opf-media://` refs
-- `opf check-pr-meta --repo-kind {tooling,data,media} ...` — CI gate verifying non-empty PR descriptions, resolved companion PR links, file scope, and DCO sign-offs
+- `opf check-pr-meta --repo-kind {tooling,data,media} ...` — CI gate verifying non-empty PR descriptions, resolved companion PR links, file scope, DCO sign-offs, and `provenance` anti-spoofing / immutability rules
 - `opf build --data-dir ... --out-dir ... --media-base-url ...` & `opf serve` — compile and preview static `/v1/` + Explorer

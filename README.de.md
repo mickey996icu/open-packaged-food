@@ -71,7 +71,7 @@ Prüfung und statischer Build nutzen ausschließlich die Python-Standardbiblioth
 ./open-packaged-food/bin/opf check-media-refs --media-dir opf-media opf-data/products
 ```
 
-Legen Sie anschließend jeweils einen Branch in `opf-media` und `opf-data` an und öffnen Sie beide PRs (mit `uvx` und `gh` genügt auch `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.3 opf pr ...`). Wichtig ist die Reihenfolge: **immer zuerst den `opf-media`-PR mergen, danach den `opf-data`-PR**, damit die Prüfung die Bilder bereits auf `main` findet.
+Legen Sie anschließend jeweils einen Branch in `opf-media` und `opf-data` an und öffnen Sie beide PRs (mit `uvx` und `gh` genügt auch `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.4 opf pr ...`). Wichtig ist die Reihenfolge: **immer zuerst den `opf-media`-PR mergen, danach den `opf-data`-PR**, damit die Prüfung die Bilder bereits auf `main` findet.
 
 Zwei klare Grenzen bleiben unverrückbar:
 - **Nur zugeschnittene Textfelder einreichen** (Nährwerttabelle, Zutatenliste, Herstellerblock, Barcode) – niemals die gestaltete Vorderseite der Verpackung;
@@ -113,8 +113,10 @@ python3 -m unittest discover -s tests -v
 
 ---
 
-## Lizenzen
+## Lizenzen (REUSE-Schichten)
 
-- **Werkzeuge & Web-Explorer (`opf/`, `bin/`, `web/`, `.github/`)**: [AGPL-3.0-or-later](LICENSE)
-- **Datenbank & Produkt-JSON (`opf-data`)**: [ODbL-1.0](LICENSE-DATA) / `DbCL-1.0`
-- **Zugeschnittene Etikett-Nachweise (`opf-media`)**: [CC-BY-SA-4.0](LICENSE-MEDIA)
+- **Werkzeuge & Web-Explorer (`opf/`, `bin/`, `web/` außer `web/vendor/`, `.github/`, `tests/`)**: [`AGPL-3.0-or-later`](LICENSE) nach außen (**[`Apache-2.0`](LICENSES/Apache-2.0.txt) permissiv eingehend** für Beiträge + DCO `git commit -s`, siehe [`CONTRIBUTING.md`](CONTRIBUTING.md))
+- **Spezifikationen, Schemas, Wörterbücher, Regelprofile, Skills, Docs & Vendor (`spec/`, `dictionaries/`, `profiles/`, `skills/`, `docs/`, `web/vendor/`)**: [`Apache-2.0`](LICENSES/Apache-2.0.txt) (direkte Integration ohne Copyleft-Weitergabe)
+- **Datenbank & Produkt-JSON (`opf-data`)**: [`ODbL-1.0`](LICENSE-DATA) / `DbCL-1.0` (Leitfaden: [`docs/ODbL-GUIDE.md`](docs/ODbL-GUIDE.md))
+- **Zugeschnittene Etikett-Nachweise (`opf-media`)**: [`CC-BY-SA-4.0`](LICENSE-MEDIA)
+- Maschinenlesbare SPDX-Deklarationen je Pfad in [`REUSE.toml`](REUSE.toml) und [`LICENSES/`](LICENSES/); Governance-Regeln in [`GOVERNANCE.md`](GOVERNANCE.md).

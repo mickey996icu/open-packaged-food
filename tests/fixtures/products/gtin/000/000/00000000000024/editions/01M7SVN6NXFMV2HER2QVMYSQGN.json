@@ -374,7 +374,8 @@
       "contributor": "github:fixture-claire",
       "reported_at": "2026-08-20",
       "vintage_month": "2026-08",
-      "evidence_id": "ev:01M7SVN6N5D3131WTMM1KQF4HR"
+      "evidence_id": "ev:01M7SVN6N5D3131WTMM1KQF4HR",
+      "provenance": "external_contributor"
     }
   ],
   "revisions": [
@@ -386,7 +387,8 @@
       "evidence_refs": [
         "ev:01M7SVN6N5D3131WTMM1KQF4HR"
       ],
-      "patch": []
+      "patch": [],
+      "provenance": "external_contributor"
     }
   ],
   "normalized": {

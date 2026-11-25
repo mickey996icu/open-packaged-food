@@ -620,6 +620,129 @@ class TestCliV02Workflow(unittest.TestCase):
             )
             self.assertEqual(validate_products_root(data_repo / "products"), [])
 
+    def test_provenance_dual_layer_isolation(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            products_root = tmp_path / "products"
+
+            # 1. External contributor submits rev 1 -> both evidence[0] and revisions[0] default to 'external_contributor'
+            d1 = _make_draft(contributor="github:alice", photo_seed="prov-alice")
+            p1 = tmp_path / "d1.json"
+            p1.write_text(json.dumps(d1, ensure_ascii=False), encoding="utf-8")
+            rc1, out1, err1 = _run_cli(["submit", "--input", str(p1), "--out-dir", str(products_root)])
+            self.assertEqual(rc1, 0, err1)
+            eid = json.loads(out1)["edition_id"]
+            ed_path = products_root / "gtin" / "000" / "000" / "00000000000109" / "editions" / f"{eid}.json"
+            ed1 = json.loads(ed_path.read_text(encoding="utf-8"))
+            self.assertEqual(ed1["evidence"][0]["provenance"], "external_contributor")
+            self.assertEqual(ed1["revisions"][0]["provenance"], "external_contributor")
+
+            # 2. Maintainer corroborates same formulation via --provenance maintainer (no core/attrs change):
+            # evidence[1] is 'maintainer', while revisions[0] remains 'external_contributor'!
+            d2 = _make_draft(contributor="github:mickey996icu", photo_seed="prov-maint-photo")
+            p2 = tmp_path / "d2.json"
+            p2.write_text(json.dumps(d2, ensure_ascii=False), encoding="utf-8")
+            rc2, out2, err2 = _run_cli(
+                [
+                    "submit",
+                    "--provenance",
+                    "maintainer",
+                    "--author",
+                    "github:mickey996icu",
+                    "--input",
+                    str(p2),
+                    "--out-dir",
+                    str(products_root),
+                ]
+            )
+            self.assertEqual(rc2, 0, err2)
+            self.assertEqual(json.loads(out2)["action"], "corroborated_edition")
+            ed2 = json.loads(ed_path.read_text(encoding="utf-8"))
+            self.assertEqual(ed2["rev"], 1)
+            self.assertEqual(len(ed2["evidence"]), 2)
+            self.assertEqual([ev["provenance"] for ev in ed2["evidence"]], ["external_contributor", "maintainer"])
+            self.assertEqual(ed2["revisions"][0]["provenance"], "external_contributor")
+
+            # 3. Maintainer performs independent re-transcription amendment (--amend --provenance maintainer):
+            # rev 2 revision records 'maintainer' without mutating rev 1 provenance.
+            d3 = _make_draft(sodium="20", contributor="github:mickey996icu", photo_seed="prov-maint-errata")
+            p3 = tmp_path / "d3.json"
+            p3.write_text(json.dumps(d3, ensure_ascii=False), encoding="utf-8")
+            rc3, out3, err3 = _run_cli(
+                [
+                    "submit",
+                    "--amend",
+                    eid,
+                    "--provenance",
+                    "maintainer",
+                    "--author",
+                    "github:mickey996icu",
+                    "--reason",
+                    "Independent re-transcription by maintainer",
+                    "--input",
+                    str(p3),
+                    "--out-dir",
+                    str(products_root),
+                ]
+            )
+            self.assertEqual(rc3, 0, err3)
+            self.assertEqual(json.loads(out3)["action"], "amended_edition")
+            ed3 = json.loads(ed_path.read_text(encoding="utf-8"))
+            self.assertEqual([r["provenance"] for r in ed3["revisions"]], ["external_contributor", "maintainer"])
+
+            # 4. partner / brand_owner require agreement_ref (both in CLI and JSON Schema/validator)
+            d_partner = _make_draft(product_id="gtin:00000000000017", contributor="partner:lab-a", photo_seed="prov-partner")
+            p_partner = tmp_path / "d_partner.json"
+            p_partner.write_text(json.dumps(d_partner, ensure_ascii=False), encoding="utf-8")
+            rc_p_missing, _, err_p_missing = _run_cli(
+                ["submit", "--provenance", "partner", "--input", str(p_partner), "--out-dir", str(products_root)]
+            )
+            self.assertEqual(rc_p_missing, 1)
+            self.assertIn("--agreement-ref", err_p_missing)
+
+            rc_p_ok, out_p_ok, err_p_ok = _run_cli(
+                [
+                    "submit",
+                    "--provenance",
+                    "partner",
+                    "--agreement-ref",
+                    "AGR-2026-UNIV-01",
+                    "--input",
+                    str(p_partner),
+                    "--out-dir",
+                    str(products_root),
+                ]
+            )
+            self.assertEqual(rc_p_ok, 0, err_p_ok)
+            pid_p = json.loads(out_p_ok)["edition_id"]
+            ed_p = json.loads(
+                (products_root / "gtin" / "000" / "000" / "00000000000017" / "editions" / f"{pid_p}.json").read_text(encoding="utf-8")
+            )
+            self.assertEqual(ed_p["evidence"][0]["agreement_ref"], "AGR-2026-UNIV-01")
+            self.assertEqual(ed_p["revisions"][0]["agreement_ref"], "AGR-2026-UNIV-01")
+
+            # 5. transcription='independent_match' is allowed on maintainer evidence, rejected on non-maintainer
+            doc_tx = json.loads(ed_path.read_text(encoding="utf-8"))
+            doc_tx["evidence"][1]["transcription"] = "independent_match"
+            ed_path.write_text(json.dumps(doc_tx, ensure_ascii=False), encoding="utf-8")
+            rc_tx_ok, _, err_tx_ok = _run_cli(["validate", str(products_root)])
+            self.assertEqual(rc_tx_ok, 0, err_tx_ok)
+
+            doc_tx["evidence"][0]["transcription"] = "independent_match"
+            ed_path.write_text(json.dumps(doc_tx, ensure_ascii=False), encoding="utf-8")
+            rc_tx_bad, _, err_tx_bad = _run_cli(["validate", str(products_root)])
+            self.assertEqual(rc_tx_bad, 1)
+            self.assertIn("independent_match", err_tx_bad)
+
+            # 6. Missing provenance reports clear migration hint
+            bad_doc = json.loads(ed_path.read_text(encoding="utf-8"))
+            bad_doc["evidence"][0].pop("provenance")
+            bad_doc["evidence"][0].pop("transcription", None)
+            ed_path.write_text(json.dumps(bad_doc, ensure_ascii=False), encoding="utf-8")
+            rc_val_bad, _, err_val_bad = _run_cli(["validate", str(products_root)])
+            self.assertEqual(rc_val_bad, 1)
+            self.assertIn("migration required", err_val_bad)
+
 
 if __name__ == "__main__":
     unittest.main()

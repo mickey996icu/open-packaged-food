@@ -71,7 +71,7 @@ La validation et la génération du site reposent uniquement sur la bibliothèqu
 ./open-packaged-food/bin/opf check-media-refs --media-dir opf-media opf-data/products
 ```
 
-Poussez ensuite une branche et ouvrez une PR sur `opf-media` et sur `opf-data` (ou exécutez `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.3 opf pr ...` si `uvx` et `gh` sont installés). Respectez l'ordre : **fusionnez toujours la PR `opf-media` en premier, puis celle d'`opf-data`**, afin que la CI retrouve bien les images sur `main`.
+Poussez ensuite une branche et ouvrez une PR sur `opf-media` et sur `opf-data` (ou exécutez `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.4 opf pr ...` si `uvx` et `gh` sont installés). Respectez l'ordre : **fusionnez toujours la PR `opf-media` en premier, puis celle d'`opf-data`**, afin que la CI retrouve bien les images sur `main`.
 
 Deux limites à ne pas franchir :
 - **N'envoyez que des recadrages des zones de texte** (tableau nutritionnel, liste d'ingrédients, fabricant, code-barres) — jamais la face avant complète du paquet ;
@@ -113,8 +113,10 @@ python3 -m unittest discover -s tests -v
 
 ---
 
-## Licences
+## Licences (couches REUSE)
 
-- **Outils & explorateur web (`opf/`, `bin/`, `web/`, `.github/`)** : [AGPL-3.0-or-later](LICENSE)
-- **Base de données & JSON produits (`opf-data`)** : [ODbL-1.0](LICENSE-DATA) / `DbCL-1.0`
-- **Recadrages d'étiquettes (`opf-media`)** : [CC-BY-SA-4.0](LICENSE-MEDIA)
+- **Outils & explorateur web (`opf/`, `bin/`, `web/` hors `web/vendor/`, `.github/`, `tests/`)** : [`AGPL-3.0-or-later`](LICENSE) en sortie (**[`Apache-2.0`](LICENSES/Apache-2.0.txt) permissif en entrée** pour les contributions + DCO `git commit -s`, voir [`CONTRIBUTING.md`](CONTRIBUTING.md))
+- **Spécifications, schémas, dictionnaires, profils, skills, docs & vendor (`spec/`, `dictionaries/`, `profiles/`, `skills/`, `docs/`, `web/vendor/`)** : [`Apache-2.0`](LICENSES/Apache-2.0.txt) (intégration sans propagation copyleft)
+- **Base de données & JSON produits (`opf-data`)** : [`ODbL-1.0`](LICENSE-DATA) / `DbCL-1.0` (guide : [`docs/ODbL-GUIDE.md`](docs/ODbL-GUIDE.md))
+- **Recadrages d'étiquettes (`opf-media`)** : [`CC-BY-SA-4.0`](LICENSE-MEDIA)
+- Déclarations SPDX complètes dans [`REUSE.toml`](REUSE.toml) et [`LICENSES/`](LICENSES/) ; gouvernance dans [`GOVERNANCE.md`](GOVERNANCE.md).
