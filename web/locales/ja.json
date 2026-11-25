@@ -6,13 +6,16 @@
   },
   "app": {
     "pageTitle": "OpenPackagedFood — 加工食品オープンデータベース",
-    "footerLicense": "データベース: ODbL-1.0 (DbCL-1.0) · ツール: AGPL-3.0 · ラベル証拠画像: CC BY-SA 4.0"
+    "footerLicense": "データベース: ODbL-1.0 (DbCL-1.0) · ツール: AGPL-3.0 · ラベル証拠画像: CC BY-SA 4.0",
+    "footerDisclaimer": "OPF は包装上の印字文字の転記のみ（未表示のコンタミ情報なし）であり、安全性・正確性・適合性の保証はしません。現物の包装表示を基準にしてください",
+    "limitationsLink": "データの限界と注意点",
+    "reportErrataLink": "データ訂正・取下げ報告"
   },
   "header": {
     "mastheadTitle": "パッケージ表示をそのまま正確に記録する。",
     "mastheadLead": "工業加工食品のための根拠第一・中立評価のオープンデータベース。全レコードで<strong>容器包装の表示値</strong>、<strong>決定的 100g/100ml 換算値（<code>ƒ</code>）</strong>、および<strong>法令 0 表示丸め上限値（<code>&lt;</code>）</strong>を厳格に区別し、原材料ツリーの可逆復元検証と証拠トレーサビリティを備えます。",
-    "legendToggle": "検証レベルと記号",
-    "legendAriaLabel": "検証レベルおよび数値記号の説明",
+    "legendToggle": "証拠形式と記号",
+    "legendAriaLabel": "証拠形式と数値記号の説明",
     "langToggleTitle": "表示言語を選択 / Select Language",
     "themeToggle": "ライト / ダーク",
     "themeTitle": "ライト・ダーク外観モードを切替"
@@ -39,8 +42,8 @@
     "allMarkets": "すべての法域",
     "groupResolution": "解像ステータス（複数選択）",
     "allResolutions": "すべて",
-    "groupEvidence": "証拠検証レベル（複数選択）",
-    "allEvidence": "すべてのレベル",
+    "groupEvidence": "証拠形式（複数選択）",
+    "allEvidence": "すべての形式",
     "groupProfile": "表示基準と ID 名前空間",
     "groupBrand": "ブランド（複数選択）",
     "allBrands": "すべてのブランド ({count})",
@@ -78,7 +81,7 @@
     "tagQuery": "検索: {val}",
     "tagMarket": "法域: {val}",
     "tagResolution": "状態: {val}",
-    "tagEvidence": "検証: {val}",
+    "tagEvidence": "証拠: {val}",
     "tagProfile": "基準: {val}",
     "tagNamespace": "ID種別: {val}",
     "tagBrand": "ブランド: {val}",
@@ -88,14 +91,13 @@
     "allProducts": "すべての商品",
     "emptySearch": "一致する商品レコードが見つかりません",
     "emptyCatalogDrawer": "商品レコードはまだありません",
-    "mixedEvidenceShort": "未検証バリエーション含む",
-    "mixedEvidenceTitle": "最高検証：{high} · 最低現役版：{low}",
+    "mixedEvidenceShort": "証拠形式が混在",
+    "mixedEvidenceTitle": "上位証拠形式：{high} · 他の現役版：{low}",
     "activeEditionsCount": "{count} 件の現役版"
   },
   "stats": {
     "ariaLabel": "データベース統計概要",
     "total": "登録商品数",
-    "verified": "検証済 / 複数印証",
     "markets": "対象法域",
     "schema": "スキーマ"
   },
@@ -116,7 +118,6 @@
     "profileLabel": "法規制表示基準",
     "editionLabel": "エディション",
     "trackLabel": "トラック（製造系統）",
-    "tActiveLabel": "有効観測月",
     "revLabel": "改訂 rev",
     "tabNormalized": "標準化データ",
     "tabDeclared": "表示原文",
@@ -197,24 +198,28 @@
     "kpiFat": "脂質",
     "kpiCarbsAvail": "糖質",
     "kpiCarbsTotal": "炭水化物",
-    "kpiSodium": "ナトリウム"
+    "kpiSodium": "ナトリウム",
+    "tActiveVintage": "確認された最新の包装製造月：{ym}（その後配合が変更された可能性があります）",
+    "tActiveReported": "初回報告月：{ym}",
+    "tActiveVintageShort": "包装月 {ym}",
+    "tActiveReportedShort": "初回報告 {ym}"
   },
   "seals": {
     "corroborated": {
-      "label": "複数投稿印証",
-      "desc": "2 名以上の独立投稿者による切り抜きラベル画像で core_fingerprint が一致"
+      "label": "2名以上がラベル写真を投稿",
+      "desc": "2つ以上のアカウントが同一 core_fingerprint のラベル写真を投稿（別人であることや目視照合済みは保証しません）"
     },
     "verified": {
-      "label": "画像検証済",
-      "desc": "EXIF 除去済み切り抜きラベル画像と SHA-256 検証および原材料可逆復元チェックに合格"
+      "label": "ラベル写真 1 件あり",
+      "desc": "切り抜きラベル写真 1 件と SHA-256 を添付（構造化データと写真の一致照合や安全性を意味しません）"
     },
     "official_registry_imported": {
-      "label": "公的オープンデータ",
-      "desc": "ビルド時に CC0 公的食品成分表レジストリ（例：USDA FDC）から自動同期"
+      "label": "公的公開情報より",
+      "desc": "ビルド時に CC0 公的公開データ（USDA FDC 等）から取り込み"
     },
     "community_reported": {
-      "label": "コミュニティ報告",
-      "desc": "スキーマおよび化学量論検証に合格済み（実物ラベル切り抜き写真の追補待ち）"
+      "label": "文字情報のみ（写真なし）",
+      "desc": "文字と構造データのみで、ラベル写真は添付されていません"
     }
   },
   "resolutions": {

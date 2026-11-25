@@ -403,6 +403,7 @@ class TestBuilderV02(unittest.TestCase):
             single_compact = json.loads((site_dir / "v1/gtin/000/000/00000000000109.json").read_text("utf-8"))
             self.assertEqual(validate_against_json_schema(single_compact, compact_schema), [])
             self.assertEqual(single_compact["resolution"], "single")
+            self.assertEqual(single_compact["t_active_basis"], "vintage_month")
             self.assertEqual(single_compact["edition_redirects"], {e_redir["edition_id"]: e_act["edition_id"]})
             single_full = json.loads((site_dir / "v1/gtin/000/000/00000000000109.full.json").read_text("utf-8"))
             statuses = {e["edition_id"]: e["status"] for e in single_full["editions"]}
@@ -416,6 +417,7 @@ class TestBuilderV02(unittest.TestCase):
             )
             # core.ingredients_tree remains span-free while ingredients_tree_annotated has UI spans
             act_full = single_full["editions"][-1]
+            self.assertEqual(act_full["t_active_basis"], "vintage_month")
             self.assertNotIn("span", act_full["core"]["ingredients_tree"][0]["nodes"][0])
             self.assertEqual(act_full["ingredients_tree_annotated"][0]["nodes"][0]["span"], [3, 4])
 
@@ -423,6 +425,7 @@ class TestBuilderV02(unittest.TestCase):
             uniform_compact = json.loads((site_dir / "v1/opf/sample/uniform-tea/500ml.json").read_text("utf-8"))
             self.assertEqual(validate_against_json_schema(uniform_compact, compact_schema), [])
             self.assertEqual(uniform_compact["resolution"], "uniform")
+            self.assertIn(uniform_compact["t_active_basis"], ("vintage_month", "earliest_reported_at"))
             self.assertEqual(len(uniform_compact["origins_summary"]), 2)
             self.assertEqual(len(uniform_compact["parties_summary"]), 2)
 

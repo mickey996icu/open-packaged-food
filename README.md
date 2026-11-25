@@ -1,6 +1,6 @@
 # OpenPackagedFood (`opf`)
 
-**[English](README.md) | [简体中文](README.zh-CN.md) | [日本語](README.ja.md) | [Deutsch](README.de.md) | [Français](README.fr.md) | [Español](README.es.md) | [Italiano](README.it.md)** · **[Contributing](CONTRIBUTING.md)** · **[Governance](GOVERNANCE.md)** · **[ODbL Guide](docs/ODbL-GUIDE.md)** · **[Specification](spec/SPEC.md)** · **[Design](docs/DESIGN.md)**
+**[English](README.md) | [简体中文](README.zh-CN.md) | [日本語](README.ja.md) | [Deutsch](README.de.md) | [Français](README.fr.md) | [Español](README.es.md) | [Italiano](README.it.md)** · **[Contributing](CONTRIBUTING.md)** · **[Governance](GOVERNANCE.md)** · **[ODbL Guide](docs/ODbL-GUIDE.md)** · **[Data Limitations](docs/DATA-LIMITATIONS.md)** · **[Specification](spec/SPEC.md)** · **[Design](docs/DESIGN.md)**
 
 > 🌐 **Web Explorer & Local Scanner**: [https://mickey996icu.github.io/opf-data/](https://mickey996icu.github.io/opf-data/)
 >
@@ -10,7 +10,7 @@ Anyone who has built a nutrition tracker or asked an AI assistant to read the ba
 
 The label says "0g trans fat", and the AI cheerfully tells you it is clean—forgetting that US rules let manufacturers round anything under 0.5g per serving down to zero, just as China's rules allow trace sodium to be printed as 0. Reading long ingredient lists, models also tend to skip an additive or invent a word that was never printed. Walk down a supermarket aisle and it gets trickier: two bottles sharing the exact same barcode may come from different contract plants, or belong to an old sugary batch and a new reduced-sugar recipe sitting side by side. Most food databases take the easy way out, overwriting one with the other or averaging them together.
 
-When you are counting allergens, tracking clinical nutrition, or logging daily intake, "close enough" is not good enough.
+When you need verbatim ingredient text, a clear distinction between regulatory rounding bounds (`<`) and mathematical zero, or an auditable formulation trail across plants and revisions, "close enough" erases the details that matter.
 
 I started **OpenPackagedFood (OPF)** for a simple reason: to straighten out this muddled ledger. OPF does not hand out traffic-light health scores—deciding what is healthy belongs to the person eating and their doctor. I simply want to record what is actually printed on the package, word for word, so software and AI agents have reliable facts to work with.
 
@@ -71,7 +71,7 @@ Validation and static-site generation rely solely on Python's standard library (
 ./open-packaged-food/bin/opf check-media-refs --media-dir opf-media opf-data/products
 ```
 
-Push branches and open PRs on `opf-media` and `opf-data` (or run `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.4 opf pr ...` if you have `uvx` and `gh` ready). Keep the order straight: **merge `opf-media` first, then `opf-data`**, so CI finds the images already on `main`.
+Push branches and open PRs on `opf-media` and `opf-data` (or run `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.5 opf pr ...` if you have `uvx` and `gh` ready). Keep the order straight: **merge `opf-media` first, then `opf-data`**, so CI finds the images already on `main`.
 
 Two lines we do not cross:
 - **Crop only factual text panels** (nutrition table, ingredients box, manufacturer block, barcode)—never upload full front-of-pack cover artwork;
@@ -119,4 +119,4 @@ python3 -m unittest discover -s tests -v
 - **Specifications, Schemas, Dictionaries, Profiles, Skills, Docs & Vendor (`spec/`, `dictionaries/`, `profiles/`, `skills/`, `docs/`, `web/vendor/`)**: [`Apache-2.0`](LICENSES/Apache-2.0.txt) (direct integration without copyleft propagation)
 - **Database & Product JSON (`opf-data`)**: [`ODbL-1.0`](LICENSE-DATA) / `DbCL-1.0` (guide: [`docs/ODbL-GUIDE.md`](docs/ODbL-GUIDE.md))
 - **Cropped Label Evidence Media (`opf-media`)**: [`CC-BY-SA-4.0`](LICENSE-MEDIA)
-- Machine-readable SPDX declarations for every path are in [`REUSE.toml`](REUSE.toml) and [`LICENSES/`](LICENSES/); sustainability and provenance rules in [`GOVERNANCE.md`](GOVERNANCE.md).
+- Machine-readable SPDX declarations for every path are in [`REUSE.toml`](REUSE.toml) and [`LICENSES/`](LICENSES/); sustainability and provenance rules in [`GOVERNANCE.md`](GOVERNANCE.md); factual dataset limitations and errata channels in [`docs/DATA-LIMITATIONS.md`](docs/DATA-LIMITATIONS.md).

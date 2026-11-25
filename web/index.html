@@ -20,7 +20,7 @@
       <div class="masthead-actions">
         <a class="chip mono" href="v1/meta.json" target="_blank" rel="noopener">GET /v1/meta.json</a>
         <a class="chip mono" href="v1/index/brands.json" target="_blank" rel="noopener">GET /v1/index/brands.json</a>
-        <button type="button" class="chip" id="legend-toggle" data-i18n="header.legendToggle">Verification &amp; Symbols</button>
+        <button type="button" class="chip" id="legend-toggle" data-i18n="header.legendToggle">Evidence &amp; Symbols</button>
         <select class="md3-select lang-select" id="lang-select" data-i18n-aria-label="header.langToggleTitle" data-i18n-title="header.langToggleTitle"></select>
         <button type="button" class="chip" id="theme-toggle" data-i18n="header.themeToggle" data-i18n-title="header.themeTitle">Light / Dark</button>
       </div>
@@ -91,6 +91,13 @@
   <footer>
     <div id="footer-license" data-i18n="app.footerLicense"></div>
     <div class="mono" id="footer-schema">OpenPackagedFood Schema v0.2</div>
+    <div class="footer-disclaimer">
+      <span data-i18n="app.footerDisclaimer"></span>
+      ·
+      <a href="https://github.com/mickey996icu/open-packaged-food/blob/main/docs/DATA-LIMITATIONS.md" target="_blank" rel="noopener" data-i18n="app.limitationsLink"></a>
+      ·
+      <a href="https://github.com/mickey996icu/opf-data/issues/new?template=data_errata.yml" target="_blank" rel="noopener" data-i18n="app.reportErrataLink"></a>
+    </div>
   </footer>
 
   <div class="scan-modal" id="scan-modal" hidden role="dialog" aria-modal="true" aria-labelledby="scan-modal-title">

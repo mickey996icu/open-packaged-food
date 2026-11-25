@@ -10,7 +10,7 @@ Chiunque abbia sviluppato un'app per il diario alimentare o chiesto a un'IA di l
 
 Sulla busta c'è scritto «0 g di grassi trans» e il modello assicura subito che è un prodotto pulito, dimenticando che negli Stati Uniti la legge consente di arrotondare a zero qualsiasi valore sotto 0,5 g per porzione, e regole simili permettono di stampare 0 per tracce di sodio altrove. Leggendo elenchi lunghi di ingredienti, poi, l'IA salta facilmente un additivo o aggiunge parole mai esistite sull'etichetta. Sugli scaffali la realtà è ancora più sfaccettata: due bottiglie con lo stesso identico codice a barre possono provenire da stabilimenti terzisti diversi, oppure mescolare una vecchia ricetta zuccherata e una nuova formula ridotta in zuccheri. Per comodità, quasi tutte le banche dati sovrascrivono una versione con l'altra o fanno una media.
 
-Quando si devono evitare allergeni, seguire una nutrizione clinica o tenere conti alimentari seri, un «più o meno» non basta.
+Quando occorre confrontare alla lettera gli ingredienti stampati, distinguere i limiti legali di arrotondamento (<) dallo zero matematico o ricostruire la tracciabilità tra stabilimenti e revisioni, un «più o meno» cancella proprio i dettagli essenziali.
 
 Ho creato **OpenPackagedFood (OPF)** per una ragione semplice: mettere in ordine questi conti confusi. Non assegna voti o semafori sulla salute — decidere cosa sia salutare spetta a chi mangia e al proprio medico. Voglio soltanto trascrivere ciò che è stampato nero su bianco sulla confezione, così che programmi e assistenti IA possano contare su dati certi.
 
@@ -71,7 +71,7 @@ Sia la validazione sia la compilazione del sito usano esclusivamente la libreria
 ./open-packaged-food/bin/opf check-media-refs --media-dir opf-media opf-data/products
 ```
 
-Create quindi un branch e aprite le PR su `opf-media` e `opf-data` (oppure usate `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.4 opf pr ...` se avete `uvx` e `gh`). Rispettate l'ordine: **eseguite sempre il merge prima sulla PR di `opf-media` e poi su quella di `opf-data`**, così la CI troverà le immagini già su `main`.
+Create quindi un branch e aprite le PR su `opf-media` e `opf-data` (oppure usate `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.5 opf pr ...` se avete `uvx` e `gh`). Rispettate l'ordine: **eseguite sempre il merge prima sulla PR di `opf-media` e poi su quella di `opf-data`**, così la CI troverà le immagini già su `main`.
 
 Due confini da non oltrepassare:
 - **Inviate solo ritagli delle parti testuali** (tabella nutrizionale, elenco ingredienti, produttore, codice a barre), mai il fronte grafico completo della confezione;

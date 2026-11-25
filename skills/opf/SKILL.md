@@ -5,7 +5,7 @@ description: Queries, verifies, disambiguates, and contributes industrial packag
 
 # OpenPackagedFood (`opf` v0.2) Agent Skill
 
-> **Core Invariant**: Evidence first, zero judgment. Answer the user's question thoroughly and objectively **first**; never gate help behind contribution, never fabricate missing numbers, never treat `<` regulatory upper bounds as exact `0`, never log intake from `divergent` ranges, and never emit subjective health scores.
+> **Core Invariant**: Evidence first, zero judgment. Answer the user's question thoroughly and objectively **first**; never gate help behind contribution, never fabricate missing numbers, never treat `<` regulatory upper bounds as exact `0`, never log intake from `divergent` ranges, never call records "verified" or "safe", and never emit subjective health scores.
 
 - **Tooling & CLI Repository**: `https://github.com/mickey996icu/open-packaged-food`
 - **Product Database Repository**: `https://github.com/mickey996icu/opf-data`
@@ -45,9 +45,15 @@ description: Queries, verifies, disambiguates, and contributes industrial packag
    - `"divergent"`: Top-level `normalized` and `ingredients_text` are **intentionally omitted**. **HARD PROHIBITION**: **Never log intake or state exact nutrient values from `common_summary.nutrient_ranges_not_for_logging`** (`min`, `max`, or midpoint). Ask the user to check the physical package against `disambiguation.tracks_guide[]` (`SC` code, plant code, net content, printed numbers) to choose one `edition_id` from `variants[]`. When previewing ranges beforehand, check `"partial": true` (`declared_in_variants < total_variants` != `0`) and keep `allergens_union.contains` separate from `may_contain`.
    - `"inactive"`: `active_edition_ids` is `[]` (no current market edition); warn the user and inspect `editions_summary` / `.full.json` for archival facts.
 2. **Follow `edition_redirects` & `@<rev>` semantics**: Follow `edition_redirects[old_ulid]` if present. Remember `<edition_id>@<rev>` locks `/core`, `/attributes`, `/track`, `/supersedes`, and `/lifecycle` only (adding `evidence[]` never bumps `rev`).
-3. **Always report `evidence_level` & `<` upper bounds**:
-   - Distinguish `corroborated` (≥2 independent photo contributors), `verified` (stripped cropped label photos), `official_registry_imported`, and `community_reported` (warn unverified).
+3. **Describe `evidence_level`, `t_active`, & `<` upper bounds factually (NEVER claim "verified" or "safe")**:
+   - State `evidence_level` strictly by **what evidence exists**—**NEVER** output words like *"verified"*, *"certified"*, *"已核验"*, *"已验证"*, or imply transcription was manually checked against photos or that the product is safe:
+     - `corroborated` -> *"2 or more contributors submitted label photos"* / *"有 2 位以上提交者上传过标签照片"*
+     - `verified` -> *"1 label photo submitted"* / *"有 1 份标签照片"* (does NOT prove transcription matches the photo)
+     - `official_registry_imported` -> *"From public official registry"* / *"来自官方公开信息"*
+     - `community_reported` -> *"Text report only (no photo)"* / *"仅有文字报告，无照片"*
+   - Describe `t_active` using `t_active_basis` (or presence of `vintage_month`): *"Latest package vintage seen: YYYY-MM (formulation may have changed since)"* when `vintage_month` exists; otherwise *"Earliest reported: YYYY-MM"*.
    - Report `{"qualifier": "<", "basis": "regulatory_upper_bound", ...}` explicitly as **`< value unit` (regulatory rounding upper bound)**, never exact `0`. Surface `quality_flags` clearly.
+   - **Mandatory Allergen & Safety Caveat**: Whenever answering any query involving allergens (whether from OPF database records or photo reading), **ALWAYS** include an explicit reminder in the user's language that OPF records cover printed label text only (excluding unprinted cross-contact or shared-line risks, and formulations may vary by batch/plant): *"一切以手头实物包装实际印刷为准"* / *"Always check and rely on the physical package in hand."*
 
 ---
 
@@ -63,8 +69,10 @@ If OPF returns HTTP `404` (or the user's product is not yet indexed):
    - **Barcode / Net content** (`barcode_net_content`).
    **Explicitly instruct the user NOT to upload full front-of-pack cover artwork** (minimizes packaging copyright risk and keeps OCR sharp).
 
-2. **IRON RULE — Answer First Without Gating**:
-   - The moment the user sends photos, **FIRST give a complete, high-value, objective answer to the user's buying question directly from the photos** (exact macros per `100g`/`100ml` and per serving, sodium/sugar/fat/protein breakdown, Codex INS / E-number additives identified, allergens, `SC`/plant info, regulatory rounding caveats).
+2. **IRON RULE — Answer First Without Gating + Vision & Allergen Caveats**:
+   - The moment the user sends photos, **FIRST give a complete, high-value, objective reading of what appears in the photos** (macros per `100g`/`100ml` and per serving, sodium/sugar/fat/protein breakdown, Codex INS / E-number additives printed, declared allergens, `SC`/plant info, regulatory rounding caveats)—**always alongside mandatory accuracy/allergen warnings**:
+     - Explicitly state that **AI vision/OCR reading of label photos may contain errors—please verify against the physical package** (*"AI 照片识读可能有误，请对照包装实物原文核对"*).
+     - Whenever allergens are discussed, **explicitly attach**: printed text only (no unprinted factory cross-contact or shared-line guarantees), and ***"一切以手头实物包装实际印刷为准" / "Always check and rely on the physical package in hand."***
    - **Never withhold or gate your answer behind uploading data**, and never make the user experience slower or worse than asking a general assistant directly.
 
 3. **Strict Contribution Trigger Gate (Never Disappoint Everyday Users)**:
@@ -159,7 +167,7 @@ Pick the active submission path cleanly:
 - **Optional One-Step Automation (`uvx` + `gh` CLI)**:
   Developers who already have `uvx` and an authenticated `gh` session (`gh auth status`) may optionally use `opf pr` instead of manual `git` branching/pushing:
   ```bash
-  uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.4 \
+  uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.5 \
     opf pr --input draft.json \
     --photo nutrition_table=crop_nutrition.jpg \
     --photo ingredients_box=crop_ingredients.jpg \

@@ -10,7 +10,7 @@ Quiconque a déjà développé une application de suivi nutritionnel ou demandé
 
 L'emballage affiche « 0 g d'acides gras trans », et l'IA vous assure aussitôt que le produit est irréprochable — en oubliant que la réglementation américaine autorise à arrondir à zéro tout ce qui reste sous 0,5 g par portion, tout comme d'autres règles permettent d'inscrire 0 pour des traces de sodium. Devant une longue liste d'ingrédients, un modèle saute facilement un additif ou ajoute un mot qui n'était pas imprimé. Et dans les rayons d'un supermarché, la réalité est encore plus nuancée : deux bouteilles portant exactement le même code-barres peuvent sortir de deux usines sous-traitantes différentes, ou correspondre à une ancienne recette sucrée et à une nouvelle formule allégée vendues côte à côte. Par commodité, la plupart des bases écrasent l'une par l'autre ou font une moyenne.
 
-Pour surveiller des allergies, suivre une nutrition clinique ou tenir des comptes alimentaires sérieux, cet « à-peu-près » ne suffit pas.
+Lorsque l'on souhaite comparer le texte exact imprimé sur l'emballage, distinguer les seuils réglementaires d'arrondi à zéro (<) du zéro mathématique ou conserver la trace des formules entre usines et révisions, cet « à-peu-près » gomme l'essentiel.
 
 J'ai écrit **OpenPackagedFood (OPF)** avec une idée toute simple : remettre au clair ces comptes brouillés. Je ne distribue pas de notes de santé en feux tricolores — juger ce qui est bon pour la santé appartient à celui qui mange et à son médecin. Je cherche seulement à consigner fidèlement ce qui est écrit noir sur blanc sur l'emballage, pour que les logiciels et les assistants IA puissent compter sur des faits sûrs.
 
@@ -71,7 +71,7 @@ La validation et la génération du site reposent uniquement sur la bibliothèqu
 ./open-packaged-food/bin/opf check-media-refs --media-dir opf-media opf-data/products
 ```
 
-Poussez ensuite une branche et ouvrez une PR sur `opf-media` et sur `opf-data` (ou exécutez `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.4 opf pr ...` si `uvx` et `gh` sont installés). Respectez l'ordre : **fusionnez toujours la PR `opf-media` en premier, puis celle d'`opf-data`**, afin que la CI retrouve bien les images sur `main`.
+Poussez ensuite une branche et ouvrez une PR sur `opf-media` et sur `opf-data` (ou exécutez `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.5 opf pr ...` si `uvx` et `gh` sont installés). Respectez l'ordre : **fusionnez toujours la PR `opf-media` en premier, puis celle d'`opf-data`**, afin que la CI retrouve bien les images sur `main`.
 
 Deux limites à ne pas franchir :
 - **N'envoyez que des recadrages des zones de texte** (tableau nutritionnel, liste d'ingrédients, fabricant, code-barres) — jamais la face avant complète du paquet ;

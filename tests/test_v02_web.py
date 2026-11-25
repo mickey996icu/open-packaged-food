@@ -690,6 +690,48 @@ main().catch((err) => {
         )
         self.assertEqual(res.returncode, 0, f"Node ZXing fallback test failed: {res.stderr}\n{res.stdout}")
 
+    def test_evidence_level_and_t_active_no_accuracy_misrepresentation_labels(self) -> None:
+        locales_dir = REPO_ROOT / "web" / "locales"
+        manifest = json.loads((locales_dir / "index.json").read_text(encoding="utf-8"))
+        codes = [item["code"] for item in manifest["locales"]]
+        forbidden_ui_patterns = (
+            re.compile(r"已核验|已验证|已认证|多人印证|市场生效月|最近有效"),
+            re.compile(r"\bverified\b|\bverifiziert\b|\bvérifié\b|\bverificado\b|\bverificato\b", re.IGNORECASE),
+            re.compile(r"検証済|複数投稿印証|複数印証"),
+        )
+        for code in codes:
+            loc = json.loads((locales_dir / f"{code}.json").read_text(encoding="utf-8"))
+            self.assertNotIn("verified", loc["stats"], f"stats.verified must remain removed in {code}")
+            self.assertNotIn("tActiveLabel", loc["detail"], f"Ambiguous detail.tActiveLabel should stay removed in {code}")
+            for key in ("tActiveVintage", "tActiveReported", "tActiveVintageShort", "tActiveReportedShort"):
+                self.assertIn(key, loc["detail"], f"Missing {key} in {code}")
+            for key in ("footerDisclaimer", "limitationsLink", "reportErrataLink"):
+                self.assertTrue(loc["app"].get(key), f"Missing app.{key} in {code}")
+
+            checked_strings = [
+                loc["header"]["legendToggle"],
+                loc["header"]["legendAriaLabel"],
+                loc["search"]["groupEvidence"],
+                loc["search"]["tagEvidence"],
+                loc["search"]["mixedEvidenceShort"],
+                loc["search"]["mixedEvidenceTitle"],
+                loc["detail"]["tActiveVintage"],
+                loc["detail"]["tActiveReported"],
+            ] + [entry["label"] for entry in loc["seals"].values()]
+            for s in checked_strings:
+                for pat in forbidden_ui_patterns:
+                    self.assertIsNone(
+                        pat.search(s),
+                        f"Disallowed accuracy-claim wording {pat.pattern!r} in {code}: {s!r}",
+                    )
+
+        app_js = (REPO_ROOT / "web" / "app.js").read_text(encoding="utf-8")
+        self.assertIn("formatTActiveText", app_js)
+        self.assertNotIn("stats.verified", app_js)
+        index_html = (REPO_ROOT / "web" / "index.html").read_text(encoding="utf-8")
+        self.assertIn("docs/DATA-LIMITATIONS.md", index_html)
+        self.assertIn("template=data_errata.yml", index_html)
+
 
 if __name__ == "__main__":
     unittest.main()

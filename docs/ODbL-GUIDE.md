@@ -1,10 +1,10 @@
 # OPF ODbL & Licensing User Guide (For Integrators & Commercial Apps)
 
-**[English](ODbL-GUIDE.md) | [简体中文](ODbL-GUIDE.zh-CN.md)** · **[Governance](../GOVERNANCE.md)** · **[Specification](../spec/SPEC.md)**
+**[English](ODbL-GUIDE.md) | [简体中文](ODbL-GUIDE.zh-CN.md)** · **[Governance](../GOVERNANCE.md)** · **[Data Limitations](DATA-LIMITATIONS.md)** · **[Specification](../spec/SPEC.md)**
 
 OpenPackagedFood (`opf`) aims to make food label facts easy and legally predictable for nutrition trackers, grocery apps, researchers, AI assistants, and internal enterprise systems to consume. This guide clarifies how our open licenses work in practice.
 
-> **Not Formal Legal Advice**: This guide provides practical engineering and licensing orientation only and does **not** constitute formal legal advice. Consult qualified legal counsel in your jurisdiction for binding compliance determinations.
+> **Disclaimer & Responsibility**: This guide provides practical engineering and licensing orientation only and does **not** constitute formal legal advice. **Integrators remain solely responsible for their own product disclosures and compliance obligations toward end users.** For factual dataset boundaries and known limitations, see the separate [Data Limitations & Usage Notes](DATA-LIMITATIONS.md) (which impose no extra conditions beyond `ODbL-1.0`).
 
 ---
 
@@ -29,15 +29,10 @@ OpenPackagedFood (`opf`) aims to make food label facts easy and legally predicta
   2. Under the **Collective Database** rule (ODbL Section 4.5), storing an independent, unmodified OPF database alongside separate private databases—where the mapping table stores only `GTIN` and internal SKU IDs without extracting/reusing substantial parts of OPF content into a merged database—**usually** does not constitute a Derived Database or extend Share-Alike obligations to the private database.
 - **Important clarification on exemptions**: Because `opf-data` contains third-party contributions under `ODbL-1.0`, OPF maintainers do **not** sell or grant special exemptions to bypass ODbL Section 4 when an integrator's public product genuinely creates and publicly uses a Derived Database.
 
-### Scenario B: Public Produced Works & Derived Databases (ODbL §4.4 & §4.6)
+### Scenario B: Public Produced Works & Derived Databases (ODbL §4.3 & §4.6)
 - **Attribution (§4.3)**: Provide clear attribution to OpenPackagedFood (`opf-data`) and link to `ODbL-1.0`.
 - **Mandatory Produced-Work Offer (§4.6)**: Under ODbL Section 4.6, if you create and publicly use a **Produced Work** (such as a consumer app UI, report, model output, or visualization) generated from a **Derived Database**, you **must** make available to recipients (under ODbL-1.0) either:
   1. The full machine-readable Derived Database itself; **or**
   2. A machine-readable file containing all the alterations made to the original database (or the algorithm used to compute those changes) so recipients can reconstruct the Derived Database.
-- **Preserve Evidence & Precision Semantics**:
-  - Never display `"< 0.5 g"` (`basis: "regulatory_upper_bound"`) as an exact `0`.
-  - Never pick an arbitrary default or average from a `"resolution": "divergent"` product; direct users to match their physical package via `disambiguation.tracks_guide[]`.
 - **Cropped Label Images (`opf-media`)**: Any public redistribution or bundling of label WebP images must comply with `CC-BY-SA-4.0`.
-
-### Scenario C: High-Risk Dietary & Allergen Surfaces
-- Always surface `evidence_level` (`external_contributor` / `community_reported` vs. `verified` vs. `corroborated`), `t_active`, and explicit `"Verify against the physical package"` notices.
+- **Informational Technical Boundaries**: For objective details and non-binding recommendations regarding `<` rounding bounds, `divergent` variants, `evidence_level` meanings, and `t_active` semantics, refer to [Data Limitations & Usage Notes](DATA-LIMITATIONS.md).

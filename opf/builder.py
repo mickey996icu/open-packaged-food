@@ -213,6 +213,8 @@ def build_full_doc(
         ed_out["status"] = lc["status"]
         ed_out["evidence_level"] = lc["evidence_level"]
         ed_out["t_active"] = lc["t_active"]
+        if lc.get("t_active_basis"):
+            ed_out["t_active_basis"] = lc["t_active_basis"]
         if lc["superseded_by"]:
             ed_out["superseded_by"] = list(lc["superseded_by"])
 
@@ -467,6 +469,8 @@ def build_compact_doc(
             "core_fingerprint": ed["core_fingerprint"],
             "label_fingerprint": ed["label_fingerprint"],
         }
+        if lc.get("t_active_basis"):
+            item["t_active_basis"] = lc["t_active_basis"]
         if lc["superseded_by"]:
             item["superseded_by"] = list(lc["superseded_by"])
         pkg_code = (ed.get("attributes") or {}).get("packaging_code")
@@ -509,6 +513,8 @@ def build_compact_doc(
         compact["core_fingerprint"] = ed["core_fingerprint"]
         compact["label_fingerprint"] = ed["label_fingerprint"]
         compact["t_active"] = lc["t_active"]
+        if lc.get("t_active_basis"):
+            compact["t_active_basis"] = lc["t_active_basis"]
         compact["net_content"] = copy.deepcopy(ed["core"]["net_content"])
         if ed["core"].get("serving_size"):
             compact["serving_size"] = copy.deepcopy(ed["core"]["serving_size"])
@@ -534,7 +540,17 @@ def build_compact_doc(
         compact["active_tracks"] = list(dict.fromkeys(e["track"] for e in active_editions))
         compact["regulatory_profile"] = rep["core"]["regulatory_profile"]
         compact["core_fingerprint"] = rep["core_fingerprint"]
-        compact["t_active"] = max(lifecycle_map[e["edition_id"]]["t_active"] for e in active_editions)
+        top_t_ed = max(
+            active_editions,
+            key=lambda e: (
+                lifecycle_map[e["edition_id"]]["t_active"],
+                1 if lifecycle_map[e["edition_id"]].get("t_active_basis") == "vintage_month" else 0,
+            ),
+        )
+        top_t_lc = lifecycle_map[top_t_ed["edition_id"]]
+        compact["t_active"] = top_t_lc["t_active"]
+        if top_t_lc.get("t_active_basis"):
+            compact["t_active_basis"] = top_t_lc["t_active_basis"]
         compact["net_content"] = copy.deepcopy(rep["core"]["net_content"])
         if rep["core"].get("serving_size"):
             compact["serving_size"] = copy.deepcopy(rep["core"]["serving_size"])
@@ -625,6 +641,8 @@ def build_compact_doc(
                 "t_active": lc["t_active"],
                 "net_content": copy.deepcopy(e["core"]["net_content"]),
             }
+            if lc.get("t_active_basis"):
+                variant["t_active_basis"] = lc["t_active_basis"]
             if e["core"].get("serving_size"):
                 variant["serving_size"] = copy.deepcopy(e["core"]["serving_size"])
             if attrs.get("origin"):

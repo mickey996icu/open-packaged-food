@@ -10,7 +10,7 @@ Quien haya programado una aplicación de nutrición o pedido a una IA que lea el
 
 El envase dice «0 g de grasas trans» y el modelo afirma sin dudar que está limpio, pasando por alto que las normas de EE. UU. permiten redondear a cero cualquier cantidad inferior a 0,5 g por ración, igual que otras normativas permiten imprimir 0 para trazas de sodio. Al leer listas largas de ingredientes, también es común que la IA omita algún aditivo o añada palabras que no estaban en la etiqueta. Y en el estante del supermercado la realidad se complica: dos botellas con idéntico código de barras pueden venir de fábricas distintas, o mezclar una receta antigua alta en azúcar con otra nueva reducida. Por comodidad, casi todas las bases de datos sobrescriben una con otra o calculan un promedio.
 
-Cuando se trata de evitar alérgenos, planificar nutrición clínica o llevar cuentas serias de lo que se come, un «más o menos» no sirve.
+Cuando se necesita cotejar la lista literal de ingredientes, distinguir los límites reglamentarios de redondeo (<) del cero matemático o seguir la trazabilidad entre fábricas y revisiones, un «más o menos» borra justo los detalles que importan.
 
 Empecé **OpenPackagedFood (OPF)** por un motivo sencillo: poner en claro esas cuentas confusas. OPF no reparte notas ni semáforos de salud; decidir qué es sano corresponde a quien come y a su médico. Solo pretendo anotar lo que está impreso letra por letra en el envase, para que programas y asistentes de IA trabajen sobre hechos firmes.
 
@@ -71,7 +71,7 @@ Tanto la validación como la compilación del sitio usan solo la biblioteca est�
 ./open-packaged-food/bin/opf check-media-refs --media-dir opf-media opf-data/products
 ```
 
-Suba una rama y abra PRs en `opf-media` y `opf-data` (o use `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.4 opf pr ...` si ya tiene `uvx` y `gh`). Respete el orden: **fusione primero el PR de `opf-media` y después el de `opf-data`**, para que la CI encuentre las imágenes ya en `main`.
+Suba una rama y abra PRs en `opf-media` y `opf-data` (o use `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.5 opf pr ...` si ya tiene `uvx` y `gh`). Respete el orden: **fusione primero el PR de `opf-media` y después el de `opf-data`**, para que la CI encuentre las imágenes ya en `main`.
 
 Dos límites que no cruzamos:
 - **Envíe solo recortes de texto informativo** (tabla nutricional, ingredientes, fabricante, código de barras), nunca el diseño completo frontal del envase;

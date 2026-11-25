@@ -1,6 +1,6 @@
 # OpenPackagedFood (`opf`)
 
-**[English](README.md) | [简体中文](README.zh-CN.md) | [日本語](README.ja.md) | [Deutsch](README.de.md) | [Français](README.fr.md) | [Español](README.es.md) | [Italiano](README.it.md)** · **[贡献指南](CONTRIBUTING.zh-CN.md)** · **[项目治理](GOVERNANCE.zh-CN.md)** · **[ODbL 指南](docs/ODbL-GUIDE.zh-CN.md)** · **[技术规范](spec/SPEC.md)** · **[设计规范](docs/DESIGN.md)**
+**[English](README.md) | [简体中文](README.zh-CN.md) | [日本語](README.ja.md) | [Deutsch](README.de.md) | [Français](README.fr.md) | [Español](README.es.md) | [Italiano](README.it.md)** · **[贡献指南](CONTRIBUTING.zh-CN.md)** · **[项目治理](GOVERNANCE.zh-CN.md)** · **[ODbL 指南](docs/ODbL-GUIDE.zh-CN.md)** · **[数据局限性](docs/DATA-LIMITATIONS.zh-CN.md)** · **[技术规范](spec/SPEC.md)** · **[设计规范](docs/DESIGN.md)**
 
 > 🌐 **在线查库与纯本地扫码**：[https://mickey996icu.github.io/opf-data/](https://mickey996icu.github.io/opf-data/)
 >
@@ -10,7 +10,7 @@
 
 包装上印着“0 反式脂肪”，AI 看一眼便说可以放心吃。可稍微懂点食品法规的人都知道，美国允许每份低于 0.5 克直接抹零，国标对极微量的钠也有类似宽限。AI 照着字面念，读长配料表时还常会漏掉几个添加剂，或者添上包装原本没有的词。更现实的是货架上的情形：同一款饮料，条形码分毫不差，背后却可能是两三家不同的代工厂，甚至老配方与减糖新配方正摆在同一排货架上卖。市面上的食品库为了省事，往往拿一版盖掉另一版，或者直接算个平均值。
 
-真要用来记饮食账、防过敏、做临床营养，碰到这种“差不多就行”的数据，实在是靠不住的。
+真要对照包装原始文字做比对、区分法规标零修约（`<`）与真零、或追踪跨批次与代工厂的证据链，这种“差不多就行”的数据，往往把最关键的细节抹平了。
 
 我写 **OpenPackagedFood (OPF)**，想法很简单，就是想把这笔糊涂账理清。我不做“红绿灯健康打分”——健康与否，留给吃东西的人和医生自己去判断。我只是想把食品包装上的白纸黑字如实记下来，整理成程序和 AI 助手能直接拿来算账的证据库。
 
@@ -71,7 +71,7 @@ mkdir -p ~/.gemini/config/skills && ln -s ~/src/open-packaged-food/skills/opf ~/
 ./open-packaged-food/bin/opf check-media-refs --media-dir opf-media opf-data/products
 ```
 
-接着把 `opf-media` 和 `opf-data` 分别推分支提 PR 就行（若装了 `uvx` 和 `gh`，也可运行 `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.4 opf pr ...` 一步完成）。请注意顺序：**先合入图片仓（`opf-media`），再合入数据仓（`opf-data`）**，CI 会拦截图片还没进主分支的数据提交。
+接着把 `opf-media` 和 `opf-data` 分别推分支提 PR 就行（若装了 `uvx` 和 `gh`，也可运行 `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.5 opf pr ...` 一步完成）。请注意顺序：**先合入图片仓（`opf-media`），再合入数据仓（`opf-data`）**，CI 会拦截图片还没进主分支的数据提交。
 
 投稿前有两条规矩别踩：
 - **只传局部文字裁剪图**（营养表、配料框、厂家与条码区），不要上传完整包装正面宣传图，免得惹上版权纠纷；
@@ -119,4 +119,4 @@ python3 -m unittest discover -s tests -v
 - **规范、Schema、词典、法规插件、Skills、文档与内置扫码库（`spec/`、`dictionaries/`、`profiles/`、`skills/`、`docs/`、`web/vendor/`）**：[`Apache-2.0`](LICENSES/Apache-2.0.txt)（无传染性，可直接引用与商业集成）
 - **结构化商品事实数据库（`opf-data`）**：[`ODbL-1.0`](LICENSE-DATA) / `DbCL-1.0`（合规接入边界见 [`docs/ODbL-GUIDE.zh-CN.md`](docs/ODbL-GUIDE.zh-CN.md)）
 - **裁剪标签证据图片（`opf-media`）**：[`CC-BY-SA-4.0`](LICENSE-MEDIA)
-- 全部路径的机器可读 SPDX 声明见 [`REUSE.toml`](REUSE.toml) 与 [`LICENSES/`](LICENSES/)，治理与 `provenance` 规则见 [`GOVERNANCE.zh-CN.md`](GOVERNANCE.zh-CN.md)。
+- 全部路径的机器可读 SPDX 声明见 [`REUSE.toml`](REUSE.toml) 与 [`LICENSES/`](LICENSES/)，治理与 `provenance` 规则见 [`GOVERNANCE.zh-CN.md`](GOVERNANCE.zh-CN.md)，数据局限性与公开勘误通道见 [`docs/DATA-LIMITATIONS.zh-CN.md`](docs/DATA-LIMITATIONS.zh-CN.md)。

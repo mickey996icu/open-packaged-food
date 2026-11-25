@@ -6,13 +6,16 @@
   },
   "app": {
     "pageTitle": "OpenPackagedFood — Offene Datenbank für verpackte Lebensmittel",
-    "footerLicense": "Datenbank: ODbL-1.0 (DbCL-1.0) · Werkzeuge: AGPL-3.0 · Etikett-Zuschnitte: CC BY-SA 4.0"
+    "footerLicense": "Datenbank: ODbL-1.0 (DbCL-1.0) · Werkzeuge: AGPL-3.0 · Etikett-Zuschnitte: CC BY-SA 4.0",
+    "footerDisclaimer": "OPF erfasst nur sichtbaren Etiketttext (ohne ungedruckte Kreuzkontaminationen) und übernimmt keine Gewähr für Sicherheit, Richtigkeit oder Eignung. Maßgeblich ist die Verpackung in der Hand",
+    "limitationsLink": "Datenhinweise & Grenzen",
+    "reportErrataLink": "Fehler / Widerruf melden"
   },
   "header": {
     "mastheadTitle": "Was auf der Verpackung steht, steht in der Datenbank.",
     "mastheadLead": "Eine evidenzbasierte, wertfreie offene Datenbank für industriell vorverpackte Lebensmittel. Jeder Eintrag trennt strikt <strong>Verpackungsangaben</strong>, <strong>deterministische 100g/100ml-Umrechnungen (<code>ƒ</code>)</strong> und <strong>gesetzliche Rundungsobergrenzen (<code>&lt;</code>)</strong> mit verlustfreier Zutatenbaum-Prüfung.",
-    "legendToggle": "Prüfstufen & Symbole",
-    "legendAriaLabel": "Prüfstufen und Zahlensymbole",
+    "legendToggle": "Nachweisform & Symbole",
+    "legendAriaLabel": "Nachweisformen und Zahlensymbole",
     "langToggleTitle": "Sprache wählen / Switch Language",
     "themeToggle": "Hell / Dunkel",
     "themeTitle": "Helles / dunkles Design umschalten"
@@ -39,8 +42,8 @@
     "allMarkets": "Alle Märkte",
     "groupResolution": "Auflösungsmodus (Mehrfach)",
     "allResolutions": "Alle Modi",
-    "groupEvidence": "Nachweisstufe (Mehrfach)",
-    "allEvidence": "Alle Stufen",
+    "groupEvidence": "Nachweisform (Mehrfach)",
+    "allEvidence": "Alle Formen",
     "groupProfile": "Rechtsrahmen & ID-Namensraum",
     "groupBrand": "Marke (Mehrfach)",
     "allBrands": "Alle Marken ({count})",
@@ -78,7 +81,7 @@
     "tagQuery": "Suche: {val}",
     "tagMarket": "Markt: {val}",
     "tagResolution": "Modus: {val}",
-    "tagEvidence": "Prüfung: {val}",
+    "tagEvidence": "Nachweis: {val}",
     "tagProfile": "Vorschrift: {val}",
     "tagNamespace": "Namensraum: {val}",
     "tagBrand": "Marke: {val}",
@@ -88,14 +91,13 @@
     "allProducts": "Alle Produkte",
     "emptySearch": "Keine passenden Produkteinträge gefunden",
     "emptyCatalogDrawer": "Noch keine Produkteinträge",
-    "mixedEvidenceShort": "inkl. ungeprüfter Variante",
-    "mixedEvidenceTitle": "Höchste Stufe: {high} · Niedrigste aktive Variante: {low}",
+    "mixedEvidenceShort": "gemischte Nachweisformen",
+    "mixedEvidenceTitle": "Umfangreichste Form: {high} · Andere aktive Variante: {low}",
     "activeEditionsCount": "{count} aktiv"
   },
   "stats": {
     "ariaLabel": "Datenbank-Statistiken",
     "total": "Produkte",
-    "verified": "Verifiziert / Bestätigt",
     "markets": "Rechtsräume",
     "schema": "Schema"
   },
@@ -116,7 +118,6 @@
     "profileLabel": "Rechtsrahmen",
     "editionLabel": "Edition",
     "trackLabel": "Lieferketten-Track",
-    "tActiveLabel": "Aktiver Monat",
     "revLabel": "Rev",
     "tabNormalized": "Normdaten (100g/ml)",
     "tabDeclared": "Originaldeklaration",
@@ -197,24 +198,28 @@
     "kpiFat": "Fett",
     "kpiCarbsAvail": "Kohlenhydrate",
     "kpiCarbsTotal": "Ges.-KH",
-    "kpiSodium": "Natrium"
+    "kpiSodium": "Natrium",
+    "tActiveVintage": "Zuletzt gesichteter Verpackungsmonat: {ym} (Rezeptur kann sich seither geändert haben)",
+    "tActiveReported": "Erstmals gemeldet: {ym}",
+    "tActiveVintageShort": "Verpackung {ym}",
+    "tActiveReportedShort": "Gemeldet {ym}"
   },
   "seals": {
     "corroborated": {
-      "label": "Mehrfach bestätigt",
-      "desc": "≥2 unabhängige Einsender lieferten Etikettfotos mit identischem core_fingerprint"
+      "label": "≥2 Einsendende mit Fotos",
+      "desc": "Etikettfotos wurden von ≥2 Konten mit gleichem core_fingerprint hochgeladen (keine Garantie für manuelle Überprüfung)"
     },
     "verified": {
-      "label": "Verifiziert",
-      "desc": "Mit zugeschnittenem Etikettfoto + SHA-256-Hash und bestandener verlustfreier Zutaten-Prüfung"
+      "label": "1 Etikettfoto vorhanden",
+      "desc": "Enthält 1 zugeschnittenes Etikettfoto mit SHA-256-Hash; bedeutet nicht, dass die Werte mit dem Foto abgeglichen wurden"
     },
     "official_registry_imported": {
-      "label": "Offizielles Register",
-      "desc": "Beim Build automatisch aus CC0-Behördendatenbanken (z. B. USDA FDC) synchronisiert"
+      "label": "Aus öffentlichem Register",
+      "desc": "Beim Build aus öffentlichen CC0-Datensätzen (z. B. USDA FDC) importiert"
     },
     "community_reported": {
-      "label": "Community-Meldung",
-      "desc": "Strukturell und stöchiometrisch plausibel; wartet noch auf vollständige Foto-Verifikation"
+      "label": "Nur Textbericht (ohne Foto)",
+      "desc": "Nur Text- und Strukturangaben ohne beigefügte Etikettfotos"
     }
   },
   "resolutions": {

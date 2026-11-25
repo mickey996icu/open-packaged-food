@@ -56,7 +56,7 @@
 ### 可选一键自动化通道（`uvx` + `gh` / 第二阶段 HTTP Relay）
 - **可选开发者快捷通道（`uvx` + `gh`）**：若本地已安装 `uvx` 且完成 `gh auth login`，也可选用 `opf pr` 一键完成 WebP 脱敏、稀疏 fork 检出并开出双仓互链 PR：
   ```bash
-  uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.4 \
+  uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.5 \
     opf pr --input draft.json \
     --photo nutrition_table=crop_nutrition.jpg \
     --photo ingredients_box=crop_ingredients.jpg \

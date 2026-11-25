@@ -6,13 +6,16 @@
   },
   "app": {
     "pageTitle": "OpenPackagedFood — 预包装食品开放数据库",
-    "footerLicense": "数据库许可 ODbL-1.0 (DbCL-1.0) · 工具链 AGPL-3.0 · 标签证据图 CC BY-SA 4.0"
+    "footerLicense": "数据库许可 ODbL-1.0 (DbCL-1.0) · 工具链 AGPL-3.0 · 标签证据图 CC BY-SA 4.0",
+    "footerDisclaimer": "OPF 仅为包装可见文字转录（不含未印明的交叉接触或共线生产风险），不构成产品安全性、准确性或适用性担保；一切以手头实物包装实际印刷为准",
+    "limitationsLink": "数据局限性说明",
+    "reportErrataLink": "报告数据勘误 / 撤回"
   },
   "header": {
     "mastheadTitle": "包装印什么，数据库就记什么。",
     "mastheadLead": "全球工业预包装食品开放数据库。每条记录严格区分<strong>包装标示原值</strong>、<strong>确定性百克换算值（<code>ƒ</code>）</strong>与<strong>法规标零修约上界（<code>&lt;</code>）</strong>，附带配料树无损还原校验与证据溯源。",
-    "legendToggle": "核验等级与符号",
-    "legendAriaLabel": "核验等级与数值符号说明",
+    "legendToggle": "证据形态与符号",
+    "legendAriaLabel": "证据形态与数值符号说明",
     "langToggleTitle": "切换界面语言 / Switch Language",
     "themeToggle": "浅色 / 深色",
     "themeTitle": "切换浅色 / 深色外观模式"
@@ -39,8 +42,8 @@
     "allMarkets": "全部法域",
     "groupResolution": "版本解析状态（多选）",
     "allResolutions": "全部状态",
-    "groupEvidence": "证据核验等级（多选）",
-    "allEvidence": "全部等级",
+    "groupEvidence": "证据形态（多选）",
+    "allEvidence": "全部形态",
     "groupProfile": "法规标准与编码空间",
     "groupBrand": "品牌（多选）",
     "allBrands": "全部品牌 ({count})",
@@ -78,7 +81,7 @@
     "tagQuery": "关键词: {val}",
     "tagMarket": "法域: {val}",
     "tagResolution": "状态: {val}",
-    "tagEvidence": "核验: {val}",
+    "tagEvidence": "证据: {val}",
     "tagProfile": "标准: {val}",
     "tagNamespace": "编码: {val}",
     "tagBrand": "品牌: {val}",
@@ -88,14 +91,13 @@
     "allProducts": "全部商品",
     "emptySearch": "未找到匹配的商品记录",
     "emptyCatalogDrawer": "暂无商品记录",
-    "mixedEvidenceShort": "含待核验变体",
-    "mixedEvidenceTitle": "最高核验：{high} · 最低活跃变体：{low}",
+    "mixedEvidenceShort": "变体证据形态不同",
+    "mixedEvidenceTitle": "多照片变体：{high} · 其余活跃变体：{low}",
     "activeEditionsCount": "{count} 个活跃版"
   },
   "stats": {
     "ariaLabel": "数据库统计概览",
     "total": "收录商品",
-    "verified": "已核验 / 多人印证",
     "markets": "覆盖法域",
     "schema": "数据规范"
   },
@@ -116,7 +118,6 @@
     "profileLabel": "法规标准",
     "editionLabel": "版本",
     "trackLabel": "轨道",
-    "tActiveLabel": "市场生效月",
     "revLabel": "修订",
     "tabNormalized": "标准数据",
     "tabDeclared": "包装原始标示",
@@ -197,24 +198,28 @@
     "kpiFat": "脂肪",
     "kpiCarbsAvail": "碳水 (可利用)",
     "kpiCarbsTotal": "总碳水",
-    "kpiSodium": "钠"
+    "kpiSodium": "钠",
+    "tActiveVintage": "见过的最近包装生产月：{ym}（此后配方可能已变更）",
+    "tActiveReported": "最早报告于：{ym}",
+    "tActiveVintageShort": "见过的包装月 {ym}",
+    "tActiveReportedShort": "最早报告 {ym}"
   },
   "seals": {
     "corroborated": {
-      "label": "多人印证",
-      "desc": "≥2 位独立贡献者上传实拍标签且 core_fingerprint 一致"
+      "label": "有 2 位以上提交者上传过标签照片",
+      "desc": "有 2 个及以上贡献账号上传过标签照片且 core_fingerprint 一致（不保证为不同自然人，也不表示人工已对照照片逐项核对）"
     },
     "verified": {
-      "label": "已核验",
-      "desc": "含裁剪标签证据图与 SHA-256 校验哈希，通过配料无损还原校验"
+      "label": "有 1 份标签照片",
+      "desc": "附带 1 份裁剪标签照片及 SHA-256 哈希；不表示有人核对过结构化数据与照片是否一致，也不代表产品安全"
     },
     "official_registry_imported": {
-      "label": "官方数据源",
-      "desc": "构建期自 CC0 官方开放库（如 USDA FDC）自动同步"
+      "label": "来自官方公开信息",
+      "desc": "构建期由 CC0 官方公开数据集（如 USDA FDC）导入"
     },
     "community_reported": {
-      "label": "社区上报",
-      "desc": "已通过结构与化学常识校验，待补充完整实拍证据图"
+      "label": "仅有文字报告，无照片",
+      "desc": "仅由贡献者录入了文字与结构信息，尚未附带标签照片"
     }
   },
   "resolutions": {

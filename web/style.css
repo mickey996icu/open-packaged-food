@@ -240,7 +240,7 @@ input:focus-visible,
   margin: 0 auto;
   padding: 4px 24px 12px;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
 }
 
@@ -939,6 +939,7 @@ a.chip:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 4px;
 }
@@ -996,7 +997,9 @@ a.chip:hover {
   color: var(--md-primary);
   padding: 2px 8px;
   line-height: 1.35;
-  white-space: nowrap;
+  white-space: normal;
+  text-align: left;
+  max-width: 100%;
 }
 
 .seal svg {
@@ -1774,6 +1777,18 @@ footer {
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 12px;
+}
+
+.footer-disclaimer {
+  flex-basis: 100%;
+  font-size: 0.77rem;
+  line-height: 1.55;
+  color: var(--md-on-surface-variant);
+}
+
+.footer-disclaimer a {
+  color: var(--md-primary);
+  text-decoration: underline;
 }
 
 /* Resolution & Lifecycle Geometric Badges */

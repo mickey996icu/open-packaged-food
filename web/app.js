@@ -1368,8 +1368,6 @@ async function init() {
 }
 
 function renderStats(meta) {
-  const lv = meta.counts_by_evidence_level || {};
-  const verifiedCount = (lv.verified || 0) + (lv.corroborated || 0);
   const marketEntries = Object.entries(meta.counts_by_market || {}).sort(
     (a, b) => b[1] - a[1] || a[0].localeCompare(b[0])
   );
@@ -1386,10 +1384,6 @@ function renderStats(meta) {
     <div class="stat-cell">
       <span class="label">${esc(t("stats.total"))}</span>
       <span class="val">${esc(meta.total_products)}</span>
-    </div>
-    <div class="stat-cell">
-      <span class="label">${esc(t("stats.verified"))}</span>
-      <span class="val">${esc(verifiedCount)}</span>
     </div>
     <div class="stat-cell">
       <span class="label">${esc(t("stats.markets"))}</span>
@@ -1411,7 +1405,6 @@ function renderEmptyCatalogCard() {
           <span class="cn-label">${esc(t("detail.productIdLabel"))}</span>
           <strong>opf:database/status/v0.2</strong>
         </div>
-        ${renderSeal("verified")}
       </div>
       <hr class="title-rule" />
       <h3>${esc(t("empty.title"))}</h3>
@@ -1757,6 +1750,33 @@ function formatOrigin(origin) {
   return parts.join(" · ");
 }
 
+function resolveTActiveBasis(obj, full) {
+  if (obj && (obj.t_active_basis === "vintage_month" || obj.t_active_basis === "earliest_reported_at")) {
+    return obj.t_active_basis;
+  }
+  const eid = obj && obj.edition_id;
+  const ed =
+    (obj && Array.isArray(obj.evidence) && obj) ||
+    (full && Array.isArray(full.editions) && full.editions.find((x) => x.edition_id === eid)) ||
+    null;
+  if (ed && Array.isArray(ed.evidence)) {
+    return ed.evidence.some((ev) => ev && ev.vintage_month)
+      ? "vintage_month"
+      : "earliest_reported_at";
+  }
+  return "earliest_reported_at";
+}
+
+function formatTActiveText(obj, full, shortMode = false) {
+  const ym = (obj && obj.t_active) || "";
+  if (!ym) return "";
+  const basis = resolveTActiveBasis(obj, full);
+  if (basis === "vintage_month") {
+    return t(shortMode ? "detail.tActiveVintageShort" : "detail.tActiveVintage", { ym });
+  }
+  return t(shortMode ? "detail.tActiveReportedShort" : "detail.tActiveReported", { ym });
+}
+
 function renderEditionTimelineHtml(full, activeEditionId) {
   return (full.editions || [])
     .map((eItem) => {
@@ -1767,7 +1787,7 @@ function renderEditionTimelineHtml(full, activeEditionId) {
           <span class="ulid-code">${esc(eItem.edition_id)}</span>
           ${renderRevPill(eItem.rev)}
           <span class="chip mono">${esc(eItem.track)}</span>
-          <span class="chip mono">${esc(eItem.t_active)}</span>
+          <span class="chip mono" title="${esc(formatTActiveText(eItem, full, false))}">${esc(formatTActiveText(eItem, full, true))}</span>
         </span>
         <span style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
           ${renderStatusBadge(eItem.status)}
@@ -1818,7 +1838,7 @@ function renderDivergentOverview(item, compact, full) {
           <div class="variant-card-meta" style="margin-top:8px;">
             <span class="chip mono">${esc(v.track)}</span>
             <span class="chip mono">${esc(formatNetContent(v.net_content))}</span>
-            <span class="chip mono">${esc(v.t_active)}</span>
+            <span class="chip mono" title="${esc(formatTActiveText(v, full, false))}">${esc(formatTActiveText(v, full, true))}</span>
             ${v.packaging_code ? `<span class="chip mono">${esc(v.packaging_code)}</span>` : ""}
           </div>
           ${originStr ? `<p class="variant-card-desc" style="margin-top:8px;">${esc(t("detail.metaOrigin"))}: ${esc(originStr)}</p>` : ""}
@@ -2212,7 +2232,7 @@ function renderCatalogCard(item, compact, full) {
         <span class="imprint-item">${esc(t("detail.profileLabel"))} ${esc(core.regulatory_profile)}</span>
         <span class="imprint-item"><span class="ulid-head">${esc(t("detail.editionLabel"))} <span class="ulid-code">${esc(ed.edition_id)}</span> ${renderRevPill(ed.rev)}</span></span>
         <span class="imprint-item">${esc(t("detail.trackLabel"))} ${esc(ed.track)}</span>
-        <span class="imprint-item">${esc(t("detail.tActiveLabel"))} ${esc(ed.t_active)}</span>
+        <span class="imprint-item">${esc(formatTActiveText(ed, full, false))}</span>
       </div>
     </div>
     <div class="card-tabs" role="tablist">
