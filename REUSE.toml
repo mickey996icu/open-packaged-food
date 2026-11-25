@@ -45,15 +45,3 @@ path = [
 precedence = "override"
 SPDX-FileCopyrightText = "OpenPackagedFood Contributors"
 SPDX-License-Identifier = "Apache-2.0"
-
-# Repository license notices and REUSE manifest
-[[annotations]]
-path = [
-  "LICENSE",
-  "LICENSE-DATA",
-  "LICENSE-MEDIA",
-  "REUSE.toml",
-]
-precedence = "override"
-SPDX-FileCopyrightText = "OpenPackagedFood Contributors"
-SPDX-License-Identifier = "CC0-1.0"
