@@ -6,13 +6,16 @@
   },
   "app": {
     "pageTitle": "OpenPackagedFood — Banca dati aperta sugli alimenti confezionati",
-    "footerLicense": "Banca dati: ODbL-1.0 (DbCL-1.0) · Strumenti: AGPL-3.0 · Ritagli etichette: CC BY-SA 4.0"
+    "footerLicense": "Banca dati: ODbL-1.0 (DbCL-1.0) · Strumenti: AGPL-3.0 · Ritagli etichette: CC BY-SA 4.0",
+    "footerDisclaimer": "OPF trascrive solo il testo stampato (senza dati su contaminazioni crociate non dichiarate) e non garantisce sicurezza, accuratezza o idoneità. Verificare la confezione reale",
+    "limitationsLink": "Limiti dei dati",
+    "reportErrataLink": "Segnala errore / ritiro"
   },
   "header": {
     "mastheadTitle": "Ciò che è stampato sulla confezione è ciò che registra la banca dati.",
     "mastheadLead": "Banca dati aperta, basata su prove e priva di giudizi soggettivi per i prodotti alimentari preconfezionati. Ogni scheda distingue rigorosamente <strong>valori dichiarati</strong>, <strong>conversioni deterministiche per 100g/100ml (<code>ƒ</code>)</strong> e <strong>limiti normativi di arrotondamento a zero (<code>&lt;</code>)</strong>.",
-    "legendToggle": "Livelli & simboli",
-    "legendAriaLabel": "Livelli di verifica e simboli numerici",
+    "legendToggle": "Forme di prova e simboli",
+    "legendAriaLabel": "Forme di prova e simboli numerici",
     "langToggleTitle": "Scegli lingua / Switch Language",
     "themeToggle": "Chiaro / Scuro",
     "themeTitle": "Attiva modalità chiara / scura"
@@ -39,8 +42,8 @@
     "allMarkets": "Tutti i mercati",
     "groupResolution": "Modalità di risoluzione (Multi)",
     "allResolutions": "Tutte le modalità",
-    "groupEvidence": "Livello di verifica (Multi)",
-    "allEvidence": "Tutti i livelli",
+    "groupEvidence": "Forma di prova (Multi)",
+    "allEvidence": "Tutte le forme",
     "groupProfile": "Profilo normativo & namespace ID",
     "groupBrand": "Marca (Multi)",
     "allBrands": "Tutte le marche ({count})",
@@ -78,7 +81,7 @@
     "tagQuery": "Ricerca: {val}",
     "tagMarket": "Mercato: {val}",
     "tagResolution": "Modo: {val}",
-    "tagEvidence": "Verifica: {val}",
+    "tagEvidence": "Prova: {val}",
     "tagProfile": "Profilo: {val}",
     "tagNamespace": "Namespace: {val}",
     "tagBrand": "Marca: {val}",
@@ -88,14 +91,13 @@
     "allProducts": "Tutti i prodotti",
     "emptySearch": "Nessun prodotto corrispondente trovato",
     "emptyCatalogDrawer": "Nessun prodotto registrato ancora",
-    "mixedEvidenceShort": "incl. variante non verificata",
-    "mixedEvidenceTitle": "Massima: {high} · Variante attiva minima: {low}",
+    "mixedEvidenceShort": "prove miste",
+    "mixedEvidenceTitle": "Più completa: {high} · Altra variante attiva: {low}",
     "activeEditionsCount": "{count} attive"
   },
   "stats": {
     "ariaLabel": "Statistiche del database",
     "total": "Prodotti",
-    "verified": "Verificati / Corroborati",
     "markets": "Giurisdizioni",
     "schema": "Schema"
   },
@@ -116,7 +118,6 @@
     "profileLabel": "Profilo normativo",
     "editionLabel": "Edizione",
     "trackLabel": "Traccia (Track)",
-    "tActiveLabel": "Mese attivo",
     "revLabel": "Rev",
     "tabNormalized": "Dati normalizzati",
     "tabDeclared": "Etichetta dichiarata",
@@ -197,24 +198,28 @@
     "kpiFat": "Grassi",
     "kpiCarbsAvail": "Carboidrati",
     "kpiCarbsTotal": "Carb. totali",
-    "kpiSodium": "Sodio"
+    "kpiSodium": "Sodio",
+    "tActiveVintage": "Ultimo mese confezione osservato: {ym} (la formula potrebbe essere cambiata)",
+    "tActiveReported": "Prima segnalazione: {ym}",
+    "tActiveVintageShort": "Confezione {ym}",
+    "tActiveReportedShort": "Segnalato {ym}"
   },
   "seals": {
     "corroborated": {
-      "label": "Corroborato",
-      "desc": "≥2 contributori indipendenti hanno inviato ritagli di etichetta con uguale core_fingerprint"
+      "label": "≥2 contributori con foto",
+      "desc": "Foto caricate da ≥2 account con lo stesso core_fingerprint (non garantisce controllo manuale o sicurezza)"
     },
     "verified": {
-      "label": "Verificato",
-      "desc": "Include foto ritagliata con hash SHA-256 e supera la verifica senza perdita degli ingredienti"
+      "label": "1 foto etichetta caricata",
+      "desc": "Include 1 ritaglio fotografico con hash SHA-256; non indica che i campi siano stati confrontati con la foto"
     },
     "official_registry_imported": {
-      "label": "Registro ufficiale",
-      "desc": "Sincronizzato in fase di build da registri pubblici CC0 (es. USDA FDC)"
+      "label": "Da registro pubblico ufficiale",
+      "desc": "Importato in compilazione da dataset pubblici CC0 (es. USDA FDC)"
     },
     "community_reported": {
-      "label": "Segnalazione community",
-      "desc": "Supera i controlli strutturali e stechiometrici; in attesa di foto ritagliata dell'etichetta"
+      "label": "Solo testo (senza foto)",
+      "desc": "Testo e campi strutturati inseriti senza foto dell'etichetta"
     }
   },
   "resolutions": {

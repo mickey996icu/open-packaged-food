@@ -1,6 +1,6 @@
 # OpenPackagedFood Specification (v0.2)
 
-> **Status**: Draft M0 | **Schema Version**: `0.2` | **CI Tooling Pin**: `v0.2.4` | **License**: Code AGPL-3.0-or-later (Apache-2.0 inbound), Spec & Schemas Apache-2.0, Data ODbL-1.0, Label Media CC-BY-SA-4.0
+> **Status**: Draft M0 | **Schema Version**: `0.2` | **CI Tooling Pin**: `v0.2.5` | **License**: Code AGPL-3.0-or-later (Apache-2.0 inbound), Spec & Schemas Apache-2.0, Data ODbL-1.0, Label Media CC-BY-SA-4.0 | **Limitations**: [`docs/DATA-LIMITATIONS.md`](../docs/DATA-LIMITATIONS.md)
 
 ## 1. Scope & Core Principles
 
@@ -448,24 +448,34 @@ When two contributors concurrently open PRs for the same package, or when an `er
 
 Edition files store **neither `status` nor `evidence_level`**. Both are derived deterministically by `opf build`.
 
-#### Build-Time `evidence_level` Derivation
+#### Build-Time `evidence_level` Derivation & Public Display Rules
 For each `EditionRecord` $E$, let $P(E)$ be the set of distinct non-empty `contributor` identifiers across `evidence[]` items with `type == "label_photo"`, valid `cropped_sha256`, and `media_ref`:
 1. `corroborated`: $|P(E)| \ge 2$.
 2. `verified`: $|P(E)| = 1$.
 3. `official_registry_imported`: $|P(E)| = 0$ and $\exists e \in E.\text{evidence}$ with `type` in `{"official_registry_import", "official_document"}`.
 4. `community_reported`: otherwise.
 
+**Public Display & Localization Normative Rule (Anti-Misrepresentation)**:
+- These four enum values classify **only the form/source of uploaded evidence** (e.g., number of photo-submitting accounts or public registry source)—they do **NOT** indicate that structured JSON values were cross-checked against photos, nor do they represent product safety or compliance.
+- **PROHIBITION**: UIs, Agents, and localizations **MUST NOT** translate or label `verified` / `corroborated` as *"已核验"*, *"已验证"*, *"已认证"*, or *"Verified"* (for example, do not label `verified` as `"Verified"` or `corroborated` as `"多人印证"` in public-facing text):
+  - `corroborated`: *Label photos submitted by 2+ contributors* / `"有 2 位以上提交者上传过标签照片"`
+  - `verified`: *1 label photo submitted* / `"有 1 份标签照片"`
+  - `official_registry_imported`: *From public official registry* / `"来自官方公开信息"`
+  - `community_reported`: *Text report only (no photo)* / `"仅有文字报告，无照片"`
+- **v0.3 Roadmap**: Enum identifier renaming (such as `photo_multi`, `photo_single`, `official`, `text_only`) is deferred to `v0.3` to avoid breaking `v0.2` clients. Only when maintainer blind re-transcription produces `"transcription": "independent_match"` on an `evidence[]` item may a UI state that structured transcription matches the photo—and even then, it never represents product safety.
+
 #### `supersedes` Graph & `lifecycle` Constraints
 - Replacement edges are recorded on the **newer** Edition file as `"supersedes": ["<older_ulid>", ...]` (sorted, unique ULIDs), supporting 1-to-1, N-to-1, and 1-to-N transitions across a DAG (no self-loops, no cycles).
 - **Retracted Isolation**: An edition with `lifecycle.state == "retracted"` MUST NOT appear in any edition's `supersedes[]`, MUST NOT carry non-empty `supersedes[]`, and is excluded from duplicate checks and active resolution.
 - **Discontinued Exit for Track Heads**: Because a track's latest edition ($E_{\text{head}}$) never auto-decays to `stale`, **`lifecycle.state = "discontinued"` (backed by verifiable evidence in `evidence_refs`) is the sole mechanism by which a track head exits `active` status** (preventing wholly discontinued products from appearing in-market forever).
 
-#### `vintage_month` vs. `reported_at` & Effective Market Timestamp (`t_active`)
+#### `vintage_month` vs. `reported_at` & Effective Market Timestamp (`t_active` & `t_active_basis`)
 To prevent old pantry stock photographed years later from refreshing a retired edition back to `active`:
 - Every evidence item records `reported_at` (`YYYY-MM` or `YYYY-MM-DD`) and optional coarse `vintage_month` (`YYYY-MM`, derived from package production month or `expiry_month - shelf_life`; exact lot timestamps remain forbidden).
 - For any Edition $E$, let $V(E) = \{ e.\text{vintage\_month} \mid e \in E.\text{evidence},\ e.\text{vintage\_month is present} \}$ and $R(E) = \{ e.\text{reported\_at}[0..7] \mid e \in E.\text{evidence} \}$:
-  $$t_{\text{active}}(E) = \begin{cases} \max V(E) & \text{if } V(E) \neq \emptyset \\ \min R(E) & \text{if } V(E) = \emptyset \end{cases}$$
+  $$t_{\text{active}}(E) = \begin{cases} \max V(E) & \text{if } V(E) \neq \emptyset \quad (\text{t\_active\_basis} = \texttt{"vintage\_month"}) \\ \min R(E) & \text{if } V(E) = \emptyset \quad (\text{t\_active\_basis} = \texttt{"earliest\_reported\_at"}) \end{cases}$$
   When `vintage_month` exists, **only `vintage_month` governs active market presence**; when absent on all evidence items, $t_{\text{active}}(E)$ stays pinned to the earliest `reported_at` month $\min R(E)$, so un-dated `reported_at` uploads prove only historical existence and can **never** re-activate a `stale` edition.
+- **Display Rule**: Never describe `t_active` as *"active/valid month"* (*"最近有效包装年月"* or *"市场生效月"*). Display `"Latest package vintage seen: YYYY-MM (formulation may have changed since)"` (*"见过的最近包装生产月：YYYY-MM（此后配方可能已变更）"*) when `t_active_basis == "vintage_month"`, and `"Earliest reported: YYYY-MM"` (*"最早报告于：YYYY-MM"*) when `t_active_basis == "earliest_reported_at"`.
 
 #### Build-Time `status` Precedence (`opf build`)
 1. `retracted`: `E.lifecycle.state == "retracted"`.
@@ -483,7 +493,7 @@ To prevent old pantry stock photographed years later from refreshing a retired e
 Let $A$ be the set of editions with derived status `active` across all tracks of a product:
 
 1. **Per-Edition vs. Summary Evidence Level (`evidence_summary`)**:
-   - Top-level Compact API emits `evidence_summary: { "highest_active": ..., "lowest_active": ..., "by_edition": { ... } }` so a newly submitted `community_reported` variant never demotes a `corroborated` product in catalog rankings while keeping unverified variants visible.
+   - Top-level Compact API emits `evidence_summary: { "highest_active": ..., "lowest_active": ..., "by_edition": { ... } }` so a newly submitted `community_reported` variant never demotes a multi-photo `corroborated` product in catalog listings while keeping text-only and single-photo variants visible.
 2. **Top-Level `resolution` Modes**:
    - `"single"` ($|A| = 1$): One active edition. Top-level `normalized`, `ingredients_text`, `net_content`, `regulatory_profile`, `origin_summary`, and `parties_summary` are populated directly.
    - `"uniform"` ($|A| \ge 2$, $|\{E.\text{core\_fingerprint} \mid E \in A\}| = 1$): Multiple active tracks share the **identical `core`**. Top-level `normalized`, `ingredients_text`, and `net_content` are populated normally, while `origins_summary` and `parties_summary` report the deduplicated union across active tracks.

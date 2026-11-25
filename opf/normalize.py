@@ -787,8 +787,8 @@ def derive_evidence_level(edition: dict[str, Any]) -> str:
     return "community_reported"
 
 
-def compute_t_active(edition: dict[str, Any]) -> str:
-    """Compute effective market presence month YYYY-MM (max vintage_month, else min reported_at[:7])."""
+def compute_t_active_with_basis(edition: dict[str, Any]) -> tuple[str, str]:
+    """Compute (YYYY-MM, basis) where basis is 'vintage_month' or 'earliest_reported_at'."""
     evidence = edition.get("evidence") or []
     vintage_months = [
         str(ev["vintage_month"])
@@ -796,7 +796,7 @@ def compute_t_active(edition: dict[str, Any]) -> str:
         if isinstance(ev, dict) and ev.get("vintage_month")
     ]
     if vintage_months:
-        return max(vintage_months)
+        return max(vintage_months), "vintage_month"
 
     reported_months = [
         str(ev["reported_at"])[:7]
@@ -807,7 +807,13 @@ def compute_t_active(edition: dict[str, Any]) -> str:
         raise ValueError(
             f"Edition {edition.get('edition_id')!r} has no evidence reported_at or vintage_month"
         )
-    return min(reported_months)
+    return min(reported_months), "earliest_reported_at"
+
+
+def compute_t_active(edition: dict[str, Any]) -> str:
+    """Compute effective market presence month YYYY-MM (max vintage_month, else min reported_at[:7])."""
+    ym, _basis = compute_t_active_with_basis(edition)
+    return ym
 
 
 def compute_stale_window_months(edition: dict[str, Any]) -> int:
@@ -866,7 +872,9 @@ def derive_editions_lifecycle(editions: list[dict[str, Any]]) -> dict[str, dict[
     for eid in superseded_by:
         superseded_by[eid] = sorted(set(superseded_by[eid]))
 
-    t_active_map: dict[str, str] = {eid: compute_t_active(ed) for eid, ed in records.items()}
+    t_active_pairs = {eid: compute_t_active_with_basis(ed) for eid, ed in records.items()}
+    t_active_map: dict[str, str] = {eid: pair[0] for eid, pair in t_active_pairs.items()}
+    t_active_basis_map: dict[str, str] = {eid: pair[1] for eid, pair in t_active_pairs.items()}
     ev_level_map: dict[str, str] = {eid: derive_evidence_level(ed) for eid, ed in records.items()}
     status_map: dict[str, str] = {}
 
@@ -909,6 +917,7 @@ def derive_editions_lifecycle(editions: list[dict[str, Any]]) -> dict[str, dict[
             "status": status_map[eid],
             "evidence_level": ev_level_map[eid],
             "t_active": t_active_map[eid],
+            "t_active_basis": t_active_basis_map[eid],
             "superseded_by": superseded_by[eid],
         }
         for eid in records

@@ -1,8 +1,8 @@
 # OpenPackagedFood Governance & Sustainability Principles
 
-**[English](GOVERNANCE.md) | [简体中文](GOVERNANCE.zh-CN.md)** · **[Contributing](CONTRIBUTING.md)** · **[ODbL User Guide](docs/ODbL-GUIDE.md)** · **[Specification](spec/SPEC.md)**
+**[English](GOVERNANCE.md) | [简体中文](GOVERNANCE.zh-CN.md)** · **[Contributing](CONTRIBUTING.md)** · **[ODbL User Guide](docs/ODbL-GUIDE.md)** · **[Data Limitations](docs/DATA-LIMITATIONS.md)** · **[Specification](spec/SPEC.md)**
 
-OpenPackagedFood (`opf`) is maintained with two parallel goals: keeping the shared packaged-food fact ledger open and neutral over the long term, and leaving a clean, lawful sustainability path to fund ongoing human data verification.
+OpenPackagedFood (`opf`) is maintained with two parallel goals: keeping the shared packaged-food label-transcription ledger open, neutral, and traceable over the long term, and leaving a clean, lawful sustainability path to fund ongoing curation and errata maintenance.
 
 ---
 
@@ -38,12 +38,15 @@ Every `evidence[]` artifact and every `revisions[]` structured transcription ent
    - A corroborating `evidence[]` item only counts toward structured data independence when maintainers perform an **independent transcription from physical-package evidence (blind re-transcription)** without inspecting the existing `core` JSON, and tooling records `transcription: "independent_match"` (forbidden for manual entry).
    - **Maintainer-Origin Subset Criterion**: A record's current `core` belongs to a clean maintainer-origin subset only when every active value derives from `maintainer` revisions or is covered by a `transcription: "independent_match"` evidence item, with no subsequent unverified external modifications.
 4. **Research & Brand Partner Channel (`partner`, `brand_owner`)**:
-   - Universities, labs, and brand owners may contribute verified records under bilateral agreements referenced via `agreement_ref`.
+   - Universities, research partners, and brand owners may contribute records under bilateral agreements referenced via `agreement_ref`.
 
 ---
 
-## 3. Commercial Sustainability & Liability Boundary
+## 3. Commercial Sustainability, Liability Isolation & Duty-of-Care Baseline
 
 1. **Pre-Revenue Stage**: Before any commercial revenue occurs, all repositories operate purely as a public open-source project without personal legal-entity exposure or private monetization locks.
-2. **Pre-Revenue Requirement for a Limited-Liability Entity**: Prior to accepting the first paid revenue—such as managed API SLAs, commercial label-OCR pipelines, optional contract-backed fact feedback, proprietary maintainer-only sub-datasets, or consumer-facing subscription features—commercial operations **must** be placed under an independent limited-liability legal entity separated from personal contributor assets.
-3. **Mandatory Safety Disclosures for Downstream & Consumer Uses**: Mandatory statutory liability rules (including personal injury and consumer-protection obligations regarding allergens and dietary accuracy) cannot be waived by disclaimers alone. Production or consumer services built on OPF data must surface `evidence_level`, `quality_flags` (`<` rounding bounds and `divergent` variants), obtain appropriate liability insurance, and instruct end users to verify against the physical package in hand.
+2. **Pre-Revenue Requirement for a Limited-Liability Entity**: Prior to accepting the first paid revenue—such as managed API SLAs, commercial label-OCR pipelines, optional contract-backed fact feedback, proprietary maintainer-only sub-datasets, or consumer-facing subscription features—commercial operations **must** be placed under an independent limited-liability legal entity separated from personal contributor assets. Should a future operating entity directly provide consumer-facing commercial products, appropriate commercial liability insurance must be arranged prior to launch.
+3. **Maintainer Duty-of-Care Baseline & Downstream Responsibility**:
+   - **Descriptive Evidence Labels Without Accuracy Claims**: Official OPF specifications and the built-in Web Explorer describe `evidence_level` purely by submission form (e.g., number of photo-submitting accounts or public registry source) and `t_active` by actual derivation basis—never claiming human verification or product safety (see [`docs/DATA-LIMITATIONS.md`](docs/DATA-LIMITATIONS.md)).
+   - **Public Errata & `retracted` Isolation**: OPF maintains public `opf-data` errata reporting and uses `lifecycle.state = "retracted"` to isolate erroneous or misleading editions from active outputs; allergen- and ingredient-related errata reports are **prioritized** without fixed turnaround SLA promises.
+   - **Integrator Responsibility**: Downstream integrators remain **solely responsible** for their own product UX, safety notices, and legal compliance toward end users; OPF does not prescribe binding product design standards for third parties.

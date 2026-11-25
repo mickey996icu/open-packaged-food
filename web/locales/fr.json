@@ -6,13 +6,16 @@
   },
   "app": {
     "pageTitle": "OpenPackagedFood — Base de données ouverte des aliments emballés",
-    "footerLicense": "Base de données : ODbL-1.0 (DbCL-1.0) · Outils : AGPL-3.0 · Recadrages d'étiquettes : CC BY-SA 4.0"
+    "footerLicense": "Base de données : ODbL-1.0 (DbCL-1.0) · Outils : AGPL-3.0 · Recadrages d'étiquettes : CC BY-SA 4.0",
+    "footerDisclaimer": "OPF transcrit uniquement les mentions imprimées (hors contaminations croisées non indiquées), sans garantie de sécurité, d'exactitude ou d'adéquation. Vérifiez l'emballage en main",
+    "limitationsLink": "Limites des données",
+    "reportErrataLink": "Signaler une erreur / retrait"
   },
   "header": {
     "mastheadTitle": "Ce qui est imprimé sur l'emballage figure dans la base.",
     "mastheadLead": "Base de données ouverte, factuelle et sans score subjectif pour les produits alimentaires préemballés. Chaque fiche distingue strictement <strong>valeurs déclarées</strong>, <strong>conversions déterministes pour 100g/100ml (<code>ƒ</code>)</strong> et <strong>bornes réglementaires d'arrondi à zéro (<code>&lt;</code>)</strong>.",
-    "legendToggle": "Niveaux & symboles",
-    "legendAriaLabel": "Niveaux de vérification et symboles numériques",
+    "legendToggle": "Formes de preuve & symboles",
+    "legendAriaLabel": "Formes de preuve et symboles numériques",
     "langToggleTitle": "Choisir la langue / Switch Language",
     "themeToggle": "Clair / Sombre",
     "themeTitle": "Basculer le mode clair / sombre"
@@ -39,8 +42,8 @@
     "allMarkets": "Tous les marchés",
     "groupResolution": "Mode de résolution (Multiple)",
     "allResolutions": "Tous les modes",
-    "groupEvidence": "Niveau de preuve (Multiple)",
-    "allEvidence": "Tous les niveaux",
+    "groupEvidence": "Forme de preuve (Multiple)",
+    "allEvidence": "Toutes les formes",
     "groupProfile": "Profil réglementaire & espace d'ID",
     "groupBrand": "Marque (Multiple)",
     "allBrands": "Toutes les marques ({count})",
@@ -88,14 +91,13 @@
     "allProducts": "Tous les produits",
     "emptySearch": "Aucune fiche produit correspondante",
     "emptyCatalogDrawer": "Aucune fiche produit pour le moment",
-    "mixedEvidenceShort": "variante non vérifiée incluse",
-    "mixedEvidenceTitle": "Plus haut : {high} · Variante active la plus basse : {low}",
+    "mixedEvidenceShort": "preuves mixtes",
+    "mixedEvidenceTitle": "Plus complète : {high} · Autre variante active : {low}",
     "activeEditionsCount": "{count} active(s)"
   },
   "stats": {
     "ariaLabel": "Statistiques de la base",
     "total": "Produits",
-    "verified": "Vérifiés / Corroborés",
     "markets": "Juridictions",
     "schema": "Schéma"
   },
@@ -116,7 +118,6 @@
     "profileLabel": "Cadre réglementaire",
     "editionLabel": "Édition",
     "trackLabel": "Branche (Track)",
-    "tActiveLabel": "Mois actif",
     "revLabel": "Rév",
     "tabNormalized": "Données normalisées",
     "tabDeclared": "Étiquette déclarée",
@@ -197,24 +198,28 @@
     "kpiFat": "Mat. grasses",
     "kpiCarbsAvail": "Glucides",
     "kpiCarbsTotal": "Gluc. totaux",
-    "kpiSodium": "Sodium"
+    "kpiSodium": "Sodium",
+    "tActiveVintage": "Dernier mois d'emballage observé : {ym} (la formule a pu changer depuis)",
+    "tActiveReported": "Premier signalement : {ym}",
+    "tActiveVintageShort": "Emballage {ym}",
+    "tActiveReportedShort": "Signalé {ym}"
   },
   "seals": {
     "corroborated": {
-      "label": "Corroboré",
-      "desc": "≥2 contributeurs indépendants ont fourni des recadrages concordants sur le core_fingerprint"
+      "label": "≥2 contributeurs avec photos",
+      "desc": "Des photos d'étiquette ont été envoyées par ≥2 comptes avec le même core_fingerprint (sans garantie de relecture humaine)"
     },
     "verified": {
-      "label": "Vérifié",
-      "desc": "Inclut des recadrages sans EXIF avec empreinte SHA-256 et vérification sans perte des ingrédients"
+      "label": "1 photo d'étiquette soumise",
+      "desc": "Inclut 1 recadrage photo avec empreinte SHA-256 ; ne signifie pas que les champs ont été contrôlés"
     },
     "official_registry_imported": {
-      "label": "Registre officiel",
-      "desc": "Synchronisé lors du build depuis des registres publics CC0 (ex. USDA FDC)"
+      "label": "Issu d'un registre public",
+      "desc": "Importé lors du build depuis des jeux de données publics CC0 (ex. USDA FDC)"
     },
     "community_reported": {
-      "label": "Déclaration communautaire",
-      "desc": "Contrôles structurels validés ; en attente de photos justificatives recadrées"
+      "label": "Texte seul (sans photo)",
+      "desc": "Mentions et champs structurés saisis sans photo d'étiquette"
     }
   },
   "resolutions": {

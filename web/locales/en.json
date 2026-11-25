@@ -6,13 +6,16 @@
   },
   "app": {
     "pageTitle": "OpenPackagedFood — Open Packaged Food Database",
-    "footerLicense": "Database: ODbL-1.0 (DbCL-1.0) · Tooling: AGPL-3.0 · Cropped Label Media: CC BY-SA 4.0"
+    "footerLicense": "Database: ODbL-1.0 (DbCL-1.0) · Tooling: AGPL-3.0 · Cropped Label Media: CC BY-SA 4.0",
+    "footerDisclaimer": "OPF transcribes printed label text only (no unprinted cross-contact data) and carries no warranty of safety, accuracy, or fitness. Always check the physical package in hand",
+    "limitationsLink": "Data Limitations",
+    "reportErrataLink": "Report Errata / Retraction"
   },
   "header": {
     "mastheadTitle": "What is printed on the package is what is in the database.",
     "mastheadLead": "An evidence-first, zero-judgment open database for global industrial packaged foods. Every record strictly distinguishes <strong>declared label values</strong>, <strong>deterministic 100g/100ml conversions (<code>ƒ</code>)</strong>, and <strong>regulatory upper bounds (<code>&lt;</code>)</strong>.",
-    "legendToggle": "Verification & Symbols",
-    "legendAriaLabel": "Verification Levels and Value Symbols",
+    "legendToggle": "Evidence & Symbols",
+    "legendAriaLabel": "Evidence Forms and Value Symbols",
     "langToggleTitle": "Switch Language / 切换界面语言",
     "themeToggle": "Light / Dark",
     "themeTitle": "Toggle Light / Dark mode"
@@ -39,8 +42,8 @@
     "allMarkets": "All Markets",
     "groupResolution": "Resolution Mode (Multi)",
     "allResolutions": "All Modes",
-    "groupEvidence": "Verification Level (Multi)",
-    "allEvidence": "All Levels",
+    "groupEvidence": "Evidence Form (Multi)",
+    "allEvidence": "All Forms",
     "groupProfile": "Regulatory Profile & ID Space",
     "groupBrand": "Brand (Multi)",
     "allBrands": "All Brands ({count})",
@@ -78,7 +81,7 @@
     "tagQuery": "Query: {val}",
     "tagMarket": "Market: {val}",
     "tagResolution": "Mode: {val}",
-    "tagEvidence": "Verification: {val}",
+    "tagEvidence": "Evidence: {val}",
     "tagProfile": "Profile: {val}",
     "tagNamespace": "Namespace: {val}",
     "tagBrand": "Brand: {val}",
@@ -88,14 +91,13 @@
     "allProducts": "All Products",
     "emptySearch": "No matching product records found",
     "emptyCatalogDrawer": "No product records yet",
-    "mixedEvidenceShort": "incl. unverified",
-    "mixedEvidenceTitle": "Highest: {high} · Lowest active variant: {low}",
+    "mixedEvidenceShort": "mixed evidence forms",
+    "mixedEvidenceTitle": "Most photo submissions: {high} · Other active variant: {low}",
     "activeEditionsCount": "{count} active"
   },
   "stats": {
     "ariaLabel": "Database Statistics",
     "total": "Products",
-    "verified": "Verified / Corroborated",
     "markets": "Jurisdictions",
     "schema": "Schema"
   },
@@ -116,7 +118,6 @@
     "profileLabel": "Profile",
     "editionLabel": "Edition",
     "trackLabel": "Track",
-    "tActiveLabel": "Active Month",
     "revLabel": "Rev",
     "tabNormalized": "Normalized Data",
     "tabDeclared": "Declared Label",
@@ -197,24 +198,28 @@
     "kpiFat": "Total Fat",
     "kpiCarbsAvail": "Avail. Carbs",
     "kpiCarbsTotal": "Total Carbs",
-    "kpiSodium": "Sodium"
+    "kpiSodium": "Sodium",
+    "tActiveVintage": "Latest package vintage seen: {ym} (formulation may have changed since)",
+    "tActiveReported": "Earliest reported: {ym}",
+    "tActiveVintageShort": "Vintage seen {ym}",
+    "tActiveReportedShort": "Earliest reported {ym}"
   },
   "seals": {
     "corroborated": {
-      "label": "Corroborated",
-      "desc": "≥2 independent contributors submitted label photos with matching core_fingerprint"
+      "label": "2+ contributors uploaded photos",
+      "desc": "Label photos were uploaded under ≥2 contributor accounts sharing the same core_fingerprint (does not guarantee distinct people or manual checking against photos)"
     },
     "verified": {
-      "label": "Verified",
-      "desc": "Includes cropped label photo + SHA-256 hash and passes lossless ingredient round-trip check"
+      "label": "1 label photo submitted",
+      "desc": "Includes 1 cropped label photo submission with SHA-256 hash; does not mean transcribed fields were checked against the photo or guarantee safety"
     },
     "official_registry_imported": {
-      "label": "Official Registry",
-      "desc": "Synchronized at build time from CC0 public government registries (e.g. USDA FDC)"
+      "label": "From public official registry",
+      "desc": "Imported at build time from CC0 public official datasets (e.g. USDA FDC)"
     },
     "community_reported": {
-      "label": "Community Reported",
-      "desc": "Passes structural and chemical sanity checks; awaiting full label photo verification"
+      "label": "Text report only (no photo)",
+      "desc": "Text and structured fields recorded without accompanying label photos"
     }
   },
   "resolutions": {

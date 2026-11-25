@@ -28,6 +28,7 @@ from opf.normalize import (
     compute_core_fingerprint,
     compute_stale_window_months,
     compute_t_active,
+    compute_t_active_with_basis,
     derive_editions_lifecycle,
     derive_evidence_level,
     normalize_edition,
@@ -526,6 +527,7 @@ class TestLifecycleAndProductDir(unittest.TestCase):
             }
         )
         self.assertEqual(compute_t_active(e_old), "2024-01")
+        self.assertEqual(compute_t_active_with_basis(e_old), ("2024-01", "earliest_reported_at"))
 
         # Newer edition on same track with vintage_month 2025-06 makes e_old stale (17 >= 12 months)
         e_new = _make_base_edition(
@@ -534,9 +536,12 @@ class TestLifecycleAndProductDir(unittest.TestCase):
             reported_at="2025-07-01",
             vintage_month="2025-06",
         )
+        self.assertEqual(compute_t_active_with_basis(e_new), ("2025-06", "vintage_month"))
         derived = derive_editions_lifecycle([e_old, e_new])
         self.assertEqual(derived[e_old["edition_id"]]["status"], "stale")
+        self.assertEqual(derived[e_old["edition_id"]]["t_active_basis"], "earliest_reported_at")
         self.assertEqual(derived[e_new["edition_id"]]["status"], "active")
+        self.assertEqual(derived[e_new["edition_id"]]["t_active_basis"], "vintage_month")
 
     def test_shelf_life_clamping_discontinued_head_and_retracted_isolation(self) -> None:
         self.assertEqual(compute_stale_window_months(_make_base_edition(shelf_life=None)), 12)

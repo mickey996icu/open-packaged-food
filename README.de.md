@@ -10,7 +10,7 @@ Wer schon einmal eine Ernährungs-App gebaut oder einer KI das Foto einer Snack-
 
 Auf der Packung steht „0g Transfette“, und das Modell versichert arglos, alles sei makellos – dabei darf laut US-Recht alles unter 0,5 g pro Portion auf Null abgerundet werden, und ähnliche Freigrenzen gelten auch anderswo für Natrium. Bei langen Zutatenlisten überliest eine KI schnell einen Zusatzstoff oder dichtet Wörter hinzu, die gar nicht auf der Verpackung standen. Und im Supermarktregal kommt noch etwas hinzu: Zwei Flaschen mit exakt demselben Strichcode stammen womöglich aus verschiedenen Lohnabfüllungen, oder eine alte Rezeptur und eine zuckerreduzierte Neufassung stehen nebeneinander. Die meisten Lebensmitteldatenbanken machen es sich einfach und überschreiben eine Version mit der anderen oder bilden schlicht den Durchschnitt.
 
-Wenn man Allergene meiden, klinische Ernährung planen oder Nährwerte verlässlich bilanzieren will, hilft ein „ungefähr richtig“ nicht weiter.
+Wer den exakten Wortlaut auf dem Etikett abgleichen, gesetzliche Abrundungsgrenzen (<) sauber von echter Null trennen oder Rezepturänderungen über Werke und Revisionen hinweg nachvollziehen möchte, verliert mit einem „ungefähr richtig“ genau diese Details.
 
 **OpenPackagedFood (OPF)** entstand aus einem einfachen Wunsch: Ordnung in diese unklare Buchführung zu bringen. Das Projekt verteilt keine Ampel-Gesundheitsnoten – was gesund ist, entscheiden der Mensch, der isst, und sein Arzt. Mir geht es nur darum, das auf der Verpackung Gedruckte getreu festzuhalten, damit Programme und KI-Assistenten auf festem Boden rechnen können.
 
@@ -71,7 +71,7 @@ Prüfung und statischer Build nutzen ausschließlich die Python-Standardbiblioth
 ./open-packaged-food/bin/opf check-media-refs --media-dir opf-media opf-data/products
 ```
 
-Legen Sie anschließend jeweils einen Branch in `opf-media` und `opf-data` an und öffnen Sie beide PRs (mit `uvx` und `gh` genügt auch `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.4 opf pr ...`). Wichtig ist die Reihenfolge: **immer zuerst den `opf-media`-PR mergen, danach den `opf-data`-PR**, damit die Prüfung die Bilder bereits auf `main` findet.
+Legen Sie anschließend jeweils einen Branch in `opf-media` und `opf-data` an und öffnen Sie beide PRs (mit `uvx` und `gh` genügt auch `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.5 opf pr ...`). Wichtig ist die Reihenfolge: **immer zuerst den `opf-media`-PR mergen, danach den `opf-data`-PR**, damit die Prüfung die Bilder bereits auf `main` findet.
 
 Zwei klare Grenzen bleiben unverrückbar:
 - **Nur zugeschnittene Textfelder einreichen** (Nährwerttabelle, Zutatenliste, Herstellerblock, Barcode) – niemals die gestaltete Vorderseite der Verpackung;
