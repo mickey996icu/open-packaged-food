@@ -20,8 +20,8 @@ J'ai écrit **OpenPackagedFood (OPF)** avec une idée toute simple : remettre au
 
 - **Un « 0 » imprimé n'est pas un zéro mathématique**
   Les valeurs ramenées à zéro par tolérance réglementaire sont conservées comme bornes supérieures (`<`), sans jamais être confondues avec une absence réelle. Chaque conversion pour 100 g ou 100 ml est calculée avec exactitude.
-- **Les ingrédients sont vérifiés caractère par caractère**
-  La liste structurée doit pouvoir se recomposer mot pour mot dans l'ordre exact du texte imprimé sur le paquet. Qu'une virgule soit en trop ou qu'une lettre manque, la validation rejette la fiche — sans laisser l'IA improviser.
+- **Les ingrédients sont contrôlés caractère par caractère**
+  La liste structurée doit pouvoir se recomposer mot pour mot dans l'ordre exact du texte des ingrédients transcrit (cela protège l'analyse, mais ne détecte pas une erreur de transcription de l'étiquette elle-même). Qu'une virgule soit en trop ou qu'une lettre manque, la validation rejette la fiche — sans laisser l'IA improviser.
 - **Même code-barres, usines ou recettes distinctes restent séparées**
   Lorsque plusieurs fabricants ou versions de recette se partagent un code-barres, chaque variante garde sa propre fiche. Si des variantes actives diffèrent réellement, l'API retient les valeurs générales et vous invite à jeter un œil à l'étiquette que vous tenez en main plutôt que de servir une moyenne trompeuse.
 - **Données, images et outils séparés, publiés en statique**
@@ -35,7 +35,7 @@ J'ai écrit **OpenPackagedFood (OPF)** avec une idée toute simple : remettre au
 
 Ouvrez **[l'explorateur web](https://mickey996icu.github.io/opf-data/)**, pointez la caméra arrière sur un code-barres ou choisissez une photo dans votre galerie. Le décodage s'exécute entièrement dans votre navigateur (avec `BarcodeDetector` natif lorsqu'il est disponible, et bascule automatique vers `ZXing` embarqué hors ligne partout ailleurs) — aucune image n'est envoyée sur Internet.
 
-Pour les besoins alimentaires précis, les filtres en haut de page permettent de trier par pays, d'écarter séparément les allergènes avérés et les traces possibles, d'exclure des codes d'additifs ou de fixer des seuils pour 100 g/100 ml.
+Pour les besoins alimentaires précis, les filtres en haut de page permettent de trier par pays, d'écarter les allergènes que l'étiquette déclare comme « contient » ou « peut contenir » (selon le seul texte imprimé ; vérifiez l'emballage en main), d'exclure des codes d'additifs ou de fixer des seuils pour 100 g/100 ml.
 
 ### 2. Ajouter la Skill à votre assistant IA
 

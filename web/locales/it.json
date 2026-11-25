@@ -6,7 +6,7 @@
   },
   "app": {
     "pageTitle": "OpenPackagedFood — Banca dati aperta sugli alimenti confezionati",
-    "footerLicense": "Banca dati: ODbL-1.0 (DbCL-1.0) · Strumenti: AGPL-3.0 · Ritagli etichette: CC BY-SA 4.0",
+    "footerLicense": "Banca dati: ODbL-1.0 (DbCL-1.0) · Strumenti: AGPL-3.0-or-later · Ritagli etichette: CC BY-SA 4.0",
     "footerDisclaimer": "OPF trascrive solo il testo stampato (senza dati su contaminazioni crociate non dichiarate) e non garantisce sicurezza, accuratezza o idoneità. Verificare la confezione reale",
     "limitationsLink": "Limiti dei dati",
     "reportErrataLink": "Segnala errore / ritiro"
@@ -47,8 +47,8 @@
     "groupProfile": "Profilo normativo & namespace ID",
     "groupBrand": "Marca (Multi)",
     "allBrands": "Tutte le marche ({count})",
-    "groupExcludeAllergens": "Escludi allergeni (Unione rigorosa)",
-    "excludeAllergensHint": "Esclude i prodotti che dichiarano «contiene» o «può contenere tracce di» per gli allergeni selezionati",
+    "groupExcludeAllergens": "Escludi per allergeni dichiarati (Multi)",
+    "excludeAllergensHint": "Esclude i prodotti la cui etichetta dichiara «contiene» o «può contenere» per gli allergeni selezionati. Basato solo sul testo trascritto dell'etichetta; l'assenza di dichiarazione non significa assenza dell'allergene. Verifica sempre la confezione che hai in mano.",
     "mustIncludeLabel": "Deve contenere ingrediente / INS",
     "mustIncludePlaceholder": "Ingrediente o INS (es. avena, 300) + Invio…",
     "mustExcludeLabel": "Escludi ingrediente / INS",
@@ -85,7 +85,7 @@
     "tagProfile": "Profilo: {val}",
     "tagNamespace": "Namespace: {val}",
     "tagBrand": "Marca: {val}",
-    "tagExclAllergen": "Senza allergene: {val}",
+    "tagExclAllergen": "Escl. dichiarato: {val}",
     "tagInclIng": "Contiene: {val}",
     "tagExclIng": "Esclude: {val}",
     "allProducts": "Tutti i prodotti",
@@ -215,7 +215,7 @@
     },
     "official_registry_imported": {
       "label": "Da registro pubblico ufficiale",
-      "desc": "Importato in compilazione da dataset pubblici CC0 (es. USDA FDC)"
+      "desc": "Da documenti pubblici ufficiali o dati di registro; nessuna foto dell'etichetta"
     },
     "community_reported": {
       "label": "Solo testo (senza foto)",

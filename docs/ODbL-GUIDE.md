@@ -10,8 +10,8 @@ OpenPackagedFood (`opf`) aims to make food label facts easy and legally predicta
 
 ## 1. License Map at a Glance (REUSE-Annotated)
 
-- **Connecting via HTTP API or JSON Schemas / Dictionaries / Profiles (`Apache-2.0`)**:
-  - Reading the static JSON endpoints (`/v1/...`) over HTTP does not trigger `AGPL-3.0-or-later`.
+- **Connecting via HTTP API or JSON Schemas / Dictionaries / Profiles**:
+  - Reading the static JSON endpoints (`/v1/...`) over HTTP does not involve the tooling's `AGPL-3.0-or-later`; the data you retrieve is licensed under `ODbL-1.0` (see Section 2).
   - Incorporating `spec/schema/*.json`, `dictionaries/*.json` (nutrients, INS additives, allergens), `profiles/*`, `skills/opf`, or docs into proprietary backend or mobile apps is governed by **`Apache-2.0`**—permissive, with no copyleft propagation.
 - **Self-Hosting or Modifying the Explorer/CLI Tooling (`AGPL-3.0-or-later` / `Apache-2.0` inbound)**:
   - Modifying `opf/`, `bin/`, or `web/` (excluding the `Apache-2.0` ZXing library under `web/vendor/`) and serving the modified program over a network requires sharing the source code of that modified program under `AGPL-3.0-or-later`. Independent proprietary services communicating with OPF endpoints over HTTP or reading static JSON remain unaffected.
@@ -27,11 +27,12 @@ OpenPackagedFood (`opf`) aims to make food label facts easy and legally predicta
 - **How ODbL treats this**:
   1. Purely internal use—without publicly conveying or publicly using a Derived Database—generally does not trigger ODbL public Share-Alike obligations.
   2. Under the **Collective Database** rule (ODbL Section 4.5), storing an independent, unmodified OPF database alongside separate private databases—where the mapping table stores only `GTIN` and internal SKU IDs without extracting/reusing substantial parts of OPF content into a merged database—**usually** does not constitute a Derived Database or extend Share-Alike obligations to the private database.
-- **Important clarification on exemptions**: Because `opf-data` contains third-party contributions under `ODbL-1.0`, OPF maintainers do **not** sell or grant special exemptions to bypass ODbL Section 4 when an integrator's public product genuinely creates and publicly uses a Derived Database.
+- **Important clarification on exemptions**: Because `opf-data` contains third-party contributions under `ODbL-1.0`, OPF maintainers have **no right** to license community-contributed data on terms other than `ODbL-1.0`; a publicly used Derived Database remains subject to ODbL Section 4.
 
 ### Scenario B: Public Produced Works & Derived Databases (ODbL §4.3 & §4.6)
 - **Attribution (§4.3)**: Provide clear attribution to OpenPackagedFood (`opf-data`) and link to `ODbL-1.0`.
-- **Mandatory Produced-Work Offer (§4.6)**: Under ODbL Section 4.6, if you create and publicly use a **Produced Work** (such as a consumer app UI, report, model output, or visualization) generated from a **Derived Database**, you **must** make available to recipients (under ODbL-1.0) either:
+- **Produced Works from the unmodified database**: only the §4.3 notice is required; you do not have to publish any database.
+- **Produced-Work Offer for Derived Databases (§4.6)**: Under ODbL Section 4.6, if you create and publicly use a **Produced Work** (such as a consumer app UI, report, model output, or visualization) generated from a **Derived Database**, you **must** make available to recipients (under ODbL-1.0) either:
   1. The full machine-readable Derived Database itself; **or**
   2. A machine-readable file containing all the alterations made to the original database (or the algorithm used to compute those changes) so recipients can reconstruct the Derived Database.
 - **Cropped Label Images (`opf-media`)**: Any public redistribution or bundling of label WebP images must comply with `CC-BY-SA-4.0`.

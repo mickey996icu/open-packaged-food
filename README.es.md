@@ -21,7 +21,7 @@ Empecé **OpenPackagedFood (OPF)** por un motivo sencillo: poner en claro esas c
 - **Un «0» impreso no equivale a un cero matemático**
   Los valores redondeados a cero por norma legal se guardan como límites superiores (`<`), sin confundirse nunca con ausencia real. Todas las conversiones a 100 g o 100 ml se calculan con exactitud.
 - **Los ingredientes se comprueban carácter por carácter**
-  Los ingredientes analizados deben reconstruirse exactamente en el mismo orden que el texto original del paquete. Si falta una letra o sobra un signo de puntuación, la validación rechaza el registro sin dar pie a suposiciones de la IA.
+  Los ingredientes analizados deben reconstruirse exactamente, en el mismo orden, en el texto de ingredientes transcrito (esto protege el análisis, pero no detecta errores en la transcripción de la etiqueta). Si falta una letra o sobra un signo de puntuación, la validación rechaza el registro sin dar pie a suposiciones de la IA.
 - **Mismo código de barras, distintas plantas o recetas van por separado**
   Cuando varias fábricas o cambios de fórmula comparten código, cada variante conserva su propio historial sin pisarse. Si las versiones en venta difieren de verdad, la API omite los valores generales y pide mirar un momento la etiqueta del envase en mano en vez de dar un promedio engañoso.
 - **Datos, imágenes y herramientas en repositorios separados, servidos en estático**
@@ -35,7 +35,7 @@ Empecé **OpenPackagedFood (OPF)** por un motivo sencillo: poner en claro esas c
 
 Abra el **[explorador web](https://mickey996icu.github.io/opf-data/)**, apunte la cámara trasera hacia el código de barras o elija una foto de su galería. La lectura se realiza íntegramente en su navegador (usando `BarcodeDetector` nativo si está disponible y cambiando automáticamente al decodificador sin conexión `ZXing` incluido en el resto de navegadores): no se suben fotos ni se consultan servicios externos.
 
-Si cuida alergias o nutrientes concretos, los filtros superiores permiten filtrar por mercado, excluir por separado alérgenos confirmados y posibles trazas, descartar aditivos por código o fijar umbrales por cada 100 g/100 ml.
+Si cuida alergias o nutrientes concretos, los filtros superiores permiten filtrar por mercado, excluir alérgenos que la etiqueta declara como «contiene» o «puede contener» (solo según el texto del envase; compruebe el producto en mano), descartar aditivos por código o fijar umbrales por cada 100 g/100 ml.
 
 ### 2. Añadir la Skill a su asistente de IA
 

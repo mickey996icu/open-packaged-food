@@ -6,7 +6,7 @@
   },
   "app": {
     "pageTitle": "OpenPackagedFood — Offene Datenbank für verpackte Lebensmittel",
-    "footerLicense": "Datenbank: ODbL-1.0 (DbCL-1.0) · Werkzeuge: AGPL-3.0 · Etikett-Zuschnitte: CC BY-SA 4.0",
+    "footerLicense": "Datenbank: ODbL-1.0 (DbCL-1.0) · Werkzeuge: AGPL-3.0-or-later · Etikett-Zuschnitte: CC BY-SA 4.0",
     "footerDisclaimer": "OPF erfasst nur sichtbaren Etiketttext (ohne ungedruckte Kreuzkontaminationen) und übernimmt keine Gewähr für Sicherheit, Richtigkeit oder Eignung. Maßgeblich ist die Verpackung in der Hand",
     "limitationsLink": "Datenhinweise & Grenzen",
     "reportErrataLink": "Fehler / Widerruf melden"
@@ -47,8 +47,8 @@
     "groupProfile": "Rechtsrahmen & ID-Namensraum",
     "groupBrand": "Marke (Mehrfach)",
     "allBrands": "Alle Marken ({count})",
-    "groupExcludeAllergens": "Allergene ausschließen (Strikte Vereinigung)",
-    "excludeAllergensHint": "Schließt Produkte aus, die angekreuzte Allergene als Zutat oder unter 'Kann Spuren enthalten' deklarieren",
+    "groupExcludeAllergens": "Nach deklarierten Allergenen ausschließen (Mehrfach)",
+    "excludeAllergensHint": "Schließt Produkte aus, deren Etikett die gewählten Allergene als „enthält“ oder „kann enthalten“ angibt. Nur auf Basis des transkribierten Etikettentexts; fehlende Angabe bedeutet nicht, dass das Allergen fehlt. Maßgeblich ist die Verpackung in der Hand.",
     "mustIncludeLabel": "Muss Zutat / INS enthalten",
     "mustIncludePlaceholder": "Zutat oder INS-Nr. (z. B. Hafer, 300) + Enter…",
     "mustExcludeLabel": "Zutat / INS ausschließen",
@@ -85,7 +85,7 @@
     "tagProfile": "Vorschrift: {val}",
     "tagNamespace": "Namensraum: {val}",
     "tagBrand": "Marke: {val}",
-    "tagExclAllergen": "Ohne Allergen: {val}",
+    "tagExclAllergen": "Ausschluss (deklariert): {val}",
     "tagInclIng": "Enthält: {val}",
     "tagExclIng": "Ohne: {val}",
     "allProducts": "Alle Produkte",
@@ -103,7 +103,7 @@
   },
   "empty": {
     "title": "Datenbank bereit (0 Produkteinträge)",
-    "lead": "Diese Datenbank nimmt ausschließlich reale verpackte Lebensmittel mit geprüften Etikettbelegen oder CC0-Behördendaten auf — niemals fiktive Platzhalter. So nutzen Sie OPF:",
+    "lead": "Diese Datenbank nimmt ausschließlich reale verpackte Lebensmittel mit Etikettenfotos oder amtlichen offenen Registerdaten auf — niemals fiktive Platzhalter. So nutzen Sie OPF:",
     "step1Title": "1. Produkte direkt hier nachschlagen (Suche & Scan)",
     "step1Desc": "Suchen Sie oben nach Produktname, Marke oder Barcode oder tippen Sie auf Scannen, um Barcodes/QR-Codes einzulesen und objektive Nährwert- und Zutatenprofile zu filtern.",
     "step2Title": "2. Den opf-Skill in Ihrem AI-Agent installieren",
@@ -215,7 +215,7 @@
     },
     "official_registry_imported": {
       "label": "Aus öffentlichem Register",
-      "desc": "Beim Build aus öffentlichen CC0-Datensätzen (z. B. USDA FDC) importiert"
+      "desc": "Aus amtlichen öffentlichen Dokumenten oder Registerdaten; kein Etikettenfoto"
     },
     "community_reported": {
       "label": "Nur Textbericht (ohne Foto)",

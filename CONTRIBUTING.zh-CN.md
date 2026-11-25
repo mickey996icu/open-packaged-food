@@ -93,7 +93,7 @@ python3 -m unittest discover -s tests -v
    - 包装未标示的营养素留空，绝不用 `0` 或同类平均值填补；
    - `attributes` 层只抄录包装上实际印刷的语言文字；仅接受人工校对翻译（标记 `contributor_translated`），不接受未经校对的机器翻译。
 4. **开发者原创声明 (DCO) 与 REUSE 许可分层（`Apache-2.0` 宽松入站）**：
-   - 本仓库各路径的 SPDX 许可已在 [`REUSE.toml`](REUSE.toml) 与 [`LICENSES/`](LICENSES/) 中声明。`opf/`、`bin/`、`web/` 等工具链对外遵循 **[AGPL-3.0-or-later](LICENSE)**，**向 `open-packaged-food` 提交的代码、Schema、词典、法规规则插件与文档均按 [`Apache-2.0`](LICENSES/Apache-2.0.txt) 宽松入站**并附带 DCO 原创声明（`git commit -s`），无需签署个人 CLA；`spec/`、`dictionaries/`、`profiles/`、`skills/`、`docs/` 及 `web/vendor/`（ZXing）本身亦以 **`Apache-2.0`** 对外分发。
+   - 本仓库各路径的 SPDX 许可已在 [`REUSE.toml`](REUSE.toml) 与 [`LICENSES/`](LICENSES/) 中声明。`opf/`、`bin/`、`web/` 等工具链对外遵循 **[AGPL-3.0-or-later](LICENSE)**，**您以 `Signed-off-by`（`git commit -s`）向 `open-packaged-food` 提交的代码、Schema、词典、法规规则插件与文档，除依所在路径的出站许可提供外，同时依 [`Apache-2.0`](LICENSES/Apache-2.0.txt) 授权给任何接收者**，无需签署 CLA；`spec/`、`dictionaries/`、`profiles/`、`skills/`、`docs/` 及 `web/vendor/`（ZXing）本身亦以 **`Apache-2.0`** 对外分发。
    - 向 `opf-data` 提交数据遵循 **[ODbL-1.0](LICENSE-DATA)**，向 `opf-media` 提交裁剪标签图遵循 **[CC BY-SA 4.0](LICENSE-MEDIA)**。接入与可持续治理边界见 [`GOVERNANCE.zh-CN.md`](GOVERNANCE.zh-CN.md) 与 [`docs/ODbL-GUIDE.zh-CN.md`](docs/ODbL-GUIDE.zh-CN.md)。
 5. **双层 `provenance` 与 CI 防洗白门禁**：
    - 外部 PR 提交的产品证据（`evidence[]`）与修订（`revisions[]`）统一标记 `provenance: "external_contributor"`（CLI 默认值）；免登录提交中转（Phase 2 Relay）标记为 `"public_submission"`。

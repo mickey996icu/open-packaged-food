@@ -17,7 +17,7 @@ OpenPackagedFood (`opf`) is maintained with two parallel goals: keeping the shar
 | **Label Crop Media** | `opf-media` (`media/`) | `CC-BY-SA-4.0` | `CC-BY-SA-4.0` + DCO |
 
 - **Machine-Readable REUSE Manifest**: Exact per-path SPDX coverage is declared in [`REUSE.toml`](REUSE.toml) with license texts in [`LICENSES/`](LICENSES/).
-- **Public Data Neutrality**: Community-contributed product JSON in `opf-data` and label crops in `opf-media` remain permanently open under `ODbL-1.0` and `CC-BY-SA-4.0`. Maintainers do not grant proprietary exemptions over third-party community records.
+- **Public Data Neutrality**: Community-contributed product JSON in `opf-data` and label crops in `opf-media` remain permanently open under `ODbL-1.0` and `CC-BY-SA-4.0`. Maintainers do not grant proprietary exemptions over third-party community records. Payment, partnership, or brand-owner relationships do not affect record content, evidence level, or ranking.
 - **Permissive Inbound for Code & Standards**: Contributions to `open-packaged-food` enter under `Apache-2.0` alongside DCO (`git commit -s`), avoiding contributor-specific CLA bottlenecks while allowing maintainers and downstream integrators to build clean components around the standard.
 
 ---
@@ -44,7 +44,7 @@ Every `evidence[]` artifact and every `revisions[]` structured transcription ent
 
 ## 3. Commercial Sustainability, Liability Isolation & Duty-of-Care Baseline
 
-1. **Pre-Revenue Stage**: Before any commercial revenue occurs, all repositories operate purely as a public open-source project without personal legal-entity exposure or private monetization locks.
+1. **Pre-Revenue Stage**: Before any commercial revenue occurs, all repositories operate purely as a public open-source project with no paid offering or private monetization locks.
 2. **Pre-Revenue Requirement for a Limited-Liability Entity**: Prior to accepting the first paid revenue—such as managed API SLAs, commercial label-OCR pipelines, optional contract-backed fact feedback, proprietary maintainer-only sub-datasets, or consumer-facing subscription features—commercial operations **must** be placed under an independent limited-liability legal entity separated from personal contributor assets. Should a future operating entity directly provide consumer-facing commercial products, appropriate commercial liability insurance must be arranged prior to launch.
 3. **Maintainer Duty-of-Care Baseline & Downstream Responsibility**:
    - **Descriptive Evidence Labels Without Accuracy Claims**: Official OPF specifications and the built-in Web Explorer describe `evidence_level` purely by submission form (e.g., number of photo-submitting accounts or public registry source) and `t_active` by actual derivation basis—never claiming human verification or product safety (see [`docs/DATA-LIMITATIONS.md`](docs/DATA-LIMITATIONS.md)).

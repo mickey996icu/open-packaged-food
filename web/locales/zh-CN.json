@@ -6,7 +6,7 @@
   },
   "app": {
     "pageTitle": "OpenPackagedFood — 预包装食品开放数据库",
-    "footerLicense": "数据库许可 ODbL-1.0 (DbCL-1.0) · 工具链 AGPL-3.0 · 标签证据图 CC BY-SA 4.0",
+    "footerLicense": "数据库许可 ODbL-1.0 (DbCL-1.0) · 工具链 AGPL-3.0-or-later · 标签证据图 CC BY-SA 4.0",
     "footerDisclaimer": "OPF 仅为包装可见文字转录（不含未印明的交叉接触或共线生产风险），不构成产品安全性、准确性或适用性担保；一切以手头实物包装实际印刷为准",
     "limitationsLink": "数据局限性说明",
     "reportErrataLink": "报告数据勘误 / 撤回"
@@ -47,8 +47,8 @@
     "groupProfile": "法规标准与编码空间",
     "groupBrand": "品牌（多选）",
     "allBrands": "全部品牌 ({count})",
-    "groupExcludeAllergens": "饮食安全排除 · 不含致敏原（多选）",
-    "excludeAllergensHint": "勾选即同时排除「含有」与「可能含微量」该致敏原的商品",
+    "groupExcludeAllergens": "按包装标示排除致敏原（多选）",
+    "excludeAllergensHint": "排除包装标示「含有」或「可能含有」所选致敏原的商品。仅依据包装文字转录，未标示不代表不含，请以手头实物包装为准",
     "mustIncludeLabel": "必须包含配料 / INS",
     "mustIncludePlaceholder": "输入配料词或 INS 号（如 生牛乳、300）回车…",
     "mustExcludeLabel": "排除配料 / INS",
@@ -85,7 +85,7 @@
     "tagProfile": "标准: {val}",
     "tagNamespace": "编码: {val}",
     "tagBrand": "品牌: {val}",
-    "tagExclAllergen": "不含致敏原: {val}",
+    "tagExclAllergen": "排除标示含: {val}",
     "tagInclIng": "含配料/INS: {val}",
     "tagExclIng": "排除配料/INS: {val}",
     "allProducts": "全部商品",
@@ -171,7 +171,7 @@
     "redirectNotice": "⇄ 已由已合并版本 {from} 自动跳转至目标版本 {to}",
     "returnToDivergentOverview": "⇄ 返回多变体消歧总览",
     "returnToUniformOverview": "≡ 返回多轨合并视图",
-    "divergentOverviewTitle": "多变体消歧与安全对比总览",
+    "divergentOverviewTitle": "多变体消歧与对比总览",
     "divergentOverviewLead": "当前条码存在多个并存的活跃核心配方变体。系统严禁静默挑选某一变体冒充单一答案；请先根据手头包装核对下方各变体特征并选定具体版本。",
     "selectVariantBtn": "查看此变体完整数据 →",
     "commonSummaryTitle": "跨变体汇总与差异边界",
@@ -215,7 +215,7 @@
     },
     "official_registry_imported": {
       "label": "来自官方公开信息",
-      "desc": "构建期由 CC0 官方公开数据集（如 USDA FDC）导入"
+      "desc": "来自官方公开文件或登记信息，无标签照片"
     },
     "community_reported": {
       "label": "仅有文字报告，无照片",

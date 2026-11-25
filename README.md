@@ -21,7 +21,7 @@ I started **OpenPackagedFood (OPF)** for a simple reason: to straighten out this
 - **A printed "0" is not treated as mathematical zero**
   Values rounded down by local regulations are stored as upper bounds (`<`) rather than true zeros. Every per-100g or per-100ml conversion uses exact arithmetic so nothing drifts.
 - **Ingredient lists are checked character by character**
-  Parsed ingredients must reconstruct back into the exact printed string from left to right. Drop one character or slip in an extra punctuation mark, and validation refuses the entry—leaving no room for AI guesswork.
+  Parsed ingredients must reconstruct back into the exact transcribed ingredient text from left to right (this guards the parsing step; it cannot detect a mis-transcription of the label itself). Drop one character or slip in an extra punctuation mark, and validation refuses the entry—leaving no room for AI guesswork.
 - **Same barcode, different plants or recipes stay separate**
   When multiple contract factories or reformulations share a barcode, each keeps its own record instead of overwriting history. When live variants genuinely differ, the API holds back top-level nutrients and asks you to glance at the package in your hand rather than offering a misleading average.
 - **Data, images, and tools live apart, served statically**
@@ -35,7 +35,7 @@ I started **OpenPackagedFood (OPF)** for a simple reason: to straighten out this
 
 Open the **[Web Explorer](https://mickey996icu.github.io/opf-data/)**, point your phone's rear camera at a barcode, or choose a photo from your library. Decoding runs entirely inside your browser (using native `BarcodeDetector` when supported, and seamlessly falling back to the bundled offline `ZXing` decoder everywhere else)—no images are uploaded and no external lookup services are called.
 
-If you shop with strict dietary needs, use the three-column filter bar at the top to filter by market regulation, exclude confirmed vs. trace allergens separately, rule out specific additive codes, or set custom nutrient thresholds per 100g/100ml.
+If you shop with strict dietary needs, use the three-column filter bar at the top to filter by market regulation, exclude allergens the label declares as "contains" or "may contain" (label text only—check the package in hand), rule out specific additive codes, or set custom nutrient thresholds per 100g/100ml.
 
 ### 2. Give Your AI Coding Assistant the Skill
 

@@ -17,8 +17,8 @@ OpenPackagedFood (`opf`) 的治理目标明确分为两件事：长期维持公�
 | **标签裁剪证据图片** | `opf-media`（`media/`） | `CC-BY-SA-4.0` | `CC-BY-SA-4.0` + DCO |
 
 - **机器可读 REUSE 声明**：仓内每条路径的精确 SPDX 许可已在 [`REUSE.toml`](REUSE.toml) 与 [`LICENSES/`](LICENSES/) 中写明，供 ScanCode / FOSSA / REUSE 等合规工具直接识别。
-- **公共数据中立原则**：进入 `opf-data` 的产品 JSON 与 `opf-media` 的裁剪标签图，永久按 `ODbL-1.0` 与 `CC-BY-SA-4.0` 公开维护；维护团队不对第三方社区或公众提交的数据做排他性闭源授权或私下豁免。
-- **代码与标准宽松入站**：向 `open-packaged-food` 提交的代码、Schema、词典与地区法规插件，均按 `Apache-2.0` 宽松入站并附带 DCO 原创声明（`git commit -s`），无需额外签署 CLA，也不要求个人维护者在无商业实体阶段公开真实姓名。
+- **公共数据中立原则**：进入 `opf-data` 的产品 JSON 与 `opf-media` 的裁剪标签图，永久按 `ODbL-1.0` 与 `CC-BY-SA-4.0` 公开维护；维护团队不对第三方社区或公众提交的数据做排他性闭源授权或私下豁免。付费、合作或品牌方关系不影响数据内容、证据等级或排序。
+- **代码与标准宽松入站**：向 `open-packaged-food` 提交的代码、Schema、词典与地区法规插件，以 DCO（`git commit -s`）提交的，除依所在路径的出站许可提供外，同时依 `Apache-2.0` 授权给任何接收者；无需额外签署 CLA。
 
 ---
 

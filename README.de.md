@@ -20,8 +20,8 @@ Wer den exakten Wortlaut auf dem Etikett abgleichen, gesetzliche Abrundungsgrenz
 
 - **Eine gedruckte „0“ ist keine mathematische Null**
   Werte, die gesetzlich auf Null abgerundet werden dürfen, bleiben ausdrücklich als Obergrenze (`<`) markiert und werden nicht mit echtem Nullgehalt verwechselt. Alle Umrechnungen auf 100 g oder 100 ml erfolgen exakt.
-- **Zutatenlisten werden Zeichen für Zeichen geprüft**
-  Zerlegte Zutaten müssen sich lückenlos von links nach rechts wieder exakt zum abgedruckten Originaltext zusammensetzen lassen. Fehlt ein Buchstabe oder schleicht sich ein Satzzeichen ein, weist die Prüfung den Eintrag ab – ohne Raum für Vermutungen.
+- **Zutatenlisten werden Zeichen für Zeichen abgeglichen**
+  Zerlegte Zutaten müssen sich lückenlos von links nach rechts wieder exakt zum transkribierten Zutatentext zusammensetzen lassen (dies sichert die Zerlegung ab, erkennt aber keine Fehler bei der Transkription des Etiketts selbst). Fehlt ein Buchstabe oder schleicht sich ein Satzzeichen ein, weist die Prüfung den Eintrag ab – ohne Raum für Vermutungen.
 - **Gleicher Strichcode, verschiedene Werke oder Rezepturen bleiben getrennt**
   Teilen sich mehrere Herstellerwerke oder Rezepturanpassungen denselben Barcode, behält jede Ausführung ihren eigenen Eintrag. Unterscheiden sich aktuelle Varianten tatsächlich, gibt die kompakte API keine irreführenden Durchschnittswerte zurück, sondern bittet um einen kurzen Blick auf die Packung in der Hand.
 - **Daten, Bilder und Werkzeuge liegen getrennt und werden statisch ausgeliefert**
@@ -35,7 +35,7 @@ Wer den exakten Wortlaut auf dem Etikett abgleichen, gesetzliche Abrundungsgrenz
 
 Öffnen Sie den **[Web-Explorer](https://mickey996icu.github.io/opf-data/)**, richten Sie die Rückkamera auf den Strichcode oder wählen Sie ein Foto aus der Galerie. Die Erkennung läuft vollständig lokal im Browser (bevorzugt über `BarcodeDetector` und auf anderen Browsern automatisch über die eingebundene Offline-Bibliothek `ZXing`) – ohne Bildupload und ohne fremde Abfragedienste.
 
-Für besondere Ernährungsbedürfnisse lassen sich oben Marktregeln, sichere Allergene und Kreuzkontaminations-Hinweise getrennt, einzelne Zusatzstoffnummern oder eigene Nährwertgrenzen je 100 g/100 ml filtern.
+Für besondere Ernährungsbedürfnisse lassen sich oben Marktregeln, auf dem Etikett als „enthält“ oder „kann enthalten“ angegebene Allergene (nur Etikettentext – maßgeblich ist die Packung), einzelne Zusatzstoffnummern oder eigene Nährwertgrenzen je 100 g/100 ml filtern.
 
 ### 2. Den Skill für Ihren KI-Assistenten einbinden
 
