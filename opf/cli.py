@@ -2090,8 +2090,8 @@ def cmd_pr(args: argparse.Namespace) -> int:
                 f"Validated locally via `opf validate` (Schema v0.2 + GS1 + Span-Free Ingredient Round-Trip + Patch Replay).\n"
             )
 
-        def _build_media_body(data_url: str | None) -> str:
-            target_ref = data_url or "<DATA_PR_URL>"
+        def _build_media_body(data_url: str | None, *, pending_text: str = "<DATA_PR_URL>") -> str:
+            target_ref = data_url or pending_text
             blob_lines = "\n".join(f"  - `{b['rel_path']}` (`opf-media://sha256/{b['sha256']}`)" for b in staged_blobs)
             return (
                 "## Label Evidence Media (WebP <= 1000px, EXIF-Free)\n\n"
@@ -2183,7 +2183,10 @@ def cmd_pr(args: argparse.Namespace) -> int:
                 subprocess.run(["git", "-C", str(m_repo), "push", "-u", "origin", branch_name], check=True)
                 m_res = subprocess.run(
                     ["gh", "pr", "create", "--repo", target_media_repo, "--title", media_commit_title, "--body-file", "-"],
-                    input=_build_media_body(None).encode("utf-8"),
+                    input=_build_media_body(
+                        None,
+                        pending_text="Linking companion opf-data PR automatically...",
+                    ).encode("utf-8"),
                     cwd=str(m_repo),
                     capture_output=True,
                     check=True,
@@ -2282,7 +2285,10 @@ def cmd_pr(args: argparse.Namespace) -> int:
                     "--body-file",
                     "-",
                 ],
-                input=_build_media_body(None).encode("utf-8"),
+                input=_build_media_body(
+                    None,
+                    pending_text="Linking companion opf-data PR automatically...",
+                ).encode("utf-8"),
                 cwd=str(live_media_dir),
                 capture_output=True,
                 check=True,

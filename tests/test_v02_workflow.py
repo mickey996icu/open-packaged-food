@@ -33,6 +33,7 @@ from opf.media import (
     validate_media_repo,
 )
 from opf.normalize import normalize_edition
+from opf.pr_check import validate_pr_metadata
 from opf.resources import REPO_ROOT
 from opf.validator import (
     load_json_schema,
@@ -530,6 +531,23 @@ class TestPhase1WorkflowV02(unittest.TestCase):
                 self.assertIn(ed_id, data_create["body"])
                 self.assertIn("**Companion Media PR (MERGE FIRST)**: https://github.com/mickey996icu/opf-media/pull/101", data_create["body"])
                 self.assertIn("**Companion Data PR (merge second)**: https://github.com/mickey996icu/opf-data/pull/202", media_edit["body"])
+                self.assertEqual(
+                    validate_pr_metadata(repo_kind="media", title=media_create["title"], body=media_create["body"]),
+                    [],
+                )
+                self.assertEqual(
+                    validate_pr_metadata(repo_kind="media", title=media_create["title"], body=media_edit["body"]),
+                    [],
+                )
+                self.assertEqual(
+                    validate_pr_metadata(
+                        repo_kind="data",
+                        title=data_create["title"],
+                        body=data_create["body"],
+                        require_companion_media_pr=True,
+                    ),
+                    [],
+                )
 
                 # Now promote the submitted product onto upstream_data main, and submit a conflicting attribute
                 orig_subprocess_run(

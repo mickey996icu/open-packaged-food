@@ -71,7 +71,7 @@ La validation et la génération du site reposent uniquement sur la bibliothèqu
 ./open-packaged-food/bin/opf check-media-refs --media-dir opf-media opf-data/products
 ```
 
-Poussez ensuite une branche et ouvrez une PR sur `opf-media` et sur `opf-data` (ou exécutez `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.2 opf pr ...` si `uvx` et `gh` sont installés). Respectez l'ordre : **fusionnez toujours la PR `opf-media` en premier, puis celle d'`opf-data`**, afin que la CI retrouve bien les images sur `main`.
+Poussez ensuite une branche et ouvrez une PR sur `opf-media` et sur `opf-data` (ou exécutez `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.3 opf pr ...` si `uvx` et `gh` sont installés). Respectez l'ordre : **fusionnez toujours la PR `opf-media` en premier, puis celle d'`opf-data`**, afin que la CI retrouve bien les images sur `main`.
 
 Deux limites à ne pas franchir :
 - **N'envoyez que des recadrages des zones de texte** (tableau nutritionnel, liste d'ingrédients, fabricant, code-barres) — jamais la face avant complète du paquet ;
