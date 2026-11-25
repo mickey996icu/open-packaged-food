@@ -206,7 +206,7 @@
   },
   "seals": {
     "corroborated": {
-      "label": "≥2 Einsendende mit Fotos",
+      "label": "Fotos von ≥2 Konten",
       "desc": "Etikettfotos wurden von ≥2 Konten mit gleichem core_fingerprint hochgeladen (keine Garantie für manuelle Überprüfung)"
     },
     "verified": {

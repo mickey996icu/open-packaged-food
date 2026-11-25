@@ -206,7 +206,7 @@
   },
   "seals": {
     "corroborated": {
-      "label": "≥2 contributori con foto",
+      "label": "Foto da ≥2 account",
       "desc": "Foto caricate da ≥2 account con lo stesso core_fingerprint (non garantisce controllo manuale o sicurezza)"
     },
     "verified": {

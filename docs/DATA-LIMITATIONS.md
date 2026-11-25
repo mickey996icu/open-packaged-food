@@ -40,7 +40,7 @@ This document describes what the OpenPackagedFood (`opf-data`) public dataset **
 
 To avoid creating a misleading impression of verification or safety, integrators are **advised** (at their own discretion and responsibility) to:
 
-- **Describe `evidence_level` by evidence form rather than accuracy claims**: We recommend descriptive labels such as *"2+ contributors submitted photos"*, *"1 label photo submitted"*, *"Public official registry"*, and *"Text report only (no photo)"*, and **recommend avoiding** terms such as *"verified"*, *"certified"*, or *"checked"*.
+- **Describe `evidence_level` by evidence form rather than accuracy claims**: We recommend descriptive labels such as *"Photos from 2+ accounts"*, *"1 label photo submitted"*, *"Public official registry"*, and *"Text report only (no photo)"*, and **recommend avoiding** terms such as *"verified"*, *"certified"*, or *"checked"*.
 - **Distinguish `t_active` bases accurately**: When `t_active_basis == "vintage_month"`, recommend displaying *"Latest package vintage seen: YYYY-MM (formulation may have changed since)"*; when `t_active_basis == "earliest_reported_at"`, recommend displaying *"Earliest reported: YYYY-MM"*.
 - **Preserve `<` upper bounds and `divergent` disambiguation**: Keep regulatory `<` upper bounds distinct from `0`, and prompt users to match their physical package (`track` / plant / SC code) when variants diverge.
 - **Remind users to check the physical label**: Recommend displaying a clear notice: **"Always verify against the physical package in hand."**
