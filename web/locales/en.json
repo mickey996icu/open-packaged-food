@@ -6,7 +6,7 @@
   },
   "app": {
     "pageTitle": "OpenPackagedFood — Open Packaged Food Database",
-    "footerLicense": "Database: ODbL-1.0 (DbCL-1.0) · Tooling: AGPL-3.0 · Cropped Label Media: CC BY-SA 4.0",
+    "footerLicense": "Database: ODbL-1.0 (DbCL-1.0) · Tooling: AGPL-3.0-or-later · Cropped Label Media: CC BY-SA 4.0",
     "footerDisclaimer": "OPF transcribes printed label text only (no unprinted cross-contact data) and carries no warranty of safety, accuracy, or fitness. Always check the physical package in hand",
     "limitationsLink": "Data Limitations",
     "reportErrataLink": "Report Errata / Retraction"
@@ -47,8 +47,8 @@
     "groupProfile": "Regulatory Profile & ID Space",
     "groupBrand": "Brand (Multi)",
     "allBrands": "All Brands ({count})",
-    "groupExcludeAllergens": "Exclude Allergens (Strict Union)",
-    "excludeAllergensHint": "Excludes products declaring either 'contains' or 'may contain' for checked allergens",
+    "groupExcludeAllergens": "Exclude by Declared Allergens (Multi)",
+    "excludeAllergensHint": "Excludes products whose label declares 'contains' or 'may contain' for the selected allergens. Based on transcribed label text only; no declaration does not mean the allergen is absent. Always check the physical package.",
     "mustIncludeLabel": "Must Include Ingredient / INS",
     "mustIncludePlaceholder": "Ingredient or INS (e.g. oats, 300) + Enter…",
     "mustExcludeLabel": "Exclude Ingredient / INS",
@@ -85,7 +85,7 @@
     "tagProfile": "Profile: {val}",
     "tagNamespace": "Namespace: {val}",
     "tagBrand": "Brand: {val}",
-    "tagExclAllergen": "No Allergen: {val}",
+    "tagExclAllergen": "Excl. declared: {val}",
     "tagInclIng": "Has: {val}",
     "tagExclIng": "Excludes: {val}",
     "allProducts": "All Products",
@@ -206,7 +206,7 @@
   },
   "seals": {
     "corroborated": {
-      "label": "2+ contributors uploaded photos",
+      "label": "Photos from 2+ accounts",
       "desc": "Label photos were uploaded under ≥2 contributor accounts sharing the same core_fingerprint (does not guarantee distinct people or manual checking against photos)"
     },
     "verified": {
@@ -215,7 +215,7 @@
     },
     "official_registry_imported": {
       "label": "From public official registry",
-      "desc": "Imported at build time from CC0 public official datasets (e.g. USDA FDC)"
+      "desc": "From official public documents or registry data; no label photo"
     },
     "community_reported": {
       "label": "Text report only (no photo)",

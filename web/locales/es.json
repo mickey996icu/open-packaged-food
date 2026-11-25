@@ -6,7 +6,7 @@
   },
   "app": {
     "pageTitle": "OpenPackagedFood — Base de datos abierta de alimentos envasados",
-    "footerLicense": "Base de datos: ODbL-1.0 (DbCL-1.0) · Herramientas: AGPL-3.0 · Recortes de etiquetas: CC BY-SA 4.0",
+    "footerLicense": "Base de datos: ODbL-1.0 (DbCL-1.0) · Herramientas: AGPL-3.0-or-later · Recortes de etiquetas: CC BY-SA 4.0",
     "footerDisclaimer": "OPF transcribe solo texto impreso en el envase (sin riesgos de contaminación cruzada no declarados) y no garantiza seguridad, exactitud ni idoneidad. Verifique el envase físico",
     "limitationsLink": "Limitaciones de datos",
     "reportErrataLink": "Reportar error / retirada"
@@ -47,8 +47,8 @@
     "groupProfile": "Norma alimentaria y espacio ID",
     "groupBrand": "Marca (Múltiple)",
     "allBrands": "Todas las marcas ({count})",
-    "groupExcludeAllergens": "Excluir alérgenos (Unión estricta)",
-    "excludeAllergensHint": "Excluye productos que declaren «contiene» o «puede contener trazas» del alérgeno marcado",
+    "groupExcludeAllergens": "Excluir por alérgenos declarados (Múltiple)",
+    "excludeAllergensHint": "Excluye productos cuya etiqueta declara «contiene» o «puede contener» los alérgenos seleccionados. Basado solo en el texto transcrito de la etiqueta; que no se declare no significa que no esté presente. Compruebe siempre el envase físico.",
     "mustIncludeLabel": "Debe incluir ingrediente / INS",
     "mustIncludePlaceholder": "Ingrediente o INS (p. ej. avena, 300) + Enter…",
     "mustExcludeLabel": "Excluir ingrediente / INS",
@@ -85,7 +85,7 @@
     "tagProfile": "Perfil: {val}",
     "tagNamespace": "Espacio: {val}",
     "tagBrand": "Marca: {val}",
-    "tagExclAllergen": "Sin alérgeno: {val}",
+    "tagExclAllergen": "Excl. declarado: {val}",
     "tagInclIng": "Contiene: {val}",
     "tagExclIng": "Excluye: {val}",
     "allProducts": "Todos los productos",
@@ -206,7 +206,7 @@
   },
   "seals": {
     "corroborated": {
-      "label": "≥2 colaboradores con fotos",
+      "label": "Fotos de ≥2 cuentas",
       "desc": "Se subieron fotos desde ≥2 cuentas con igual core_fingerprint (no implica revisión manual ni seguridad)"
     },
     "verified": {
@@ -215,7 +215,7 @@
     },
     "official_registry_imported": {
       "label": "De registro público oficial",
-      "desc": "Importado al compilar desde conjuntos públicos CC0 (p. ej. USDA FDC)"
+      "desc": "Procede de documentos públicos oficiales o datos de registro; sin foto de etiqueta"
     },
     "community_reported": {
       "label": "Solo texto (sin foto)",

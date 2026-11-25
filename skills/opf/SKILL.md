@@ -47,7 +47,7 @@ description: Queries, verifies, disambiguates, and contributes industrial packag
 2. **Follow `edition_redirects` & `@<rev>` semantics**: Follow `edition_redirects[old_ulid]` if present. Remember `<edition_id>@<rev>` locks `/core`, `/attributes`, `/track`, `/supersedes`, and `/lifecycle` only (adding `evidence[]` never bumps `rev`).
 3. **Describe `evidence_level`, `t_active`, & `<` upper bounds factually (NEVER claim "verified" or "safe")**:
    - State `evidence_level` strictly by **what evidence exists**—**NEVER** output words like *"verified"*, *"certified"*, *"已核验"*, *"已验证"*, or imply transcription was manually checked against photos or that the product is safe:
-     - `corroborated` -> *"2 or more contributors submitted label photos"* / *"有 2 位以上提交者上传过标签照片"*
+     - `corroborated` -> *"label photos from 2 or more accounts"* / *"有 2 个以上账号上传过标签照片"*
      - `verified` -> *"1 label photo submitted"* / *"有 1 份标签照片"* (does NOT prove transcription matches the photo)
      - `official_registry_imported` -> *"From public official registry"* / *"来自官方公开信息"*
      - `community_reported` -> *"Text report only (no photo)"* / *"仅有文字报告，无照片"*
@@ -167,7 +167,7 @@ Pick the active submission path cleanly:
 - **Optional One-Step Automation (`uvx` + `gh` CLI)**:
   Developers who already have `uvx` and an authenticated `gh` session (`gh auth status`) may optionally use `opf pr` instead of manual `git` branching/pushing:
   ```bash
-  uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.5 \
+  uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.6 \
     opf pr --input draft.json \
     --photo nutrition_table=crop_nutrition.jpg \
     --photo ingredients_box=crop_ingredients.jpg \

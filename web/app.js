@@ -31,8 +31,9 @@ const CHIP_CHECK_SVG =
 
 // Shape-distinguished Evidence Level Badges
 const SEAL_SVGS = {
-  corroborated: '<circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="12" r="6.2"/><path d="M9.2 12.2l1.9 1.9 3.8-4"/>',
-  verified: '<circle cx="12" cy="12" r="9"/><path d="M8 12.2l2.6 2.6L16 9.4"/>',
+  // Photo-shaped icons: these levels only state that label photos exist, not that data was checked.
+  corroborated: '<rect x="6" y="3" width="15" height="12" rx="1.5"/><rect x="3" y="8" width="15" height="12" rx="1.5"/><circle cx="10.5" cy="14" r="2.6"/>',
+  verified: '<rect x="3" y="6" width="18" height="13" rx="1.5"/><circle cx="12" cy="12.5" r="3.4"/><path d="M8.5 6l1.4-2h4.2l1.4 2"/>',
   official_registry_imported: '<rect x="3" y="4" width="18" height="16" rx="1.5"/><path d="M7 9h10M7 13h10M7 17h6"/>',
   community_reported: '<circle cx="12" cy="12" r="8" stroke-dasharray="3 2.5"/>',
 };

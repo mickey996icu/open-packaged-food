@@ -6,7 +6,7 @@
   },
   "app": {
     "pageTitle": "OpenPackagedFood — 加工食品オープンデータベース",
-    "footerLicense": "データベース: ODbL-1.0 (DbCL-1.0) · ツール: AGPL-3.0 · ラベル証拠画像: CC BY-SA 4.0",
+    "footerLicense": "データベース: ODbL-1.0 (DbCL-1.0) · ツール: AGPL-3.0-or-later · ラベル証拠画像: CC BY-SA 4.0",
     "footerDisclaimer": "OPF は包装上の印字文字の転記のみ（未表示のコンタミ情報なし）であり、安全性・正確性・適合性の保証はしません。現物の包装表示を基準にしてください",
     "limitationsLink": "データの限界と注意点",
     "reportErrataLink": "データ訂正・取下げ報告"
@@ -47,8 +47,8 @@
     "groupProfile": "表示基準と ID 名前空間",
     "groupBrand": "ブランド（複数選択）",
     "allBrands": "すべてのブランド ({count})",
-    "groupExcludeAllergens": "アレルゲン除外（コンタミ含む厳格除外）",
-    "excludeAllergensHint": "「含む」および「同一製造ライン等の可能性（May Contain）」に該当する商品を両方除外します",
+    "groupExcludeAllergens": "表示アレルゲンで除外（複数選択）",
+    "excludeAllergensHint": "選択したアレルゲンを包装に「含む」または「含む可能性がある」と表示している商品を除外します。包装の文字を書き起こした情報のみに基づくため、表示がないことはアレルゲンを含まないことを意味しません。必ず手元の実物の包装で確認してください。",
     "mustIncludeLabel": "必須原材料 / INS",
     "mustIncludePlaceholder": "原材料名または INS 番号（例：抹茶、300）+ Enter…",
     "mustExcludeLabel": "除外原材料 / INS",
@@ -85,7 +85,7 @@
     "tagProfile": "基準: {val}",
     "tagNamespace": "ID種別: {val}",
     "tagBrand": "ブランド: {val}",
-    "tagExclAllergen": "アレルゲン除外: {val}",
+    "tagExclAllergen": "表示で除外: {val}",
     "tagInclIng": "含む: {val}",
     "tagExclIng": "除外: {val}",
     "allProducts": "すべての商品",
@@ -206,7 +206,7 @@
   },
   "seals": {
     "corroborated": {
-      "label": "2名以上がラベル写真を投稿",
+      "label": "2 つ以上のアカウントがラベル写真を投稿",
       "desc": "2つ以上のアカウントが同一 core_fingerprint のラベル写真を投稿（別人であることや目視照合済みは保証しません）"
     },
     "verified": {
@@ -215,7 +215,7 @@
     },
     "official_registry_imported": {
       "label": "公的公開情報より",
-      "desc": "ビルド時に CC0 公的公開データ（USDA FDC 等）から取り込み"
+      "desc": "公的な公開文書または登録情報に基づく。ラベル写真なし"
     },
     "community_reported": {
       "label": "文字情報のみ（写真なし）",

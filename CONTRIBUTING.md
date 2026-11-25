@@ -56,7 +56,7 @@ You can prepare `draft.json` starting from [`skills/opf/examples/draft.minimal.j
 ### Optional One-Step Automation (`uvx` + `gh` / Phase 2 HTTP Relay)
 - **Optional Developer Shortcut (`uvx` + `gh`)**: Developers who prefer zero pre-cloning and already have `uvx` + authenticated `gh` (`gh auth login`) can optionally automate transcoding, sparse shallow forks, and dual-PR creation in one command:
   ```bash
-  uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.5 \
+  uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.6 \
     opf pr --input draft.json \
     --photo nutrition_table=crop_nutrition.jpg \
     --photo ingredients_box=crop_ingredients.jpg \
@@ -93,7 +93,7 @@ python3 -m unittest discover -s tests -v
    - Leave unprinted nutrients omitted—never fill missing values with `0` or category averages.
    - `attributes` only stores languages actually printed on the package; human-verified translations go in `translations` (`source: "contributor_translated"`).
 4. **Developer Certificate of Origin (DCO) & REUSE Licensing (`Apache-2.0` Inbound)**:
-   - Exact per-path SPDX coverage is declared in [`REUSE.toml`](REUSE.toml) and [`LICENSES/`](LICENSES/). Core tooling (`opf/`, `bin/`, `web/` excl. `web/vendor/`) is distributed outbound under **[AGPL-3.0-or-later](LICENSE)**, while **all code, schema, dictionary, profile, skill, and doc contributions to `open-packaged-food` enter permissively under [`Apache-2.0`](LICENSES/Apache-2.0.txt)** alongside a DCO sign-off (`git commit -s`), with no separate CLA required. `spec/`, `dictionaries/`, `profiles/`, `skills/`, `docs/`, and `web/vendor/` (ZXing) are also distributed under **`Apache-2.0`**.
+   - Exact per-path SPDX coverage is declared in [`REUSE.toml`](REUSE.toml) and [`LICENSES/`](LICENSES/). Core tooling (`opf/`, `bin/`, `web/` excl. `web/vendor/`) is distributed outbound under **[AGPL-3.0-or-later](LICENSE)**, while **by submitting code, schema, dictionary, profile, skill, or doc contributions to `open-packaged-food` with a `Signed-off-by` line (`git commit -s`), you provide them under the outbound license of their path and additionally license them to every recipient under [`Apache-2.0`](LICENSES/Apache-2.0.txt)**, with no separate CLA required. `spec/`, `dictionaries/`, `profiles/`, `skills/`, `docs/`, and `web/vendor/` (ZXing) are also distributed under **`Apache-2.0`**.
    - Contributions to `opf-data` follow **[ODbL-1.0](LICENSE-DATA)** and label crops in `opf-media` follow **[CC BY-SA 4.0](LICENSE-MEDIA)**. See [`GOVERNANCE.md`](GOVERNANCE.md) and [`docs/ODbL-GUIDE.md`](docs/ODbL-GUIDE.md) for boundaries.
 5. **Dual-Layer `provenance` & Anti-Spoofing Gate**:
    - External PRs creating `evidence[]` or `revisions[]` entries default to `provenance: "external_contributor"`; Phase 2 relay submissions use `"public_submission"`.

@@ -16,7 +16,7 @@ OpenPackagedFood 是一个**收录客观包装事实的开放数据库**，不�
 | 解析模式 (Resolution) | `resolution` (`single \| uniform \| divergent \| inactive`) | Compact API 顶层多变体消歧与停产态判别 |
 | 复杂筛选控制台索引 | `catalog.jsonl` (`markets`, `profiles`, `namespace`, `brand_slug`, `allergens_contains`, `allergens_may_contain`, `additives_ins`, `additives_count`, `ingredients_tokens`, `nutrients_100`) | 零额外 HTTP 请求支撑分面多选、配料/INS 包含与排除、严格 `<`/上界与 `partial` 感知的动态营养素数值条件 |
 | 证据与溯源 (Evidence) | `evidence[]`、`revisions[]` | 裁剪标签照片哈希（`cropped_sha256`）、官方公开登记与 RFC 6902 正反向修订链 |
-| 证据形态 (Evidence Level) | `evidence_level` | 构建期派生（仅反映提交形式，不表示核对与安全担保）：仅有文字报告，无照片 / 来自官方公开信息 / 有 1 份标签照片 / 有 2 位以上提交者上传过标签照片 |
+| 证据形态 (Evidence Level) | `evidence_level` | 构建期派生（仅反映提交形式，不表示核对与安全担保）：仅有文字报告，无照片 / 来自官方公开信息 / 有 1 份标签照片 / 有 2 个以上账号上传过标签照片 |
 | 质量标记 (Quality Flags) | `quality_flags` | 法规标零修约上界、碳水口径差异、NRV% 偏差提示 |
 
 ## 2. 原则

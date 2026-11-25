@@ -6,7 +6,7 @@
   },
   "app": {
     "pageTitle": "OpenPackagedFood — Base de données ouverte des aliments emballés",
-    "footerLicense": "Base de données : ODbL-1.0 (DbCL-1.0) · Outils : AGPL-3.0 · Recadrages d'étiquettes : CC BY-SA 4.0",
+    "footerLicense": "Base de données : ODbL-1.0 (DbCL-1.0) · Outils : AGPL-3.0-or-later · Recadrages d'étiquettes : CC BY-SA 4.0",
     "footerDisclaimer": "OPF transcrit uniquement les mentions imprimées (hors contaminations croisées non indiquées), sans garantie de sécurité, d'exactitude ou d'adéquation. Vérifiez l'emballage en main",
     "limitationsLink": "Limites des données",
     "reportErrataLink": "Signaler une erreur / retrait"
@@ -47,8 +47,8 @@
     "groupProfile": "Profil réglementaire & espace d'ID",
     "groupBrand": "Marque (Multiple)",
     "allBrands": "Toutes les marques ({count})",
-    "groupExcludeAllergens": "Exclure des allergènes (Union stricte)",
-    "excludeAllergensHint": "Exclut les produits déclarant ces allergènes en ingrédient ou en trace éventuelle (« peut contenir »)",
+    "groupExcludeAllergens": "Exclure selon les allergènes déclarés (multiple)",
+    "excludeAllergensHint": "Exclut les produits dont l'étiquette déclare « contient » ou « peut contenir » pour les allergènes sélectionnés. Fondé uniquement sur le texte transcrit de l'étiquette ; l'absence de mention ne signifie pas l'absence de l'allergène. Vérifiez toujours l'emballage en main.",
     "mustIncludeLabel": "Doit contenir ingrédient / INS",
     "mustIncludePlaceholder": "Ingrédient ou n° INS (ex. avoine, 300) + Entrée…",
     "mustExcludeLabel": "Exclure ingrédient / INS",
@@ -85,7 +85,7 @@
     "tagProfile": "Profil : {val}",
     "tagNamespace": "Espace : {val}",
     "tagBrand": "Marque : {val}",
-    "tagExclAllergen": "Sans allergène : {val}",
+    "tagExclAllergen": "Excl. déclaré : {val}",
     "tagInclIng": "Contient : {val}",
     "tagExclIng": "Exclut : {val}",
     "allProducts": "Tous les produits",
@@ -206,7 +206,7 @@
   },
   "seals": {
     "corroborated": {
-      "label": "≥2 contributeurs avec photos",
+      "label": "Photos de ≥2 comptes",
       "desc": "Des photos d'étiquette ont été envoyées par ≥2 comptes avec le même core_fingerprint (sans garantie de relecture humaine)"
     },
     "verified": {
@@ -215,7 +215,7 @@
     },
     "official_registry_imported": {
       "label": "Issu d'un registre public",
-      "desc": "Importé lors du build depuis des jeux de données publics CC0 (ex. USDA FDC)"
+      "desc": "Issu de documents publics officiels ou de données de registre ; sans photo d'étiquette"
     },
     "community_reported": {
       "label": "Texte seul (sans photo)",

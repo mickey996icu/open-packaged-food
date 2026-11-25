@@ -1,6 +1,6 @@
 # OpenPackagedFood Specification (v0.2)
 
-> **Status**: Draft M0 | **Schema Version**: `0.2` | **CI Tooling Pin**: `v0.2.5` | **License**: Code AGPL-3.0-or-later (Apache-2.0 inbound), Spec & Schemas Apache-2.0, Data ODbL-1.0, Label Media CC-BY-SA-4.0 | **Limitations**: [`docs/DATA-LIMITATIONS.md`](../docs/DATA-LIMITATIONS.md)
+> **Status**: Draft M0 | **Schema Version**: `0.2` | **CI Tooling Pin**: `v0.2.6` | **License**: Code AGPL-3.0-or-later (Apache-2.0 inbound), Spec & Schemas Apache-2.0, Data ODbL-1.0, Label Media CC-BY-SA-4.0 | **Limitations**: [`docs/DATA-LIMITATIONS.md`](../docs/DATA-LIMITATIONS.md)
 
 ## 1. Scope & Core Principles
 
@@ -458,7 +458,7 @@ For each `EditionRecord` $E$, let $P(E)$ be the set of distinct non-empty `contr
 **Public Display & Localization Normative Rule (Anti-Misrepresentation)**:
 - These four enum values classify **only the form/source of uploaded evidence** (e.g., number of photo-submitting accounts or public registry source)—they do **NOT** indicate that structured JSON values were cross-checked against photos, nor do they represent product safety or compliance.
 - **PROHIBITION**: UIs, Agents, and localizations **MUST NOT** translate or label `verified` / `corroborated` as *"已核验"*, *"已验证"*, *"已认证"*, or *"Verified"* (for example, do not label `verified` as `"Verified"` or `corroborated` as `"多人印证"` in public-facing text):
-  - `corroborated`: *Label photos submitted by 2+ contributors* / `"有 2 位以上提交者上传过标签照片"`
+  - `corroborated`: *Label photos from 2+ accounts* / `"有 2 个以上账号上传过标签照片"`
   - `verified`: *1 label photo submitted* / `"有 1 份标签照片"`
   - `official_registry_imported`: *From public official registry* / `"来自官方公开信息"`
   - `community_reported`: *Text report only (no photo)* / `"仅有文字报告，无照片"`

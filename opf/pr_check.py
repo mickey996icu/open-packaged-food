@@ -202,30 +202,67 @@ def find_provenance_policy_errors(
         ):
             continue
         cur_file = repo_dir / rel_path
-        if not cur_file.is_file():
-            continue
-        try:
-            cur_doc = json.loads(cur_file.read_text(encoding="utf-8"))
-        except Exception:
-            continue
-        cur_ev_map, cur_rev_map = _edition_provenance_maps(cur_doc)
-        if not cur_ev_map and not cur_rev_map:
-            continue
-
-        base_ev_map: dict[str, dict[str, Any]] = {}
-        base_rev_map: dict[int, dict[str, Any]] = {}
         show_res = subprocess.run(
             ["git", "-C", str(repo_dir), "show", f"{base_ref}:{rel_path}"],
             capture_output=True,
             text=True,
             check=False,
         )
-        if show_res.returncode == 0 and show_res.stdout.strip():
+        base_exists = show_res.returncode == 0 and bool(show_res.stdout.strip())
+        if not cur_file.is_file():
+            # Deleting an existing edition file would silently drop provenance-tagged entries.
+            if base_exists and not is_maintainer:
+                errors.append(
+                    f"{rel_path}: non-maintainer PR author {pr_actor!r} cannot delete an existing edition file (use lifecycle 'retracted' instead)."
+                )
+            continue
+        try:
+            cur_doc = json.loads(cur_file.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        if isinstance(cur_doc, dict) and "merged_into" in cur_doc:
+            # Merge redirect stubs are governed by validator merge rules; here we only
+            # ensure a non-maintainer consolidation carried every existing evidence entry
+            # into the target edition (evidence[] stays append-only across merges).
+            if base_exists and not is_maintainer:
+                try:
+                    base_doc_m = json.loads(show_res.stdout)
+                except Exception:
+                    base_doc_m = None
+                if isinstance(base_doc_m, dict) and "merged_into" not in base_doc_m:
+                    base_ev_ids = set(_edition_provenance_maps(base_doc_m)[0])
+                    target_file = cur_file.parent / f"{cur_doc.get('merged_into')}.json"
+                    target_ev_ids: set[str] = set()
+                    try:
+                        target_doc = json.loads(target_file.read_text(encoding="utf-8"))
+                        target_ev_ids = set(_edition_provenance_maps(target_doc)[0])
+                    except Exception:
+                        pass
+                    for ev_id in sorted(base_ev_ids - target_ev_ids):
+                        errors.append(
+                            f"{rel_path}: merge into {cur_doc.get('merged_into')!r} drops existing evidence {ev_id!r} (evidence must be carried into the target edition)."
+                        )
+            continue
+        cur_ev_map, cur_rev_map = _edition_provenance_maps(cur_doc)
+
+        base_ev_map: dict[str, dict[str, Any]] = {}
+        base_rev_map: dict[int, dict[str, Any]] = {}
+        if base_exists:
             try:
                 base_doc = json.loads(show_res.stdout)
                 base_ev_map, base_rev_map = _edition_provenance_maps(base_doc)
             except Exception:
                 pass
+
+        if not is_maintainer:
+            for ev_id in sorted(set(base_ev_map) - set(cur_ev_map)):
+                errors.append(
+                    f"{rel_path}: non-maintainer PR author {pr_actor!r} cannot remove existing evidence {ev_id!r} (evidence[] is append-only)."
+                )
+            for rev_num in sorted(set(base_rev_map) - set(cur_rev_map)):
+                errors.append(
+                    f"{rel_path}: non-maintainer PR author {pr_actor!r} cannot remove existing revision rev={rev_num} (revisions[] is append-only)."
+                )
 
         for ev_id, cur_ev in cur_ev_map.items():
             cur_prov = cur_ev.get("provenance")

@@ -20,8 +20,8 @@ Ho creato **OpenPackagedFood (OPF)** per una ragione semplice: mettere in ordine
 
 - **Uno «0» stampato non è uno zero matematico**
   I valori arrotondati a zero per tolleranza normativa vengono registrati come limiti superiori (`<`), senza mai confonderli con una vera assenza. Ogni conversione su 100 g o 100 ml è calcolata con esattezza.
-- **Gli ingredienti si verificano carattere per carattere**
-  Gli ingredienti strutturati devono potersi ricomporre esattamente nell'ordine del testo stampato. Se manca una lettera o compare un segno di punteggiatura in più, la validazione respinge la scheda senza lasciare spazio a ipotesi dell'IA.
+- **Gli ingredienti si confrontano carattere per carattere**
+  Gli ingredienti strutturati devono potersi ricomporre esattamente nell'ordine del testo degli ingredienti trascritto (ciò protegge l'analisi, ma non rileva errori di trascrizione dell'etichetta). Se manca una lettera o compare un segno di punteggiatura in più, la validazione respinge la scheda senza lasciare spazio a ipotesi dell'IA.
 - **Stesso codice a barre, stabilimenti o ricette diverse restano separati**
   Quando più produttori o versioni condividono lo stesso codice, ogni variante mantiene una scheda propria senza sovrascriversi. Se le varianti in commercio differiscono davvero, l'API trattiene i valori generali e invita a dare un'occhiata all'etichetta che si ha in mano invece di proporre una media fuorviante.
 - **Dati, immagini e strumenti separati, pubblicati in forma statica**
@@ -35,7 +35,7 @@ Ho creato **OpenPackagedFood (OPF)** per una ragione semplice: mettere in ordine
 
 Aprite **[l'esploratore web](https://mickey996icu.github.io/opf-data/)**, inquadrate il codice a barre con la fotocamera posteriore o scegliete una foto dalla galleria. La decodifica avviene interamente nel vostro browser (usando `BarcodeDetector` nativo dove supportato, e passando automaticamente al decoder offline `ZXing` integrato su tutti gli altri browser) — nessuna foto viene caricata online.
 
-Per esigenze alimentari specifiche, i filtri in alto permettono di scegliere il mercato, escludere separatamente allergeni certi e possibili tracce, filtrare per codice additivo o fissare soglie per 100 g/100 ml.
+Per esigenze alimentari specifiche, i filtri in alto permettono di scegliere il mercato, escludere gli allergeni che l'etichetta dichiara come «contiene» o «può contenere» (solo in base al testo stampato; verificare la confezione in mano), filtrare per codice additivo o fissare soglie per 100 g/100 ml.
 
 ### 2. Aggiungere la Skill al proprio assistente IA
 
@@ -71,7 +71,7 @@ Sia la validazione sia la compilazione del sito usano esclusivamente la libreria
 ./open-packaged-food/bin/opf check-media-refs --media-dir opf-media opf-data/products
 ```
 
-Create quindi un branch e aprite le PR su `opf-media` e `opf-data` (oppure usate `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.5 opf pr ...` se avete `uvx` e `gh`). Rispettate l'ordine: **eseguite sempre il merge prima sulla PR di `opf-media` e poi su quella di `opf-data`**, così la CI troverà le immagini già su `main`.
+Create quindi un branch e aprite le PR su `opf-media` e `opf-data` (oppure usate `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.6 opf pr ...` se avete `uvx` e `gh`). Rispettate l'ordine: **eseguite sempre il merge prima sulla PR di `opf-media` e poi su quella di `opf-data`**, così la CI troverà le immagini già su `main`.
 
 Due confini da non oltrepassare:
 - **Inviate solo ritagli delle parti testuali** (tabella nutrizionale, elenco ingredienti, produttore, codice a barre), mai il fronte grafico completo della confezione;
