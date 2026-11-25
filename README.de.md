@@ -71,7 +71,7 @@ Prüfung und statischer Build nutzen ausschließlich die Python-Standardbiblioth
 ./open-packaged-food/bin/opf check-media-refs --media-dir opf-media opf-data/products
 ```
 
-Legen Sie anschließend jeweils einen Branch in `opf-media` und `opf-data` an und öffnen Sie beide PRs (mit `uvx` und `gh` genügt auch `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.5 opf pr ...`). Wichtig ist die Reihenfolge: **immer zuerst den `opf-media`-PR mergen, danach den `opf-data`-PR**, damit die Prüfung die Bilder bereits auf `main` findet.
+Legen Sie anschließend jeweils einen Branch in `opf-media` und `opf-data` an und öffnen Sie beide PRs (mit `uvx` und `gh` genügt auch `uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.6 opf pr ...`). Wichtig ist die Reihenfolge: **immer zuerst den `opf-media`-PR mergen, danach den `opf-data`-PR**, damit die Prüfung die Bilder bereits auf `main` findet.
 
 Zwei klare Grenzen bleiben unverrückbar:
 - **Nur zugeschnittene Textfelder einreichen** (Nährwerttabelle, Zutatenliste, Herstellerblock, Barcode) – niemals die gestaltete Vorderseite der Verpackung;
