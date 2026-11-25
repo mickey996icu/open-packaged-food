@@ -46,25 +46,25 @@ _NON_ADMIN_ZONE_SUFFIX_RE = re.compile(
     r"(?:开发区|工业区|产业区|园区|厂区|保税区|试验区|功能区|聚集区|集聚区|管理区|示范区|合作区|度假区|商务区|高新区|科技区|自贸区|新区|[A-Za-z0-9]区)$"
 )
 
-_SEASONING_HEAD_MASK_RE = re.compile(r"[\w\u4e00-\u9fff-]*味(?:复合)?调味(?:料|粉|酱|汁)")
+_SEASONING_HEAD_MASK_RE = re.compile(r"[\w\u4e00-\u9fff-]*味(?:复合|複合)?(?:调味|調味)(?:料|粉|酱|醬|汁)")
 _SUGAR_INTERFERENCE_MASK_RE = re.compile(
-    r"(?:DL-苹果酸|L-苹果酸|苹果酸|柠檬酸钠|柠檬酸|乳酸|果胶|黄原胶|赤藓糖醇|木糖醇|麦芽糖醇|山梨糖醇|异麦芽酮糖醇|乳糖醇|三氯蔗糖|安赛蜜|阿斯巴甜|甜菊糖苷|罗汉果甜苷|纽甜|甜蜜素)",
+    r"(?:DL-苹果酸|L-苹果酸|苹果酸|DL-蘋果酸|L-蘋果酸|蘋果酸|柠檬酸钠|柠檬酸|檸檬酸鈉|檸檬酸|乳酸|果胶|果膠|黄原胶|黃原膠|赤藓糖醇|赤蘚糖醇|木糖醇|麦芽糖醇|麥芽糖醇|山梨糖醇|异麦芽酮糖醇|異麥芽酮糖醇|乳糖醇|三氯蔗糖|蔗糖素|安赛蜜|安賽蜜|醋磺內酯鉀|阿斯巴甜|甜菊糖苷|罗汉果甜苷|羅漢果甜苷|纽甜|甜蜜素)",
     re.IGNORECASE,
 )
 _REAL_SUGAR_SOURCE_RE = re.compile(
-    r"(?:白砂糖|砂糖|绵白糖|冰糖|红糖|黑糖|黄糖|蔗糖|果糖|葡萄糖|麦芽糖|乳糖|糖浆|蜂蜜|海藻糖|异麦芽酮糖|低聚果糖|低聚异麦芽糖|低聚半乳糖|浓缩[^\s，、（）()]*汁|果酱|果泥|果浆|果汁|生牛乳|牛乳|牛奶|乳粉|奶粉|炼乳|乳清|红枣|椰枣|葡萄干|蓝靛果|草莓|蓝莓|蔓越莓|黑莓|树莓|\bsugar\b|\bsucrose\b|\bfructose\b|\bglucose\b|\bsyrup\b|\bhoney\b|\blactose\b|\bmilk\b|\bwhey\b|\bjuice\b|\bdate\b)",
+    r"(?:白砂糖|砂糖|绵白糖|綿白糖|冰糖|红糖|紅糖|黑糖|黄糖|黃糖|蔗糖|果糖|葡萄糖|麦芽糖|麥芽糖|乳糖|糖浆|糖漿|蜂蜜|海藻糖|异麦芽酮糖|異麥芽酮糖|低聚果糖|低聚异麦芽糖|低聚異麥芽糖|低聚半乳糖|浓缩[^\s，、（）()]*汁|濃縮[^\s，、（）()]*汁|果酱|果醬|果泥|果浆|果漿|果汁|生牛乳|牛乳|牛奶|鲜奶|鮮奶|乳粉|奶粉|炼乳|煉乳|煉奶|乳清|红枣|紅棗|椰枣|椰棗|葡萄干|葡萄乾|蓝靛果|草莓|蓝莓|藍莓|蔓越莓|黑莓|树莓|樹莓|\bsugar\b|\bsucrose\b|\bfructose\b|\bglucose\b|\bsyrup\b|\bhoney\b|\blactose\b|\bmilk\b|\bwhey\b|\bjuice\b|\bdate\b)",
     re.IGNORECASE,
 )
 _WATER_FORBIDDEN_ING_RE = re.compile(
-    r"(?:白砂糖|砂糖|绵白糖|冰糖|红糖|蔗糖|果糖|葡萄糖|糖浆|蜂蜜|赤藓糖醇|木糖醇|麦芽糖醇|三氯蔗糖|安赛蜜|阿斯巴甜|甜菊糖苷|罗汉果甜苷|食用香精|食品用香精|香精|浓缩[^\s，、（）()]*汁|果汁|生牛乳|牛乳|牛奶|乳粉|奶粉|茶粉|速溶茶|\bsugar\b|\bsyrup\b|\bsucralose\b|\berythritol\b|\bflavor\b|\bflavour\b|\bjuice\b|\bmilk\b)",
+    r"(?:白砂糖|砂糖|绵白糖|綿白糖|冰糖|红糖|紅糖|蔗糖|果糖|葡萄糖|糖浆|糖漿|蜂蜜|赤藓糖醇|赤蘚糖醇|木糖醇|麦芽糖醇|麥芽糖醇|三氯蔗糖|蔗糖素|安赛蜜|安賽蜜|醋磺內酯鉀|阿斯巴甜|甜菊糖苷|罗汉果甜苷|羅漢果甜苷|食用香精|食品用香精|香精|香料|浓缩[^\s，、（）()]*汁|濃縮[^\s，、（）()]*汁|果汁|生牛乳|牛乳|牛奶|鮮奶|乳粉|奶粉|茶粉|速溶茶|\bsugar\b|\bsyrup\b|\bsucralose\b|\berythritol\b|\bflavor\b|\bflavour\b|\bjuice\b|\bmilk\b)",
     re.IGNORECASE,
 )
 _TEA_COFFEE_FORBIDDEN_ING_RE = re.compile(
-    r"(?:白砂糖|砂糖|绵白糖|冰糖|红糖|黑糖|蔗糖|果糖|葡萄糖|麦芽糖|糖浆|蜂蜜|生牛乳|牛乳|牛奶|乳粉|奶粉|炼乳|稀奶油|奶油|植脂末|\bsugar\b|\bsucrose\b|\bfructose\b|\bsyrup\b|\bhoney\b|\bmilk\b|\bcream\b|\bcreamer\b)",
+    r"(?:白砂糖|砂糖|绵白糖|綿白糖|冰糖|红糖|紅糖|黑糖|蔗糖|果糖|葡萄糖|麦芽糖|麥芽糖|糖浆|糖漿|蜂蜜|生牛乳|牛乳|牛奶|鮮奶|乳粉|奶粉|炼乳|煉乳|煉奶|稀奶油|忌廉|奶油|牛油|植脂末|奶精|\bsugar\b|\bsucrose\b|\bfructose\b|\bsyrup\b|\bhoney\b|\bmilk\b|\bcream\b|\bcreamer\b)",
     re.IGNORECASE,
 )
 _NUTRITION_CLAIM_RE = re.compile(
-    r"(?:无糖|零糖|0糖|低糖|无蔗糖|零卡|0卡|低卡|零能量|0能量|低能量|零脂|0脂|无脂|低脂|脱脂|高钙|富含钙|低钠|无钠|高蛋白|富含蛋白|高膳食纤维|富含膳食纤维|高纤|\bsugar[- ]free\b|\bzero[- ]sugar\b|\blow[- ]sugar\b|\bfat[- ]free\b|\blow[- ]fat\b|\bhigh[- ]protein\b|\bhigh[- ]calcium\b|\blow[- ]sodium\b)",
+    r"(?:无糖|無糖|零糖|0糖|低糖|无蔗糖|無蔗糖|零卡|0卡|低卡|零能量|0能量|低能量|零脂|0脂|无脂|無脂|低脂|脱脂|脫脂|高钙|高鈣|富含钙|富含鈣|低钠|低鈉|无钠|無鈉|高蛋白|富含蛋白|高膳食纤维|高膳食纖維|富含膳食纤维|富含膳食纖維|高纤|高纖|\bsugar[- ]free\b|\bzero[- ]sugar\b|\blow[- ]sugar\b|\bfat[- ]free\b|\blow[- ]fat\b|\bhigh[- ]protein\b|\bhigh[- ]calcium\b|\blow[- ]sodium\b)",
     re.IGNORECASE,
 )
 
@@ -229,15 +229,24 @@ def _check_nutrition(
         if isinstance(row.get("nutrient"), str):
             by_nid.setdefault(row["nutrient"], []).append(row)
 
-    if profile_id.startswith("CN/"):
+    if profile_id.startswith("US/"):
+        mandatory = ["energy", "fat_total", "sodium", "carbs_total", "protein"]
+    else:
         try:
-            mandatory = get_profile(profile_id).get("mandatory_nutrients", [])
+            mandatory = list(get_profile(profile_id).get("mandatory_nutrients", []))
         except KeyError:
             mandatory = []
-        missing = [nid for nid in mandatory if nid not in by_nid]
-        if missing:
-            _emit(findings, "ERROR", "MISSING_MANDATORY_NUTRIENTS", pid, eid, path,
-                  f"{profile_id} 缺少必填营养素行: {', '.join(missing)}")
+
+    missing: list[str] = []
+    for nid in mandatory:
+        if profile_id == "HK/CFS-132W" and nid == "carbs_available":
+            if "carbs_available" not in by_nid and "carbs_total" not in by_nid:
+                missing.append("carbs_available/carbs_total")
+        elif nid not in by_nid:
+            missing.append(nid)
+    if missing:
+        _emit(findings, "ERROR", "MISSING_MANDATORY_NUTRIENTS", pid, eid, path,
+              f"{profile_id} 缺少必填营养素行: {', '.join(missing)}")
 
     def _first_g(nid: str) -> tuple[dict[str, Any], Decimal] | None:
         for r in by_nid.get(nid, []):
@@ -342,6 +351,11 @@ def _check_parties_and_sc(
         _emit(findings, "WARN", "CN_MISSING_MANUFACTURER", pid, eid, path,
               "CN 法规记录缺少 manufacturer（或 importer）主体信息")
         return
+    ex_cat = str(((core.get("nutrition_exemption") or {}).get("category")) or "").strip()
+    stds_upper = [str(s).strip().upper() for s in (attrs.get("product_standard") or [])]
+    is_primary_agri = (ex_cat == "single_ingredient_unprocessed") or any(
+        s.startswith(("GB 2749", "GB 2762", "GB 2763", "NY/", "GH/T")) for s in stds_upper
+    )
     for idx, mfg in enumerate(manufacturers):
         m_lic = str(mfg.get("license") or "").strip()
         if FOREIGN_REG_LICENSE_RE.match(m_lic):
@@ -355,8 +369,12 @@ def _check_parties_and_sc(
             _emit(findings, "WARN", "CN_MANUFACTURER_TRUNCATED_ADDRESS", pid, eid, path,
                   f"CN 生产商 {m_name!r} 地址疑似截断至行政区县层级: {m_addr!r}")
         if not m_lic:
-            _emit(findings, "WARN", "CN_MANUFACTURER_MISSING_SC", pid, eid, path,
-                  f"CN 生产商 {m_name!r} 缺少 SC 生产许可证编号")
+            if is_primary_agri:
+                _emit(findings, "INFO", "CN_AGRI_VERIFY_NO_SC", pid, eid, path,
+                      f"疑似初级食用农产品，CN 生产商 {m_name!r} 未填 SC 编号；请看图确认外包装确未印 SC 证")
+            else:
+                _emit(findings, "WARN", "CN_MANUFACTURER_MISSING_SC", pid, eid, path,
+                      f"CN 生产商 {m_name!r} 缺少 SC 生产许可证编号")
 
 
 def _walk_ingredient_nodes(nodes: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -406,7 +424,8 @@ def _check_ingredients_and_allergens(
             inferred.update(match_allergens_in_name(name))
         if (
             node.get("is_additive") is True and not node.get("ins") and not node.get("children")
-            and name and name.lower() not in FUNCTIONAL_CLASS_TERMS and "添加剂" not in name and name not in seen
+            and name and name.lower() not in FUNCTIONAL_CLASS_TERMS
+            and "添加剂" not in name and "添加劑" not in name and name not in seen
         ):
             seen.add(name)
             candidates.append(name)

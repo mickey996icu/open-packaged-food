@@ -3,191 +3,31 @@
 from __future__ import annotations
 
 import copy
-import re
 from typing import Any
 
+from opf.ingredients_lexicon import (
+    ALLOWED_STRUCTURAL_CHARS,
+    CLOSE_BRACKETS,
+    COLON_CHARS,
+    DEFAULT_DELIMITERS,
+    FUNCTIONAL_CLASS_TERMS,
+    HEADER_PREFIX_RE,
+    INLINE_QUALIFIER_RE,
+    OPEN_TO_CLOSE,
+    QUALIFIER_ONLY_RE,
+    SPAN_KEYS,
+)
 from opf.registries import get_profile, lookup_additive_ins, match_allergens_in_name
 
-# Matches quantitative qualifiers such as ">=4g/L", "≥95%", "添加量≥4g/L", "含量不少于90%", "12%", "约5%"
-QUALIFIER_ONLY_RE = re.compile(
-    r"^(?:(?:添加量|含量|固形物|干物质|总固形物)\s*)?(?:[≥≤><~≈]|>=|<=|不少于|不低于|不超过|约)?\s*[0-9]+(?:\.[0-9]+)?\s*(?:%|％|g/L|mg/kg|mg/L|g/kg|g/100g|ml/100ml|g|mg|ml)$",
-    re.IGNORECASE,
-)
-
-# Matches trailing inline qualifier attached to an ingredient name, e.g. "牛肉≥95%", "牛肉含量≥95%", "食用盐 <= 3%"
-INLINE_QUALIFIER_RE = re.compile(
-    r"^(?P<head>.+?)\s*(?P<qual>(?:(?:添加量|含量|固形物|干物质)\s*)(?:[≥≤><~≈]|>=|<=|不少于|不低于|不超过)?\s*[0-9]+(?:\.[0-9]+)?\s*(?:%|％|g/L|mg/kg|mg/L|g/kg|g/100g|ml/100ml|g|mg|ml)|(?:[≥≤><~≈]|>=|<=|不少于|不低于|不超过)\s*[0-9]+(?:\.[0-9]+)?\s*(?:%|％|g/L|mg/kg|mg/L|g/kg|g/100g|ml/100ml|g|mg|ml)|[0-9]+(?:\.[0-9]+)?\s*(?:%|％))$",
-    re.IGNORECASE,
-)
-
-HEADER_PREFIX_RE = re.compile(
-    r"^(?:配料表|配料|原料与辅料|原材料名|原料|ingredients|ingr[eé]dients|zutaten|ingredientes|ingredienti)\s*[：:]",
-    re.IGNORECASE,
-)
-
-FUNCTIONAL_CLASS_TERMS = {
-    "食品添加剂",
-    "添加剂",
-    "酸度调节剂",
-    "抗氧化剂",
-    "防腐剂",
-    "甜味剂",
-    "增稠剂",
-    "乳化剂",
-    "着色剂",
-    "膨松剂",
-    "水分保持剂",
-    "稳定剂",
-    "凝固剂",
-    "抗结剂",
-    "增味剂",
-    "护色剂",
-    "漂白剂",
-    "酶制剂",
-    # English
-    "emulsifier",
-    "emulsifiers",
-    "acidity regulator",
-    "acidity regulators",
-    "acid",
-    "acids",
-    "antioxidant",
-    "antioxidants",
-    "preservative",
-    "preservatives",
-    "sweetener",
-    "sweeteners",
-    "thickener",
-    "thickeners",
-    "stabiliser",
-    "stabilisers",
-    "stabilizer",
-    "stabilizers",
-    "raising agent",
-    "raising agents",
-    "colour",
-    "colours",
-    "color",
-    "colors",
-    "flavour enhancer",
-    "flavour enhancers",
-    "flavor enhancer",
-    "humectant",
-    "humectants",
-    "anticaking agent",
-    "anti-caking agent",
-    "gelling agent",
-    # German (de)
-    "emulgator",
-    "emulgatoren",
-    "backtriebmittel",
-    "säuerungsmittel",
-    "säureregulator",
-    "antioxidationsmittel",
-    "konservierungsstoff",
-    "konservierungsstoffe",
-    "verdickungsmittel",
-    "stabilisator",
-    "stabilisatoren",
-    "farbstoff",
-    "farbstoffe",
-    "süßungsmittel",
-    "geschmacksverstärker",
-    "feuchthaltemittel",
-    "trennmittel",
-    "geliermittel",
-    # French (fr)
-    "émulsifiant",
-    "émulsifiants",
-    "poudre à lever",
-    "poudres à lever",
-    "acidifiant",
-    "acidifiants",
-    "correcteur d'acidité",
-    "antioxydant",
-    "antioxydants",
-    "conservateur",
-    "conservateurs",
-    "épaississant",
-    "épaississants",
-    "stabilisant",
-    "stabilisants",
-    "colorant",
-    "colorants",
-    "édulcorant",
-    "édulcorants",
-    "exhausteur de goût",
-    "humectant",
-    "antiagglomérant",
-    "anti-agglomérant",
-    "gélifiant",
-    # Spanish (es)
-    "emulgente",
-    "emulgentes",
-    "gasificante",
-    "gasificantes",
-    "acidulante",
-    "acidulantes",
-    "corrector de acidez",
-    "antioxidante",
-    "antioxidantes",
-    "conservador",
-    "conservadores",
-    "espesante",
-    "espesantes",
-    "estabilizante",
-    "estabilizantes",
-    "edulcorante",
-    "edulcorantes",
-    "potenciador del sabor",
-    "humectante",
-    "antiaglomerante",
-    "gelificante",
-    # Italian (it)
-    "emulsionante",
-    "emulsionanti",
-    "agente lievitante",
-    "agenti lievitanti",
-    "acidificante",
-    "acidificanti",
-    "correttore di acidità",
-    "antiossidante",
-    "antiossidanti",
-    "conservante",
-    "conservanti",
-    "addensante",
-    "addensanti",
-    "stabilizzante",
-    "stabilizzanti",
-    "esaltatore di sapidità",
-    "umidificante",
-    "antiagglomerante",
-    # Japanese (ja)
-    "膨張剤",
-    "乳化剤",
-    "酸化防止剤",
-    "酸味料",
-    "保存料",
-    "甘味料",
-    "増粘剤",
-    "安定剤",
-    "着色料",
-    "調味料",
-    "ph調整剤",
-}
-
-OPEN_TO_CLOSE = {"（": "）", "(": ")", "[": "]", "【": "】", "［": "］", "{": "}"}
-CLOSE_BRACKETS = set(OPEN_TO_CLOSE.values())
-DEFAULT_DELIMITERS = {"、", "，", ",", "；", ";"}
-COLON_CHARS = {"：", ":"}
-ALLOWED_STRUCTURAL_CHARS = (
-    DEFAULT_DELIMITERS
-    | set(OPEN_TO_CLOSE.keys())
-    | CLOSE_BRACKETS
-    | COLON_CHARS
-    | {"／", "/", "。", ".", " ", "\t", "\r", "\n"}
-)
-SPAN_KEYS = ("span", "qualifier_span", "functional_class_span")
+__all__ = [
+    "FUNCTIONAL_CLASS_TERMS",
+    "SPAN_KEYS",
+    "annotate_ingredients_spans",
+    "parse_ingredients_semantic",
+    "parse_ingredients_text",
+    "strip_ingredient_spans",
+    "verify_ingredients_round_trip",
+]
 
 
 def _strip_span(text: str, start: int, end: int) -> tuple[int, int]:
@@ -237,7 +77,7 @@ def _find_slash_outside_brackets(text: str, start: int, end: int, slashes: set[s
 
 def _is_functional_class_name(name: str) -> bool:
     low = name.strip().lower()
-    return low in FUNCTIONAL_CLASS_TERMS or ("添加剂" in low)
+    return low in FUNCTIONAL_CLASS_TERMS or ("添加剂" in low) or ("添加劑" in low)
 
 
 def _parse_segment(
@@ -248,12 +88,10 @@ def _parse_segment(
     force_additive: bool = False,
 ) -> dict[str, Any]:
     """Parse a single ingredient segment text[seg_start:seg_end] into an IngredientNode."""
-    # Trim trailing sentence punctuation if at segment end
     while seg_end > seg_start and text[seg_end - 1] in {"。", "."}:
         seg_end -= 1
     seg_start, seg_end = _strip_span(text, seg_start, seg_end)
 
-    # Check for functional class prefix before a colon at bracket depth 0, e.g. "Emulsifier: Soy Lecithin"
     func_class: str | None = None
     func_span: list[int] | None = None
     depth = 0
@@ -271,7 +109,6 @@ def _parse_segment(
                 seg_start, seg_end = _strip_span(text, i + 1, seg_end)
             break
 
-    # Handle Chinese "其中" prefix without colon, e.g. "其中棕榈油≥50%" or "其中 牛腱肉≥50%"
     if func_class is None and text[seg_start:seg_end].startswith("其中") and (seg_end - seg_start) > 2:
         fc_s = seg_start
         fc_e = seg_start + 2
@@ -281,10 +118,8 @@ def _parse_segment(
             func_span = [fc_s, fc_e]
             seg_start, seg_end = rest_s, rest_e
 
-    # Scan for top-level parenthetical groups within [seg_start, seg_end)
-    # Unless the entire segment itself is an exact additive code/name with Roman subclass like "E500(ii)"
     whole_seg_ins = lookup_additive_ins(text[seg_start:seg_end])
-    paren_groups: list[tuple[int, int, int, int]] = []  # (open_idx, inner_start, inner_end, close_idx)
+    paren_groups: list[tuple[int, int, int, int]] = []
     depth = 0
     open_idx = -1
     head_end: int | None = None
@@ -314,7 +149,6 @@ def _parse_segment(
     qualifier: str | None = None
     qualifier_span: list[int] | None = None
 
-    # Check if raw_head ends with an inline qualifier, e.g. "牛肉≥95%" or "牛肉含量≥95%"
     m_inline = INLINE_QUALIFIER_RE.match(raw_head)
     if m_inline:
         head_part = m_inline.group("head")
@@ -337,7 +171,6 @@ def _parse_segment(
             qualifier = inner_str
             qualifier_span = [in_s, in_e]
         else:
-            # Check if parenthetical is an INS/E-number code directly, or sub-ingredients
             ins_match = lookup_additive_ins(inner_str)
             if ins_match and len(_split_top_level(text, in_s, in_e, delimiters)) == 1:
                 child_node = _parse_segment(text, in_s, in_e, delimiters, force_additive=True)
@@ -350,7 +183,6 @@ def _parse_segment(
                         _parse_segment(text, sub_s, sub_e, delimiters, force_additive=is_sub_additive)
                     )
 
-    # Also check if there is a trailing inline qualifier after parentheticals, e.g. "茉莉花茶（绿茶茶坯）≥4g/L"
     if paren_groups:
         last_close = paren_groups[-1][3]
         tail_s, tail_e = _strip_span(text, last_close + 1, seg_end)
@@ -456,7 +288,7 @@ def parse_ingredients_semantic(
     lang: str = "zh-Hans",
     profile_id: str = "CN/GB28050-2011",
 ) -> list[dict[str, Any]]:
-    """Parse raw ingredients text into span-free v0.2 SemanticIngredientNode dictionaries."""
+    """Parse raw ingredients text into span-free v0.3 SemanticIngredientNode dictionaries."""
     return strip_ingredient_spans(parse_ingredients_text(text, lang=lang, profile_id=profile_id))
 
 
@@ -560,7 +392,6 @@ def _align_semantic_tree(
         later = raw_text.find(expected, cursor)
         if later != -1:
             skipped_segment = raw_text[cursor:later]
-            # Extract uncaptured non-structural runs inside skipped_segment
             bad_runs: list[str] = []
             i = 0
             while i < len(skipped_segment):
@@ -684,7 +515,6 @@ def _align_semantic_tree(
         annotated.append(res)
 
     if not errors:
-        # Verify no uncaptured non-structural characters remain after the last matched token
         uncaptured_ranges: list[tuple[int, int, str]] = []
         i = cursor
         while i < n_chars:

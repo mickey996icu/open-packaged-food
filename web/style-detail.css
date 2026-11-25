@@ -1,0 +1,634 @@
+/* OpenPackagedFood — Directory Drawer, Catalog Card, Nutrient Table, Provenance & Footer Styles */
+
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 0 2px;
+}
+
+.kbd-hint {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--md-on-surface-variant);
+  background: var(--md-surface-container);
+  border-radius: var(--r-xs);
+  padding: 2px 7px;
+}
+
+.mobile-back-bar {
+  display: none;
+  margin-bottom: 14px;
+}
+
+/* Directory Cards with content-visibility for smooth large-catalog scrolling */
+.drawer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.list-sentinel {
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--md-on-surface-variant);
+}
+
+.index-entry {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: var(--md-surface-lowest);
+  border: 1px solid transparent;
+  border-radius: 14px;
+  padding: 12px 14px;
+  cursor: pointer;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 92px;
+  transition:
+    background-color 180ms var(--ease-standard),
+    border-radius 240ms var(--ease-spring),
+    transform 200ms var(--ease-spring),
+    box-shadow 180ms var(--ease-standard);
+}
+
+.index-entry:hover {
+  background: var(--md-surface-high);
+  transform: translateY(-1px);
+}
+
+.index-entry:active {
+  transform: scale(0.99);
+}
+
+.index-entry[aria-current="true"] {
+  border-radius: 20px;
+  background: var(--md-primary-container);
+  color: var(--md-on-primary-container);
+  box-shadow: inset 4px 0 0 var(--md-primary);
+}
+
+.index-entry .entry-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.entry-brand {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--md-on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.index-entry[aria-current="true"] .entry-brand,
+.index-entry[aria-current="true"] .entry-id,
+.index-entry[aria-current="true"] .imprint {
+  color: inherit;
+  opacity: 0.88;
+}
+
+.index-entry .entry-title {
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.entry-id {
+  font-family: var(--mono);
+  font-size: 0.71rem;
+  color: var(--md-on-surface-variant);
+  margin-top: 2px;
+  overflow-wrap: anywhere;
+}
+
+.index-entry .imprint {
+  font-family: var(--mono);
+  font-size: 0.73rem;
+  color: var(--md-on-surface-variant);
+  margin-top: 7px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 7px;
+}
+
+/* Master Catalog Card Header & Segmented Tabs */
+.card-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-bottom: 12px;
+}
+
+.call-number-block {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+}
+
+.call-number-block .cn-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--md-on-surface-variant);
+}
+
+.icon-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 24px;
+  padding: 0 8px;
+  border-radius: var(--r-full);
+  border: 1px solid color-mix(in srgb, var(--md-outline-variant) 85%, transparent);
+  background: var(--md-surface-lowest);
+  font-family: var(--mono);
+  font-size: 0.71rem;
+  font-weight: 600;
+  color: var(--md-primary);
+  cursor: pointer;
+  transition:
+    background-color var(--dur-fast) var(--ease-effects),
+    color var(--dur-fast) var(--ease-effects),
+    border-color var(--dur-fast) var(--ease-effects),
+    transform var(--dur-fast) var(--ease-spatial-fast);
+}
+
+.icon-copy-btn:hover {
+  background: var(--md-primary-container);
+  color: var(--md-on-primary-container);
+  border-color: var(--md-primary);
+}
+
+.icon-copy-btn:active {
+  transform: scale(0.95);
+}
+
+.title-rule {
+  height: 2px;
+  background: var(--md-on-surface);
+  border: 0;
+  margin: 0 0 16px;
+}
+
+.card-title-block h2 {
+  font-family: var(--serif);
+  font-size: clamp(1.38rem, 2.1vw, 1.8rem);
+  line-height: 1.24;
+  font-weight: 700;
+  margin: 0 0 10px;
+}
+
+.card-imprint {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--md-on-surface-variant);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  padding-bottom: 14px;
+}
+
+.imprint-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.ulid-head {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-width: 0;
+}
+
+.ulid-code {
+  font-size: 0.82rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.card-tabs {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 5px;
+  background: var(--md-surface-container);
+  border-radius: var(--r-full);
+  margin: 4px 0 18px;
+}
+
+.card-tab {
+  background: transparent;
+  border: 0;
+  border-radius: var(--r-md);
+  padding: 8px 18px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--md-on-surface-variant);
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background-color 180ms var(--ease-effects),
+    color 180ms var(--ease-effects),
+    border-radius var(--dur-medium) var(--ease-spatial-fast),
+    box-shadow 180ms var(--ease-effects),
+    transform var(--dur-fast) var(--ease-spatial-fast);
+}
+
+.card-tab:hover {
+  color: var(--md-on-surface);
+  background: color-mix(in srgb, var(--md-on-surface) var(--md-state-hover), transparent);
+}
+
+.card-tab:active {
+  transform: scale(0.97);
+}
+
+.card-tab[aria-selected="true"] {
+  border-radius: var(--r-full);
+  background: var(--md-surface-lowest);
+  color: var(--md-primary);
+  box-shadow: 0 1px 3px color-mix(in srgb, var(--md-on-surface) 12%, transparent);
+}
+
+/* Detail Sections, KPI Tiles & Statutory Nutrition Exemption */
+.detail-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.section-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid color-mix(in srgb, var(--md-outline-variant) 65%, transparent);
+}
+
+.section-card-head .section-label {
+  color: var(--md-primary);
+}
+
+.kpi-tile {
+  background: var(--md-surface-low);
+  border-radius: var(--r-md);
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.kpi-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--md-on-surface-variant);
+}
+
+.kpi-value {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--md-on-surface);
+  white-space: nowrap;
+}
+
+.kpi-unit {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--md-on-surface-variant);
+  margin-left: 2px;
+}
+
+.exemption-panel {
+  background: var(--md-surface-low);
+  border: 1px solid color-mix(in srgb, var(--md-outline-variant) 75%, transparent);
+  border-radius: var(--r-md);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.exemption-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.exemption-cat-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: var(--r-full);
+  background: var(--md-secondary-container);
+  color: var(--md-on-secondary-container);
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+.exemption-desc {
+  margin: 0;
+  font-size: 0.86rem;
+  color: var(--md-on-surface-variant);
+}
+
+.exemption-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  font-size: 0.82rem;
+  padding-top: 6px;
+  border-top: 1px solid color-mix(in srgb, var(--md-outline-variant) 55%, transparent);
+}
+
+.indicator-block { margin-top: 14px; }
+.indicator-block > .section-label { display: block; margin-bottom: 8px; }
+.chip-cluster { display: flex; gap: 6px; flex-wrap: wrap; }
+
+/* Nutrient Table & Three Value States */
+.nutrient-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.nutrient-table th {
+  text-align: right;
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--md-on-surface-variant);
+  padding: 6px 12px 10px;
+  border-bottom: 1.5px solid var(--md-on-surface);
+  white-space: nowrap;
+}
+
+.nutrient-table th:first-child { text-align: left; padding-left: 0; }
+
+.nutrient-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid color-mix(in srgb, var(--md-outline-variant) 65%, transparent);
+  vertical-align: baseline;
+}
+
+.nutrient-table td:first-child { padding-left: 0; }
+.nutrient-table td.n-name b { font-weight: 600; }
+
+.nutrient-table td.n-name small {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  color: var(--md-on-surface-variant);
+  margin-left: 8px;
+}
+
+.nutrient-table td.n-val {
+  text-align: right;
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.nutrient-table td.n-val .unit {
+  font-weight: 400;
+  font-size: 0.8rem;
+  color: var(--md-on-surface-variant);
+  margin-left: 3px;
+}
+
+.trace-btn {
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  padding: 2px 5px;
+  margin: -2px -5px;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  transition: background-color var(--dur-fast) var(--ease-effects);
+}
+
+.trace-btn:hover { background: color-mix(in srgb, var(--md-primary) var(--md-state-hover), transparent); }
+.trace-btn:active { background: color-mix(in srgb, var(--md-primary) var(--md-state-press), transparent); }
+.val-derived .num { border-bottom: 1px dotted var(--md-outline); }
+
+.fn-mark {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--md-primary);
+  vertical-align: super;
+  margin-left: 2px;
+}
+
+.val-bound {
+  background: repeating-linear-gradient(
+    135deg,
+    transparent 0 4px,
+    color-mix(in srgb, var(--md-on-surface) 11%, transparent) 4px 6px
+  );
+  border: 1px solid var(--md-outline);
+  border-radius: 6px;
+  padding: 1px 6px;
+}
+
+.formula-inspector {
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: var(--md-surface-low);
+  border-left: 3px solid var(--md-primary);
+  border-radius: var(--r-xs);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--md-on-surface);
+}
+
+.state-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 18px;
+  margin-top: 12px;
+  font-size: 0.76rem;
+  color: var(--md-on-surface-variant);
+  font-family: var(--mono);
+}
+
+/* Ingredient Tree, Timeline, Metadata & Variant Cards */
+.verbatim-box {
+  background: var(--md-surface-low);
+  border-radius: var(--r-sm);
+  padding: 12px 14px;
+  font-size: 0.92rem;
+  margin-bottom: 12px;
+}
+
+.ing-tree { list-style: none; margin: 0; padding: 0; font-size: 0.9rem; }
+.ing-tree ul { list-style: none; margin: 4px 0 4px 12px; padding-left: 12px; border-left: 1.5px solid var(--md-outline-variant); }
+.ing-tree li { padding: 3px 0; }
+.ing-span { font-family: var(--mono); font-size: 0.7rem; color: var(--md-on-surface-variant); margin-left: 6px; }
+
+.edition-timeline { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+
+.edition-step {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 10px 14px;
+  background: var(--md-surface-low);
+  border: 1px solid transparent;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition:
+    background-color 160ms var(--ease-effects),
+    border-color 160ms var(--ease-effects),
+    border-radius var(--dur-medium) var(--ease-spatial-fast),
+    transform var(--dur-fast) var(--ease-spatial-fast);
+}
+
+.edition-step:hover { background: var(--md-surface-high); }
+.edition-step:active { transform: scale(0.99); }
+
+.edition-step[aria-current="true"] {
+  border-radius: 18px;
+  border-color: var(--md-primary);
+  background: var(--md-primary-container);
+  color: var(--md-on-primary-container);
+  box-shadow: inset 4px 0 0 var(--md-primary);
+}
+
+.meta-dl { display: grid; grid-template-columns: auto 1fr; gap: 7px 18px; margin: 0; font-size: 0.89rem; }
+.meta-dl dt { color: var(--md-on-surface-variant); font-weight: 600; }
+.meta-dl dd { margin: 0; }
+
+.subcard {
+  background: var(--md-surface-low);
+  border-radius: var(--r-sm);
+  padding: 11px 14px;
+  margin-top: 10px;
+  font-size: 0.86rem;
+}
+
+.evidence-preview-img {
+  display: block;
+  max-width: 100%;
+  max-height: 260px;
+  margin-top: 8px;
+  border: 1px solid var(--md-outline-variant);
+  border-radius: var(--r-xs);
+}
+
+.note-item {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  padding: 9px 12px;
+  border-left: 3px solid var(--md-primary);
+  background: var(--md-surface-low);
+  border-radius: var(--r-xs);
+  margin-bottom: 6px;
+}
+
+.endpoint-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 14px;
+  background: var(--md-surface-low);
+  border-radius: var(--r-sm);
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  margin-bottom: 8px;
+}
+
+.endpoint-bar .method { font-weight: 700; color: var(--md-primary); }
+
+pre.json-view {
+  background: var(--md-surface-low);
+  border-radius: var(--r-md);
+  padding: 16px;
+  overflow: auto;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  max-height: 520px;
+  margin: 8px 0 0;
+}
+
+.empty-state { padding: 32px 20px; text-align: center; color: var(--md-on-surface-variant); font-size: 0.9rem; }
+.empty-state p { margin: 0 0 12px; }
+.empty-catalog-guide { text-align: left; max-width: 62ch; margin: 0 auto; padding: 12px 4px; }
+.empty-catalog-guide h3 { font-family: var(--serif); font-size: 1.35rem; margin: 0 0 8px; color: var(--md-on-surface); }
+.empty-dev-link { margin: 14px 0 0; font-size: 0.84rem; color: var(--md-on-surface-variant); }
+
+.variant-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-top: 12px; }
+.variant-card { display: flex; flex-direction: column; justify-content: space-between; gap: 12px; padding: 16px; background: var(--md-surface-low); border-radius: var(--r-md); }
+.variant-card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; flex-wrap: wrap; }
+.variant-card-meta { display: flex; flex-wrap: wrap; gap: 6px; font-size: 0.78rem; margin-top: 8px; }
+.variant-card-desc { margin: 6px 0 0; font-size: 0.84rem; color: var(--md-on-surface-variant); }
+
+.variant-pick-btn {
+  align-self: flex-start;
+  background: var(--md-primary-container);
+  color: var(--md-on-primary-container);
+  border-color: var(--md-primary);
+  font-weight: 600;
+}
+
+.allergen-union-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 12px; }
+.allergen-union-box { padding: 12px 14px; background: var(--md-surface-low); border-radius: var(--r-sm); }
+.allergen-union-box .section-label { display: block; margin-bottom: 6px; }
+
+.revision-list { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+.revision-item { padding: 10px 12px; background: var(--md-surface-low); border-left: 3px solid var(--md-primary); border-radius: var(--r-xs); font-size: 0.8rem; }
+.jump-chip { border-color: var(--md-primary); color: var(--md-primary); }
+
+footer {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 20px 24px 48px;
+  min-height: 108px;
+  border-top: 1px solid color-mix(in srgb, var(--md-outline-variant) 75%, transparent);
+  color: var(--md-on-surface-variant);
+  font-size: 0.82rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-disclaimer { flex-basis: 100%; font-size: 0.77rem; line-height: 1.55; color: var(--md-on-surface-variant); }
+.footer-disclaimer a { color: var(--md-primary); text-decoration: underline; }

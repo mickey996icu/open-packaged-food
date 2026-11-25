@@ -16,6 +16,8 @@ description: Queries, verifies, disambiguates, and contributes industrial packag
 | Jurisdiction / Market | Regulatory Profile | Data Language Tags (`lang`) | Web UI Locale |
 | :--- | :--- | :--- | :--- |
 | **CN** (China Mainland) | `CN/GB28050-2011` / `CN/GB28050-2025` | `zh-Hans` | `zh-CN` (简体中文) |
+| **HK** (Hong Kong SAR) | `HK/CFS-132W` | `zh-Hant`, `en` | `zh-CN`, `en` |
+| **AU / NZ** (Australia & New Zealand) | `AU/FSANZ-1.2.8` *(use `track: "AU/default"` or `"NZ/default"`)* | `en` | `en` (English) |
 | **US** (United States) | `US/FDA-NLEA` | `en` | `en` (English) |
 | **JP** (Japan) | `JP/CAA-2015` | `ja` | `ja` (日本語) |
 | **EU / UK** | `EU/1169-2011` | `en`, `de`, `fr`, `es`, `it` *(plus any EU BCP-47 tag printed verbatim)* | `en`, `de`, `fr`, `es`, `it` |
@@ -101,7 +103,10 @@ If OPF returns HTTP `404` (or the user's product is not yet indexed):
 
 Start from the minimal `v0.3` draft template [examples/draft.minimal.json](./examples/draft.minimal.json) when building the structured payload (`id`, `core`, `attributes`, `evidence`):
 - **Statutory Nutrition Panel Exemption (`core.nutrition_declared: null` + `core.nutrition_exemption`)**: When a packaged food (such as packaged drinking water, plain tea leaves/coffee, single-ingredient raw food, salt/vinegar/spices, alcohol, or small-surface-area packs) is legally exempt and prints **no** Nutrition Facts table on the package, **NEVER fabricate all-zero nutrient rows**. Set `"nutrition_declared": null` and `"nutrition_exemption": {"category": "packaged_water" | "tea_coffee_herbs" | "single_ingredient_unprocessed" | "salt_vinegar_spices" | "alcoholic_beverage" | "small_daily_intake" | "small_package_area", "legal_basis": "..."}`. Record characteristic indicators (e.g. natural water `钙`/`偏硅酸` `>=` bounds, dimensionless `{"name": "pH值(25℃)", "value": "7.3", "tolerance": "0.5"}`, interval `value_max`, `茶多酚`, or `A2β-酪蛋白`) in **`core.special_indicators`** (never in `attributes`), and record standard quality grades (e.g. `"特级"`, `"一级"`) in **`attributes.quality_grade`**.
-- **Regulatory Profile Precision (`CN/GB28050-2011` vs `CN/GB28050-2025`)**: Do **not** blindly copy `CN/GB28050-2011` from the minimal template. On China Mainland labels, if the Nutrition Facts table uses the **1+6 mandatory framework** (declaring both **saturated fat (`饱和脂肪`)** and **sugars (`糖`)**) or prints the mandatory warning **`儿童青少年应避免过量摄入盐油糖`**, set `core.regulatory_profile` to **`"CN/GB28050-2025"`**; use `"CN/GB28050-2011"` only for legacy 1+4 tables.
+- **Regulatory Profile Precision (`CN`, `HK`, `AU/NZ`)**: Do **not** blindly copy `CN/GB28050-2011` from the minimal template:
+  - **China Mainland (`CN`)**: If the Nutrition Facts table uses the **1+6 mandatory framework** (declaring both **saturated fat (`饱和脂肪`)** and **sugars (`糖`)**) or prints **`儿童青少年应避免过量摄入盐油糖`**, set `core.regulatory_profile` to **`"CN/GB28050-2025"`**; use `"CN/GB28050-2011"` only for legacy 1+4 tables.
+  - **Hong Kong (`HK/CFS-132W`)**: Hong Kong Cap. 132W enforces the **1+7 mandatory framework** (`energy`, `protein`, `fat_total`, `fat_saturated`, `fat_trans`, `carbs_available` [or `carbs_total` when explicitly labeled "Total Carbohydrates / 總碳水化合物"], `sugars_total`, `sodium`) with Traditional Chinese (`zh-Hant`) and/or English (`en`) text. When an imported product bears a Hong Kong local compliance over-sticker, record that edition on `track: "HK/default"` with `"regulatory_profile": "HK/CFS-132W"` using the sticker's verbatim product name, ingredients, and 1+7 panel—never splice sticker names onto the foreign base panel or discard the sticker's 1+7 table.
+  - **Australia & New Zealand (`AU/FSANZ-1.2.8`)**: FSANZ Standard 1.2.8 requires dual columns (`Per Serving` and `Per 100g`/`100mL`) with 1+6 rows (`energy` in `kJ`, `protein`, `fat_total`, `fat_saturated`, `carbs_available` [excluding fibre], `sugars_total`, `sodium` in `mg`; DI reference energy is `8700 kJ`). Transcribe the higher-precision `100g`/`100ml` column into `core.nutrition_declared` (recording `serving_size` alongside), preserve `LESS THAN` bounds as `qualifier: "<"`, and set `track` to `"AU/default"` or `"NZ/default"`.
 - **Strictly Evidenced Cropped Text Only (Zero Un-Evidenced Claims)**: Every recorded field (especially `attributes.claims_text`, `brand`, and `net_content_label`) **must appear verbatim inside the submitted functional label crops**. Never copy marketing slogans from un-uploaded front-of-pack cover art, and never infer or calculate claims (e.g., do not invent `"加量10%"` from `(20+2)克` unless those exact characters appear in a submitted crop).
 - **Multilingual `attributes` & EU Multi-Language Pack Rule**: `attributes.product_name` and `attributes.ingredients_text` are BCP-47 `LocalizedText[]` arrays preserving every language printed verbatim on the package. On multi-language EU labels (e.g., printed in `de`, `fr`, `es`, `it`, and `en`), capture each printed language verbatim as separate entries in `attributes.product_name[]`, `attributes.ingredients_text[]`, and `core.ingredients_tree[]`, whereas non-printed contributor translations (such as translated `"brand"` or `"product_name"` search aliases) belong in `attributes.translations[]` with `"source": "contributor_translated"`.
 
@@ -170,7 +175,7 @@ Pick the active submission path cleanly:
 - **Optional One-Step Automation (`uvx` + `gh` CLI)**:
   Developers who already have `uvx` and an authenticated `gh` session (`gh auth status`) may optionally use `opf pr` instead of manual `git` branching/pushing:
   ```bash
-  uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.3.0 \
+  uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.3.1 \
     opf pr --input draft.json \
     --photo nutrition_table=crop_nutrition.jpg \
     --photo ingredients_box=crop_ingredients.jpg \

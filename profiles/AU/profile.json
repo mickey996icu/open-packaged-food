@@ -1,0 +1,66 @@
+{
+  "jurisdiction": "AU",
+  "profiles": {
+    "AU/FSANZ-1.2.8": {
+      "title": "Australia New Zealand Food Standards Code — Standard 1.2.8 (Nutrition Information Requirements) & Standard 1.2.3 (PEAL)",
+      "mandatory_nutrients": [
+        "energy",
+        "protein",
+        "fat_total",
+        "fat_saturated",
+        "carbs_available",
+        "sugars_total",
+        "sodium"
+      ],
+      "default_energy_unit": "kJ",
+      "default_basis": ["100g", "100ml", "serving"],
+      "carbohydrate_basis": "carbs_available",
+      "sodium_or_salt": "sodium",
+      "kj_per_kcal": "4.184",
+      "salt_per_sodium_ratio": "2.5",
+      "zero_thresholds_per_100": {
+        "energy_kj": "17",
+        "protein": "0.5",
+        "fat_total": "0.5",
+        "fat_saturated": "0.1",
+        "fat_trans": "0.1",
+        "carbs_available": "0.5",
+        "sugars_total": "0.5",
+        "sodium": "5"
+      },
+      "nrv_reference": {
+        "energy_kj": "8700",
+        "energy_kcal": "2080",
+        "protein": "50",
+        "fat_total": "70",
+        "fat_saturated": "24",
+        "carbs_available": "310",
+        "sugars_total": "90",
+        "dietary_fiber": "30",
+        "sodium": "2300",
+        "calcium": "800",
+        "iron": "12",
+        "potassium": "3200",
+        "vitamin_c": "40",
+        "vitamin_d": "10"
+      },
+      "ingredients_grammar": {
+        "prefixes": [
+          "Ingredients:",
+          "INGREDIENTS:",
+          "Ingredients :",
+          "Made from:"
+        ],
+        "top_level_delimiters": [",", ";"],
+        "open_brackets": ["(", "[", "{"],
+        "close_brackets": [")", "]", "}"],
+        "trailing_punctuation": ["."],
+        "additive_slash_split": null
+      },
+      "registries": [
+        "AU/FSANZ-AFCD",
+        "NZ/PFR-FOODFILES"
+      ]
+    }
+  }
+}

@@ -109,7 +109,7 @@ class TestPhase1WorkflowV02(unittest.TestCase):
             "import sys, opf.cli, opf.cli_common, opf.cli_merge_ops, opf.cli_submit, opf.cli_lifecycle, "
             "opf.cli_media, opf.cli_pr, opf.validator, opf.json_schema, opf.edition_validator, "
             "opf.normalize, opf.fingerprints, opf.lifecycle, opf.builder, opf.doc_compiler, "
-            "opf.media, opf.audit; "
+            "opf.ingredients, opf.ingredients_lexicon, opf.media, opf.audit; "
             "assert 'PIL' not in sys.modules, f'Unexpected PIL import: {list(sys.modules.keys())}'"
         )
         res = subprocess.run(

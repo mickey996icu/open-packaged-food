@@ -231,6 +231,7 @@ def build_static_api(
     counts_by_resolution: dict[str, int] = {}
     counts_by_evidence: dict[str, int] = {}
     counts_by_market: dict[str, int] = {}
+    initial_product_bundle: dict[str, Any] | None = None
 
     for product_meta, records, redirects in product_items:
         pid = product_meta["id"]
@@ -239,6 +240,12 @@ def build_static_api(
 
         full_doc = build_full_doc(product_meta, records, redirects, lifecycle_map)
         compact_doc = build_compact_doc(product_meta, records, redirects, lifecycle_map, full_rel)
+        if initial_product_bundle is None:
+            initial_product_bundle = {
+                "id": pid,
+                "compact": compact_doc,
+                "full": full_doc,
+            }
 
         compact_out = out_path / compact_rel
         full_out = out_path / full_rel
@@ -443,6 +450,7 @@ def build_static_api(
         "counts_by_evidence_level": counts_by_evidence,
         "counts_by_market": counts_by_market,
         "endpoints": {
+            "bootstrap": "/v1/bootstrap.json",
             "gtin_compact": "/v1/gtin/{p1}/{p2}/{gtin14}.json",
             "gtin_full": "/v1/gtin/{p1}/{p2}/{gtin14}.full.json",
             "opf_compact": "/v1/opf/{brand}/{product}/{spec}.json",
@@ -463,6 +471,21 @@ def build_static_api(
         json.dump(meta_out, f, ensure_ascii=False, indent=2)
         f.write("\n")
 
+    locale_manifest_path = get_resource_root() / "web" / "locales" / "index.json"
+    locale_manifest = (
+        json.loads(locale_manifest_path.read_text(encoding="utf-8"))
+        if locale_manifest_path.is_file()
+        else None
+    )
+    bootstrap_out: dict[str, Any] = {
+        "meta": meta_out,
+        "locale_manifest": locale_manifest,
+        "catalog": catalog_rows if len(catalog_rows) <= 2000 else None,
+        "initial_product": initial_product_bundle,
+    }
+    with (out_path / "v1" / "bootstrap.json").open("w", encoding="utf-8") as f:
+        json.dump(bootstrap_out, f, ensure_ascii=False, separators=(",", ":"))
+
     _copy_web_assets(out_path)
     return meta_out
 
@@ -475,8 +498,18 @@ def _copy_web_assets(out_dir: Path) -> None:
     assets = out_dir / "assets"
     assets.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(web_dir / "index.html", out_dir / "index.html")
-    for name in ("style.css", "app.js", "scanner.js"):
-        shutil.copyfile(web_dir / name, assets / name)
+    for name in (
+        "style.css",
+        "style-detail.css",
+        "style-overlays.css",
+        "workbench.js",
+        "detail.js",
+        "app.js",
+        "scanner.js",
+    ):
+        src_asset = web_dir / name
+        if src_asset.is_file():
+            shutil.copyfile(src_asset, assets / name)
     vendor_src = web_dir / "vendor"
     if vendor_src.is_dir():
         vendor_dst = assets / "vendor"

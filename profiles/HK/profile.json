@@ -1,0 +1,79 @@
+{
+  "jurisdiction": "HK",
+  "profiles": {
+    "HK/CFS-132W": {
+      "title": "香港《食物及藥物（成分組合及標籤）規例》(Cap. 132W) 1+7 營養標籤制度 / Hong Kong CFS Cap. 132W",
+      "mandatory_nutrients": [
+        "energy",
+        "protein",
+        "fat_total",
+        "fat_saturated",
+        "fat_trans",
+        "carbs_available",
+        "sugars_total",
+        "sodium"
+      ],
+      "default_energy_unit": "kcal",
+      "default_basis": ["100g", "100ml", "serving"],
+      "carbohydrate_basis": "carbs_available",
+      "sodium_or_salt": "sodium",
+      "kj_per_kcal": "4.184",
+      "salt_per_sodium_ratio": "2.5",
+      "zero_thresholds_per_100": {
+        "energy_kcal": "5",
+        "energy_kj": "21",
+        "protein": "0.5",
+        "fat_total": "0.5",
+        "fat_saturated": "0.5",
+        "fat_trans": "0.3",
+        "cholesterol": "5",
+        "carbs_available": "0.5",
+        "carbs_total": "0.5",
+        "sugars_total": "0.5",
+        "dietary_fiber": "0.5",
+        "sodium": "5"
+      },
+      "nrv_reference": {
+        "energy_kj": "8400",
+        "energy_kcal": "2000",
+        "protein": "60",
+        "fat_total": "60",
+        "fat_saturated": "20",
+        "cholesterol": "300",
+        "carbs_available": "300",
+        "carbs_total": "300",
+        "sugars_total": "50",
+        "dietary_fiber": "25",
+        "sodium": "2000",
+        "calcium": "800",
+        "iron": "15",
+        "potassium": "2000",
+        "vitamin_c": "100",
+        "vitamin_d": "5"
+      },
+      "ingredients_grammar": {
+        "prefixes": [
+          "成分：",
+          "成分:",
+          "成份：",
+          "成份:",
+          "配料：",
+          "配料:",
+          "原材料：",
+          "原材料:",
+          "Ingredients:",
+          "INGREDIENTS:",
+          "Ingredients :"
+        ],
+        "top_level_delimiters": ["、", "，", ",", "；", ";"],
+        "open_brackets": ["（", "(", "[", "【", "［"],
+        "close_brackets": ["）", ")", "]", "】", "］"],
+        "trailing_punctuation": ["。", "."],
+        "additive_slash_split": null
+      },
+      "registries": [
+        "HK/CFS-FNS"
+      ]
+    }
+  }
+}

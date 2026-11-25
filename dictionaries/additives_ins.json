@@ -1,6 +1,6 @@
 {
-  "version": "0.2",
-  "source": "Codex Alimentarius CXG 36-1989 (INS), China GB 2760-2024, EU Regulation 1333/2008 & Japan Food Sanitation Act",
+  "version": "0.3",
+  "source": "Codex Alimentarius CXG 36-1989 (INS), China GB 2760-2024, HK Cap. 132, FSANZ Schedule 8, EU Regulation 1333/2008 & Japan Food Sanitation Act",
   "additives": {
     "100(i)": {
       "ins": "100(i)",
@@ -12,6 +12,9 @@
       "names": {
         "zh-Hans": [
           "姜黄素"
+        ],
+        "zh-Hant": [
+          "薑黃素"
         ],
         "en": [
           "Curcumin"
@@ -46,6 +49,10 @@
         "zh-Hans": [
           "柠檬黄"
         ],
+        "zh-Hant": [
+          "檸檬黃",
+          "酒石黃"
+        ],
         "en": [
           "Tartrazine",
           "FD&C Yellow No. 5"
@@ -77,6 +84,9 @@
       "names": {
         "zh-Hans": [
           "日落黄"
+        ],
+        "zh-Hant": [
+          "日落黃"
         ],
         "en": [
           "Sunset yellow FCF",
@@ -110,6 +120,9 @@
         "zh-Hans": [
           "诱惑红"
         ],
+        "zh-Hant": [
+          "誘惑紅"
+        ],
         "en": [
           "Allura red AC",
           "FD&C Red No. 40"
@@ -142,6 +155,9 @@
         "zh-Hans": [
           "亮蓝"
         ],
+        "zh-Hant": [
+          "亮藍"
+        ],
         "en": [
           "Brilliant blue FCF",
           "FD&C Blue No. 1"
@@ -173,6 +189,10 @@
       "names": {
         "zh-Hans": [
           "焦糖色"
+        ],
+        "zh-Hant": [
+          "焦糖色",
+          "普通焦糖"
         ],
         "en": [
           "Caramel colour",
@@ -212,6 +232,10 @@
           "β-胡萝卜素",
           "胡萝卜素"
         ],
+        "zh-Hant": [
+          "β-胡蘿蔔素",
+          "胡蘿蔔素"
+        ],
         "en": [
           "Beta-carotene",
           "Carotenes"
@@ -249,6 +273,10 @@
         "zh-Hans": [
           "辣椒红",
           "辣椒油树脂"
+        ],
+        "zh-Hant": [
+          "辣椒紅",
+          "辣椒油樹脂"
         ],
         "en": [
           "Paprika extract",
@@ -292,6 +320,9 @@
         "zh-Hans": [
           "山梨酸"
         ],
+        "zh-Hant": [
+          "山梨酸"
+        ],
         "en": [
           "Sorbic acid"
         ],
@@ -322,6 +353,9 @@
       "names": {
         "zh-Hans": [
           "山梨酸钾"
+        ],
+        "zh-Hant": [
+          "山梨酸鉀"
         ],
         "en": [
           "Potassium sorbate"
@@ -355,6 +389,9 @@
       "names": {
         "zh-Hans": [
           "苯甲酸钠"
+        ],
+        "zh-Hant": [
+          "苯甲酸鈉"
         ],
         "en": [
           "Sodium benzoate"
@@ -391,6 +428,9 @@
         "zh-Hans": [
           "焦亚硫酸钠"
         ],
+        "zh-Hant": [
+          "焦亞硫酸鈉"
+        ],
         "en": [
           "Sodium metabisulphite",
           "Sodium metabisulfite"
@@ -425,6 +465,9 @@
         "zh-Hans": [
           "乳酸链球菌素"
         ],
+        "zh-Hant": [
+          "乳酸鏈球菌素"
+        ],
         "en": [
           "Nisin"
         ],
@@ -456,6 +499,9 @@
       "names": {
         "zh-Hans": [
           "亚硝酸钾"
+        ],
+        "zh-Hant": [
+          "亞硝酸鉀"
         ],
         "en": [
           "Potassium nitrite"
@@ -489,6 +535,9 @@
       "names": {
         "zh-Hans": [
           "亚硝酸钠"
+        ],
+        "zh-Hant": [
+          "亞硝酸鈉"
         ],
         "en": [
           "Sodium nitrite"
@@ -525,6 +574,11 @@
           "冰乙酸",
           "乙酸"
         ],
+        "zh-Hant": [
+          "冰乙酸",
+          "乙酸",
+          "醋酸"
+        ],
         "en": [
           "Acetic acid"
         ],
@@ -554,6 +608,9 @@
       ],
       "names": {
         "zh-Hans": [
+          "乳酸"
+        ],
+        "zh-Hant": [
           "乳酸"
         ],
         "en": [
@@ -587,6 +644,9 @@
         "zh-Hans": [
           "丙酸钙"
         ],
+        "zh-Hant": [
+          "丙酸鈣"
+        ],
         "en": [
           "Calcium propionate"
         ],
@@ -618,6 +678,9 @@
       ],
       "names": {
         "zh-Hans": [
+          "二氧化碳"
+        ],
+        "zh-Hant": [
           "二氧化碳"
         ],
         "en": [
@@ -655,6 +718,11 @@
           "苹果酸",
           "L-苹果酸"
         ],
+        "zh-Hant": [
+          "DL-蘋果酸",
+          "蘋果酸",
+          "L-蘋果酸"
+        ],
         "en": [
           "Malic acid",
           "DL-Malic acid"
@@ -690,6 +758,12 @@
           "维生素C",
           "L-抗坏血酸",
           "抗坏血酸"
+        ],
+        "zh-Hant": [
+          "維生素C",
+          "維他命C",
+          "L-抗壞血酸",
+          "抗壞血酸"
         ],
         "en": [
           "Ascorbic acid",
@@ -732,6 +806,10 @@
           "抗坏血酸钠",
           "L-抗坏血酸钠"
         ],
+        "zh-Hant": [
+          "抗壞血酸鈉",
+          "L-抗壞血酸鈉"
+        ],
         "en": [
           "Sodium ascorbate"
         ],
@@ -765,6 +843,13 @@
           "维生素E",
           "dl-α-生育酚",
           "混合生育酚浓缩物"
+        ],
+        "zh-Hant": [
+          "維生素E",
+          "維他命E",
+          "dl-α-生育酚",
+          "混合生育酚濃縮物",
+          "生育酚"
         ],
         "en": [
           "Alpha-tocopherol",
@@ -806,6 +891,10 @@
           "D-异抗坏血酸钠",
           "异抗坏血酸钠"
         ],
+        "zh-Hant": [
+          "D-異抗壞血酸鈉",
+          "異抗壞血酸鈉"
+        ],
         "en": [
           "Sodium erythorbate"
         ],
@@ -839,6 +928,10 @@
           "特丁基对苯二酚",
           "TBHQ"
         ],
+        "zh-Hant": [
+          "特丁基對苯二酚",
+          "TBHQ"
+        ],
         "en": [
           "Tertiary butylhydroquinone",
           "TBHQ"
@@ -858,6 +951,10 @@
       "names": {
         "zh-Hans": [
           "丁基羟基茴香醚",
+          "BHA"
+        ],
+        "zh-Hant": [
+          "丁基羥基茴香醚",
           "BHA"
         ],
         "en": [
@@ -880,6 +977,10 @@
       "names": {
         "zh-Hans": [
           "二丁基羟基甲苯",
+          "BHT"
+        ],
+        "zh-Hant": [
+          "二丁基羥基甲苯",
           "BHT"
         ],
         "en": [
@@ -906,6 +1007,13 @@
           "大豆磷脂",
           "卵磷脂",
           "向日葵仁磷脂"
+        ],
+        "zh-Hant": [
+          "大豆卵磷脂",
+          "卵磷脂",
+          "磷脂",
+          "大豆磷脂",
+          "向日葵卵磷脂"
         ],
         "en": [
           "Lecithins",
@@ -957,6 +1065,10 @@
         "zh-Hans": [
           "磷脂酰胆碱"
         ],
+        "zh-Hant": [
+          "磷脂酰膽鹼",
+          "磷脂醯膽鹼"
+        ],
         "en": [
           "Phosphatidylcholine"
         ],
@@ -988,6 +1100,9 @@
       "names": {
         "zh-Hans": [
           "乳酸钠"
+        ],
+        "zh-Hant": [
+          "乳酸鈉"
         ],
         "en": [
           "Sodium lactate"
@@ -1022,6 +1137,9 @@
         "zh-Hans": [
           "乳酸钙"
         ],
+        "zh-Hant": [
+          "乳酸鈣"
+        ],
         "en": [
           "Calcium lactate"
         ],
@@ -1054,6 +1172,9 @@
       "names": {
         "zh-Hans": [
           "柠檬酸"
+        ],
+        "zh-Hant": [
+          "檸檬酸"
         ],
         "en": [
           "Citric acid"
@@ -1088,6 +1209,10 @@
         "zh-Hans": [
           "柠檬酸钠",
           "柠檬酸三钠"
+        ],
+        "zh-Hant": [
+          "檸檬酸鈉",
+          "檸檬酸三鈉"
         ],
         "en": [
           "Trisodium citrate",
@@ -1126,6 +1251,9 @@
         "zh-Hans": [
           "磷酸"
         ],
+        "zh-Hant": [
+          "磷酸"
+        ],
         "en": [
           "Phosphoric acid"
         ],
@@ -1159,6 +1287,11 @@
           "磷酸氢二钾",
           "磷酸二氢钾",
           "磷酸三钾"
+        ],
+        "zh-Hant": [
+          "磷酸氫二鉀",
+          "磷酸二氫鉀",
+          "磷酸三鉀"
         ],
         "en": [
           "Potassium phosphates",
@@ -1198,6 +1331,11 @@
           "磷酸二氢钙",
           "磷酸氢钙"
         ],
+        "zh-Hant": [
+          "磷酸三鈣",
+          "磷酸二氫鈣",
+          "磷酸氫鈣"
+        ],
         "en": [
           "Calcium phosphates",
           "Tricalcium phosphate",
@@ -1235,6 +1373,10 @@
           "乙二胺四乙酸二钠",
           "EDTA二钠"
         ],
+        "zh-Hant": [
+          "乙二胺四乙酸二鈉",
+          "EDTA二鈉"
+        ],
         "en": [
           "Calcium disodium EDTA",
           "Disodium EDTA"
@@ -1256,6 +1398,9 @@
       "names": {
         "zh-Hans": [
           "海藻酸钠"
+        ],
+        "zh-Hant": [
+          "海藻酸鈉"
         ],
         "en": [
           "Sodium alginate"
@@ -1291,6 +1436,11 @@
         "zh-Hans": [
           "琼脂"
         ],
+        "zh-Hant": [
+          "瓊脂",
+          "大菜",
+          "洋菜"
+        ],
         "en": [
           "Agar"
         ],
@@ -1324,6 +1474,10 @@
         "zh-Hans": [
           "卡拉胶"
         ],
+        "zh-Hant": [
+          "卡拉膠",
+          "鹿角菜膠"
+        ],
         "en": [
           "Carrageenan"
         ],
@@ -1356,6 +1510,10 @@
         "zh-Hans": [
           "刺槐豆胶",
           "槐豆胶"
+        ],
+        "zh-Hant": [
+          "刺槐豆膠",
+          "槐豆膠"
         ],
         "en": [
           "Locust bean gum",
@@ -1391,6 +1549,10 @@
         "zh-Hans": [
           "瓜尔胶"
         ],
+        "zh-Hant": [
+          "瓜爾膠",
+          "關華豆膠"
+        ],
         "en": [
           "Guar gum"
         ],
@@ -1423,6 +1585,9 @@
       "names": {
         "zh-Hans": [
           "阿拉伯胶"
+        ],
+        "zh-Hant": [
+          "阿拉伯膠"
         ],
         "en": [
           "Gum arabic",
@@ -1458,6 +1623,11 @@
         "zh-Hans": [
           "黄原胶"
         ],
+        "zh-Hant": [
+          "黃原膠",
+          "玉米糖膠",
+          "三仙膠"
+        ],
         "en": [
           "Xanthan gum"
         ],
@@ -1491,6 +1661,9 @@
         "zh-Hans": [
           "结冷胶"
         ],
+        "zh-Hant": [
+          "結冷膠"
+        ],
         "en": [
           "Gellan gum"
         ],
@@ -1521,6 +1694,10 @@
       ],
       "names": {
         "zh-Hans": [
+          "山梨糖醇",
+          "山梨糖醇液"
+        ],
+        "zh-Hant": [
           "山梨糖醇",
           "山梨糖醇液"
         ],
@@ -1563,6 +1740,10 @@
           "丙三醇",
           "甘油"
         ],
+        "zh-Hant": [
+          "丙三醇",
+          "甘油"
+        ],
         "en": [
           "Glycerol",
           "Glycerin"
@@ -1597,6 +1778,9 @@
       "names": {
         "zh-Hans": [
           "果胶"
+        ],
+        "zh-Hant": [
+          "果膠"
         ],
         "en": [
           "Pectins",
@@ -1638,6 +1822,11 @@
           "焦磷酸二氢二钠",
           "焦磷酸四钠"
         ],
+        "zh-Hant": [
+          "焦磷酸鈉",
+          "焦磷酸二氫二鈉",
+          "焦磷酸四鈉"
+        ],
         "en": [
           "Diphosphates",
           "Sodium acid pyrophosphate",
@@ -1673,6 +1862,9 @@
         "zh-Hans": [
           "三聚磷酸钠"
         ],
+        "zh-Hant": [
+          "三聚磷酸鈉"
+        ],
         "en": [
           "Pentasodium triphosphate",
           "Sodium tripolyphosphate"
@@ -1696,6 +1888,9 @@
         "zh-Hans": [
           "六偏磷酸钠"
         ],
+        "zh-Hant": [
+          "六偏磷酸鈉"
+        ],
         "en": [
           "Sodium polyphosphate",
           "Sodium hexametaphosphate"
@@ -1717,6 +1912,9 @@
       "names": {
         "zh-Hans": [
           "羧甲基纤维素钠"
+        ],
+        "zh-Hant": [
+          "羧甲基纖維素鈉"
         ],
         "en": [
           "Sodium carboxymethyl cellulose",
@@ -1756,6 +1954,12 @@
           "单双甘油脂肪酸酯",
           "单硬脂酸甘油酯"
         ],
+        "zh-Hant": [
+          "單，雙甘油脂肪酸酯",
+          "單雙甘油脂肪酸酯",
+          "單硬脂酸甘油酯",
+          "脂肪酸甘油酯"
+        ],
         "en": [
           "Mono- and diglycerides of fatty acids",
           "Mono and diglycerides"
@@ -1788,6 +1992,9 @@
         "zh-Hans": [
           "蔗糖脂肪酸酯"
         ],
+        "zh-Hant": [
+          "蔗糖脂肪酸酯"
+        ],
         "en": [
           "Sucrose esters of fatty acids"
         ],
@@ -1818,6 +2025,9 @@
       "names": {
         "zh-Hans": [
           "碳酸钠"
+        ],
+        "zh-Hant": [
+          "碳酸鈉"
         ],
         "en": [
           "Sodium carbonate"
@@ -1853,6 +2063,10 @@
         "zh-Hans": [
           "碳酸氢钠",
           "小苏打"
+        ],
+        "zh-Hant": [
+          "碳酸氫鈉",
+          "小蘇打"
         ],
         "en": [
           "Sodium hydrogen carbonate",
@@ -1894,6 +2108,9 @@
         "zh-Hans": [
           "碳酸氢铵"
         ],
+        "zh-Hant": [
+          "碳酸氫銨"
+        ],
         "en": [
           "Ammonium hydrogen carbonate",
           "Ammonium bicarbonate"
@@ -1929,6 +2146,10 @@
         "zh-Hans": [
           "二氧化硅"
         ],
+        "zh-Hant": [
+          "二氧化硅",
+          "二氧化矽"
+        ],
         "en": [
           "Silicon dioxide"
         ],
@@ -1961,6 +2182,11 @@
         "zh-Hans": [
           "谷氨酸钠",
           "味精"
+        ],
+        "zh-Hant": [
+          "谷氨酸鈉",
+          "味精",
+          "麩胺酸鈉"
         ],
         "en": [
           "Monosodium L-glutamate",
@@ -1998,6 +2224,10 @@
           "5'-鸟苷酸二钠",
           "鸟苷酸二钠"
         ],
+        "zh-Hant": [
+          "5'-鳥苷酸二鈉",
+          "鳥苷酸二鈉"
+        ],
         "en": [
           "Disodium 5'-guanylate",
           "Disodium guanylate"
@@ -2018,6 +2248,10 @@
         "zh-Hans": [
           "5'-肌苷酸二钠",
           "肌苷酸二钠"
+        ],
+        "zh-Hant": [
+          "5'-肌苷酸二鈉",
+          "肌苷酸二鈉"
         ],
         "en": [
           "Disodium 5'-inosinate",
@@ -2040,6 +2274,10 @@
           "5'-呈味核苷酸二钠",
           "呈味核苷酸二钠"
         ],
+        "zh-Hant": [
+          "5'-呈味核苷酸二鈉",
+          "呈味核苷酸二鈉"
+        ],
         "en": [
           "Disodium 5'-ribonucleotides"
         ],
@@ -2059,6 +2297,11 @@
         "zh-Hans": [
           "安赛蜜",
           "乙酰磺胺酸钾"
+        ],
+        "zh-Hant": [
+          "醋磺內酯鉀",
+          "安賽蜜",
+          "乙酰磺胺酸鉀"
         ],
         "en": [
           "Acesulfame potassium",
@@ -2094,6 +2337,10 @@
           "阿斯巴甜",
           "阿斯巴甜（含苯丙氨酸）"
         ],
+        "zh-Hant": [
+          "阿斯巴甜",
+          "天冬酰胺"
+        ],
         "en": [
           "Aspartame"
         ],
@@ -2126,6 +2373,10 @@
         "zh-Hans": [
           "三氯蔗糖"
         ],
+        "zh-Hant": [
+          "三氯蔗糖",
+          "蔗糖素"
+        ],
         "en": [
           "Sucralose"
         ],
@@ -2156,6 +2407,10 @@
       "names": {
         "zh-Hans": [
           "甜菊糖苷"
+        ],
+        "zh-Hant": [
+          "甜菊糖苷",
+          "甜菊醇糖苷"
         ],
         "en": [
           "Steviol glycosides"
@@ -2190,6 +2445,10 @@
         "zh-Hans": [
           "麦芽糖醇",
           "麦芽糖醇液"
+        ],
+        "zh-Hant": [
+          "麥芽糖醇",
+          "麥芽糖醇液"
         ],
         "en": [
           "Maltitol",
@@ -2229,6 +2488,9 @@
         "zh-Hans": [
           "木糖醇"
         ],
+        "zh-Hant": [
+          "木糖醇"
+        ],
         "en": [
           "Xylitol"
         ],
@@ -2260,6 +2522,9 @@
       "names": {
         "zh-Hans": [
           "赤藓糖醇"
+        ],
+        "zh-Hant": [
+          "赤蘚糖醇"
         ],
         "en": [
           "Erythritol"

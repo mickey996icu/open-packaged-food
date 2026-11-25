@@ -57,7 +57,7 @@ class TestWebV02(unittest.TestCase):
         for attr_key in re.findall(r'data-i18n(?:-[a-z-]+)?="([^"]+)"', html_text):
             self.assertIn(attr_key, base_flat, f"Missing i18n key from index.html: {attr_key}")
 
-        for js_rel in ("app.js", "scanner.js"):
+        for js_rel in ("app.js", "workbench.js", "detail.js", "scanner.js"):
             js_text = (REPO_ROOT / "web" / js_rel).read_text(encoding="utf-8")
             if js_rel == "app.js":
                 self.assertIn("detectPreferredLocale", js_text)
@@ -134,14 +134,13 @@ class TestWebV02(unittest.TestCase):
             r"\bv0\.1\b",
         )
         node_bin = shutil.which("node")
-        for js_name in ("app.js", "scanner.js"):
+        for js_name in ("app.js", "workbench.js", "detail.js", "scanner.js"):
             js_path = REPO_ROOT / "web" / js_name
             js_text = js_path.read_text(encoding="utf-8")
             for pat in forbidden_v01_patterns:
                 m = re.search(pat, js_text)
                 self.assertIsNone(m, f"Found residual v0.1 pattern {pat!r} in web/{js_name}: {m}")
-            if js_name == "scanner.js":
-                self.assertLessEqual(len(js_text.splitlines()), 800, "web/scanner.js must stay <= 800 lines")
+            self.assertLessEqual(len(js_text.splitlines()), 800, f"web/{js_name} must stay <= 800 lines")
             if node_bin:
                 res = subprocess.run(
                     [node_bin, "--check", str(js_path)],
@@ -190,7 +189,16 @@ class TestWebV02(unittest.TestCase):
         ):
             self.assertIn(needle, css_text)
 
+        for extra_css in ("style-detail.css", "style-overlays.css"):
+            extra_body = (REPO_ROOT / "web" / extra_css).read_text(encoding="utf-8")
+            self.assertLessEqual(len(extra_body.splitlines()), 800)
+            self.assertEqual(re.findall(r"#[0-9a-fA-F]{3,8}", extra_body), [])
+            self.assertEqual(re.findall(r"\brgba?\s*\(", extra_body, flags=re.IGNORECASE), [])
+            self.assertEqual(re.findall(r"\bhsla?\s*\(", extra_body, flags=re.IGNORECASE), [])
+
         html_text = (REPO_ROOT / "web" / "index.html").read_text(encoding="utf-8")
+        for perf_needle in ('id="opf-critical-css"', "__OPF_PREFETCH__", 'class="skel-card"'):
+            self.assertIn(perf_needle, html_text)
         for ctrl_id in (
             'id="filter-workbench"',
             'id="market-filters"',
@@ -206,7 +214,16 @@ class TestWebV02(unittest.TestCase):
         ):
             self.assertIn(ctrl_id, html_text)
 
-        for rel_file in ("web/index.html", "web/style.css", "web/app.js", "web/scanner.js"):
+        for rel_file in (
+            "web/index.html",
+            "web/style.css",
+            "web/style-detail.css",
+            "web/style-overlays.css",
+            "web/workbench.js",
+            "web/detail.js",
+            "web/app.js",
+            "web/scanner.js",
+        ):
             txt = (REPO_ROOT / rel_file).read_text(encoding="utf-8")
             for forbidden_host in (
                 "fonts.googleapis.com",
@@ -227,22 +244,26 @@ class TestWebV02(unittest.TestCase):
             build_static_api(products_dir, site_dir)
             meta = json.loads((site_dir / "v1" / "meta.json").read_text(encoding="utf-8"))
             self.assertEqual(meta["opf_version"], __version__)
+            bootstrap = json.loads((site_dir / "v1" / "bootstrap.json").read_text(encoding="utf-8"))
+            self.assertEqual(bootstrap["meta"]["opf_version"], __version__)
+            self.assertEqual(bootstrap["catalog"], [])
             self.assertEqual(
                 (site_dir / "index.html").read_text(encoding="utf-8"),
                 (REPO_ROOT / "web" / "index.html").read_text(encoding="utf-8"),
             )
-            self.assertEqual(
-                (site_dir / "assets" / "app.js").read_text(encoding="utf-8"),
-                (REPO_ROOT / "web" / "app.js").read_text(encoding="utf-8"),
-            )
-            self.assertEqual(
-                (site_dir / "assets" / "scanner.js").read_text(encoding="utf-8"),
-                (REPO_ROOT / "web" / "scanner.js").read_text(encoding="utf-8"),
-            )
-            self.assertEqual(
-                (site_dir / "assets" / "style.css").read_text(encoding="utf-8"),
-                (REPO_ROOT / "web" / "style.css").read_text(encoding="utf-8"),
-            )
+            for asset_name in (
+                "app.js",
+                "workbench.js",
+                "detail.js",
+                "scanner.js",
+                "style.css",
+                "style-detail.css",
+                "style-overlays.css",
+            ):
+                self.assertEqual(
+                    (site_dir / "assets" / asset_name).read_text(encoding="utf-8"),
+                    (REPO_ROOT / "web" / asset_name).read_text(encoding="utf-8"),
+                )
             self.assertEqual(
                 (site_dir / "assets" / "vendor" / "zxing.min.js").read_bytes(),
                 (REPO_ROOT / "web" / "vendor" / "zxing.min.js").read_bytes(),

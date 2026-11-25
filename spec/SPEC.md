@@ -1,6 +1,6 @@
 # OpenPackagedFood Specification (v0.3)
 
-> **Status**: Draft M0 | **Schema Version**: `0.3` | **CI Tooling Pin**: `v0.3.0` | **License**: Code AGPL-3.0-or-later (Apache-2.0 inbound), Spec & Schemas Apache-2.0, Data ODbL-1.0, Label Media CC-BY-SA-4.0 | **Limitations**: [`docs/DATA-LIMITATIONS.md`](../docs/DATA-LIMITATIONS.md)
+> **Status**: Draft M0 | **Schema Version**: `0.3` | **CI Tooling Pin**: `v0.3.1` | **License**: Code AGPL-3.0-or-later (Apache-2.0 inbound), Spec & Schemas Apache-2.0, Data ODbL-1.0, Label Media CC-BY-SA-4.0 | **Limitations**: [`docs/DATA-LIMITATIONS.md`](../docs/DATA-LIMITATIONS.md)
 
 ## 1. Scope & Core Principles
 
@@ -82,7 +82,7 @@ All `core.nutrition_declared.rows` and `normalized.nutrients` use canonical nutr
    - `"trace"` (trace amount declared on label)
 3. **Regulatory Zero-Rounding Propagation**:
    - Under `US/FDA-NLEA` (`zero_thresholds_per_serving`), a declared `0` for `energy` (< 5 kcal/serving) or `fat_trans` (< 0.5 g/serving) is a legal rounding artifact when per-serving weight is small.
-   - Under `CN/GB28050-2011`, `CN/GB28050-2025`, `EU/1169-2011`, and `JP/CAA-2015` (`zero_thresholds_per_100`), a declared `0` on the label represents any value $\le$ the statutory "0" threshold (e.g., $\le 17\text{ kJ}$, $\le 0.5\text{ g}$ protein/fat/carbs, $\le 5\text{ mg}$ sodium in CN; $\le 0.01\text{ g}$ salt in EU).
+   - Under `CN/GB28050-2011`, `CN/GB28050-2025`, `HK/CFS-132W`, `AU/FSANZ-1.2.8`, `EU/1169-2011`, and `JP/CAA-2015` (`zero_thresholds_per_100`), a declared `0` on the label represents any value $\le$ the statutory "0" threshold (e.g., $\le 17\text{ kJ}$, $\le 0.5\text{ g}$ protein/fat/carbs, $\le 5\text{ mg}$ sodium in CN; $\le 5\text{ kcal}$ / $\le 0.3\text{ g}$ trans fat in HK; $\le 0.01\text{ g}$ salt in EU).
    - `core.nutrition_declared` preserves the verbatim printed `"0"`, while `opf normalize` outputs `qualifier: "<"` and `basis: "regulatory_upper_bound"` in `normalized.nutrients` and records `REGULATORY_ZERO_ROUNDING_ARTIFACT` in `quality_flags`.
 4. **Dual `kJ` and `kcal` Declarations**:
    - When only `kJ` or only `kcal` is declared, the other is cross-derived via $1\text{ kcal} = 4.184\text{ kJ}$ with `basis: "derived"`.
