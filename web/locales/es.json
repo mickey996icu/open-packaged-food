@@ -93,7 +93,8 @@
     "emptyCatalogDrawer": "Sin registros de productos aún",
     "mixedEvidenceShort": "pruebas mixtas",
     "mixedEvidenceTitle": "Más completa: {high} · Otra variante activa: {low}",
-    "activeEditionsCount": "{count} activas"
+    "activeEditionsCount": "{count} activas",
+    "nutritionExemptShort": "Exento de tabla"
   },
   "stats": {
     "ariaLabel": "Estadísticas de la base de datos",
@@ -202,7 +203,12 @@
     "tActiveVintage": "Último mes de envase observado: {ym} (la fórmula pudo cambiar desde entonces)",
     "tActiveReported": "Primer informe: {ym}",
     "tActiveVintageShort": "Envase {ym}",
-    "tActiveReportedShort": "Reportado {ym}"
+    "tActiveReportedShort": "Reportado {ym}",
+    "metaQualityGrade": "Grado de calidad",
+    "nutritionExemptTitle": "Exento legalmente de información nutricional",
+    "nutritionExemptDesc": "Este alimento envasado está legalmente exento del etiquetado nutricional obligatorio y no imprime tabla; OPF mantiene el campo vacío sin inventar ceros.",
+    "nutritionExemptBasisLabel": "Base legal",
+    "allVariantsExemptNotice": "Todas las variantes activas están legalmente exentas de tabla nutricional; seleccione una variante arriba según indicadores específicos, origen o fabricante."
   },
   "seals": {
     "corroborated": {
@@ -269,7 +275,19 @@
     "additives_ins": "Aditivos (INS)",
     "origin": "Origen",
     "parties": "Operadores / Fabricantes",
-    "product_standard": "Norma del producto"
+    "product_standard": "Norma del producto",
+    "nutrition_exemption": "Exención nutricional",
+    "special_indicators": "Indicadores específicos",
+    "quality_grade": "Grado de calidad"
+  },
+  "nutritionExemptions": {
+    "packaged_water": "Agua potable envasada",
+    "tea_coffee_herbs": "Té, café e infusiones herbales",
+    "single_ingredient_unprocessed": "Alimento sin procesar de un solo ingrediente",
+    "salt_vinegar_spices": "Sal de mesa, vinagre y especias",
+    "alcoholic_beverage": "Bebida alcohólica",
+    "small_daily_intake": "Ingesta diaria muy reducida",
+    "small_package_area": "Envase de superficie reducida"
   },
   "nutrients": {
     "energy_kj": "Energía (kJ)",

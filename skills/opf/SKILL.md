@@ -1,9 +1,9 @@
 ---
 name: opf
-description: Queries, verifies, disambiguates, and contributes industrial packaged food records via OpenPackagedFood (opf v0.2) static HTTP endpoints, Phase 2 HTTP Relay (`OPF_SUBMIT_URL`), and developer pure-Git / CLI workflows. Activate this skill whenever a user asks about packaged food nutrition, ingredients, INS/E-number additives, allergens, co-packer SC/plant codes, pre-purchase food comparisons, or packaging label extraction.
+description: Queries, verifies, disambiguates, and contributes industrial packaged food records via OpenPackagedFood (opf v0.3) static HTTP endpoints, Phase 2 HTTP Relay (`OPF_SUBMIT_URL`), and developer pure-Git / CLI workflows. Activate this skill whenever a user asks about packaged food nutrition, ingredients, INS/E-number additives, allergens, co-packer SC/plant codes, pre-purchase food comparisons, or packaging label extraction.
 ---
 
-# OpenPackagedFood (`opf` v0.2) Agent Skill
+# OpenPackagedFood (`opf` v0.3) Agent Skill
 
 > **Core Invariant**: Evidence first, zero judgment. Answer the user's question thoroughly and objectively **first**; never gate help behind contribution, never fabricate missing numbers, never treat `<` regulatory upper bounds as exact `0`, never log intake from `divergent` ranges, never call records "verified" or "safe", and never emit subjective health scores.
 
@@ -53,6 +53,7 @@ description: Queries, verifies, disambiguates, and contributes industrial packag
      - `community_reported` -> *"Text report only (no photo)"* / *"仅有文字报告，无照片"*
    - Describe `t_active` using `t_active_basis` (or presence of `vintage_month`): *"Latest package vintage seen: YYYY-MM (formulation may have changed since)"* when `vintage_month` exists; otherwise *"Earliest reported: YYYY-MM"*.
    - Report `{"qualifier": "<", "basis": "regulatory_upper_bound", ...}` explicitly as **`< value unit` (regulatory rounding upper bound)**, never exact `0`. Surface `quality_flags` clearly.
+   - When `nutrition_exemption` is present (and `normalized.nutrients` is `{}` / `NUTRITION_LABEL_EXEMPT` in `quality_flags`), explain that the product is **legally exempt from mandatory nutrition labeling** and prints no nutrition table (never treat `{}` as `0 kcal`); surface `special_indicators` (e.g. mineral ions, pH, tea polyphenols) and `quality_grade` if present.
    - **Mandatory Allergen & Safety Caveat**: Whenever answering any query involving allergens (whether from OPF database records or photo reading), **ALWAYS** include an explicit reminder in the user's language that OPF records cover printed label text only (excluding unprinted cross-contact or shared-line risks, and formulations may vary by batch/plant): *"一切以手头实物包装实际印刷为准"* / *"Always check and rely on the physical package in hand."*
 
 ---
@@ -98,7 +99,8 @@ If OPF returns HTTP `404` (or the user's product is not yet indexed):
 
 ## Step 3 — Submission Channels (Only When Triggered & After Explicit User Consent)
 
-Start from the minimal `v0.2` draft template [examples/draft.minimal.json](./examples/draft.minimal.json) when building the structured payload (`id`, `core`, `attributes`, `evidence`):
+Start from the minimal `v0.3` draft template [examples/draft.minimal.json](./examples/draft.minimal.json) when building the structured payload (`id`, `core`, `attributes`, `evidence`):
+- **Statutory Nutrition Panel Exemption (`core.nutrition_declared: null` + `core.nutrition_exemption`)**: When a packaged food (such as packaged drinking water, plain tea leaves/coffee, single-ingredient raw food, salt/vinegar/spices, alcohol, or small-surface-area packs) is legally exempt and prints **no** Nutrition Facts table on the package, **NEVER fabricate all-zero nutrient rows**. Set `"nutrition_declared": null` and `"nutrition_exemption": {"category": "packaged_water" | "tea_coffee_herbs" | "single_ingredient_unprocessed" | "salt_vinegar_spices" | "alcoholic_beverage" | "small_daily_intake" | "small_package_area", "legal_basis": "..."}`. Record characteristic indicators (e.g. natural water `钙`/`偏硅酸` `>=` bounds, dimensionless `{"name": "pH值(25℃)", "value": "7.3", "tolerance": "0.5"}`, interval `value_max`, `茶多酚`, or `A2β-酪蛋白`) in **`core.special_indicators`** (never in `attributes`), and record standard quality grades (e.g. `"特级"`, `"一级"`) in **`attributes.quality_grade`**.
 - **Regulatory Profile Precision (`CN/GB28050-2011` vs `CN/GB28050-2025`)**: Do **not** blindly copy `CN/GB28050-2011` from the minimal template. On China Mainland labels, if the Nutrition Facts table uses the **1+6 mandatory framework** (declaring both **saturated fat (`饱和脂肪`)** and **sugars (`糖`)**) or prints the mandatory warning **`儿童青少年应避免过量摄入盐油糖`**, set `core.regulatory_profile` to **`"CN/GB28050-2025"`**; use `"CN/GB28050-2011"` only for legacy 1+4 tables.
 - **Strictly Evidenced Cropped Text Only (Zero Un-Evidenced Claims)**: Every recorded field (especially `attributes.claims_text`, `brand`, and `net_content_label`) **must appear verbatim inside the submitted functional label crops**. Never copy marketing slogans from un-uploaded front-of-pack cover art, and never infer or calculate claims (e.g., do not invent `"加量10%"` from `(20+2)克` unless those exact characters appear in a submitted crop).
 - **Multilingual `attributes` & EU Multi-Language Pack Rule**: `attributes.product_name` and `attributes.ingredients_text` are BCP-47 `LocalizedText[]` arrays preserving every language printed verbatim on the package. On multi-language EU labels (e.g., printed in `de`, `fr`, `es`, `it`, and `en`), capture each printed language verbatim as separate entries in `attributes.product_name[]`, `attributes.ingredients_text[]`, and `core.ingredients_tree[]`, whereas non-printed contributor translations (such as translated `"brand"` or `"product_name"` search aliases) belong in `attributes.translations[]` with `"source": "contributor_translated"`.
@@ -116,7 +118,7 @@ Pick the active submission path cleanly:
   Send `POST <OPF_SUBMIT_URL>/v1/submissions` (`Content-Type: application/json`) with base64-encoded EXIF-stripped WebP crops (`<= 1000px`) for functional regions only:
   ```json
   {
-    "schema_version": "0.2",
+    "schema_version": "0.3",
     "intent": "auto",
     "target_edition_id": null,
     "draft": { "...": "valid draft.minimal.json payload" },
@@ -156,6 +158,7 @@ Pick the active submission path cleanly:
      ./open-packaged-food/bin/opf validate opf-data/products
      ./open-packaged-food/bin/opf validate-media opf-media
      ./open-packaged-food/bin/opf check-media-refs --media-dir opf-media opf-data/products
+     ./open-packaged-food/bin/opf audit --media-dir opf-media opf-data/products
      ```
   4. Commit with DCO (`git commit -s`), push branches in **both** repositories, and open **cross-linked PRs with complete, non-empty descriptions** (when `gh` CLI is authenticated, prefer `./open-packaged-food/bin/opf pr --data-repo opf-data --media-repo opf-media ...` so both PR descriptions are generated and cross-linked automatically; if calling `gh pr create` manually: ① open the `opf-media` PR first with a non-empty description citing the `gtin:` ID and capture its real URL; ② open the `opf-data` PR pasting that exact `opf-media` PR URL; ③ run `gh pr edit` on the `opf-media` PR to backfill the `opf-data` PR URL — **never submit an empty PR description or leave unresolved placeholders like `<MEDIA_PR_URL>` or `填上...链接`, as CI `opf check-pr-meta` rejects them**):
      ```bash
@@ -167,7 +170,7 @@ Pick the active submission path cleanly:
 - **Optional One-Step Automation (`uvx` + `gh` CLI)**:
   Developers who already have `uvx` and an authenticated `gh` session (`gh auth status`) may optionally use `opf pr` instead of manual `git` branching/pushing:
   ```bash
-  uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.6 \
+  uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.3.0 \
     opf pr --input draft.json \
     --photo nutrition_table=crop_nutrition.jpg \
     --photo ingredients_box=crop_ingredients.jpg \
@@ -188,8 +191,9 @@ When working inside local checkouts (`./open-packaged-food/bin/opf` or via `uvx`
 - `opf sanitize-media <img...> --media-root opf-media` — transcode to `<= 1000px` EXIF-free content-addressed WebP (`--lossless-only` for legacy raw strip)
 - `opf submit --input draft.json --out-dir opf-data/products [--photo region=img] [--media-out-dir opf-media] [--provenance external_contributor|...] [--agreement-ref REF]`
 - `opf retrack` / `opf merge` / `opf lifecycle` — manage track splits, duplicate `EditionRedirect` stubs, `discontinued`/`retracted`
-- `opf validate opf-data/products` — schema v0.2, GS1, DAG, patch replay, dual-layer `provenance`, `agreement_ref`, and privacy checks (pure stdlib)
+- `opf validate opf-data/products` — schema v0.3, GS1, DAG, patch replay, dual-layer `provenance`, `agreement_ref`, and privacy checks (pure stdlib)
 - `opf validate-media opf-media` — pure-stdlib WebP dimension/EXIF/SHA-256 verification
 - `opf check-media-refs --media-base-url https://raw.githubusercontent.com/mickey996icu/opf-media/main opf-data/products` — CI gate preventing orphan `opf-media://` refs
+- `opf audit [--media-dir opf-media] [--strict] [--require-photo] opf-data/products` — deep semantic, SC/address, nutrition, sugar-source, allergen, and low-res WebP audit (`ERROR` / `WARN` / `INFO`)
 - `opf check-pr-meta --repo-kind {tooling,data,media} ...` — CI gate verifying non-empty PR descriptions, resolved companion PR links, file scope, DCO sign-offs, and `provenance` anti-spoofing / immutability rules
 - `opf build --data-dir ... --out-dir ... --media-base-url ...` & `opf serve` — compile and preview static `/v1/` + Explorer

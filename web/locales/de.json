@@ -93,7 +93,8 @@
     "emptyCatalogDrawer": "Noch keine Produkteinträge",
     "mixedEvidenceShort": "gemischte Nachweisformen",
     "mixedEvidenceTitle": "Umfangreichste Form: {high} · Andere aktive Variante: {low}",
-    "activeEditionsCount": "{count} aktiv"
+    "activeEditionsCount": "{count} aktiv",
+    "nutritionExemptShort": "Nährwertbefreit"
   },
   "stats": {
     "ariaLabel": "Datenbank-Statistiken",
@@ -202,7 +203,12 @@
     "tActiveVintage": "Zuletzt gesichteter Verpackungsmonat: {ym} (Rezeptur kann sich seither geändert haben)",
     "tActiveReported": "Erstmals gemeldet: {ym}",
     "tActiveVintageShort": "Verpackung {ym}",
-    "tActiveReportedShort": "Gemeldet {ym}"
+    "tActiveReportedShort": "Gemeldet {ym}",
+    "metaQualityGrade": "Qualitätsklasse",
+    "nutritionExemptTitle": "Gesetzlich von der Nährwertdeklaration befreit",
+    "nutritionExemptDesc": "Dieses vorverpackte Lebensmittel ist nach geltendem Recht von der verpflichtenden Nährwerttabelle befreit; OPF übernimmt keine erfundenen Nullwerte.",
+    "nutritionExemptBasisLabel": "Rechtsgrundlage",
+    "allVariantsExemptNotice": "Alle aktiven Varianten sind gesetzlich von der Nährwerttabelle befreit; wählen Sie oben anhand von Kennwerten, Herkunft, Hersteller oder Packmittelcode eine Variante."
   },
   "seals": {
     "corroborated": {
@@ -269,7 +275,19 @@
     "additives_ins": "Zusatzstoffe (INS)",
     "origin": "Herkunft",
     "parties": "Beteiligte / Hersteller",
-    "product_standard": "Produktnorm"
+    "product_standard": "Produktnorm",
+    "nutrition_exemption": "Nährwertbefreiung",
+    "special_indicators": "Spezifische Kennwerte",
+    "quality_grade": "Qualitätsklasse"
+  },
+  "nutritionExemptions": {
+    "packaged_water": "Abgepacktes Trink- / Mineralwasser",
+    "tea_coffee_herbs": "Tee, Kaffee & Kräuteraufgüsse",
+    "single_ingredient_unprocessed": "Unverarbeitetes Monoprodukt",
+    "salt_vinegar_spices": "Speisesalz, Essig & Gewürze",
+    "alcoholic_beverage": "Alkoholisches Getränk",
+    "small_daily_intake": "Geringfügige tägliche Verzehrsmenge",
+    "small_package_area": "Kleinstverpackung (geringe Oberfläche)"
   },
   "nutrients": {
     "energy_kj": "Energie (kJ)",

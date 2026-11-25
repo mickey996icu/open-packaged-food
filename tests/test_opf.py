@@ -580,7 +580,7 @@ class TestBuildSubmitPrAndMediaV02(unittest.TestCase):
             sorted(p["plant_code"] for p in compact_uniform["parties_summary"]), ["A", "B"]
         )
         self.assertEqual(
-            validate_against_json_schema(compact_uniform, load_json_schema("compact.v0.2.schema.json")),
+            validate_against_json_schema(compact_uniform, load_json_schema("compact.v0.3.schema.json")),
             [],
         )
 
@@ -602,7 +602,7 @@ class TestBuildSubmitPrAndMediaV02(unittest.TestCase):
             {"01JTESTCNPATY0000000000001": "510", "01JTESTCNPATY0000000000002": "650"},
         )
         self.assertEqual(
-            validate_against_json_schema(compact_div, load_json_schema("compact.v0.2.schema.json")),
+            validate_against_json_schema(compact_div, load_json_schema("compact.v0.3.schema.json")),
             [],
         )
 

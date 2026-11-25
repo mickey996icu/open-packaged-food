@@ -93,7 +93,8 @@
     "emptyCatalogDrawer": "Nessun prodotto registrato ancora",
     "mixedEvidenceShort": "prove miste",
     "mixedEvidenceTitle": "Più completa: {high} · Altra variante attiva: {low}",
-    "activeEditionsCount": "{count} attive"
+    "activeEditionsCount": "{count} attive",
+    "nutritionExemptShort": "Esente da tabella"
   },
   "stats": {
     "ariaLabel": "Statistiche del database",
@@ -202,7 +203,12 @@
     "tActiveVintage": "Ultimo mese confezione osservato: {ym} (la formula potrebbe essere cambiata)",
     "tActiveReported": "Prima segnalazione: {ym}",
     "tActiveVintageShort": "Confezione {ym}",
-    "tActiveReportedShort": "Segnalato {ym}"
+    "tActiveReportedShort": "Segnalato {ym}",
+    "metaQualityGrade": "Grado di qualità",
+    "nutritionExemptTitle": "Esente per legge dalla dichiarazione nutrizionale",
+    "nutritionExemptDesc": "Questo alimento preimballato è legalmente esente dall'obbligo di tabella nutrizionale e non riporta valori stampati; OPF non inventa valori pari a zero.",
+    "nutritionExemptBasisLabel": "Base normativa",
+    "allVariantsExemptNotice": "Tutte le varianti attive sono esenti per legge dalla tabella nutrizionale; selezionare una variante sopra tramite indicatori specifici, origine o produttore."
   },
   "seals": {
     "corroborated": {
@@ -269,7 +275,19 @@
     "additives_ins": "Additivi (INS)",
     "origin": "Origine",
     "parties": "Operatori / Produttori",
-    "product_standard": "Standard prodotto"
+    "product_standard": "Standard prodotto",
+    "nutrition_exemption": "Esenzione nutrizionale",
+    "special_indicators": "Indicatori specifici",
+    "quality_grade": "Grado di qualità"
+  },
+  "nutritionExemptions": {
+    "packaged_water": "Acqua potabile confezionata",
+    "tea_coffee_herbs": "Tè, caffè e infusi di erbe",
+    "single_ingredient_unprocessed": "Prodotto non trasformato a singolo ingrediente",
+    "salt_vinegar_spices": "Sale da cucina, aceto e spezie",
+    "alcoholic_beverage": "Bevanda alcolica",
+    "small_daily_intake": "Assunzione giornaliera minima",
+    "small_package_area": "Imballaggio di superficie ridotta"
   },
   "nutrients": {
     "energy_kj": "Energia (kJ)",

@@ -2,7 +2,7 @@
 
 **[English](CONTRIBUTING.md) | [简体中文](CONTRIBUTING.zh-CN.md)** · **[在线检索与 API](https://mickey996icu.github.io/opf-data/)** · **[`opf-data` 仓库](https://github.com/mickey996icu/opf-data)** · **[`opf-media` 仓库](https://github.com/mickey996icu/opf-media)**
 
-感谢你参与共建 **OpenPackagedFood (`opf` v0.2)**！我们的目标是打造一个**以证据为准、零主观判断、对 AI Agent 极度友好**的全球工业预包装食品开放数据库。
+感谢你参与共建 **OpenPackagedFood (`opf` v0.3)**！我们的目标是打造一个**以证据为准、零主观判断、对 AI Agent 极度友好**的全球工业预包装食品开放数据库。
 
 > **阶段定位与角色边界**：
 > - **普通消费者**：请使用[在线检索网页](https://mickey996icu.github.io/opf-data/)进行只读检索与纯静态本地扫码查询，或在 AI Agent 中安装 [`skills/opf`](skills/opf) 辅助识别标签成分。面向普通消费者的无门槛投稿将在**第二阶段**配置 `OPF_SUBMIT_URL` HTTP 中转接口后经由 Agent 开放。
@@ -40,11 +40,12 @@
      --media-out-dir opf-media
    ```
    - 若遇属性冲突或改版，追加 `--amend <ulid>`、`--supersede <ulid>` 或 `--new-variant --track CN/plant:SC...`。
-3. **运行纯标准库本地校验（数据、媒体、跨仓引用）**：
+3. **运行纯标准库本地校验与深度审计（数据、媒体、跨仓引用）**：
    ```bash
    ./open-packaged-food/bin/opf validate opf-data/products
    ./open-packaged-food/bin/opf validate-media opf-media
    ./open-packaged-food/bin/opf check-media-refs --media-dir opf-media opf-data/products
+   ./open-packaged-food/bin/opf audit --media-dir opf-media opf-data/products
    ```
 4. **DCO 签名提交（`git commit -s`）并推送双仓分支，随后点击终端提示的 GitHub 链接创建双 PR**：
    ```bash
@@ -56,7 +57,7 @@
 ### 可选一键自动化通道（`uvx` + `gh` / 第二阶段 HTTP Relay）
 - **可选开发者快捷通道（`uvx` + `gh`）**：若本地已安装 `uvx` 且完成 `gh auth login`，也可选用 `opf pr` 一键完成 WebP 脱敏、稀疏 fork 检出并开出双仓互链 PR：
   ```bash
-  uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.6 \
+  uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.3.0 \
     opf pr --input draft.json \
     --photo nutrition_table=crop_nutrition.jpg \
     --photo ingredients_box=crop_ingredients.jpg \

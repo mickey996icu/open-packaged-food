@@ -93,7 +93,8 @@
     "emptyCatalogDrawer": "商品レコードはまだありません",
     "mixedEvidenceShort": "証拠形式が混在",
     "mixedEvidenceTitle": "上位証拠形式：{high} · 他の現役版：{low}",
-    "activeEditionsCount": "{count} 件の現役版"
+    "activeEditionsCount": "{count} 件の現役版",
+    "nutritionExemptShort": "栄養表示省略対象"
   },
   "stats": {
     "ariaLabel": "データベース統計概要",
@@ -202,7 +203,12 @@
     "tActiveVintage": "確認された最新の包装製造月：{ym}（その後配合が変更された可能性があります）",
     "tActiveReported": "初回報告月：{ym}",
     "tActiveVintageShort": "包装月 {ym}",
-    "tActiveReportedShort": "初回報告 {ym}"
+    "tActiveReportedShort": "初回報告 {ym}",
+    "metaQualityGrade": "品質等級",
+    "nutritionExemptTitle": "法令による栄養成分表示の省略対象",
+    "nutritionExemptDesc": "本品は該当法域の規定により栄養成分表示が免除されており、パッケージに栄養成分表は印字されていません。OPF では架空の 0 値を補わず空白のまま記録します。",
+    "nutritionExemptBasisLabel": "根拠法令・規定",
+    "allVariantsExemptNotice": "有効な全バリアントが栄養成分表示の省略対象です。上の特徴指標・原産地・製造所・包材記号から該当バリアントを選択してください。"
   },
   "seals": {
     "corroborated": {
@@ -269,7 +275,19 @@
     "additives_ins": "食品添加物",
     "origin": "原産・製造地",
     "parties": "製造・販売事業者",
-    "product_standard": "規格・基準"
+    "product_standard": "規格・基準",
+    "nutrition_exemption": "栄養表示省略区分",
+    "special_indicators": "特徴指標",
+    "quality_grade": "品質等級"
+  },
+  "nutritionExemptions": {
+    "packaged_water": "容器入り飲料水",
+    "tea_coffee_herbs": "茶葉・コーヒー・ハーブ浸出用原料",
+    "single_ingredient_unprocessed": "単一原材料の未加工・生鮮食品",
+    "salt_vinegar_spices": "食塩・食酢・香辛料類",
+    "alcoholic_beverage": "酒類（アルコール飲料）",
+    "small_daily_intake": "1日の摂取量が極めて少ない食品",
+    "small_package_area": "小面積パッケージによる省略"
   },
   "nutrients": {
     "energy_kj": "熱量 (kJ)",

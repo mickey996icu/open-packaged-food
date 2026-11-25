@@ -1,5 +1,5 @@
 "use strict";
-// OpenPackagedFood Static Database Explorer (v0.2 · Material 3 Expressive + Filter Workbench)
+// OpenPackagedFood Static Database Explorer (v0.3 · Material 3 Expressive + Filter Workbench)
 // Reads /v1/ static API endpoints and /locales/*.json dictionaries; escapes all community-supplied strings.
 
 const $ = (s) => document.querySelector(s);
@@ -1404,7 +1404,7 @@ function renderEmptyCatalogCard() {
       <div class="card-topbar">
         <div class="call-number-block">
           <span class="cn-label">${esc(t("detail.productIdLabel"))}</span>
-          <strong>opf:database/status/v0.2</strong>
+          <strong>opf:database/status/v0.3</strong>
         </div>
       </div>
       <hr class="title-rule" />
@@ -1465,7 +1465,9 @@ function renderList(autoSelect = true, initialEditionId = null) {
           const kcalDisplay =
             i.energy_kcal_100 !== null && i.energy_kcal_100 !== undefined
               ? `${i.energy_kcal_100} kcal/${i.basis}`
-              : "—";
+              : i.nutrition_exempt
+                ? t("search.nutritionExemptShort")
+                : "—";
           const mkts = (i.markets || []).join("/");
           return `
     <button type="button" class="index-entry" data-id="${esc(i.id)}" aria-current="${i.id === currentId}">
@@ -1552,6 +1554,7 @@ async function selectCard(item, switchMobileToDetail = false, requestedEditionId
 function buildFormulaForCell(key, entry, ed, isPerUnit) {
   if (!entry || entry.basis === "reported") return "";
   const core = ed.core;
+  if (!core || !core.nutrition_declared) return "";
   const norm = ed.normalized;
   const panelBasis = core.nutrition_declared.basis;
   const rows = core.nutrition_declared.rows || [];
@@ -1657,7 +1660,66 @@ function renderNutritionKpiStrip(ed) {
     .join("")}</div>`;
 }
 
+function formatSpecialIndicatorValueHtml(s) {
+  if (!s) return "";
+  const unitHtml = s.unit ? `<span class="kpi-unit">${esc(s.unit)}</span>` : "";
+  if (s.tolerance !== undefined && s.tolerance !== null && s.tolerance !== "") {
+    return `${esc(s.value)}±${esc(s.tolerance)}${unitHtml}`;
+  }
+  if (s.value_max !== undefined && s.value_max !== null && s.value_max !== "") {
+    return `${esc(s.value)}–${esc(s.value_max)}${unitHtml}`;
+  }
+  const q = s.qualifier && s.qualifier !== "=" ? s.qualifier : "";
+  return `${esc(q)}${esc(s.value)}${unitHtml}`;
+}
+
+function formatSpecialIndicator(s) {
+  if (!s) return "";
+  const unitSuffix = s.unit ? ` ${s.unit}` : "";
+  if (s.tolerance !== undefined && s.tolerance !== null && s.tolerance !== "") {
+    return `${s.name} ${s.value}±${s.tolerance}${unitSuffix}`;
+  }
+  if (s.value_max !== undefined && s.value_max !== null && s.value_max !== "") {
+    return `${s.name} ${s.value}–${s.value_max}${unitSuffix}`;
+  }
+  const q = s.qualifier && s.qualifier !== "=" ? s.qualifier : "";
+  return `${s.name} ${q}${s.value}${unitSuffix}`;
+}
+
+function translateExemptionCategory(cat) {
+  if (!cat) return "";
+  const key = `nutritionExemptions.${cat}`;
+  const label = t(key);
+  return label !== key ? `${label} (${cat})` : cat;
+}
+
 function renderNutritionSection(ed) {
+  if (!ed.core || !ed.core.nutrition_declared) {
+    const ex = (ed.core && ed.core.nutrition_exemption) || {};
+    const inds = (ed.core && ed.core.special_indicators) || [];
+    const hasMeta = Boolean(ex.legal_basis || ex.note);
+    return `
+      <div class="exemption-panel">
+        <div class="exemption-head">
+          <b>${esc(t("detail.nutritionExemptTitle"))}</b>
+          ${ex.category ? `<span class="exemption-cat-pill">${esc(translateExemptionCategory(ex.category))}</span>` : ""}
+        </div>
+        <p class="exemption-desc">${esc(t("detail.nutritionExemptDesc"))}</p>
+        ${
+          hasMeta
+            ? `<div class="exemption-meta">
+                ${ex.legal_basis ? `<span><b>${esc(t("detail.nutritionExemptBasisLabel"))}:</b> <span class="mono">${esc(ex.legal_basis)}</span></span>` : ""}
+                ${ex.note ? `<span>${esc(ex.note)}</span>` : ""}
+              </div>`
+            : ""
+        }
+      </div>
+      ${
+        inds.length
+          ? `<div class="indicator-block"><span class="section-label">${esc(t("detail.metaSpecialIndicators"))}</span><div class="kpi-strip">${inds.map((s) => `<div class="kpi-tile"><span class="kpi-label">${esc(s.name)}</span><div class="kpi-value">${formatSpecialIndicatorValueHtml(s)}</div></div>`).join("")}</div></div>`
+          : ""
+      }`;
+  }
   const norm = ed.normalized;
   const nutrients = norm.nutrients || {};
   const pu = norm.per_unit;
@@ -1836,15 +1898,17 @@ function renderDivergentOverview(item, compact, full) {
             <span class="ulid-head mono"><span class="ulid-code">${esc(v.edition_id)}</span> ${renderRevPill(v.rev)}</span>
             ${renderSeal(v.evidence_level)}
           </div>
-          <div class="variant-card-meta" style="margin-top:8px;">
+          <div class="variant-card-meta">
             <span class="chip mono">${esc(v.track)}</span>
             <span class="chip mono">${esc(formatNetContent(v.net_content))}</span>
             <span class="chip mono" title="${esc(formatTActiveText(v, full, false))}">${esc(formatTActiveText(v, full, true))}</span>
             ${v.packaging_code ? `<span class="chip mono">${esc(v.packaging_code)}</span>` : ""}
+            ${v.quality_grade ? `<span class="chip mono">${esc(v.quality_grade)}</span>` : ""}
           </div>
-          ${originStr ? `<p class="variant-card-desc" style="margin-top:8px;">${esc(t("detail.metaOrigin"))}: ${esc(originStr)}</p>` : ""}
-          ${partiesLine ? `<p class="variant-card-desc" style="margin-top:4px;">${esc(partiesLine)}</p>` : ""}
-          ${discText ? `<p class="variant-card-desc" style="margin-top:6px;">${esc(discText)}</p>` : ""}
+          ${originStr ? `<p class="variant-card-desc">${esc(t("detail.metaOrigin"))}: ${esc(originStr)}</p>` : ""}
+          ${(v.special_indicators || []).length ? `<p class="variant-card-desc mono">${esc(t("detail.metaSpecialIndicators"))}: ${esc(v.special_indicators.map(formatSpecialIndicator).join(" · "))}</p>` : ""}
+          ${partiesLine ? `<p class="variant-card-desc">${esc(partiesLine)}</p>` : ""}
+          ${discText ? `<p class="variant-card-desc">${esc(discText)}</p>` : ""}
         </div>
         <button type="button" class="chip variant-pick-btn" data-select-edition="${esc(v.edition_id)}">${esc(t("detail.selectVariantBtn"))}</button>
       </div>`;
@@ -1904,7 +1968,9 @@ function renderDivergentOverview(item, compact, full) {
        ${
          common.basis === "mixed"
            ? `<div class="archival-banner">${esc(t("detail.mixedBasisNotice"))}</div>`
-           : `<div class="table-wrap"><table class="nutrient-table">
+           : rangeKeys.length === 0
+             ? `<div class="archival-banner">${esc(t("detail.allVariantsExemptNotice"))}</div>`
+             : `<div class="table-wrap"><table class="nutrient-table">
                <thead>
                  <tr>
                    <th>${esc(t("detail.colNutrient"))}</th>
@@ -2012,15 +2078,17 @@ function renderCatalogCard(item, compact, full) {
   const dispName = pickLocalizedProductName(item, attrs);
   const isUnifiedUniform = compact.resolution === "uniform" && !selectedEditionId;
 
-  const declaredRows = (core.nutrition_declared.rows || [])
-    .map(
-      (r) => `<tr>
+  const declaredRows = core.nutrition_declared
+    ? (core.nutrition_declared.rows || [])
+        .map(
+          (r) => `<tr>
         <td class="n-name"><b>${esc(translateNutrient(r.nutrient))}</b><small>${esc(r.nutrient)}</small></td>
         <td class="n-val">${esc((r.qualifier && r.qualifier !== "=" ? r.qualifier + " " : "") + r.value)} <span class="unit">${esc(r.unit)}</span></td>
         <td class="n-val">${r.nrv_pct !== undefined ? esc(r.nrv_pct) + "%" : "—"}</td>
       </tr>`
-    )
-    .join("");
+        )
+        .join("")
+    : "";
 
   const treesToRender = ed.ingredients_tree_annotated || core.ingredients_tree || [];
 
@@ -2074,12 +2142,19 @@ function renderCatalogCard(item, compact, full) {
       .map((tItem) => renderIngredientTree(tItem.nodes))
       .join("")}</div>
     ${attrs.allergens_raw_text ? `<div class="verbatim-box">${esc(t("detail.metaAllergensRaw"))}: ${esc(attrs.allergens_raw_text)}</div>` : ""}
-    <div style="display:flex; gap:6px; flex-wrap:wrap;">
+    <div class="chip-cluster">
       ${(norm.additives_ins || [])
         .map((code) => `<span class="chip mono">${esc(t("detail.additivePrefix"))} ${esc(code)}</span>`)
         .join("")}
       ${renderAllergensBadges(norm)}
     </div>`;
+
+  const specialInds =
+    isUnifiedUniform && Array.isArray(compact.special_indicators)
+      ? compact.special_indicators
+      : core.special_indicators || [];
+  const qualityGradeDisplay =
+    (isUnifiedUniform && compact.quality_grade) || attrs.quality_grade || "";
 
   const complianceBody = `
     <dl class="meta-dl">
@@ -2088,13 +2163,14 @@ function renderCatalogCard(item, compact, full) {
       ${originDisplay ? `<dt>${esc(t("detail.metaOrigin"))}</dt><dd>${esc(originDisplay)}</dd>` : ""}
       ${attrs.product_standard ? `<dt>${esc(t("detail.metaStandard"))}</dt><dd class="mono">${esc(attrs.product_standard.join(" · "))}</dd>` : ""}
       ${attrs.declared_category ? `<dt>${esc(t("detail.metaCategory"))}</dt><dd>${esc(attrs.declared_category)}</dd>` : ""}
+      ${qualityGradeDisplay ? `<dt>${esc(t("detail.metaQualityGrade"))}</dt><dd>${esc(qualityGradeDisplay)}</dd>` : ""}
       ${attrs.shelf_life ? `<dt>${esc(t("detail.metaShelfLife"))}</dt><dd class="mono">${esc(attrs.shelf_life.value)} ${esc(attrs.shelf_life.unit)}</dd>` : ""}
       ${attrs.storage_text ? `<dt>${esc(t("detail.metaStorage"))}</dt><dd>${esc(attrs.storage_text)}</dd>` : ""}
       ${attrs.usage_text ? `<dt>${esc(t("detail.metaUsage"))}</dt><dd>${esc(attrs.usage_text)}</dd>` : ""}
       ${attrs.packaging_code ? `<dt>${esc(t("detail.metaPkgCode"))}</dt><dd class="mono">${esc(attrs.packaging_code)}</dd>` : ""}
       ${attrs.lot_code_rule ? `<dt>${esc(t("detail.metaLotRule"))}</dt><dd>${esc(attrs.lot_code_rule)}</dd>` : ""}
       ${(attrs.claims_text || []).length ? `<dt>${esc(t("detail.metaClaims"))}</dt><dd>${esc(attrs.claims_text.join(" · "))}</dd>` : ""}
-      ${(attrs.special_indicators || []).length ? `<dt>${esc(t("detail.metaSpecialIndicators"))}</dt><dd class="mono">${esc(attrs.special_indicators.map((s) => `${s.name} ${s.qualifier || ""}${s.value}${s.unit}`).join(" · "))}</dd>` : ""}
+      ${specialInds.length ? `<dt>${esc(t("detail.metaSpecialIndicators"))}</dt><dd class="mono">${esc(specialInds.map(formatSpecialIndicator).join(" · "))}</dd>` : ""}
     </dl>
     ${partiesList
       .map(
@@ -2109,9 +2185,9 @@ function renderCatalogCard(item, compact, full) {
 
   const provenanceBody = `
     <div class="edition-timeline">${renderEditionTimelineHtml(full, ed.edition_id)}</div>
-    ${supersedesChips ? `<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;">${supersedesChips}</div>` : ""}
+    ${supersedesChips ? `<div class="chip-cluster" style="margin-bottom:8px;">${supersedesChips}</div>` : ""}
     ${ed.lifecycle ? `<div class="archival-banner">${esc(t("detail.lifecycleOverridePrefix"))}: <b class="mono">${esc(ed.lifecycle.state)}</b>${ed.lifecycle.effective_month ? ` (${esc(ed.lifecycle.effective_month)})` : ""} — ${esc(ed.lifecycle.reason)}</div>` : ""}
-    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;">
+    <div class="chip-cluster" style="margin-bottom:8px;">
       <span class="chip mono">${esc(t("detail.coreFpPrefix"))}: ${esc(ed.core_fingerprint.slice(0, 26))}…</span>
       <span class="chip mono">${esc(t("detail.labelFpPrefix"))}: ${esc(ed.label_fingerprint.slice(0, 26))}…</span>
     </div>
@@ -2158,25 +2234,24 @@ function renderCatalogCard(item, compact, full) {
     ${renderSectionCard(t("detail.railNotes"), notesBody)}
   </div>`;
 
-  const declBasis = core.nutrition_declared.basis;
   const basisLabelSuffix = attrs.serving_size_label ? " / " + attrs.serving_size_label : "";
-  const viewDeclared = `<div class="detail-sections">
-    ${renderSectionCard(
-      t("detail.tabDeclared"),
-      `<p class="lead" style="margin-bottom:12px;">${esc(
-         t("detail.declaredIntro", {
-           value: declBasis.value,
-           unit: declBasis.unit,
-           labelSuffix: basisLabelSuffix,
-         })
-       )}</p>
+  const declaredSectionBody = core.nutrition_declared
+    ? `<p class="lead" style="margin-bottom:12px;">${esc(
+        t("detail.declaredIntro", {
+          value: core.nutrition_declared.basis.value,
+          unit: core.nutrition_declared.basis.unit,
+          labelSuffix: basisLabelSuffix,
+        })
+      )}</p>
        <div class="table-wrap">
          <table class="nutrient-table">
            <thead><tr><th>${esc(t("detail.declaredColId"))}</th><th>${esc(t("detail.declaredColVal"))}</th><th>${esc(t("detail.declaredColNrv"))}</th></tr></thead>
            <tbody>${declaredRows}</tbody>
          </table>
        </div>`
-    )}
+    : renderNutritionSection(ed);
+  const viewDeclared = `<div class="detail-sections">
+    ${renderSectionCard(t("detail.tabDeclared"), declaredSectionBody)}
   </div>`;
 
   const viewApi = `<div class="detail-sections">

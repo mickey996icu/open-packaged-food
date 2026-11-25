@@ -100,7 +100,7 @@ class TestPrMetadataAndFixes(unittest.TestCase):
                         "pull_request": {
                             "title": "feat(product): gtin:06974117080016 (rev1)",
                             "body": (
-                                "## Product Submission (v0.2)\n"
+                                "## Product Submission (v0.3)\n"
                                 "> **Companion Media PR (MERGE FIRST)**: https://github.com/mickey996icu/opf-media/pull/1\n"
                                 "- **ID**: `gtin:06974117080016`\n"
                             ),
@@ -148,7 +148,7 @@ class TestPrMetadataAndFixes(unittest.TestCase):
             ed_file = data_repo / rel_ed
             ed_file.parent.mkdir(parents=True, exist_ok=True)
             base_doc = {
-                "opf_schema": "0.2",
+                "opf_schema": "0.3",
                 "id": "gtin:00000000000109",
                 "edition_id": "01JTESTCNTEA00000000000001",
                 "evidence": [
@@ -337,7 +337,7 @@ class TestPrMetadataAndFixes(unittest.TestCase):
 
         def _ed(edition_id: str, ev_ids: list[str]) -> dict:
             return {
-                "opf_schema": "0.2",
+                "opf_schema": "0.3",
                 "id": "gtin:00000000000109",
                 "edition_id": edition_id,
                 "evidence": [
@@ -431,7 +431,7 @@ class TestPrMetadataAndFixes(unittest.TestCase):
 
             # 3. Merge stub that drops evidence is rejected; carrying evidence into target passes
             stub = {
-                "opf_schema": "0.2",
+                "opf_schema": "0.3",
                 "id": "gtin:00000000000109",
                 "edition_id": src_id,
                 "merged_into": tgt_id,

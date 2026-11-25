@@ -2,7 +2,7 @@
 
 **[English](CONTRIBUTING.md) | [简体中文](CONTRIBUTING.zh-CN.md)** · **[Live Explorer & API](https://mickey996icu.github.io/opf-data/)** · **[`opf-data` Repository](https://github.com/mickey996icu/opf-data)** · **[`opf-media` Repository](https://github.com/mickey996icu/opf-media)**
 
-Thank you for contributing to **OpenPackagedFood (`opf` v0.2)**—an evidence-first, zero-judgment open database for global industrial packaged foods.
+Thank you for contributing to **OpenPackagedFood (`opf` v0.3)**—an evidence-first, zero-judgment open database for global industrial packaged foods.
 
 > **Contributor Scope (Phase 1 vs. Phase 2)**:
 > - **Everyday Consumers**: Use the [Web Explorer](https://mickey996icu.github.io/opf-data/) for read-only lookup and client-side barcode/QR scanning, or install [`skills/opf`](skills/opf) in an AI Agent for label analysis. Everyday end-user submission opens in **Phase 2** once `OPF_SUBMIT_URL` HTTP Relay is deployed.
@@ -45,6 +45,7 @@ You can prepare `draft.json` starting from [`skills/opf/examples/draft.minimal.j
    ./open-packaged-food/bin/opf validate opf-data/products
    ./open-packaged-food/bin/opf validate-media opf-media
    ./open-packaged-food/bin/opf check-media-refs --media-dir opf-media opf-data/products
+   ./open-packaged-food/bin/opf audit --media-dir opf-media opf-data/products
    ```
 4. **Commit with DCO (`git commit -s`), push both branches, and click the terminal PR links**:
    ```bash
@@ -56,7 +57,7 @@ You can prepare `draft.json` starting from [`skills/opf/examples/draft.minimal.j
 ### Optional One-Step Automation (`uvx` + `gh` / Phase 2 HTTP Relay)
 - **Optional Developer Shortcut (`uvx` + `gh`)**: Developers who prefer zero pre-cloning and already have `uvx` + authenticated `gh` (`gh auth login`) can optionally automate transcoding, sparse shallow forks, and dual-PR creation in one command:
   ```bash
-  uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.2.6 \
+  uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.3.0 \
     opf pr --input draft.json \
     --photo nutrition_table=crop_nutrition.jpg \
     --photo ingredients_box=crop_ingredients.jpg \

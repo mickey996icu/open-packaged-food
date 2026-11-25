@@ -1,6 +1,6 @@
-# OpenPackagedFood Specification (v0.2)
+# OpenPackagedFood Specification (v0.3)
 
-> **Status**: Draft M0 | **Schema Version**: `0.2` | **CI Tooling Pin**: `v0.2.6` | **License**: Code AGPL-3.0-or-later (Apache-2.0 inbound), Spec & Schemas Apache-2.0, Data ODbL-1.0, Label Media CC-BY-SA-4.0 | **Limitations**: [`docs/DATA-LIMITATIONS.md`](../docs/DATA-LIMITATIONS.md)
+> **Status**: Draft M0 | **Schema Version**: `0.3` | **CI Tooling Pin**: `v0.3.0` | **License**: Code AGPL-3.0-or-later (Apache-2.0 inbound), Spec & Schemas Apache-2.0, Data ODbL-1.0, Label Media CC-BY-SA-4.0 | **Limitations**: [`docs/DATA-LIMITATIONS.md`](../docs/DATA-LIMITATIONS.md)
 
 ## 1. Scope & Core Principles
 
@@ -9,9 +9,9 @@
    - **Physical Identity (`Edition` + `core`)**: A permanent ULID (`edition_id`) representing one physical package specification, anchored by canonical structured values (`core`) rather than OCR-sensitive raw strings or rule-dependent normalized outputs.
    - **Epistemic Knowledge (`attributes` + `revisions[]` + `evidence[]`)**: What contributors currently know about that package (verbatim texts, SC licenses, origin, packaging codes) maintained via a content-revision log (`@rev`), paired with an append-only `evidence[]` set from which `evidence_level` is derived at build time.
    - **Spatiotemporal Lifecycle (`Track` + `supersedes` + Build-Time Status)**: Multi-origin / multi-market coexistence across parallel tracks combined with deterministic build-time status derivation (`active`, `stale`, `superseded`, `discontinued`, `retracted`) so historical editions retire naturally without manual status churn.
-3. **Dual-Layer Nutrition Representation**:
-   - `core.nutrition_declared`: Faithful structured transcription of printed nutrition values in the package's declared basis (e.g., per serving `28g` or per `100g`) and units (`kJ` or `kcal`, `sodium` or `salt`).
-   - `normalized`: Deterministically compiled `100g` or `100ml` standard profile computed by `opf normalize` using exact decimal arithmetic and jurisdiction-specific `regulatory_profile` rules.
+3. **Dual-Layer Nutrition Representation & Statutory Exemption**:
+   - `core.nutrition_declared`: Faithful structured transcription of printed nutrition values in the package's declared basis (e.g., per serving `28g` or per `100g`) and units (`kJ` or `kcal`, `sodium` or `salt`), or `null` paired with `core.nutrition_exemption` when the pre-packaged food is legally exempt from mandatory nutrition labeling and prints no nutrition table (never fabricating all-zero rows).
+   - `normalized`: Deterministically compiled `100g` or `100ml` standard profile computed by `opf normalize` using exact decimal arithmetic and jurisdiction-specific `regulatory_profile` rules (`normalized.nutrients` is `{}` when `nutrition_declared` is `null`).
 4. **Verifiable Lossless Ingredient AST**: Every edition pairs canonical span-free `core.ingredients_tree` nodes with verbatim `attributes.ingredients_text`, enforced by a deterministic monotonic round-trip check in CI so punctuation/full-width errata in raw text never alter `core` while hallucinated or dropped ingredients fail validation.
 
 ---
@@ -89,6 +89,12 @@ All `core.nutrition_declared.rows` and `normalized.nutrients` use canonical nutr
    - When both `kJ` and `kcal` are printed on the label, both are preserved in `normalized.nutrients` as `reported` (or `derived` if scaled from per-serving), and their ratio is checked against $4.184$ (emitting `ENERGY_KJ_KCAL_DECLARED_MISMATCH` if relative discrepancy exceeds $5\%$).
 5. **NRV% / %DV Cross-Check**:
    - When `nrv_pct` is present on a declared row, `opf normalize` compares it against the profile's `nrv_reference` values and emits `NRV_PCT_DECLARED_MISMATCH` in `quality_flags` if the absolute difference exceeds $2.5\%$.
+6. **Statutory Nutrition Panel Exemption (`core.nutrition_declared: null` + `core.nutrition_exemption`)**:
+   - Industrial pre-packaged foods legally exempt from mandatory nutrition panels (e.g., packaged drinking water, plain tea leaves/coffee beans, single-ingredient raw foods, table salt/vinegar/spices, alcoholic beverages, minimal daily intake items, or small-surface-area packs under GB 28050 §7, EU 1169/2011 Annex V, or 21 CFR 101.9(j)) that print **no** nutrition facts table MUST set `"nutrition_declared": null` and provide `"nutrition_exemption": { "category": "<enum>", "legal_basis"?: "...", "note"?: "..." }`.
+   - Controlled `category` enum: `"packaged_water"`, `"tea_coffee_herbs"`, `"single_ingredient_unprocessed"`, `"salt_vinegar_spices"`, `"alcoholic_beverage"`, `"small_daily_intake"`, `"small_package_area"`.
+   - Fabricating all-zero nutrient rows when no nutrition table is printed on the physical package is strictly forbidden. `opf normalize` sets `normalized.nutrients = {}` and emits `NUTRITION_LABEL_EXEMPT` in `quality_flags`.
+7. **Core Special Indicators (`core.special_indicators`)**:
+   - Quantitative characteristic indicators printed outside the standard nutrition table (such as natural water mineral cations/metasilicic acid, dimensionless `pH` with tolerance `{"name": "pH值(25℃)", "value": "7.3", "tolerance": "0.5"}`, range bounds `{"value": "50", "value_max": "150", "unit": "ug/100ml"}`, `tea_polyphenols`, or `A2 β-casein`) reside in `core.special_indicators` (`tolerance`, `value_max`, and `qualifier` are mutually exclusive; `unit` is optional for dimensionless metrics) and participate in `core_fingerprint`.
 
 ---
 
@@ -152,7 +158,7 @@ products/
 
 ### 7.2 Compiled Static API Endpoints (`opf build`)
 
-- `/v1/meta.json`: Schema version (`"0.2"`), tool/data commits, `media_base_url`, counts by derived evidence level and market.
+- `/v1/meta.json`: Schema version (`"0.3"`), tool/data commits, `media_base_url`, counts by derived evidence level and market.
 - `/v1/gtin/{p1}/{p2}/{gtin14}.json`: Compact Agent endpoint (`p1 = gtin14[1:4]`, `p2 = gtin14[4:7]`). Reports `resolution` (`single | uniform | divergent | inactive`), `evidence_summary`, `edition_redirects`, and either unified nutrition/ingredients (`single` / `uniform`) or per-variant diffs and disambiguation instructions (`divergent`).
 - `/v1/gtin/{p1}/{p2}/{gtin14}.full.json`: Assembled full product document containing `product.json` metadata, `edition_redirects`, all live/historical editions with build-derived `status` and `evidence_level`, computed `superseded_by` reverse edges, `revisions[]`, and `evidence[]`.
 - `/v1/opf/{brand}/{product}/{spec}.json` & `.full.json`: Equivalent endpoints for `opf:` identifiers.
@@ -192,8 +198,8 @@ Product (id: gtin:... | opf:...)           [product.json: id, aliases, non-defau
 
 | Layer | Fields | On-Disk Canonical Order & Role |
 | :--- | :--- | :--- |
-| `core` | `regulatory_profile`, `net_content` (`{qualifier?, value, unit}[]`), `serving_size` (`{qualifier?, value, unit}`), `nutrition_declared` (`basis` + `rows`), `ingredients_tree` (span-free semantic AST), `allergens_declared` (`{contains, may_contain}` canonical IDs) | `nutrition_declared.rows` MUST follow §3 canonical nutrient order; `ingredients_tree` MUST be sorted by `lang` (with `nodes` in printed weight order); `allergens_declared` lists MUST be sorted & unique. `opf validate` rejects non-canonical order. |
-| `attributes` | `product_name`, `brand`, `category`, `declared_category`, `net_content_label`, `serving_size_label`, `ingredients_text` (raw verbatim strings), `allergens_raw_text`, `origin` (`{country?, region?, raw_text?}`), `parties[]` (`role`, `name`, `address`, `plant_code`, `license`), `product_standard[]`, `packaging_code`, `lot_code_rule`, `shelf_life`, `storage_text`, `usage_text`, `special_indicators[]`, `claims_text[]`, `in_store_barcodes[]`, `translations[]` | Enrichable and amendable via `revisions[]` without creating a new Edition when non-conflicting. |
+| `core` | `regulatory_profile`, `net_content` (`{qualifier?, value, unit}[]`), `serving_size` (`{qualifier?, value, unit}`), `nutrition_declared` (`basis` + `rows`, or `null`), `nutrition_exemption` (`{category, legal_basis?, note?}` required iff `nutrition_declared` is `null`), `ingredients_tree` (span-free semantic AST), `allergens_declared` (`{contains, may_contain}` canonical IDs), `special_indicators[]` (`{name, qualifier?, value, value_max?, tolerance?, unit?}`) | `nutrition_declared.rows` MUST follow §3 canonical nutrient order; `ingredients_tree` MUST be sorted by `lang` (with `nodes` in printed weight order); `allergens_declared` lists MUST be sorted & unique; `special_indicators` are canonicalized and hashed order-independently in `core_fingerprint` (while `nutrition_exemption` hashes `category` only). |
+| `attributes` | `product_name`, `brand`, `category`, `declared_category`, `quality_grade`, `net_content_label`, `serving_size_label`, `ingredients_text` (raw verbatim strings), `allergens_raw_text`, `origin` (`{country?, region?, raw_text?}`), `parties[]` (`role`, `name`, `address`, `plant_code`, `license`), `product_standard[]`, `packaging_code`, `lot_code_rule`, `shelf_life`, `storage_text`, `usage_text`, `claims_text[]`, `in_store_barcodes[]`, `translations[]` | Enrichable and amendable via `revisions[]` without creating a new Edition when non-conflicting. |
 
 **Two Derived Fingerprints** (recomputed deterministically at current `rev` by `opf normalize`; verified by `opf validate`; never used as primary keys):
 1. `core_fingerprint` (`sha256:<64-hex>`): Canonical JSON SHA-256 over NFKC-normalized `core`.
@@ -259,7 +265,7 @@ Below, Alice initially submits a bottle on `CN/default` (`rev 1`), enriches its 
 
 ```json
 {
-  "opf_schema": "0.2",
+  "opf_schema": "0.3",
   "id": "gtin:00000000000017",
   "edition_id": "01J8Z4K9M2N3P4Q5R6S7T8V9W0",
   "rev": 4,
@@ -431,7 +437,7 @@ When two contributors concurrently open PRs for the same package, or when an `er
    - The duplicate Edition's `evidence[]` (deduplicated by `evidence_id`) and non-conflicting `attributes` are merged into the surviving canonical ULID, and the absorbed file `editions/<absorbed_ulid>.json` is replaced—never deleted—with a redirect stub:
      ```json
      {
-       "opf_schema": "0.2",
+       "opf_schema": "0.3",
        "id": "gtin:00000000000017",
        "edition_id": "01J9A2B3C4D5E6F7G8H9J0K1M2",
        "merged_into": "01J8Z4K9M2N3P4Q5R6S7T8V9W0",
@@ -462,7 +468,7 @@ For each `EditionRecord` $E$, let $P(E)$ be the set of distinct non-empty `contr
   - `verified`: *1 label photo submitted* / `"有 1 份标签照片"`
   - `official_registry_imported`: *From public official registry* / `"来自官方公开信息"`
   - `community_reported`: *Text report only (no photo)* / `"仅有文字报告，无照片"`
-- **v0.3 Roadmap**: Enum identifier renaming (such as `photo_multi`, `photo_single`, `official`, `text_only`) is deferred to `v0.3` to avoid breaking `v0.2` clients. Only when maintainer blind re-transcription produces `"transcription": "independent_match"` on an `evidence[]` item may a UI state that structured transcription matches the photo—and even then, it never represents product safety.
+- **Future Roadmap**: Enum identifier renaming (such as `photo_multi`, `photo_single`, `official`, `text_only`) is deferred to a future major schema revision to avoid breaking existing API clients. Only when maintainer blind re-transcription produces `"transcription": "independent_match"` on an `evidence[]` item may a UI state that structured transcription matches the photo—and even then, it never represents product safety.
 
 #### `supersedes` Graph & `lifecycle` Constraints
 - Replacement edges are recorded on the **newer** Edition file as `"supersedes": ["<older_ulid>", ...]` (sorted, unique ULIDs), supporting 1-to-1, N-to-1, and 1-to-N transitions across a DAG (no self-loops, no cycles).
@@ -506,7 +512,7 @@ Let $A$ be the set of editions with derived status `active` across all tracks of
 
 ```json
 {
-  "opf_schema": "0.2",
+  "opf_schema": "0.3",
   "id": "gtin:00000000000116",
   "resolution": "divergent",
   "active_edition_ids": [

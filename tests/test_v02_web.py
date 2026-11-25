@@ -93,7 +93,7 @@ class TestWebV02(unittest.TestCase):
                 self.assertIn(f"allergens.{aid}", flat, f"Missing allergens.{aid} in {c}")
 
         edition_schema = json.loads(
-            (REPO_ROOT / "spec" / "schema" / "edition.v0.2.schema.json").read_text(encoding="utf-8")
+            (REPO_ROOT / "spec" / "schema" / "edition.v0.3.schema.json").read_text(encoding="utf-8")
         )
         for role in edition_schema["$defs"]["Party"]["properties"]["role"]["enum"]:
             for c, flat in flats.items():
@@ -101,9 +101,16 @@ class TestWebV02(unittest.TestCase):
         for rkind in edition_schema["$defs"]["RevisionEntry"]["properties"]["kind"]["enum"]:
             for c, flat in flats.items():
                 self.assertIn(f"revisionKinds.{rkind}", flat, f"Missing revisionKinds.{rkind} in {c}")
+        for excat in edition_schema["$defs"]["NutritionExemption"]["properties"]["category"]["enum"]:
+            for c, flat in flats.items():
+                self.assertIn(
+                    f"nutritionExemptions.{excat}",
+                    flat,
+                    f"Missing nutritionExemptions.{excat} in {c}",
+                )
 
         compact_schema = json.loads(
-            (REPO_ROOT / "spec" / "schema" / "compact.v0.2.schema.json").read_text(encoding="utf-8")
+            (REPO_ROOT / "spec" / "schema" / "compact.v0.3.schema.json").read_text(encoding="utf-8")
         )
         for status in compact_schema["$defs"]["EditionStatus"]["enum"]:
             for c, flat in flats.items():

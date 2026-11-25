@@ -103,7 +103,7 @@ def _make_base_edition(
         attrs["product_standard"] = product_standard
 
     doc: dict = {
-        "opf_schema": "0.2",
+        "opf_schema": "0.3",
         "id": product_id,
         "edition_id": eid,
         "rev": 1,
@@ -160,7 +160,12 @@ class TestSpecExamplesAndSchemas(unittest.TestCase):
         schema_dir = REPO_ROOT / "spec" / "schema"
         self.assertFalse((schema_dir / "product.v0.1.schema.json").exists())
         self.assertFalse((schema_dir / "compact.v0.1.schema.json").exists())
-        self.assertTrue((schema_dir / "compact.v0.2.schema.json").exists())
+        self.assertFalse((schema_dir / "product.v0.2.schema.json").exists())
+        self.assertFalse((schema_dir / "edition.v0.2.schema.json").exists())
+        self.assertFalse((schema_dir / "compact.v0.2.schema.json").exists())
+        self.assertTrue((schema_dir / "product.v0.3.schema.json").exists())
+        self.assertTrue((schema_dir / "edition.v0.3.schema.json").exists())
+        self.assertTrue((schema_dir / "compact.v0.3.schema.json").exists())
 
     def test_spec_examples_validate_against_v02_schemas_and_patch_replay(self) -> None:
         blocks = _extract_spec_json_blocks()
@@ -171,7 +176,7 @@ class TestSpecExamplesAndSchemas(unittest.TestCase):
         normalized_spec_ed = copy.deepcopy(edition_example)
         normalize_edition(normalized_spec_ed)
         self.assertEqual(
-            validate_against_json_schema(normalized_spec_ed, load_json_schema("edition.v0.2.schema.json")),
+            validate_against_json_schema(normalized_spec_ed, load_json_schema("edition.v0.3.schema.json")),
             [],
         )
         self.assertEqual(validate_edition_doc(normalized_spec_ed), [])
@@ -213,7 +218,7 @@ class TestSpecExamplesAndSchemas(unittest.TestCase):
 
         # 2. SPEC §8.5 EditionRedirect verbatim
         self.assertEqual(
-            validate_against_json_schema(redirect_example, load_json_schema("edition.v0.2.schema.json")),
+            validate_against_json_schema(redirect_example, load_json_schema("edition.v0.3.schema.json")),
             [],
         )
         self.assertEqual(validate_edition_doc(redirect_example), [])
@@ -221,7 +226,7 @@ class TestSpecExamplesAndSchemas(unittest.TestCase):
         # 3. SPEC §8.7 Compact API divergent example verbatim
         self.assertEqual(
             validate_against_json_schema(
-                compact_divergent_example, load_json_schema("compact.v0.2.schema.json")
+                compact_divergent_example, load_json_schema("compact.v0.3.schema.json")
             ),
             [],
         )
@@ -249,7 +254,7 @@ class TestSpecExamplesAndSchemas(unittest.TestCase):
     def test_compact_v02_oneof_modes_and_divergent_top_level_prohibition(self) -> None:
         blocks = _extract_spec_json_blocks()
         divergent = copy.deepcopy(blocks[2])
-        compact_schema = load_json_schema("compact.v0.2.schema.json")
+        compact_schema = load_json_schema("compact.v0.3.schema.json")
 
         bad_div = copy.deepcopy(divergent)
         bad_div["normalized"] = {"basis": "100ml", "nutrients": {}}
@@ -261,7 +266,7 @@ class TestSpecExamplesAndSchemas(unittest.TestCase):
 
         ed1 = _make_base_edition(edition_id="01J8Z8AA11BB22CC33DD44EE55")
         single_doc = {
-            "opf_schema": "0.2",
+            "opf_schema": "0.3",
             "id": ed1["id"],
             "resolution": "single",
             "active_edition_ids": [ed1["edition_id"]],
@@ -315,7 +320,7 @@ class TestSpecExamplesAndSchemas(unittest.TestCase):
         self.assertEqual(validate_against_json_schema(uniform_doc, compact_schema), [])
 
         inactive_doc = {
-            "opf_schema": "0.2",
+            "opf_schema": "0.3",
             "id": ed1["id"],
             "resolution": "inactive",
             "active_edition_ids": [],
@@ -590,7 +595,7 @@ class TestLifecycleAndProductDir(unittest.TestCase):
             pdir = product_dir_for_id(products_root, pid)
             (pdir / "editions").mkdir(parents=True)
 
-            meta = {"opf_schema": "0.2", "id": pid}
+            meta = {"opf_schema": "0.3", "id": pid}
             (pdir / "product.json").write_text(json.dumps(meta, ensure_ascii=False), encoding="utf-8")
 
             e1 = _make_base_edition(edition_id="01J8Z000000000000000000101", packaging_code="V1")
@@ -619,7 +624,7 @@ class TestLifecycleAndProductDir(unittest.TestCase):
 
             # Replacing e2 with an EditionRedirect pointing to e1 also passes
             redir = {
-                "opf_schema": "0.2",
+                "opf_schema": "0.3",
                 "id": pid,
                 "edition_id": e2["edition_id"],
                 "merged_into": e1["edition_id"],
@@ -635,7 +640,7 @@ class TestLifecycleAndProductDir(unittest.TestCase):
             # Redirect chain length > 1 must be rejected
             e3_id = "01J8Z000000000000000000103"
             redir_chain = {
-                "opf_schema": "0.2",
+                "opf_schema": "0.3",
                 "id": pid,
                 "edition_id": e3_id,
                 "merged_into": e2["edition_id"],

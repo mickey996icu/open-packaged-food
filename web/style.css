@@ -28,7 +28,7 @@
   --sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
   --mono: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
 
-  /* MD3E Shape Ladder & Motion Tokens */
+  /* MD3E Shape Ladder, Dual-Track Spring Physics & State Layer Tokens */
   --r-xs: 8px;
   --r-sm: 12px;
   --r-md: 16px;
@@ -36,7 +36,14 @@
   --r-xl: 28px;
   --r-full: 999px;
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-effects: cubic-bezier(0.2, 0, 0, 1);
   --ease-spring: cubic-bezier(0.32, 1.25, 0.62, 1);
+  --ease-spatial-fast: cubic-bezier(0.38, 1.21, 0.22, 1);
+  --ease-emphasized-decel: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --dur-fast: 150ms;
+  --dur-medium: 240ms;
+  --md-state-hover: 8%;
+  --md-state-press: 12%;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -206,12 +213,28 @@ input:focus-visible,
   font-size: 0.92rem;
 }
 
+@keyframes md3e-surface-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 /* Expandable Verification & Value State Reference Sheet */
 .legend-sheet {
   margin-top: 12px;
   padding: 16px 20px;
   background: var(--md-surface-low);
   border-radius: var(--r-lg);
+  border: 1px solid color-mix(in srgb, var(--md-outline-variant) 55%, transparent);
+}
+
+.legend-sheet:not([hidden]) {
+  animation: md3e-surface-enter var(--dur-medium) var(--ease-emphasized-decel);
 }
 
 .legend-grid {
@@ -268,6 +291,7 @@ input:focus-visible,
 
 .stat-cell .val {
   font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
   font-size: 1.15rem;
   font-weight: 700;
   line-height: 1.2;
@@ -431,12 +455,19 @@ input:focus-visible,
   line-height: 1;
   cursor: pointer;
   flex: none;
-  transition: background-color 140ms var(--ease-standard);
+  transition:
+    background-color var(--dur-fast) var(--ease-effects),
+    color var(--dur-fast) var(--ease-effects),
+    transform var(--dur-fast) var(--ease-spatial-fast);
 }
 
 .icon-clear-btn:hover {
   background: var(--md-surface-highest);
   color: var(--md-on-surface);
+}
+
+.icon-clear-btn:active {
+  transform: scale(0.92);
 }
 
 .icon-scan-btn {
@@ -454,12 +485,19 @@ input:focus-visible,
   line-height: 1;
   cursor: pointer;
   flex: none;
-  transition: background-color 140ms var(--ease-standard), border-color 140ms var(--ease-standard);
+  transition:
+    background-color var(--dur-fast) var(--ease-effects),
+    border-color var(--dur-fast) var(--ease-effects),
+    transform var(--dur-fast) var(--ease-spatial-fast);
 }
 
 .icon-scan-btn:hover {
   border-color: var(--md-primary);
   background: var(--md-secondary-container);
+}
+
+.icon-scan-btn:active {
+  transform: scale(0.96);
 }
 
 .icon-scan-btn svg {
@@ -518,6 +556,10 @@ input:focus-visible,
   margin-top: 10px;
   padding-top: 10px;
   border-top: 1px solid color-mix(in srgb, var(--md-outline-variant) 65%, transparent);
+}
+
+.wb-panel:not([hidden]) {
+  animation: md3e-surface-enter var(--dur-medium) var(--ease-emphasized-decel);
 }
 
 .wb-panel[hidden] {
@@ -627,6 +669,7 @@ input:focus-visible,
   width: 72px;
   flex: 0 1 76px;
   font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
   text-align: right;
 }
 
@@ -701,12 +744,28 @@ input:focus-visible,
   font-size: 0.74rem;
   font-weight: 600;
   cursor: pointer;
+  transition:
+    background-color var(--dur-fast) var(--ease-effects),
+    border-radius var(--dur-medium) var(--ease-spatial-fast),
+    transform var(--dur-fast) var(--ease-spatial-fast);
+}
+
+.active-tag:hover {
+  background: color-mix(in srgb, var(--md-on-primary-container) var(--md-state-hover), var(--md-primary-container));
+}
+
+.active-tag:active {
+  transform: scale(0.96);
 }
 
 .active-tag.exclude {
   background: var(--md-secondary-container);
   color: var(--md-on-secondary-container);
   border-color: var(--md-secondary);
+}
+
+.active-tag.exclude:hover {
+  background: color-mix(in srgb, var(--md-on-secondary-container) var(--md-state-hover), var(--md-secondary-container));
 }
 
 /* Base Pill & MD3E Morphing Filter Chips */
@@ -728,11 +787,11 @@ button.chip,
 a.chip {
   cursor: pointer;
   transition:
-    background-color 180ms var(--ease-standard),
-    border-color 180ms var(--ease-standard),
+    background-color 180ms var(--ease-effects),
+    border-color 180ms var(--ease-effects),
     border-radius 240ms var(--ease-spring),
-    color 180ms var(--ease-standard),
-    transform 200ms var(--ease-spring);
+    color 180ms var(--ease-effects),
+    transform 180ms var(--ease-spatial-fast);
 }
 
 button.chip:hover,
@@ -740,6 +799,11 @@ a.chip:hover {
   background: var(--md-surface-high);
   color: var(--md-on-surface);
   text-decoration: none;
+}
+
+button.chip:active,
+a.chip:active {
+  transform: scale(0.965);
 }
 
 .chip.filter-chip {
@@ -928,6 +992,10 @@ a.chip:hover {
   transform: translateY(-1px);
 }
 
+.index-entry:active {
+  transform: scale(0.99);
+}
+
 .index-entry[aria-current="true"] {
   border-radius: 20px;
   background: var(--md-primary-container);
@@ -1093,11 +1161,21 @@ a.chip:hover {
   font-weight: 600;
   color: var(--md-primary);
   cursor: pointer;
+  transition:
+    background-color var(--dur-fast) var(--ease-effects),
+    color var(--dur-fast) var(--ease-effects),
+    border-color var(--dur-fast) var(--ease-effects),
+    transform var(--dur-fast) var(--ease-spatial-fast);
 }
 
 .icon-copy-btn:hover {
   background: var(--md-primary-container);
   color: var(--md-on-primary-container);
+  border-color: var(--md-primary);
+}
+
+.icon-copy-btn:active {
+  transform: scale(0.95);
 }
 
 /* 2px Title Rule — Signature Catalog Card Element */
@@ -1177,7 +1255,7 @@ a.chip:hover {
 .card-tab {
   background: transparent;
   border: 0;
-  border-radius: var(--r-full);
+  border-radius: var(--r-md);
   padding: 8px 18px;
   font-size: 0.84rem;
   font-weight: 600;
@@ -1185,16 +1263,24 @@ a.chip:hover {
   cursor: pointer;
   white-space: nowrap;
   transition:
-    background-color 180ms var(--ease-standard),
-    color 180ms var(--ease-standard),
-    box-shadow 180ms var(--ease-standard);
+    background-color 180ms var(--ease-effects),
+    color 180ms var(--ease-effects),
+    border-radius var(--dur-medium) var(--ease-spatial-fast),
+    box-shadow 180ms var(--ease-effects),
+    transform var(--dur-fast) var(--ease-spatial-fast);
 }
 
 .card-tab:hover {
   color: var(--md-on-surface);
+  background: color-mix(in srgb, var(--md-on-surface) var(--md-state-hover), transparent);
+}
+
+.card-tab:active {
+  transform: scale(0.97);
 }
 
 .card-tab[aria-selected="true"] {
+  border-radius: var(--r-full);
   background: var(--md-surface-lowest);
   color: var(--md-primary);
   box-shadow: 0 1px 3px color-mix(in srgb, var(--md-on-surface) 12%, transparent);
@@ -1254,6 +1340,7 @@ a.chip:hover {
 
 .kpi-value {
   font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
   font-size: 1.05rem;
   font-weight: 700;
   color: var(--md-on-surface);
@@ -1265,6 +1352,67 @@ a.chip:hover {
   font-weight: 500;
   color: var(--md-on-surface-variant);
   margin-left: 2px;
+}
+
+/* MD3E v0.3 Statutory Nutrition Exemption & Special Indicator Containers */
+.exemption-panel {
+  background: var(--md-surface-low);
+  border: 1px solid color-mix(in srgb, var(--md-outline-variant) 75%, transparent);
+  border-radius: var(--r-md);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.exemption-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.exemption-cat-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: var(--r-full);
+  background: var(--md-secondary-container);
+  color: var(--md-on-secondary-container);
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+.exemption-desc {
+  margin: 0;
+  font-size: 0.86rem;
+  color: var(--md-on-surface-variant);
+}
+
+.exemption-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  font-size: 0.82rem;
+  padding-top: 6px;
+  border-top: 1px solid color-mix(in srgb, var(--md-outline-variant) 55%, transparent);
+}
+
+.indicator-block {
+  margin-top: 14px;
+}
+
+.indicator-block > .section-label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.chip-cluster {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
 /* Responsive Nutrient Table Wrapper & Three Value States */
@@ -1320,6 +1468,7 @@ a.chip:hover {
 .nutrient-table td.n-val {
   text-align: right;
   font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
   font-weight: 600;
   white-space: nowrap;
 }
@@ -1334,11 +1483,22 @@ a.chip:hover {
 .trace-btn {
   background: transparent;
   border: 0;
-  padding: 0;
+  border-radius: 6px;
+  padding: 2px 5px;
+  margin: -2px -5px;
   cursor: pointer;
   font: inherit;
   color: inherit;
   text-align: left;
+  transition: background-color var(--dur-fast) var(--ease-effects);
+}
+
+.trace-btn:hover {
+  background: color-mix(in srgb, var(--md-primary) var(--md-state-hover), transparent);
+}
+
+.trace-btn:active {
+  background: color-mix(in srgb, var(--md-primary) var(--md-state-press), transparent);
 }
 
 .val-reported {
@@ -1445,17 +1605,27 @@ a.chip:hover {
   cursor: pointer;
   text-align: left;
   width: 100%;
-  transition: background-color 160ms var(--ease-standard), border-color 160ms var(--ease-standard);
+  transition:
+    background-color 160ms var(--ease-effects),
+    border-color 160ms var(--ease-effects),
+    border-radius var(--dur-medium) var(--ease-spatial-fast),
+    transform var(--dur-fast) var(--ease-spatial-fast);
 }
 
 .edition-step:hover {
   background: var(--md-surface-high);
 }
 
+.edition-step:active {
+  transform: scale(0.99);
+}
+
 .edition-step[aria-current="true"] {
+  border-radius: 18px;
   border-color: var(--md-primary);
   background: var(--md-primary-container);
   color: var(--md-on-primary-container);
+  box-shadow: inset 4px 0 0 var(--md-primary);
 }
 
 /* Metadata Key-Value & Party Subcards */
@@ -1595,6 +1765,7 @@ pre.json-view {
   border-radius: var(--r-lg);
   padding: 20px;
   box-shadow: 0 20px 50px color-mix(in srgb, var(--md-on-surface) 22%, transparent);
+  animation: md3e-surface-enter var(--dur-medium) var(--ease-emphasized-decel);
 }
 
 .scan-header {
@@ -1909,10 +2080,11 @@ footer {
   flex-wrap: wrap;
   gap: 6px;
   font-size: 0.78rem;
+  margin-top: 8px;
 }
 
 .variant-card-desc {
-  margin: 0;
+  margin: 6px 0 0;
   font-size: 0.84rem;
   color: var(--md-on-surface-variant);
 }
@@ -1981,18 +2153,45 @@ footer {
   .section-card { padding: 16px; }
 }
 
+@media (pointer: coarse) {
+  .search-box { height: 42px; }
+  .icon-clear-btn { width: 34px; height: 34px; }
+  .icon-scan-btn { height: 34px; padding: 0 12px; }
+  .icon-copy-btn { height: 30px; padding: 0 10px; }
+  .md3-select, .wb-input { height: 36px; }
+  .chip { height: 34px; }
+  .chip.filter-chip, .wb-col .chip, .wb-col .chip.filter-chip, .active-tag { height: 32px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   button.chip,
   a.chip,
+  .active-tag,
   .index-entry,
   .card-tab,
   .search-box,
   .icon-clear-btn,
   .icon-scan-btn,
+  .icon-copy-btn,
+  .trace-btn,
   .edition-step {
     transition: none;
   }
-  .index-entry:hover {
+  .legend-sheet:not([hidden]),
+  .wb-panel:not([hidden]),
+  .scan-dialog {
+    animation: none;
+  }
+  .index-entry:hover,
+  .index-entry:active,
+  button.chip:active,
+  a.chip:active,
+  .active-tag:active,
+  .card-tab:active,
+  .icon-clear-btn:active,
+  .icon-scan-btn:active,
+  .icon-copy-btn:active,
+  .edition-step:active {
     transform: none;
   }
 }

@@ -106,7 +106,7 @@ def _make_edition(
         attrs["packaging_code"] = packaging_code
 
     ed: dict = {
-        "opf_schema": "0.2",
+        "opf_schema": "0.3",
         "id": pid,
         "edition_id": edition_id,
         "rev": 1,
@@ -160,7 +160,7 @@ class TestBuilderV02(unittest.TestCase):
             site_dir = tmp_path / "site"
 
             meta = build_static_api(products_dir, site_dir)
-            self.assertEqual(meta["opf_schema"], "0.2")
+            self.assertEqual(meta["opf_schema"], "0.3")
             self.assertEqual(meta["total_products"], 0)
             self.assertEqual(meta["counts_by_resolution"], {})
             self.assertTrue((site_dir / "v1" / "meta.json").is_file())
@@ -173,14 +173,14 @@ class TestBuilderV02(unittest.TestCase):
             tmp_path = Path(tmp)
             products_dir = tmp_path / "products"
             site_dir = tmp_path / "site"
-            compact_schema = load_json_schema("compact.v0.2.schema.json")
+            compact_schema = load_json_schema("compact.v0.3.schema.json")
 
             # ------------------------------------------------------------------
             # 1. `single` product: stale + superseded + active + EditionRedirect
             # ------------------------------------------------------------------
             pid_single = "gtin:00000000000109"
             pdir_single = product_dir_for_id(products_dir, pid_single)
-            _write_json(pdir_single / "product.json", {"opf_schema": "0.2", "id": pid_single})
+            _write_json(pdir_single / "product.json", {"opf_schema": "0.3", "id": pid_single})
 
             e_stale = _make_edition(
                 pid=pid_single,
@@ -209,7 +209,7 @@ class TestBuilderV02(unittest.TestCase):
                 packaging_code="SMP-900-A1",
             )
             e_redir = {
-                "opf_schema": "0.2",
+                "opf_schema": "0.3",
                 "id": pid_single,
                 "edition_id": "01J8Z000000000000000000004",
                 "merged_into": e_act["edition_id"],
@@ -228,7 +228,7 @@ class TestBuilderV02(unittest.TestCase):
             _write_json(
                 pdir_uniform / "product.json",
                 {
-                    "opf_schema": "0.2",
+                    "opf_schema": "0.3",
                     "id": pid_uniform,
                     "tracks": [
                         {
@@ -281,7 +281,7 @@ class TestBuilderV02(unittest.TestCase):
             _write_json(
                 pdir_div / "product.json",
                 {
-                    "opf_schema": "0.2",
+                    "opf_schema": "0.3",
                     "id": pid_div,
                     "tracks": [
                         {
@@ -343,7 +343,7 @@ class TestBuilderV02(unittest.TestCase):
             # ------------------------------------------------------------------
             pid_unsplit = "opf:sample/unsplit-snack/100g"
             pdir_unsplit = product_dir_for_id(products_dir, pid_unsplit)
-            _write_json(pdir_unsplit / "product.json", {"opf_schema": "0.2", "id": pid_unsplit})
+            _write_json(pdir_unsplit / "product.json", {"opf_schema": "0.3", "id": pid_unsplit})
             u1 = _make_edition(
                 pid=pid_unsplit,
                 edition_id="01J8Z000000000000000000021",
@@ -370,7 +370,7 @@ class TestBuilderV02(unittest.TestCase):
             # ------------------------------------------------------------------
             pid_inactive = "opf:sample/retired-soda/330ml"
             pdir_inact = product_dir_for_id(products_dir, pid_inactive)
-            _write_json(pdir_inact / "product.json", {"opf_schema": "0.2", "id": pid_inactive})
+            _write_json(pdir_inact / "product.json", {"opf_schema": "0.3", "id": pid_inactive})
             inact_ed = _make_edition(
                 pid=pid_inactive,
                 edition_id="01J8Z000000000000000000031",
@@ -461,7 +461,7 @@ class TestBuilderV02(unittest.TestCase):
 
             # Verify indices & meta.json
             meta = json.loads((site_dir / "v1" / "meta.json").read_text("utf-8"))
-            self.assertEqual(meta["opf_schema"], "0.2")
+            self.assertEqual(meta["opf_schema"], "0.3")
             self.assertEqual(meta["media_base_url"], "https://media.example.org")
             self.assertEqual(meta["total_products"], 5)
             self.assertEqual(

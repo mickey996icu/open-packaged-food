@@ -1,4 +1,4 @@
-"""Self-contained v0.2 unit test fixtures for OpenPackagedFood (opf)."""
+"""Self-contained v0.3 unit test fixtures for OpenPackagedFood (opf)."""
 
 from __future__ import annotations
 
@@ -29,7 +29,7 @@ def _build_initial_edition(
         ev_copy.setdefault("provenance", provenance)
         ev_list.append(ev_copy)
     ed: dict[str, Any] = {
-        "opf_schema": "0.2",
+        "opf_schema": "0.3",
         "id": product_id,
         "edition_id": edition_id or generate_ulid(),
         "rev": 1,
@@ -77,6 +77,9 @@ def make_cn_tea_fixture(edition_id: str | None = None) -> dict[str, Any]:
                 "nodes": parse_ingredients_semantic(raw_ing, lang="zh-Hans", profile_id=profile_id),
             }
         ],
+        "special_indicators": [
+            {"name": "tea_polyphenols", "qualifier": ">=", "value": "180", "unit": "mg/kg"}
+        ],
     }
     attributes: dict[str, Any] = {
         "product_name": [
@@ -87,9 +90,6 @@ def make_cn_tea_fixture(edition_id: str | None = None) -> dict[str, Any]:
         "category": "beverages/tea_unsweetened",
         "declared_category": "原味茶饮料",
         "ingredients_text": [{"lang": "zh-Hans", "text": raw_ing}],
-        "special_indicators": [
-            {"name": "tea_polyphenols", "qualifier": ">=", "value": "180", "unit": "mg/kg"}
-        ],
         "product_standard": ["GB/T 21733"],
         "shelf_life": {"value": "12", "unit": "month"},
     }
@@ -237,7 +237,7 @@ def make_product_meta_from_edition(
 ) -> dict[str, Any]:
     """Build a minimal valid product.json metadata document matching a fixture edition."""
     meta: dict[str, Any] = {
-        "opf_schema": "0.2",
+        "opf_schema": "0.3",
         "id": ed["id"],
     }
     if aliases:

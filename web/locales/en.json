@@ -93,7 +93,8 @@
     "emptyCatalogDrawer": "No product records yet",
     "mixedEvidenceShort": "mixed evidence forms",
     "mixedEvidenceTitle": "Most photo submissions: {high} · Other active variant: {low}",
-    "activeEditionsCount": "{count} active"
+    "activeEditionsCount": "{count} active",
+    "nutritionExemptShort": "Nutrition Exempt"
   },
   "stats": {
     "ariaLabel": "Database Statistics",
@@ -202,7 +203,12 @@
     "tActiveVintage": "Latest package vintage seen: {ym} (formulation may have changed since)",
     "tActiveReported": "Earliest reported: {ym}",
     "tActiveVintageShort": "Vintage seen {ym}",
-    "tActiveReportedShort": "Earliest reported {ym}"
+    "tActiveReportedShort": "Earliest reported {ym}",
+    "metaQualityGrade": "Quality Grade",
+    "nutritionExemptTitle": "Legally Exempt from Nutrition Panel",
+    "nutritionExemptDesc": "This packaged food is legally exempt from mandatory nutrition labeling in its jurisdiction and prints no nutrition table; OPF preserves the blank rather than fabricating all-zero values.",
+    "nutritionExemptBasisLabel": "Legal Basis",
+    "allVariantsExemptNotice": "All active variants are legally exempt from mandatory nutrition panels; select a concrete variant above by special indicators, origin, manufacturer, or packaging code."
   },
   "seals": {
     "corroborated": {
@@ -269,7 +275,19 @@
     "additives_ins": "Additives (INS)",
     "origin": "Origin",
     "parties": "Parties / Manufacturers",
-    "product_standard": "Product Standard"
+    "product_standard": "Product Standard",
+    "nutrition_exemption": "Nutrition Exemption",
+    "special_indicators": "Special Indicators",
+    "quality_grade": "Quality Grade"
+  },
+  "nutritionExemptions": {
+    "packaged_water": "Packaged Drinking Water",
+    "tea_coffee_herbs": "Tea Leaves, Coffee & Herbal Infusions",
+    "single_ingredient_unprocessed": "Single-Ingredient Raw / Unprocessed Food",
+    "salt_vinegar_spices": "Table Salt, Vinegar & Spices",
+    "alcoholic_beverage": "Alcoholic Beverage",
+    "small_daily_intake": "Minimal Daily Intake Food",
+    "small_package_area": "Small Package Surface Area Exemption"
   },
   "nutrients": {
     "energy_kj": "Energy (kJ)",

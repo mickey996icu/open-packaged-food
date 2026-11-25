@@ -93,7 +93,8 @@
     "emptyCatalogDrawer": "暂无商品记录",
     "mixedEvidenceShort": "变体证据形态不同",
     "mixedEvidenceTitle": "多照片变体：{high} · 其余活跃变体：{low}",
-    "activeEditionsCount": "{count} 个活跃版"
+    "activeEditionsCount": "{count} 个活跃版",
+    "nutritionExemptShort": "豁免营养表"
   },
   "stats": {
     "ariaLabel": "数据库统计概览",
@@ -202,7 +203,12 @@
     "tActiveVintage": "见过的最近包装生产月：{ym}（此后配方可能已变更）",
     "tActiveReported": "最早报告于：{ym}",
     "tActiveVintageShort": "见过的包装月 {ym}",
-    "tActiveReportedShort": "最早报告 {ym}"
+    "tActiveReportedShort": "最早报告 {ym}",
+    "metaQualityGrade": "质量等级",
+    "nutritionExemptTitle": "法定豁免营养成分表",
+    "nutritionExemptDesc": "该预包装食品依据对应法域法规豁免强制标示营养成分表，包装未印营养表；OPF 保持原始空白，不编造全 0 数值。",
+    "nutritionExemptBasisLabel": "豁免法规依据",
+    "allVariantsExemptNotice": "当前所有活跃变体均依法豁免营养成分表，请依据上方特征指标、产地、生产商或包材信息选择具体变体。"
   },
   "seals": {
     "corroborated": {
@@ -269,7 +275,19 @@
     "additives_ins": "食品添加剂",
     "origin": "产地",
     "parties": "生产/委托方",
-    "product_standard": "执行标准"
+    "product_standard": "执行标准",
+    "nutrition_exemption": "营养表豁免类别",
+    "special_indicators": "特征指标",
+    "quality_grade": "质量等级"
+  },
+  "nutritionExemptions": {
+    "packaged_water": "包装饮用水",
+    "tea_coffee_herbs": "茶叶、咖啡及草本冲泡品",
+    "single_ingredient_unprocessed": "单一原料未加工或生鲜食品",
+    "salt_vinegar_spices": "食用盐、食醋及香辛调味料",
+    "alcoholic_beverage": "含酒精饮料",
+    "small_daily_intake": "每日食用量极少食品",
+    "small_package_area": "小包装最大表面积豁免"
   },
   "nutrients": {
     "energy_kj": "能量 (千焦)",

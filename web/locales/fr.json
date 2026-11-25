@@ -93,7 +93,8 @@
     "emptyCatalogDrawer": "Aucune fiche produit pour le moment",
     "mixedEvidenceShort": "preuves mixtes",
     "mixedEvidenceTitle": "Plus complète : {high} · Autre variante active : {low}",
-    "activeEditionsCount": "{count} active(s)"
+    "activeEditionsCount": "{count} active(s)",
+    "nutritionExemptShort": "Exempté de tableau"
   },
   "stats": {
     "ariaLabel": "Statistiques de la base",
@@ -202,7 +203,12 @@
     "tActiveVintage": "Dernier mois d'emballage observé : {ym} (la formule a pu changer depuis)",
     "tActiveReported": "Premier signalement : {ym}",
     "tActiveVintageShort": "Emballage {ym}",
-    "tActiveReportedShort": "Signalé {ym}"
+    "tActiveReportedShort": "Signalé {ym}",
+    "metaQualityGrade": "Catégorie de qualité",
+    "nutritionExemptTitle": "Exempté légalement de déclaration nutritionnelle",
+    "nutritionExemptDesc": "Cette denrée préemballée est dispensée de tableau nutritionnel obligatoire par la réglementation applicable ; OPF ne fabrique aucune valeur zéro fictive.",
+    "nutritionExemptBasisLabel": "Base réglementaire",
+    "allVariantsExemptNotice": "Toutes les variantes actives sont légalement dispensées de tableau nutritionnel ; sélectionnez une variante ci-dessus selon les indicateurs spécifiques, l'origine ou le fabricant."
   },
   "seals": {
     "corroborated": {
@@ -269,7 +275,19 @@
     "additives_ins": "Additifs (INS)",
     "origin": "Origine",
     "parties": "Opérateurs / Fabricants",
-    "product_standard": "Norme produit"
+    "product_standard": "Norme produit",
+    "nutrition_exemption": "Exemption nutritionnelle",
+    "special_indicators": "Indicateurs spécifiques",
+    "quality_grade": "Catégorie de qualité"
+  },
+  "nutritionExemptions": {
+    "packaged_water": "Eau potable conditionnée",
+    "tea_coffee_herbs": "Thé, café et infusions de plantes",
+    "single_ingredient_unprocessed": "Produit brut non transformé à ingrédient unique",
+    "salt_vinegar_spices": "Sel, vinaigre et épices",
+    "alcoholic_beverage": "Boisson alcoolisée",
+    "small_daily_intake": "Faible consommation journalière",
+    "small_package_area": "Petit emballage (surface réduite)"
   },
   "nutrients": {
     "energy_kj": "Énergie (kJ)",
