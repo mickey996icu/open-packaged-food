@@ -330,6 +330,138 @@ class TestPrMetadataAndFixes(unittest.TestCase):
             self.assertEqual(_run_gate("mickey996icu").returncode, 0)
             self.assertEqual(_run_gate("external-user").returncode, 1)
 
+    def test_pr_check_blocks_non_maintainer_deletions(self) -> None:
+        ed_dir = "products/gtin/000/000/00000000000109/editions"
+        src_id = "01JTESTCNTEA00000000000001"
+        tgt_id = "01JTESTCNTEA00000000000002"
+
+        def _ed(edition_id: str, ev_ids: list[str]) -> dict:
+            return {
+                "opf_schema": "0.2",
+                "id": "gtin:00000000000109",
+                "edition_id": edition_id,
+                "evidence": [
+                    {"evidence_id": e, "type": "community_report", "provenance": "maintainer"} for e in ev_ids
+                ],
+                "revisions": [
+                    {"rev": 1, "kind": "initial", "provenance": "maintainer"},
+                    {"rev": 2, "kind": "errata", "provenance": "maintainer"},
+                ],
+            }
+
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_path = Path(tmp)
+            repo = tmp_path / "opf-data"
+            src = repo / ed_dir / f"{src_id}.json"
+            tgt = repo / ed_dir / f"{tgt_id}.json"
+            src.parent.mkdir(parents=True, exist_ok=True)
+            src.write_text(json.dumps(_ed(src_id, ["ev:A1", "ev:A2"])), encoding="utf-8")
+            tgt.write_text(json.dumps(_ed(tgt_id, ["ev:B1"])), encoding="utf-8")
+
+            def git(*args: str) -> None:
+                subprocess.run(["git", "-C", str(repo), *args], check=True, capture_output=True)
+
+            git("init", "-b", "main")
+            git("config", "user.email", "dev@example.org")
+            git("config", "user.name", "Dev")
+            git("add", "-A")
+            git("commit", "-s", "-m", "chore: baseline")
+
+            def gate(actor: str) -> subprocess.CompletedProcess[str]:
+                ev_p = tmp_path / f"ev_{actor}.json"
+                ev_p.write_text(
+                    json.dumps(
+                        {
+                            "pull_request": {
+                                "title": "feat(product): gtin:00000000000109 update",
+                                "body": "Submission for gtin:00000000000109.",
+                                "user": {"login": actor},
+                                "base": {"repo": {"owner": {"login": "mickey996icu"}}},
+                            }
+                        }
+                    ),
+                    encoding="utf-8",
+                )
+                return subprocess.run(
+                    [
+                        sys.executable,
+                        str(REPO_ROOT / "bin" / "opf"),
+                        "check-pr-meta",
+                        "--repo-kind",
+                        "data",
+                        "--event-path",
+                        str(ev_p),
+                        "--repo-dir",
+                        str(repo),
+                        "--base-ref",
+                        "main",
+                    ],
+                    capture_output=True,
+                    text=True,
+                    check=False,
+                )
+
+            def branch(name: str, mutate) -> None:
+                git("switch", "main")
+                git("switch", "-c", name)
+                mutate()
+                git("add", "-A")
+                git("commit", "-s", "-m", f"chore: {name}")
+
+            # 1. Deleting an existing edition file: rejected for external, allowed for maintainer
+            branch("del-file", lambda: src.unlink())
+            res = gate("external-user")
+            self.assertEqual(res.returncode, 1)
+            self.assertIn("cannot delete an existing edition file", res.stderr)
+            self.assertEqual(gate("mickey996icu").returncode, 0, gate("mickey996icu").stderr)
+
+            # 2. Removing an existing evidence entry / revision entry
+            def _drop_entries() -> None:
+                d = json.loads(src.read_text(encoding="utf-8"))
+                d["evidence"] = d["evidence"][:1]
+                d["revisions"] = d["revisions"][:1]
+                src.write_text(json.dumps(d), encoding="utf-8")
+
+            branch("drop-entries", _drop_entries)
+            res = gate("external-user")
+            self.assertEqual(res.returncode, 1)
+            self.assertIn("evidence[] is append-only", res.stderr)
+            self.assertIn("revisions[] is append-only", res.stderr)
+            self.assertEqual(gate("mickey996icu").returncode, 0)
+
+            # 3. Merge stub that drops evidence is rejected; carrying evidence into target passes
+            stub = {
+                "opf_schema": "0.2",
+                "id": "gtin:00000000000109",
+                "edition_id": src_id,
+                "merged_into": tgt_id,
+                "merged_into_rev": 2,
+                "merged_at": "2026-11-01",
+                "reason": "duplicate",
+            }
+
+            def _merge_lossy() -> None:
+                src.write_text(json.dumps(stub), encoding="utf-8")
+
+            branch("merge-lossy", _merge_lossy)
+            res = gate("external-user")
+            self.assertEqual(res.returncode, 1)
+            self.assertIn("drops existing evidence", res.stderr)
+
+            def _merge_ok() -> None:
+                src.write_text(json.dumps(stub), encoding="utf-8")
+                d = json.loads(tgt.read_text(encoding="utf-8"))
+                d["evidence"] += [
+                    {"evidence_id": e, "type": "community_report", "provenance": "maintainer"}
+                    for e in ("ev:A1", "ev:A2")
+                ]
+                tgt.write_text(json.dumps(d), encoding="utf-8")
+
+            branch("merge-ok", _merge_ok)
+            res = gate("external-user")
+            self.assertNotIn("drops existing evidence", res.stderr)
+            self.assertNotIn("append-only", res.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()
