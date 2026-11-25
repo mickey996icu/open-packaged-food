@@ -113,8 +113,10 @@ python3 -m unittest discover -s tests -v
 
 ---
 
-## Lizenzen
+## Lizenzen (REUSE-Schichten)
 
-- **Werkzeuge & Web-Explorer (`opf/`, `bin/`, `web/`, `.github/`)**: [AGPL-3.0-or-later](LICENSE)
-- **Datenbank & Produkt-JSON (`opf-data`)**: [ODbL-1.0](LICENSE-DATA) / `DbCL-1.0`
-- **Zugeschnittene Etikett-Nachweise (`opf-media`)**: [CC-BY-SA-4.0](LICENSE-MEDIA)
+- **Werkzeuge & Web-Explorer (`opf/`, `bin/`, `web/` außer `web/vendor/`, `.github/`, `tests/`)**: [`AGPL-3.0-or-later`](LICENSE) nach außen (**[`Apache-2.0`](LICENSES/Apache-2.0.txt) permissiv eingehend** für Beiträge + DCO `git commit -s`, siehe [`CONTRIBUTING.md`](CONTRIBUTING.md))
+- **Spezifikationen, Schemas, Wörterbücher, Regelprofile, Skills, Docs & Vendor (`spec/`, `dictionaries/`, `profiles/`, `skills/`, `docs/`, `web/vendor/`)**: [`Apache-2.0`](LICENSES/Apache-2.0.txt) (direkte Integration ohne Copyleft-Weitergabe)
+- **Datenbank & Produkt-JSON (`opf-data`)**: [`ODbL-1.0`](LICENSE-DATA) / `DbCL-1.0` (Leitfaden: [`docs/ODbL-GUIDE.md`](docs/ODbL-GUIDE.md))
+- **Zugeschnittene Etikett-Nachweise (`opf-media`)**: [`CC-BY-SA-4.0`](LICENSE-MEDIA)
+- Maschinenlesbare SPDX-Deklarationen je Pfad in [`REUSE.toml`](REUSE.toml) und [`LICENSES/`](LICENSES/); Governance-Regeln in [`GOVERNANCE.md`](GOVERNANCE.md).

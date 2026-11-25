@@ -115,8 +115,10 @@ python3 -m unittest discover -s tests -v
 
 ---
 
-## ライセンス
+## ライセンス（REUSE 階層宣言）
 
-- **ツール・Web エクスプローラー（`opf/`・`bin/`・`web/`・`.github/`）**：[AGPL-3.0-or-later](LICENSE)
-- **データベース・商品 JSON（`opf-data`）**：[ODbL-1.0](LICENSE-DATA) / `DbCL-1.0`
-- **切り抜きラベル証拠画像（`opf-media`）**：[CC-BY-SA-4.0](LICENSE-MEDIA)
+- **ツール・Web エクスプローラー（`opf/`・`bin/`・`web/` ※`web/vendor/` を除く・`.github/`・`tests/`）**：公開は [`AGPL-3.0-or-later`](LICENSE)（貢献受け入れは **[`Apache-2.0`](LICENSES/Apache-2.0.txt)** + DCO `git commit -s`、詳細は [`CONTRIBUTING.md`](CONTRIBUTING.md)）
+- **仕様・スキーマ・辞書・地域ルール・Skill・ドキュメント・同梱ライブラリ（`spec/`・`dictionaries/`・`profiles/`・`skills/`・`docs/`・`web/vendor/`）**：[`Apache-2.0`](LICENSES/Apache-2.0.txt)（コピーレフト伝播なしで組み込み可能）
+- **データベース・商品 JSON（`opf-data`）**：[`ODbL-1.0`](LICENSE-DATA) / `DbCL-1.0`（利用ガイド：[`docs/ODbL-GUIDE.md`](docs/ODbL-GUIDE.md)）
+- **切り抜きラベル証拠画像（`opf-media`）**：[`CC-BY-SA-4.0`](LICENSE-MEDIA)
+- 全パスの SPDX 宣言は [`REUSE.toml`](REUSE.toml) と [`LICENSES/`](LICENSES/)、ガバナンスと `provenance` 原則は [`GOVERNANCE.md`](GOVERNANCE.md) を参照してください。

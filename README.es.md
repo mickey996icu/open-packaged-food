@@ -113,8 +113,10 @@ python3 -m unittest discover -s tests -v
 
 ---
 
-## Licencias
+## Licencias (capas REUSE)
 
-- **Herramientas y explorador web (`opf/`, `bin/`, `web/`, `.github/`)**: [AGPL-3.0-or-later](LICENSE)
-- **Base de datos y JSON de productos (`opf-data`)**: [ODbL-1.0](LICENSE-DATA) / `DbCL-1.0`
-- **Recortes de etiquetas (`opf-media`)**: [CC-BY-SA-4.0](LICENSE-MEDIA)
+- **Herramientas y explorador web (`opf/`, `bin/`, `web/` excl. `web/vendor/`, `.github/`, `tests/`)**: [`AGPL-3.0-or-later`](LICENSE) en salida (**[`Apache-2.0`](LICENSES/Apache-2.0.txt) permisiva en entrada** + DCO `git commit -s`, ver [`CONTRIBUTING.md`](CONTRIBUTING.md))
+- **Especificaciones, esquemas, diccionarios, perfiles, skills, docs y vendor (`spec/`, `dictionaries/`, `profiles/`, `skills/`, `docs/`, `web/vendor/`)**: [`Apache-2.0`](LICENSES/Apache-2.0.txt) (integración directa sin propagación copyleft)
+- **Base de datos y JSON de productos (`opf-data`)**: [`ODbL-1.0`](LICENSE-DATA) / `DbCL-1.0` (guía: [`docs/ODbL-GUIDE.md`](docs/ODbL-GUIDE.md))
+- **Recortes de etiquetas (`opf-media`)**: [`CC-BY-SA-4.0`](LICENSE-MEDIA)
+- Declaraciones SPDX legibles por máquina en [`REUSE.toml`](REUSE.toml) y [`LICENSES/`](LICENSES/); gobernanza en [`GOVERNANCE.md`](GOVERNANCE.md).

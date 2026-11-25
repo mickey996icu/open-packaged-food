@@ -1,6 +1,6 @@
 # OpenPackagedFood (`opf`)
 
-**[English](README.md) | [简体中文](README.zh-CN.md) | [日本語](README.ja.md) | [Deutsch](README.de.md) | [Français](README.fr.md) | [Español](README.es.md) | [Italiano](README.it.md)** · **[贡献指南](CONTRIBUTING.zh-CN.md)** · **[技术规范](spec/SPEC.md)** · **[设计规范](docs/DESIGN.md)**
+**[English](README.md) | [简体中文](README.zh-CN.md) | [日本語](README.ja.md) | [Deutsch](README.de.md) | [Français](README.fr.md) | [Español](README.es.md) | [Italiano](README.it.md)** · **[贡献指南](CONTRIBUTING.zh-CN.md)** · **[项目治理](GOVERNANCE.zh-CN.md)** · **[ODbL 指南](docs/ODbL-GUIDE.zh-CN.md)** · **[技术规范](spec/SPEC.md)** · **[设计规范](docs/DESIGN.md)**
 
 > 🌐 **在线查库与纯本地扫码**：[https://mickey996icu.github.io/opf-data/](https://mickey996icu.github.io/opf-data/)
 >
@@ -113,8 +113,10 @@ python3 -m unittest discover -s tests -v
 
 ---
 
-## 开源协议
+## 开源协议（REUSE 分层声明）
 
-- **工具链与网页端（`opf/`、`bin/`、`web/`、`.github/`）**：[AGPL-3.0-or-later](LICENSE)
-- **数据库与商品 JSON（`opf-data`）**：[ODbL-1.0](LICENSE-DATA) / `DbCL-1.0`
-- **裁剪标签证据图片（`opf-media`）**：[CC-BY-SA-4.0](LICENSE-MEDIA)
+- **工具链、CLI 与 Web 浏览器（`opf/`、`bin/`、`web/` 不含 `web/vendor/`、`.github/`、`tests/`）**：对外 [`AGPL-3.0-or-later`](LICENSE)（外部贡献按 **[`Apache-2.0`](LICENSES/Apache-2.0.txt) 宽松入站**并附 DCO `git commit -s`，见 [`CONTRIBUTING.zh-CN.md`](CONTRIBUTING.zh-CN.md)）
+- **规范、Schema、词典、法规插件、Skills、文档与内置扫码库（`spec/`、`dictionaries/`、`profiles/`、`skills/`、`docs/`、`web/vendor/`）**：[`Apache-2.0`](LICENSES/Apache-2.0.txt)（无传染性，可直接引用与商业集成）
+- **结构化商品事实数据库（`opf-data`）**：[`ODbL-1.0`](LICENSE-DATA) / `DbCL-1.0`（合规接入边界见 [`docs/ODbL-GUIDE.zh-CN.md`](docs/ODbL-GUIDE.zh-CN.md)）
+- **裁剪标签证据图片（`opf-media`）**：[`CC-BY-SA-4.0`](LICENSE-MEDIA)
+- 全部路径的机器可读 SPDX 声明见 [`REUSE.toml`](REUSE.toml) 与 [`LICENSES/`](LICENSES/)，治理与 `provenance` 规则见 [`GOVERNANCE.zh-CN.md`](GOVERNANCE.zh-CN.md)。
