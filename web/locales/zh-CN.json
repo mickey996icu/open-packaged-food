@@ -287,7 +287,8 @@
     "salt_vinegar_spices": "食用盐、食醋及香辛调味料",
     "alcoholic_beverage": "含酒精饮料",
     "small_daily_intake": "每日食用量极少食品",
-    "small_package_area": "小包装最大表面积豁免"
+    "small_package_area": "小包装最大表面积豁免",
+    "general_unclaimed_exempt": "当地法规对无营养声称普通食品免强制标示"
   },
   "nutrients": {
     "energy_kj": "能量 (千焦)",
@@ -332,7 +333,12 @@
     "molluscs": "软体动物类",
     "sulphites": "亚硫酸盐",
     "soy": "大豆",
-    "wheat": "小麦"
+    "wheat": "小麦",
+    "pork": "猪肉",
+    "beef": "牛肉",
+    "chicken": "鸡肉",
+    "peach": "桃",
+    "tomato": "番茄"
   },
   "roles": {
     "brand_owner": "品牌方",

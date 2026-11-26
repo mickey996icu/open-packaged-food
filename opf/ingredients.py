@@ -13,6 +13,7 @@ from opf.ingredients_lexicon import (
     FUNCTIONAL_CLASS_TERMS,
     HEADER_PREFIX_RE,
     INLINE_QUALIFIER_RE,
+    KR_ORIGIN_HEAD_RE,
     OPEN_TO_CLOSE,
     QUALIFIER_ONLY_RE,
     SPAN_KEYS,
@@ -104,9 +105,19 @@ def _parse_segment(
         elif depth == 0 and ch in COLON_CHARS:
             fc_s, fc_e = _strip_span(text, seg_start, i)
             if fc_s < fc_e:
-                func_class = text[fc_s:fc_e]
+                cand_fc = text[fc_s:fc_e]
+                rest_s, rest_e = _strip_span(text, i + 1, seg_end)
+                rhs = text[rest_s:rest_e]
+                rhs_head = rhs
+                for k, rch in enumerate(rhs):
+                    if rch in OPEN_TO_CLOSE or rch.isspace():
+                        rhs_head = rhs[:k]
+                        break
+                if not _is_functional_class_name(cand_fc) and KR_ORIGIN_HEAD_RE.match(rhs_head):
+                    break
+                func_class = cand_fc
                 func_span = [fc_s, fc_e]
-                seg_start, seg_end = _strip_span(text, i + 1, seg_end)
+                seg_start, seg_end = rest_s, rest_e
             break
 
     if func_class is None and text[seg_start:seg_end].startswith("其中") and (seg_end - seg_start) > 2:

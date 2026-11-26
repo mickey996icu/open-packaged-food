@@ -287,7 +287,8 @@
     "salt_vinegar_spices": "Sel, vinaigre et épices",
     "alcoholic_beverage": "Boisson alcoolisée",
     "small_daily_intake": "Faible consommation journalière",
-    "small_package_area": "Petit emballage (surface réduite)"
+    "small_package_area": "Petit emballage (surface réduite)",
+    "general_unclaimed_exempt": "Denrée courante sans déclaration obligatoire (sans allégation)"
   },
   "nutrients": {
     "energy_kj": "Énergie (kJ)",
@@ -332,7 +333,12 @@
     "molluscs": "Mollusques",
     "sulphites": "Anhydride sulfureux et sulfites",
     "soy": "Soja",
-    "wheat": "Blé"
+    "wheat": "Blé",
+    "pork": "Porc",
+    "beef": "Bœuf",
+    "chicken": "Poulet",
+    "peach": "Pêche",
+    "tomato": "Tomate"
   },
   "roles": {
     "brand_owner": "Propriétaire de la marque",

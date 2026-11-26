@@ -33,7 +33,7 @@ class TestWebV02(unittest.TestCase):
         locales_dir = REPO_ROOT / "web" / "locales"
         manifest = json.loads((locales_dir / "index.json").read_text(encoding="utf-8"))
         codes = [item["code"] for item in manifest["locales"]]
-        expected_codes = {"zh-CN", "en", "ja", "de", "fr", "es", "it"}
+        expected_codes = {"zh-CN", "en", "ja", "ko", "de", "fr", "es", "it"}
         self.assertEqual(set(codes), expected_codes)
 
         flattened_by_code = {
@@ -277,6 +277,7 @@ class TestWebV02(unittest.TestCase):
                 "zh-CN.json",
                 "en.json",
                 "ja.json",
+                "ko.json",
                 "de.json",
                 "fr.json",
                 "es.json",

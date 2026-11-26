@@ -287,7 +287,8 @@
     "salt_vinegar_spices": "Sale da cucina, aceto e spezie",
     "alcoholic_beverage": "Bevanda alcolica",
     "small_daily_intake": "Assunzione giornaliera minima",
-    "small_package_area": "Imballaggio di superficie ridotta"
+    "small_package_area": "Imballaggio di superficie ridotta",
+    "general_unclaimed_exempt": "Alimento generico esente da tabella obbligatoria (senza claim)"
   },
   "nutrients": {
     "energy_kj": "Energia (kJ)",
@@ -332,7 +333,12 @@
     "molluscs": "Molluschi",
     "sulphites": "Anidride solforosa e solfiti",
     "soy": "Soia",
-    "wheat": "Grano"
+    "wheat": "Grano",
+    "pork": "Maiale",
+    "beef": "Manzo / Bovino",
+    "chicken": "Pollo",
+    "peach": "Pesca",
+    "tomato": "Pomodoro"
   },
   "roles": {
     "brand_owner": "Titolare del marchio",

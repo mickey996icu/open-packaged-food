@@ -35,6 +35,14 @@
         ],
         "it": [
           "Curcumina"
+        ],
+        "ko": [
+          "강황색소",
+          "심황색소",
+          "커큐민"
+        ],
+        "ms": [
+          "kurkumin"
         ]
       }
     },
@@ -71,6 +79,13 @@
         ],
         "it": [
           "Tartrazina"
+        ],
+        "ko": [
+          "식용색소황색제4호",
+          "타트라진"
+        ],
+        "ms": [
+          "tartrazin"
         ]
       }
     },
@@ -106,6 +121,12 @@
         ],
         "it": [
           "Giallo tramonto FCF"
+        ],
+        "ko": [
+          "식용색소황색제5호"
+        ],
+        "ms": [
+          "kuning senja fcf"
         ]
       }
     },
@@ -141,6 +162,12 @@
         ],
         "it": [
           "Rosso allura AC"
+        ],
+        "ko": [
+          "식용색소적색제40호"
+        ],
+        "ms": [
+          "merah allura ac"
         ]
       }
     },
@@ -176,6 +203,12 @@
         ],
         "it": [
           "Blu brillante FCF"
+        ],
+        "ko": [
+          "식용색소청색제1호"
+        ],
+        "ms": [
+          "biru berlian fcf"
         ]
       }
     },
@@ -217,6 +250,14 @@
         "it": [
           "Caramello semplice",
           "Caramello"
+        ],
+        "ko": [
+          "카라멜색소",
+          "카라멜색소I"
+        ],
+        "ms": [
+          "warna karamel",
+          "karamel"
         ]
       }
     },
@@ -259,6 +300,13 @@
         "it": [
           "Beta-carotene",
           "Caroteni"
+        ],
+        "ko": [
+          "베타카로틴",
+          "β-카로틴"
+        ],
+        "ms": [
+          "beta-karotena"
         ]
       }
     },
@@ -306,6 +354,13 @@
           "Estratto di paprica",
           "Capsantina",
           "Capsorubina"
+        ],
+        "ko": [
+          "파프리카추출색소",
+          "올레오레진파프리카"
+        ],
+        "ms": [
+          "ekstrak paprika"
         ]
       }
     },
@@ -340,6 +395,13 @@
         ],
         "it": [
           "Acido sorbico"
+        ],
+        "ko": [
+          "소르빈산",
+          "소브산"
+        ],
+        "ms": [
+          "asid sorbik"
         ]
       }
     },
@@ -376,6 +438,13 @@
         ],
         "it": [
           "Sorbato di potassio"
+        ],
+        "ko": [
+          "소르빈산칼륨",
+          "소브산칼륨"
+        ],
+        "ms": [
+          "kalium sorbat"
         ]
       }
     },
@@ -412,6 +481,12 @@
         ],
         "it": [
           "Benzoato di sodio"
+        ],
+        "ko": [
+          "안식향산나트륨"
+        ],
+        "ms": [
+          "natrium benzoat"
         ]
       }
     },
@@ -451,6 +526,13 @@
         ],
         "it": [
           "Metabisolfito di sodio"
+        ],
+        "ko": [
+          "메타중아황산나트륨",
+          "산성아황산나트륨"
+        ],
+        "ms": [
+          "natrium metabisulfit"
         ]
       }
     },
@@ -485,6 +567,12 @@
         ],
         "it": [
           "Nisina"
+        ],
+        "ko": [
+          "니신"
+        ],
+        "ms": [
+          "nisin"
         ]
       }
     },
@@ -521,6 +609,12 @@
         ],
         "it": [
           "Nitrito di potassio"
+        ],
+        "ko": [
+          "아질산칼륨"
+        ],
+        "ms": [
+          "kalium nitrit"
         ]
       }
     },
@@ -558,6 +652,12 @@
         ],
         "it": [
           "Nitrito di sodio"
+        ],
+        "ko": [
+          "아질산나트륨"
+        ],
+        "ms": [
+          "natrium nitrit"
         ]
       }
     },
@@ -596,6 +696,13 @@
         ],
         "it": [
           "Acido acetico"
+        ],
+        "ko": [
+          "빙초산",
+          "초산"
+        ],
+        "ms": [
+          "asid asetik"
         ]
       }
     },
@@ -630,6 +737,13 @@
         ],
         "it": [
           "Acido lattico"
+        ],
+        "ko": [
+          "젖산",
+          "유산"
+        ],
+        "ms": [
+          "asid laktik"
         ]
       }
     },
@@ -665,6 +779,12 @@
         ],
         "it": [
           "Propionato di calcio"
+        ],
+        "ko": [
+          "프로피온산칼슘"
+        ],
+        "ms": [
+          "kalsium propionat"
         ]
       }
     },
@@ -702,6 +822,13 @@
         "it": [
           "Anidride carbonica",
           "Biossido di carbonio"
+        ],
+        "ko": [
+          "이산화탄소",
+          "탄산가스"
+        ],
+        "ms": [
+          "karbon dioksida"
         ]
       }
     },
@@ -742,6 +869,13 @@
         ],
         "it": [
           "Acido malico"
+        ],
+        "ko": [
+          "사과산",
+          "DL-사과산"
+        ],
+        "ms": [
+          "asid malik"
         ]
       }
     },
@@ -791,6 +925,15 @@
         "it": [
           "Acido ascorbico",
           "Acido L-ascorbico"
+        ],
+        "ko": [
+          "비타민C",
+          "L-아스코빈산",
+          "아스코르빈산"
+        ],
+        "ms": [
+          "asid askorbik",
+          "vitamin c"
         ]
       }
     },
@@ -828,6 +971,13 @@
         ],
         "it": [
           "Ascorbato di sodio"
+        ],
+        "ko": [
+          "L-아스코빈산나트륨",
+          "아스코르빈산나트륨"
+        ],
+        "ms": [
+          "natrium askorbat"
         ]
       }
     },
@@ -876,6 +1026,15 @@
         "it": [
           "Alfa-tocoferolo",
           "Tocoferoli"
+        ],
+        "ko": [
+          "토코페롤",
+          "d-토코페롤",
+          "혼합토코페롤"
+        ],
+        "ms": [
+          "alfa-tokoferol",
+          "tokoferol"
         ]
       }
     },
@@ -913,6 +1072,12 @@
         ],
         "it": [
           "Eritorbato di sodio"
+        ],
+        "ko": [
+          "에리소르빈산나트륨"
+        ],
+        "ms": [
+          "natrium eritorbat"
         ]
       }
     },
@@ -938,6 +1103,12 @@
         ],
         "ja": [
           "TBHQ"
+        ],
+        "ko": [
+          "터셔리부틸히드로퀴논"
+        ],
+        "ms": [
+          "tbhq"
         ]
       }
     },
@@ -964,6 +1135,12 @@
         "ja": [
           "ブチルヒドロキシアニソール",
           "BHA"
+        ],
+        "ko": [
+          "부틸히드록시아니솔"
+        ],
+        "ms": [
+          "bha"
         ]
       }
     },
@@ -990,6 +1167,12 @@
         "ja": [
           "ジブチルヒドロキシトルエン",
           "BHT"
+        ],
+        "ko": [
+          "디부틸히드록시톨루엔"
+        ],
+        "ms": [
+          "bht"
         ]
       }
     },
@@ -1050,6 +1233,15 @@
           "Lecitina",
           "Lecitina di soia",
           "Lecitina di girasole"
+        ],
+        "ko": [
+          "레시틴",
+          "대두레시틴",
+          "난황레시틴"
+        ],
+        "ms": [
+          "lesitin",
+          "lesitin soya"
         ]
       }
     },
@@ -1086,6 +1278,12 @@
         ],
         "it": [
           "Fosfatidilcolina"
+        ],
+        "ko": [
+          "포스파티딜콜린"
+        ],
+        "ms": [
+          "fosfatidilkolina"
         ]
       }
     },
@@ -1122,6 +1320,13 @@
         ],
         "it": [
           "Lattato di sodio"
+        ],
+        "ko": [
+          "젖산나트륨",
+          "유산나트륨"
+        ],
+        "ms": [
+          "natrium laktat"
         ]
       }
     },
@@ -1158,6 +1363,13 @@
         ],
         "it": [
           "Lattato di calcio"
+        ],
+        "ko": [
+          "젖산칼슘",
+          "유산칼슘"
+        ],
+        "ms": [
+          "kalsium laktat"
         ]
       }
     },
@@ -1194,6 +1406,14 @@
         ],
         "it": [
           "Acido citrico"
+        ],
+        "ko": [
+          "구연산",
+          "무수구연산",
+          "결정구연산"
+        ],
+        "ms": [
+          "asid sitrik"
         ]
       }
     },
@@ -1237,6 +1457,14 @@
         "it": [
           "Citrato trisodico",
           "Citrato di sodio"
+        ],
+        "ko": [
+          "구연산삼나트륨",
+          "구연산나트륨"
+        ],
+        "ms": [
+          "trinatrium sitrat",
+          "natrium sitrat"
         ]
       }
     },
@@ -1271,6 +1499,12 @@
         ],
         "it": [
           "Acido fosforico"
+        ],
+        "ko": [
+          "인산"
+        ],
+        "ms": [
+          "asid fosforik"
         ]
       }
     },
@@ -1313,6 +1547,15 @@
         ],
         "it": [
           "Fosfati di potassio"
+        ],
+        "ko": [
+          "인산칼륨",
+          "제이인산칼륨",
+          "제삼인산칼륨"
+        ],
+        "ms": [
+          "kalium fosfat",
+          "dikalium fosfat"
         ]
       }
     },
@@ -1356,6 +1599,15 @@
         ],
         "it": [
           "Fosfati di calcio"
+        ],
+        "ko": [
+          "인산칼슘",
+          "제이인산칼슘",
+          "제삼인산칼슘"
+        ],
+        "ms": [
+          "kalsium fosfat",
+          "trikalsium fosfat"
         ]
       }
     },
@@ -1384,6 +1636,12 @@
         "ja": [
           "EDTA-Ca・Na",
           "エデト酸カルシウム二ナトリウム"
+        ],
+        "ko": [
+          "이디티에이칼슘이나트륨"
+        ],
+        "ms": [
+          "kalsium dinatrium edta"
         ]
       }
     },
@@ -1420,6 +1678,12 @@
         ],
         "it": [
           "Alginato di sodio"
+        ],
+        "ko": [
+          "알긴산나트륨"
+        ],
+        "ms": [
+          "natrium alginat"
         ]
       }
     },
@@ -1458,6 +1722,13 @@
         ],
         "it": [
           "Agar-agar"
+        ],
+        "ko": [
+          "한천"
+        ],
+        "ms": [
+          "agar-agar",
+          "agar"
         ]
       }
     },
@@ -1495,6 +1766,12 @@
         ],
         "it": [
           "Carragenina"
+        ],
+        "ko": [
+          "카라기난"
+        ],
+        "ms": [
+          "karagenan"
         ]
       }
     },
@@ -1534,6 +1811,12 @@
         ],
         "it": [
           "Farina di semi di carrube"
+        ],
+        "ko": [
+          "로커스트콩검"
+        ],
+        "ms": [
+          "gam kacang lokus"
         ]
       }
     },
@@ -1570,6 +1853,12 @@
         ],
         "it": [
           "Gomma di guar"
+        ],
+        "ko": [
+          "구아검"
+        ],
+        "ms": [
+          "gam guar"
         ]
       }
     },
@@ -1608,6 +1897,12 @@
         ],
         "it": [
           "Gomma arabica"
+        ],
+        "ko": [
+          "아라비아검"
+        ],
+        "ms": [
+          "gam arab"
         ]
       }
     },
@@ -1645,6 +1940,13 @@
         ],
         "it": [
           "Gomma di xantano"
+        ],
+        "ko": [
+          "잔탄검",
+          "산탄검"
+        ],
+        "ms": [
+          "gam xantan"
         ]
       }
     },
@@ -1681,6 +1983,12 @@
         ],
         "it": [
           "Gomma di gellano"
+        ],
+        "ko": [
+          "젤란검"
+        ],
+        "ms": [
+          "gam gelan"
         ]
       }
     },
@@ -1724,6 +2032,14 @@
         "it": [
           "Sorbitolo",
           "Sciroppo di sorbitolo"
+        ],
+        "ko": [
+          "소비톨",
+          "D-소비톨",
+          "D-소비톨액"
+        ],
+        "ms": [
+          "sorbitol"
         ]
       }
     },
@@ -1763,6 +2079,13 @@
         ],
         "it": [
           "Glicerolo"
+        ],
+        "ko": [
+          "글리세린"
+        ],
+        "ms": [
+          "gliserol",
+          "gliserin"
         ]
       }
     },
@@ -1804,6 +2127,12 @@
         "it": [
           "Pectine",
           "Pectina"
+        ],
+        "ko": [
+          "펙틴"
+        ],
+        "ms": [
+          "pektin"
         ]
       }
     },
@@ -1847,6 +2176,14 @@
         ],
         "it": [
           "Difosfati"
+        ],
+        "ko": [
+          "피로인산나트륨",
+          "산성피로인산나트륨"
+        ],
+        "ms": [
+          "difosfat",
+          "natrium pirofosfat"
         ]
       }
     },
@@ -1872,6 +2209,12 @@
         "ja": [
           "トリポリリン酸ナトリウム",
           "ポリリン酸Na"
+        ],
+        "ko": [
+          "트리폴리인산나트륨"
+        ],
+        "ms": [
+          "pentanatrium trifosfat"
         ]
       }
     },
@@ -1898,6 +2241,13 @@
         "ja": [
           "メタリン酸ナトリウム",
           "メタリン酸Na"
+        ],
+        "ko": [
+          "폴리인산나트륨",
+          "메타인산나트륨"
+        ],
+        "ms": [
+          "natrium polifosfat"
         ]
       }
     },
@@ -1937,6 +2287,13 @@
         ],
         "it": [
           "Carbossimetilcellulosa"
+        ],
+        "ko": [
+          "카복시메틸셀룰로스나트륨",
+          "CMC-Na"
+        ],
+        "ms": [
+          "natrium karboksimetil selulosa"
         ]
       }
     },
@@ -1978,6 +2335,13 @@
         ],
         "it": [
           "Mono- e digliceridi degli acidi grassi"
+        ],
+        "ko": [
+          "글리세린지방산에스테르",
+          "모노및디글리세리드"
+        ],
+        "ms": [
+          "mono- dan digliserida asid lemak"
         ]
       }
     },
@@ -2012,6 +2376,12 @@
         ],
         "it": [
           "Esteri di saccarosio degli acidi grassi"
+        ],
+        "ko": [
+          "자당지방산에스테르"
+        ],
+        "ms": [
+          "ester sukrosa asid lemak"
         ]
       }
     },
@@ -2048,6 +2418,12 @@
         ],
         "it": [
           "Carbonato di sodio"
+        ],
+        "ko": [
+          "탄산나트륨"
+        ],
+        "ms": [
+          "natrium karbonat"
         ]
       }
     },
@@ -2094,6 +2470,15 @@
         "it": [
           "Bicarbonato di sodio",
           "Carbonato acido di sodio"
+        ],
+        "ko": [
+          "탄산수소나트륨",
+          "중조",
+          "베이킹소다"
+        ],
+        "ms": [
+          "natrium hidrogen karbonat",
+          "natrium bikarbonat"
         ]
       }
     },
@@ -2132,6 +2517,13 @@
         "it": [
           "Bicarbonato di ammonio",
           "Carbonato acido di ammonio"
+        ],
+        "ko": [
+          "탄산수소암모늄"
+        ],
+        "ms": [
+          "amonium hidrogen karbonat",
+          "amonium bikarbonat"
         ]
       }
     },
@@ -2168,6 +2560,13 @@
         ],
         "it": [
           "Biossido di silicio"
+        ],
+        "ko": [
+          "이산화규소",
+          "함수이산화규소"
+        ],
+        "ms": [
+          "silikon dioksida"
         ]
       }
     },
@@ -2209,6 +2608,15 @@
         ],
         "it": [
           "Glutammato monosodico"
+        ],
+        "ko": [
+          "L-글루탐산나트륨",
+          "글루탐산나트륨",
+          "향미증진제(L-글루탐산나트륨)"
+        ],
+        "ms": [
+          "mononatrium glutamat",
+          "msg"
         ]
       }
     },
@@ -2234,6 +2642,12 @@
         ],
         "ja": [
           "5'-グアニル酸二ナトリウム"
+        ],
+        "ko": [
+          "5'-구아닐산이나트륨"
+        ],
+        "ms": [
+          "dinatrium 5'-guanilat"
         ]
       }
     },
@@ -2259,6 +2673,12 @@
         ],
         "ja": [
           "5'-イノシン酸二ナトリウム"
+        ],
+        "ko": [
+          "5'-이노신산이나트륨"
+        ],
+        "ms": [
+          "dinatrium 5'-inosinat"
         ]
       }
     },
@@ -2283,6 +2703,13 @@
         ],
         "ja": [
           "5'-リボヌクレオチド二ナトリウム"
+        ],
+        "ko": [
+          "5'-리보뉴클레오티드이나트륨",
+          "향미증진제"
+        ],
+        "ms": [
+          "dinatrium 5'-ribonukleotida"
         ]
       }
     },
@@ -2322,6 +2749,12 @@
         ],
         "it": [
           "Acesulfame K"
+        ],
+        "ko": [
+          "아세설팜칼륨"
+        ],
+        "ms": [
+          "asesulfam kalium"
         ]
       }
     },
@@ -2359,6 +2792,12 @@
         ],
         "it": [
           "Aspartame"
+        ],
+        "ko": [
+          "아스파탐"
+        ],
+        "ms": [
+          "aspartam"
         ]
       }
     },
@@ -2394,6 +2833,12 @@
         ],
         "it": [
           "Sucralosio"
+        ],
+        "ko": [
+          "수크랄로스"
+        ],
+        "ms": [
+          "sukralosa"
         ]
       }
     },
@@ -2429,6 +2874,13 @@
         ],
         "it": [
           "Glicosidi steviolici"
+        ],
+        "ko": [
+          "스테비올배당체",
+          "효소처리스테비아"
+        ],
+        "ms": [
+          "glikosida steviol"
         ]
       }
     },
@@ -2473,6 +2925,13 @@
         "it": [
           "Maltitolo",
           "Sciroppo di maltitolo"
+        ],
+        "ko": [
+          "말티톨",
+          "말티톨시럽"
+        ],
+        "ms": [
+          "maltitol"
         ]
       }
     },
@@ -2508,6 +2967,12 @@
         ],
         "it": [
           "Xilitolo"
+        ],
+        "ko": [
+          "자일리톨"
+        ],
+        "ms": [
+          "xilitol"
         ]
       }
     },
@@ -2543,6 +3008,12 @@
         ],
         "it": [
           "Eritritolo"
+        ],
+        "ko": [
+          "에리스리톨"
+        ],
+        "ms": [
+          "eritritol"
         ]
       }
     }

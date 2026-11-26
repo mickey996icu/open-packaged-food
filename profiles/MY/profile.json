@@ -1,0 +1,80 @@
+{
+  "jurisdiction": "MY",
+  "profiles": {
+    "MY/MOH-R18B": {
+      "title": "Malaysia Food Regulations 1985 — Regulation 18B (Mandatory Nutrition Labelling / MOH)",
+      "mandatory_nutrients": [
+        "energy",
+        "protein",
+        "fat_total",
+        "carbs_available",
+        "sugars_total",
+        "sodium"
+      ],
+      "default_energy_unit": "kcal",
+      "default_basis": ["100g", "100ml", "serving"],
+      "carbohydrate_basis": "carbs_available",
+      "sodium_or_salt": "sodium",
+      "kj_per_kcal": "4.184",
+      "salt_per_sodium_ratio": "2.5",
+      "zero_thresholds_per_100": {
+        "energy_kcal": "4",
+        "energy_kj": "17",
+        "protein": "0.5",
+        "fat_total": "0.5",
+        "fat_saturated": "0.1",
+        "fat_trans": "0.1",
+        "cholesterol": "2",
+        "carbs_available": "0.5",
+        "carbs_total": "0.5",
+        "sugars_total": "0.5",
+        "dietary_fiber": "0.5",
+        "sodium": "5"
+      },
+      "nrv_reference": {
+        "energy_kcal": "2000",
+        "energy_kj": "8400",
+        "protein": "50",
+        "fat_total": "65",
+        "fat_saturated": "20",
+        "carbs_available": "300",
+        "carbs_total": "300",
+        "sugars_total": "50",
+        "dietary_fiber": "25",
+        "sodium": "2000",
+        "calcium": "800",
+        "iron": "14",
+        "vitamin_a": "800",
+        "vitamin_c": "60",
+        "vitamin_d": "5"
+      },
+      "ingredients_grammar": {
+        "prefixes": [
+          "Ramuan:",
+          "RAMUAN:",
+          "Ramuan :",
+          "Bahan-bahan:",
+          "BAHAN-BAHAN:",
+          "Kandungan:",
+          "Ingredients:",
+          "INGREDIENTS:",
+          "Ingredients :",
+          "配料：",
+          "配料:",
+          "成分：",
+          "成分:",
+          "成份：",
+          "成份:"
+        ],
+        "top_level_delimiters": [",", ";", "、", "，", "；"],
+        "open_brackets": ["(", "[", "{", "（", "【"],
+        "close_brackets": [")", "]", "}", "）", "】"],
+        "trailing_punctuation": [".", "。"],
+        "additive_slash_split": null
+      },
+      "registries": [
+        "MY/MOH-MyFCD"
+      ]
+    }
+  }
+}

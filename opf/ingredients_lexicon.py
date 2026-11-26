@@ -17,9 +17,12 @@ INLINE_QUALIFIER_RE = re.compile(
 )
 
 HEADER_PREFIX_RE = re.compile(
-    r"^(?:配料表|配料|成分|成份|原料与辅料|原料與輔料|原材料名|原材料|原料|ingredients|ingr[eé]dients|zutaten|ingredientes|ingredienti|made\s+from)\s*[：:]",
+    r"^(?:配料表|配料|成分|成份|原料与辅料|原料與輔料|原材料名|原材料|原料|원재료명\s*및\s*함량|원재료명|원재료|성분명|ramuan|bahan-bahan|kandungan|composition|ingredients|ingr[eé]dients|zutaten|ingredientes|ingredienti|made\s+from)\s*[：:]",
     re.IGNORECASE,
 )
+
+# Korean origin-country head after ':' inside ingredient parens, e.g. `밀:미국산`, `대두:외국산(미국, 브라질)`
+KR_ORIGIN_HEAD_RE = re.compile(r"^[가-힣]+산$")
 
 FUNCTIONAL_CLASS_TERMS = {
     # Simplified Chinese (zh-Hans)
@@ -215,6 +218,45 @@ FUNCTIONAL_CLASS_TERMS = {
     "着色料",
     "調味料",
     "ph調整剤",
+    # Korean / MFDS (ko)
+    "식품첨가물",
+    "산도조절제",
+    "유화제",
+    "증점제",
+    "안정제",
+    "향미증진제",
+    "합성향료",
+    "천연향료",
+    "향료",
+    "착색료",
+    "감미료",
+    "보존료",
+    "팽창제",
+    "산화방지제",
+    "응고제",
+    "소포제",
+    "습윤제",
+    "고결방지제",
+    "피막제",
+    "효소제",
+    "영양강화제",
+    # Bahasa Malaysia / MOH (ms)
+    "pengemulsi",
+    "penstabil",
+    "pengawal asid",
+    "agen antipengerakan",
+    "agen anti-pengerakan",
+    "pemekat",
+    "pengawet",
+    "pewarna",
+    "perisa",
+    "bahan perisa",
+    "penambah perisa",
+    "pemanis",
+    "antioksidan",
+    "agen penaik",
+    "agen pengilat",
+    "humektan",
 }
 
 OPEN_TO_CLOSE = {"（": "）", "(": ")", "[": "]", "【": "】", "［": "］", "{": "}"}

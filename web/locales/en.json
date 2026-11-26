@@ -287,7 +287,8 @@
     "salt_vinegar_spices": "Table Salt, Vinegar & Spices",
     "alcoholic_beverage": "Alcoholic Beverage",
     "small_daily_intake": "Minimal Daily Intake Food",
-    "small_package_area": "Small Package Surface Area Exemption"
+    "small_package_area": "Small Package Surface Area Exemption",
+    "general_unclaimed_exempt": "General Prepackaged Food Not Requiring Mandatory NIP (No Claims)"
   },
   "nutrients": {
     "energy_kj": "Energy (kJ)",
@@ -332,7 +333,12 @@
     "molluscs": "Molluscs",
     "sulphites": "Sulphites",
     "soy": "Soy",
-    "wheat": "Wheat"
+    "wheat": "Wheat",
+    "pork": "Pork",
+    "beef": "Beef",
+    "chicken": "Chicken",
+    "peach": "Peach",
+    "tomato": "Tomato"
   },
   "roles": {
     "brand_owner": "Brand Owner",

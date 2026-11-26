@@ -1,6 +1,6 @@
 # OpenPackagedFood Specification (v0.3)
 
-> **Status**: Draft M0 | **Schema Version**: `0.3` | **CI Tooling Pin**: `v0.3.1` | **License**: Code AGPL-3.0-or-later (Apache-2.0 inbound), Spec & Schemas Apache-2.0, Data ODbL-1.0, Label Media CC-BY-SA-4.0 | **Limitations**: [`docs/DATA-LIMITATIONS.md`](../docs/DATA-LIMITATIONS.md)
+> **Status**: Draft M0 | **Schema Version**: `0.3` | **CI Tooling Pin**: `v0.3.2` | **License**: Code AGPL-3.0-or-later (Apache-2.0 inbound), Spec & Schemas Apache-2.0, Data ODbL-1.0, Label Media CC-BY-SA-4.0 | **Limitations**: [`docs/DATA-LIMITATIONS.md`](../docs/DATA-LIMITATIONS.md)
 
 ## 1. Scope & Core Principles
 
@@ -82,7 +82,7 @@ All `core.nutrition_declared.rows` and `normalized.nutrients` use canonical nutr
    - `"trace"` (trace amount declared on label)
 3. **Regulatory Zero-Rounding Propagation**:
    - Under `US/FDA-NLEA` (`zero_thresholds_per_serving`), a declared `0` for `energy` (< 5 kcal/serving) or `fat_trans` (< 0.5 g/serving) is a legal rounding artifact when per-serving weight is small.
-   - Under `CN/GB28050-2011`, `CN/GB28050-2025`, `HK/CFS-132W`, `AU/FSANZ-1.2.8`, `EU/1169-2011`, and `JP/CAA-2015` (`zero_thresholds_per_100`), a declared `0` on the label represents any value $\le$ the statutory "0" threshold (e.g., $\le 17\text{ kJ}$, $\le 0.5\text{ g}$ protein/fat/carbs, $\le 5\text{ mg}$ sodium in CN; $\le 5\text{ kcal}$ / $\le 0.3\text{ g}$ trans fat in HK; $\le 0.01\text{ g}$ salt in EU).
+   - Under `CN/GB28050-2011`, `CN/GB28050-2025`, `HK/CFS-132W`, `SG/SFA-FR`, `MY/MOH-R18B`, `KR/MFDS-2024`, `AU/FSANZ-1.2.8`, `EU/1169-2011`, and `JP/CAA-2015` (`zero_thresholds_per_100`), a declared `0` on the label represents any value $\le$ the statutory "0" threshold (e.g., $\le 17\text{ kJ}$, $\le 0.5\text{ g}$ protein/fat/carbs, $\le 5\text{ mg}$ sodium in CN; $\le 5\text{ kcal}$ / $\le 0.3\text{ g}$ trans fat in HK; $\le 0.2\text{ g}$ trans fat in KR; $\le 0.01\text{ g}$ salt in EU).
    - `core.nutrition_declared` preserves the verbatim printed `"0"`, while `opf normalize` outputs `qualifier: "<"` and `basis: "regulatory_upper_bound"` in `normalized.nutrients` and records `REGULATORY_ZERO_ROUNDING_ARTIFACT` in `quality_flags`.
 4. **Dual `kJ` and `kcal` Declarations**:
    - When only `kJ` or only `kcal` is declared, the other is cross-derived via $1\text{ kcal} = 4.184\text{ kJ}$ with `basis: "derived"`.
@@ -91,7 +91,7 @@ All `core.nutrition_declared.rows` and `normalized.nutrients` use canonical nutr
    - When `nrv_pct` is present on a declared row, `opf normalize` compares it against the profile's `nrv_reference` values and emits `NRV_PCT_DECLARED_MISMATCH` in `quality_flags` if the absolute difference exceeds $2.5\%$.
 6. **Statutory Nutrition Panel Exemption (`core.nutrition_declared: null` + `core.nutrition_exemption`)**:
    - Industrial pre-packaged foods legally exempt from mandatory nutrition panels (e.g., packaged drinking water, plain tea leaves/coffee beans, single-ingredient raw foods, table salt/vinegar/spices, alcoholic beverages, minimal daily intake items, or small-surface-area packs under GB 28050 §7, EU 1169/2011 Annex V, or 21 CFR 101.9(j)) that print **no** nutrition facts table MUST set `"nutrition_declared": null` and provide `"nutrition_exemption": { "category": "<enum>", "legal_basis"?: "...", "note"?: "..." }`.
-   - Controlled `category` enum: `"packaged_water"`, `"tea_coffee_herbs"`, `"single_ingredient_unprocessed"`, `"salt_vinegar_spices"`, `"alcoholic_beverage"`, `"small_daily_intake"`, `"small_package_area"`.
+   - Controlled `category` enum: `"packaged_water"`, `"tea_coffee_herbs"`, `"single_ingredient_unprocessed"`, `"salt_vinegar_spices"`, `"alcoholic_beverage"`, `"small_daily_intake"`, `"small_package_area"`, `"general_unclaimed_exempt"`.
    - Fabricating all-zero nutrient rows when no nutrition table is printed on the physical package is strictly forbidden. `opf normalize` sets `normalized.nutrients = {}` and emits `NUTRITION_LABEL_EXEMPT` in `quality_flags`.
 7. **Core Special Indicators (`core.special_indicators`)**:
    - Quantitative characteristic indicators printed outside the standard nutrition table (such as natural water mineral cations/metasilicic acid, dimensionless `pH` with tolerance `{"name": "pH值(25℃)", "value": "7.3", "tolerance": "0.5"}`, range bounds `{"value": "50", "value_max": "150", "unit": "ug/100ml"}`, `tea_polyphenols`, or `A2 β-casein`) reside in `core.special_indicators` (`tolerance`, `value_max`, and `qualifier` are mutually exclusive; `unit` is optional for dimensionless metrics) and participate in `core_fingerprint`.

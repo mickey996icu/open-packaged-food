@@ -84,6 +84,9 @@
         "CN/GB28050-2011",
         "CN/GB28050-2025",
         "HK/CFS-132W",
+        "SG/SFA-FR",
+        "MY/MOH-R18B",
+        "KR/MFDS-2024",
         "AU/FSANZ-1.2.8",
         "US/FDA-NLEA",
         "EU/1169-2011",
@@ -326,7 +329,8 @@
             "salt_vinegar_spices",
             "alcoholic_beverage",
             "small_daily_intake",
-            "small_package_area"
+            "small_package_area",
+            "general_unclaimed_exempt"
           ]
         },
         "legal_basis": {

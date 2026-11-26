@@ -48,23 +48,23 @@ _NON_ADMIN_ZONE_SUFFIX_RE = re.compile(
 
 _SEASONING_HEAD_MASK_RE = re.compile(r"[\w\u4e00-\u9fff-]*味(?:复合|複合)?(?:调味|調味)(?:料|粉|酱|醬|汁)")
 _SUGAR_INTERFERENCE_MASK_RE = re.compile(
-    r"(?:DL-苹果酸|L-苹果酸|苹果酸|DL-蘋果酸|L-蘋果酸|蘋果酸|柠檬酸钠|柠檬酸|檸檬酸鈉|檸檬酸|乳酸|果胶|果膠|黄原胶|黃原膠|赤藓糖醇|赤蘚糖醇|木糖醇|麦芽糖醇|麥芽糖醇|山梨糖醇|异麦芽酮糖醇|異麥芽酮糖醇|乳糖醇|三氯蔗糖|蔗糖素|安赛蜜|安賽蜜|醋磺內酯鉀|阿斯巴甜|甜菊糖苷|罗汉果甜苷|羅漢果甜苷|纽甜|甜蜜素)",
+    r"(?:DL-苹果酸|L-苹果酸|苹果酸|DL-蘋果酸|L-蘋果酸|蘋果酸|柠檬酸钠|柠檬酸|檸檬酸鈉|檸檬酸|乳酸|果胶|果膠|黄原胶|黃原膠|赤藓糖醇|赤蘚糖醇|木糖醇|麦芽糖醇|麥芽糖醇|山梨糖醇|异麦芽酮糖醇|異麥芽酮糖醇|乳糖醇|三氯蔗糖|蔗糖素|安赛蜜|安賽蜜|醋磺內酯鉀|阿斯巴甜|甜菊糖苷|罗汉果甜苷|羅漢果甜苷|纽甜|甜蜜素|구연산|사과산|젖산|펙틴|잔탄검|에리스리톨|자일리톨|말티톨|소비톨|수크랄로스|아세설팜칼륨|아스파탐|스테비올배당체|알룰로스|\basid\s+sitrik\b|\basid\s+malik\b|\basid\s+laktik\b|\bsukralosa\b|\beritritol\b|\bsorbitol\b|\bxilitol\b)",
     re.IGNORECASE,
 )
 _REAL_SUGAR_SOURCE_RE = re.compile(
-    r"(?:白砂糖|砂糖|绵白糖|綿白糖|冰糖|红糖|紅糖|黑糖|黄糖|黃糖|蔗糖|果糖|葡萄糖|麦芽糖|麥芽糖|乳糖|糖浆|糖漿|蜂蜜|海藻糖|异麦芽酮糖|異麥芽酮糖|低聚果糖|低聚异麦芽糖|低聚異麥芽糖|低聚半乳糖|浓缩[^\s，、（）()]*汁|濃縮[^\s，、（）()]*汁|果酱|果醬|果泥|果浆|果漿|果汁|生牛乳|牛乳|牛奶|鲜奶|鮮奶|乳粉|奶粉|炼乳|煉乳|煉奶|乳清|红枣|紅棗|椰枣|椰棗|葡萄干|葡萄乾|蓝靛果|草莓|蓝莓|藍莓|蔓越莓|黑莓|树莓|樹莓|\bsugar\b|\bsucrose\b|\bfructose\b|\bglucose\b|\bsyrup\b|\bhoney\b|\blactose\b|\bmilk\b|\bwhey\b|\bjuice\b|\bdate\b)",
+    r"(?:白砂糖|砂糖|绵白糖|綿白糖|冰糖|红糖|紅糖|黑糖|黄糖|黃糖|蔗糖|果糖|葡萄糖|麦芽糖|麥芽糖|乳糖|糖浆|糖漿|蜂蜜|海藻糖|异麦芽酮糖|異麥芽酮糖|低聚果糖|低聚异麦芽糖|低聚異麥芽糖|低聚半乳糖|浓缩[^\s，、（）()]*汁|濃縮[^\s，、（）()]*汁|果酱|果醬|果泥|果浆|果漿|果汁|生牛乳|牛乳|牛奶|鲜奶|鮮奶|乳粉|奶粉|炼乳|煉乳|煉奶|乳清|红枣|紅棗|椰枣|椰棗|葡萄干|葡萄乾|蓝靛果|草莓|蓝莓|藍莓|蔓越莓|黑莓|树莓|樹莓|설탕|백설탕|흑설탕|황설탕|원당|사탕수수당|과당|액상과당|포도당|맥아당|유당|물엿|조청|시럽|올리고당|벌꿀|꿀|과즙|농축액|우유|원유|분유|연유|유청|\bsugar\b|\bsucrose\b|\bfructose\b|\bglucose\b|\bsyrup\b|\bhoney\b|\blactose\b|\bmilk\b|\bwhey\b|\bjuice\b|\bdate\b|\bgula\b|\bsirap\b|\bmadu\b|\bglukosa\b|\bfruktosa\b|\blaktosa\b|\bsusu\b|\bdadih\b|\bjus\b|\bkurma\b)",
     re.IGNORECASE,
 )
 _WATER_FORBIDDEN_ING_RE = re.compile(
-    r"(?:白砂糖|砂糖|绵白糖|綿白糖|冰糖|红糖|紅糖|蔗糖|果糖|葡萄糖|糖浆|糖漿|蜂蜜|赤藓糖醇|赤蘚糖醇|木糖醇|麦芽糖醇|麥芽糖醇|三氯蔗糖|蔗糖素|安赛蜜|安賽蜜|醋磺內酯鉀|阿斯巴甜|甜菊糖苷|罗汉果甜苷|羅漢果甜苷|食用香精|食品用香精|香精|香料|浓缩[^\s，、（）()]*汁|濃縮[^\s，、（）()]*汁|果汁|生牛乳|牛乳|牛奶|鮮奶|乳粉|奶粉|茶粉|速溶茶|\bsugar\b|\bsyrup\b|\bsucralose\b|\berythritol\b|\bflavor\b|\bflavour\b|\bjuice\b|\bmilk\b)",
+    r"(?:白砂糖|砂糖|绵白糖|綿白糖|冰糖|红糖|紅糖|蔗糖|果糖|葡萄糖|糖浆|糖漿|蜂蜜|赤藓糖醇|赤蘚糖醇|木糖醇|麦芽糖醇|麥芽糖醇|三氯蔗糖|蔗糖素|安赛蜜|安賽蜜|醋磺內酯鉀|阿斯巴甜|甜菊糖苷|罗汉果甜苷|羅漢果甜苷|食用香精|食品用香精|香精|香料|浓缩[^\s，、（）()]*汁|濃縮[^\s，、（）()]*汁|果汁|生牛乳|牛乳|牛奶|鮮奶|乳粉|奶粉|茶粉|速溶茶|설탕|과당|시럽|수크랄로스|에리스리톨|합성향료|천연향료|과즙|우유|\bsugar\b|\bsyrup\b|\bsucralose\b|\berythritol\b|\bflavor\b|\bflavour\b|\bjuice\b|\bmilk\b|\bgula\b|\bsirap\b|\bperisa\b|\bsusu\b|\bjus\b)",
     re.IGNORECASE,
 )
 _TEA_COFFEE_FORBIDDEN_ING_RE = re.compile(
-    r"(?:白砂糖|砂糖|绵白糖|綿白糖|冰糖|红糖|紅糖|黑糖|蔗糖|果糖|葡萄糖|麦芽糖|麥芽糖|糖浆|糖漿|蜂蜜|生牛乳|牛乳|牛奶|鮮奶|乳粉|奶粉|炼乳|煉乳|煉奶|稀奶油|忌廉|奶油|牛油|植脂末|奶精|\bsugar\b|\bsucrose\b|\bfructose\b|\bsyrup\b|\bhoney\b|\bmilk\b|\bcream\b|\bcreamer\b)",
+    r"(?:白砂糖|砂糖|绵白糖|綿白糖|冰糖|红糖|紅糖|黑糖|蔗糖|果糖|葡萄糖|麦芽糖|麥芽糖|糖浆|糖漿|蜂蜜|生牛乳|牛乳|牛奶|鮮奶|乳粉|奶粉|炼乳|煉乳|煉奶|稀奶油|忌廉|奶油|牛油|植脂末|奶精|설탕|원당|물엿|시럽|우유|분유|연유|유크림|식물성크림|프리마|\bsugar\b|\bsucrose\b|\bfructose\b|\bsyrup\b|\bhoney\b|\bmilk\b|\bcream\b|\bcreamer\b|\bgula\b|\bsirap\b|\bmadu\b|\bsusu\b|\bkrim\b|\bkrimer\b)",
     re.IGNORECASE,
 )
 _NUTRITION_CLAIM_RE = re.compile(
-    r"(?:无糖|無糖|零糖|0糖|低糖|无蔗糖|無蔗糖|零卡|0卡|低卡|零能量|0能量|低能量|零脂|0脂|无脂|無脂|低脂|脱脂|脫脂|高钙|高鈣|富含钙|富含鈣|低钠|低鈉|无钠|無鈉|高蛋白|富含蛋白|高膳食纤维|高膳食纖維|富含膳食纤维|富含膳食纖維|高纤|高纖|\bsugar[- ]free\b|\bzero[- ]sugar\b|\blow[- ]sugar\b|\bfat[- ]free\b|\blow[- ]fat\b|\bhigh[- ]protein\b|\bhigh[- ]calcium\b|\blow[- ]sodium\b)",
+    r"(?:无糖|無糖|零糖|0糖|低糖|无蔗糖|無蔗糖|零卡|0卡|低卡|零能量|0能量|低能量|零脂|0脂|无脂|無脂|低脂|脱脂|脫脂|高钙|高鈣|富含钙|富含鈣|低钠|低鈉|无钠|無鈉|高蛋白|富含蛋白|高膳食纤维|高膳食纖維|富含膳食纤维|富含膳食纖維|高纤|高纖|무설탕|무당|제로슈거|저당|제로칼로리|저칼로리|무지방|저지방|고단백|고칼슘|저나트륨|\bsugar[- ]free\b|\bzero[- ]sugar\b|\blow[- ]sugar\b|\bfat[- ]free\b|\blow[- ]fat\b|\bhigh[- ]protein\b|\bhigh[- ]calcium\b|\blow[- ]sodium\b|\btanpa\s+gula\b|\brendah\s+gula\b|\brendah\s+lemak\b|\btinggi\s+protein\b|\btinggi\s+kalsium\b|\brendah\s+natrium\b)",
     re.IGNORECASE,
 )
 
@@ -211,9 +211,9 @@ def _check_nutrition(
             if max_top >= 2:
                 _emit(findings, "WARN", "SUSPICIOUS_NUTRITION_EXEMPTION", pid, eid, path,
                       f"声明 single_ingredient_unprocessed 豁免，但配料树含 {max_top} 项顶层原料，请核实是否确属单一原料未加工豁免")
-        elif cat in ("small_package_area", "small_daily_intake"):
+        elif cat in ("small_package_area", "small_daily_intake", "general_unclaimed_exempt"):
             _emit(findings, "INFO", "VERIFY_EXEMPTION_EVIDENCE", pid, eid, path,
-                  f"声明 {cat} 法定豁免，请对照原图确认外包装确未印刷营养成分表且符合面积/食用量条件")
+                  f"声明 {cat} 法定豁免，请对照原图确认外包装确未印刷营养成分表且符合当地免标/面积/食用量条件")
 
         claims_joined = " ".join(str(c) for c in (attrs.get("claims_text") or []) if str(c).strip())
         m_claim = _NUTRITION_CLAIM_RE.search(claims_joined)
@@ -239,7 +239,7 @@ def _check_nutrition(
 
     missing: list[str] = []
     for nid in mandatory:
-        if profile_id == "HK/CFS-132W" and nid == "carbs_available":
+        if profile_id in ("HK/CFS-132W", "SG/SFA-FR", "MY/MOH-R18B") and nid == "carbs_available":
             if "carbs_available" not in by_nid and "carbs_total" not in by_nid:
                 missing.append("carbs_available/carbs_total")
         elif nid not in by_nid:

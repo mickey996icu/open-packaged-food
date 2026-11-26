@@ -287,7 +287,8 @@
     "salt_vinegar_spices": "Sal de mesa, vinagre y especias",
     "alcoholic_beverage": "Bebida alcohólica",
     "small_daily_intake": "Ingesta diaria muy reducida",
-    "small_package_area": "Envase de superficie reducida"
+    "small_package_area": "Envase de superficie reducida",
+    "general_unclaimed_exempt": "Alimento general sin etiquetado nutricional obligatorio (sin declaraciones)"
   },
   "nutrients": {
     "energy_kj": "Energía (kJ)",
@@ -332,7 +333,12 @@
     "molluscs": "Moluscos",
     "sulphites": "Sulfitos",
     "soy": "Soja",
-    "wheat": "Trigo"
+    "wheat": "Trigo",
+    "pork": "Cerdo",
+    "beef": "Vacuno / Res",
+    "chicken": "Pollo",
+    "peach": "Melocotón / Durazno",
+    "tomato": "Tomate"
   },
   "roles": {
     "brand_owner": "Titular de marca",

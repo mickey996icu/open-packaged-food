@@ -190,7 +190,7 @@ class TestPhase1WorkflowV02(unittest.TestCase):
             self.assertEqual(res.returncode, 0, res.stderr or res.stdout)
             self.assertTrue((site_out / "index.html").is_file())
             self.assertTrue((site_out / "v1" / "meta.json").is_file())
-            for loc in ("index.json", "zh-CN.json", "en.json", "ja.json", "de.json", "fr.json", "es.json", "it.json"):
+            for loc in ("index.json", "zh-CN.json", "en.json", "ja.json", "ko.json", "de.json", "fr.json", "es.json", "it.json"):
                 self.assertTrue((site_out / "locales" / loc).is_file(), f"Missing bundled locale {loc}")
 
     @unittest.skipUnless(HAS_PILLOW, "Pillow not installed; skipping WebP/media transcoding test")

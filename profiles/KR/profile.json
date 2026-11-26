@@ -1,0 +1,79 @@
+{
+  "jurisdiction": "KR",
+  "profiles": {
+    "KR/MFDS-2024": {
+      "title": "대한민국 식품의약품안전처「식품등의 표시기준」9대 영양성분 및 알레르기 유발물질 표시 / Korea MFDS Labeling Standard",
+      "mandatory_nutrients": [
+        "energy",
+        "sodium",
+        "carbs_total",
+        "sugars_total",
+        "fat_total",
+        "fat_trans",
+        "fat_saturated",
+        "cholesterol",
+        "protein"
+      ],
+      "default_energy_unit": "kcal",
+      "default_basis": ["100g", "100ml", "serving"],
+      "carbohydrate_basis": "carbs_total",
+      "sodium_or_salt": "sodium",
+      "kj_per_kcal": "4.184",
+      "salt_per_sodium_ratio": "2.5",
+      "zero_thresholds_per_100": {
+        "energy_kcal": "5",
+        "energy_kj": "21",
+        "protein": "0.5",
+        "fat_total": "0.5",
+        "fat_saturated": "0.5",
+        "fat_trans": "0.2",
+        "cholesterol": "2",
+        "carbs_total": "0.5",
+        "carbs_available": "0.5",
+        "sugars_total": "0.5",
+        "dietary_fiber": "0.5",
+        "sodium": "5"
+      },
+      "nrv_reference": {
+        "energy_kcal": "2000",
+        "energy_kj": "8368",
+        "sodium": "2000",
+        "carbs_total": "324",
+        "carbs_available": "324",
+        "sugars_total": "100",
+        "fat_total": "54",
+        "fat_saturated": "15",
+        "cholesterol": "300",
+        "protein": "55",
+        "dietary_fiber": "25",
+        "calcium": "700",
+        "iron": "12",
+        "potassium": "3500",
+        "vitamin_a": "700",
+        "vitamin_c": "100",
+        "vitamin_d": "10"
+      },
+      "ingredients_grammar": {
+        "prefixes": [
+          "원재료명 및 함량:",
+          "원재료명 및 함량 :",
+          "원재료명및함량:",
+          "원재료명 :",
+          "원재료명:",
+          "원재료:",
+          "성분명:",
+          "Ingredients:",
+          "INGREDIENTS:"
+        ],
+        "top_level_delimiters": [",", "，", "、", ";", "；"],
+        "open_brackets": ["(", "[", "{", "（", "【", "［"],
+        "close_brackets": [")", "]", "}", "）", "】", "］"],
+        "trailing_punctuation": [".", "。"],
+        "additive_slash_split": null
+      },
+      "registries": [
+        "KR/MFDS-FOODNUTRI"
+      ]
+    }
+  }
+}

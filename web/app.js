@@ -45,6 +45,7 @@ let LOCALE_MANIFEST = {
     { code: "zh-CN", label: "简体中文", short: "中文", region: "CN", dir: "ltr" },
     { code: "en", label: "English", short: "EN", region: "US/EU", dir: "ltr" },
     { code: "ja", label: "日本語", short: "日本語", region: "JP", dir: "ltr" },
+    { code: "ko", label: "한국어", short: "한국어", region: "KR", dir: "ltr" },
     { code: "de", label: "Deutsch", short: "DE", region: "EU", dir: "ltr" },
     { code: "fr", label: "Français", short: "FR", region: "EU", dir: "ltr" },
     { code: "es", label: "Español", short: "ES", region: "EU", dir: "ltr" },

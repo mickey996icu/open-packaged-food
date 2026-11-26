@@ -287,7 +287,8 @@
     "salt_vinegar_spices": "食塩・食酢・香辛料類",
     "alcoholic_beverage": "酒類（アルコール飲料）",
     "small_daily_intake": "1日の摂取量が極めて少ない食品",
-    "small_package_area": "小面積パッケージによる省略"
+    "small_package_area": "小面積パッケージによる省略",
+    "general_unclaimed_exempt": "栄養強調表示なしの一般加工食品（法域規定により表示任意）"
   },
   "nutrients": {
     "energy_kj": "熱量 (kJ)",
@@ -332,7 +333,12 @@
     "molluscs": "軟体動物",
     "sulphites": "亜硫酸塩",
     "soy": "大豆",
-    "wheat": "小麦"
+    "wheat": "小麦",
+    "pork": "豚肉",
+    "beef": "牛肉",
+    "chicken": "鶏肉",
+    "peach": "もも（桃）",
+    "tomato": "トマト"
   },
   "roles": {
     "brand_owner": "ブランド所有者",

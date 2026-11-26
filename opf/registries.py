@@ -84,14 +84,36 @@ def lookup_additive_ins(name_or_code: str) -> str | None:
     return _build_additive_lookup().get(key)
 
 
-def _contains_keyword(text: str, kw: str) -> bool:
-    kw_low = kw.strip().lower()
-    if not kw_low:
-        return False
-    if LATIN_WORD_RE.match(kw_low):
-        pattern = r"(?<![a-z\u00c0-\u024f0-9])" + re.escape(kw_low) + r"(?![a-z\u00c0-\u024f0-9])"
-        return bool(re.search(pattern, text))
-    return kw_low in text
+@lru_cache(maxsize=1)
+def _build_allergen_matchers() -> list[tuple[str, tuple[str, ...], tuple[tuple[str, re.Pattern[str] | None], ...]]]:
+    """Precompile sorted lowercase exclusions and optional word-boundary regexes per allergen."""
+    compiled: list[tuple[str, tuple[str, ...], tuple[tuple[str, re.Pattern[str] | None], ...]]] = []
+    for allergen_id, spec in load_allergens_dict().items():
+        raw_excludes = {
+            ex.strip().lower()
+            for ex_list in (spec.get("exclude_keywords") or {}).values()
+            for ex in ex_list
+            if ex and ex.strip()
+        }
+        sorted_excludes = tuple(sorted(raw_excludes, key=len, reverse=True))
+
+        kw_entries: list[tuple[str, re.Pattern[str] | None]] = []
+        seen_kw: set[str] = set()
+        for keywords in (spec.get("keywords") or {}).values():
+            for kw in keywords:
+                kw_low = kw.strip().lower()
+                if not kw_low or kw_low in seen_kw:
+                    continue
+                seen_kw.add(kw_low)
+                if LATIN_WORD_RE.match(kw_low):
+                    pat = re.compile(
+                        r"(?<![a-z\u00c0-\u024f0-9])" + re.escape(kw_low) + r"(?![a-z\u00c0-\u024f0-9])"
+                    )
+                    kw_entries.append((kw_low, pat))
+                else:
+                    kw_entries.append((kw_low, None))
+        compiled.append((allergen_id, sorted_excludes, tuple(kw_entries)))
+    return compiled
 
 
 def match_allergens_in_name(ingredient_name: str) -> list[str]:
@@ -104,25 +126,15 @@ def match_allergens_in_name(ingredient_name: str) -> list[str]:
     if not base_lowered:
         return []
 
-    matched: set[str] = set()
-    for allergen_id, spec in load_allergens_dict().items():
-        # Mask out exclusion terms for this allergen (longest first)
+    matched: list[str] = []
+    for allergen_id, sorted_excludes, kw_entries in _build_allergen_matchers():
         masked = base_lowered
-        all_excludes: list[str] = []
-        for _lang, ex_list in (spec.get("exclude_keywords") or {}).items():
-            all_excludes.extend(ex_list)
-        for ex in sorted(all_excludes, key=len, reverse=True):
-            ex_low = ex.strip().lower()
-            if ex_low and ex_low in masked:
+        for ex_low in sorted_excludes:
+            if ex_low in masked:
                 masked = masked.replace(ex_low, " ")
 
-        found = False
-        for _lang, keywords in spec.get("keywords", {}).items():
-            for kw in keywords:
-                if _contains_keyword(masked, kw):
-                    matched.add(allergen_id)
-                    found = True
-                    break
-            if found:
+        for kw_low, pat in kw_entries:
+            if kw_low in masked and (pat is None or pat.search(masked)):
+                matched.append(allergen_id)
                 break
     return sorted(matched)

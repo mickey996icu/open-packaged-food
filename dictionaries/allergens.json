@@ -11,7 +11,10 @@
         "NZ",
         "US",
         "EU",
-        "JP"
+        "JP",
+        "SG",
+        "MY",
+        "KR"
       ],
       "keywords": {
         "zh-Hans": [
@@ -116,6 +119,28 @@
           "triticale",
           "glutine",
           "malto d'orzo"
+        ],
+        "ko": [
+          "밀",
+          "밀가루",
+          "소맥",
+          "소맥분",
+          "호밀",
+          "보리",
+          "귀리",
+          "오트밀",
+          "맥아",
+          "글루텐",
+          "밀단백"
+        ],
+        "ms": [
+          "gluten",
+          "gandum",
+          "tepung gandum",
+          "barli",
+          "oat",
+          "rai",
+          "malt"
         ]
       },
       "exclude_keywords": {
@@ -182,6 +207,21 @@
           "maltitolo",
           "isomalto",
           "senza glutine"
+        ],
+        "ko": [
+          "메밀",
+          "쓴메밀",
+          "밀크",
+          "당밀",
+          "밀랍",
+          "밀감",
+          "카모마일",
+          "캐모마일",
+          "말토덱스트린"
+        ],
+        "ms": [
+          "gandum kuda",
+          "maltodekstrin"
         ]
       }
     },
@@ -194,7 +234,10 @@
         "NZ",
         "US",
         "EU",
-        "JP"
+        "JP",
+        "SG",
+        "MY",
+        "KR"
       ],
       "keywords": {
         "zh-Hans": [
@@ -271,6 +314,24 @@
           "astice",
           "aragosta",
           "scampi"
+        ],
+        "ko": [
+          "갑각류",
+          "새우",
+          "게",
+          "꽃게",
+          "대게",
+          "홍게",
+          "랍스터",
+          "바닷가재",
+          "크릴"
+        ],
+        "ms": [
+          "krustasea",
+          "udang",
+          "ketam",
+          "udang kara",
+          "belacan"
         ]
       },
       "exclude_keywords": {
@@ -291,7 +352,12 @@
         "de": [],
         "fr": [],
         "es": [],
-        "it": []
+        "it": [],
+        "ko": [
+          "스파게티",
+          "바게트"
+        ],
+        "ms": []
       }
     },
     "eggs": {
@@ -303,7 +369,10 @@
         "NZ",
         "US",
         "EU",
-        "JP"
+        "JP",
+        "SG",
+        "MY",
+        "KR"
       ],
       "keywords": {
         "zh-Hans": [
@@ -391,6 +460,25 @@
           "albume",
           "uovo in polvere",
           "lisozima"
+        ],
+        "ko": [
+          "달걀",
+          "계란",
+          "난황",
+          "난백",
+          "전란",
+          "알류",
+          "메추리알",
+          "오리알",
+          "난백분",
+          "라이소자임"
+        ],
+        "ms": [
+          "telur",
+          "kuning telur",
+          "putih telur",
+          "serbuk telur",
+          "albumin"
         ]
       },
       "exclude_keywords": {
@@ -465,6 +553,10 @@
         ],
         "it": [
           "melanzana"
+        ],
+        "ko": [],
+        "ms": [
+          "terung"
         ]
       }
     },
@@ -477,7 +569,10 @@
         "NZ",
         "US",
         "EU",
-        "JP"
+        "JP",
+        "SG",
+        "MY",
+        "KR"
       ],
       "keywords": {
         "zh-Hans": [
@@ -565,6 +660,29 @@
           "acciuga",
           "acciughe",
           "alici"
+        ],
+        "ko": [
+          "고등어",
+          "어류",
+          "생선",
+          "연어",
+          "참치",
+          "다랑어",
+          "대구",
+          "명태",
+          "멸치",
+          "가다랑어",
+          "어유",
+          "피쉬콜라겐"
+        ],
+        "ms": [
+          "ikan",
+          "ikan bilis",
+          "ikan kod",
+          "salmon",
+          "tuna",
+          "minyak ikan",
+          "sos ikan"
         ]
       },
       "exclude_keywords": {
@@ -605,7 +723,11 @@
         ],
         "fr": [],
         "es": [],
-        "it": []
+        "it": [],
+        "ko": [
+          "오징어"
+        ],
+        "ms": []
       }
     },
     "peanuts": {
@@ -617,7 +739,10 @@
         "NZ",
         "US",
         "EU",
-        "JP"
+        "JP",
+        "SG",
+        "MY",
+        "KR"
       ],
       "keywords": {
         "zh-Hans": [
@@ -673,6 +798,18 @@
           "arachide",
           "olio di arachidi",
           "burro di arachidi"
+        ],
+        "ko": [
+          "땅콩",
+          "낙화생",
+          "피넛",
+          "땅콩버터",
+          "땅콩유"
+        ],
+        "ms": [
+          "kacang tanah",
+          "mentega kacang tanah",
+          "minyak kacang tanah"
         ]
       },
       "exclude_keywords": {
@@ -683,7 +820,9 @@
         "de": [],
         "fr": [],
         "es": [],
-        "it": []
+        "it": [],
+        "ko": [],
+        "ms": []
       }
     },
     "soybeans": {
@@ -695,7 +834,10 @@
         "NZ",
         "US",
         "EU",
-        "JP"
+        "JP",
+        "SG",
+        "MY",
+        "KR"
       ],
       "keywords": {
         "zh-Hans": [
@@ -788,6 +930,27 @@
           "lecitine di soia",
           "salsa di soia",
           "tofu"
+        ],
+        "ko": [
+          "대두",
+          "콩",
+          "두유",
+          "두부",
+          "된장",
+          "간장",
+          "대두유",
+          "대두레시틴",
+          "대두단백",
+          "분리대두단백"
+        ],
+        "ms": [
+          "kacang soya",
+          "soya",
+          "lesitin soya",
+          "protein soya",
+          "kicap",
+          "tauhu",
+          "susu soya"
         ]
       },
       "exclude_keywords": {
@@ -865,7 +1028,17 @@
           "fave di cacao",
           "chicchi di caffè",
           "fagiolini"
-        ]
+        ],
+        "ko": [
+          "땅콩",
+          "완두콩",
+          "강낭콩",
+          "병아리콩",
+          "렌틸콩",
+          "카카오콩",
+          "커피콩"
+        ],
+        "ms": []
       }
     },
     "milk": {
@@ -877,7 +1050,10 @@
         "NZ",
         "US",
         "EU",
-        "JP"
+        "JP",
+        "SG",
+        "MY",
+        "KR"
       ],
       "keywords": {
         "zh-Hans": [
@@ -1039,6 +1215,39 @@
           "caseina",
           "caseinato",
           "proteine del latte"
+        ],
+        "ko": [
+          "우유",
+          "원유",
+          "분유",
+          "탈지분유",
+          "전지분유",
+          "유청",
+          "유당",
+          "유크림",
+          "버터",
+          "치즈",
+          "카제인",
+          "카제인나트륨",
+          "연유",
+          "밀크"
+        ],
+        "ms": [
+          "susu",
+          "tenusu",
+          "tepung susu",
+          "susu tepung",
+          "susu skim",
+          "whey",
+          "dadih",
+          "laktosa",
+          "mentega",
+          "krim",
+          "keju",
+          "kasein",
+          "kaseinat",
+          "natrium kaseinat",
+          "protein susu"
         ]
       },
       "exclude_keywords": {
@@ -1201,6 +1410,35 @@
           "burro di karité",
           "burro di arachidi",
           "emulsionante"
+        ],
+        "ko": [
+          "두유",
+          "코코넛밀크",
+          "아몬드밀크",
+          "오트밀크",
+          "귀리우유",
+          "땅콩버터",
+          "코코아버터",
+          "시어버터",
+          "팜원유",
+          "대두원유",
+          "유산균",
+          "젖산",
+          "유화제"
+        ],
+        "ms": [
+          "susu soya",
+          "susu badam",
+          "susu oat",
+          "santan",
+          "susu kelapa",
+          "mentega koko",
+          "mentega kacang",
+          "mentega kacang tanah",
+          "krimer bukan tenusu",
+          "asid laktik",
+          "kalsium laktat",
+          "natrium laktat"
         ]
       }
     },
@@ -1213,7 +1451,10 @@
         "NZ",
         "US",
         "EU",
-        "JP"
+        "JP",
+        "SG",
+        "MY",
+        "KR"
       ],
       "keywords": {
         "zh-Hans": [
@@ -1351,6 +1592,33 @@
           "pistacchi",
           "macadamia",
           "frutta a guscio"
+        ],
+        "ko": [
+          "호두",
+          "잣",
+          "아몬드",
+          "캐슈넛",
+          "캐슈너트",
+          "헤이즐넛",
+          "피스타치오",
+          "마카다미아",
+          "피칸",
+          "브라질너트",
+          "견과류"
+        ],
+        "ms": [
+          "kekeras",
+          "kacang pokok",
+          "badam",
+          "kacang gajus",
+          "gajus",
+          "kacang hazel",
+          "kenari",
+          "walnut",
+          "pistachio",
+          "makadamia",
+          "pekan",
+          "kacang pain"
         ]
       },
       "exclude_keywords": {
@@ -1408,6 +1676,21 @@
           "noce moscata",
           "noce di cocco",
           "cocco"
+        ],
+        "ko": [
+          "코코넛",
+          "육두구",
+          "넛맥"
+        ],
+        "ms": [
+          "kelapa",
+          "santan",
+          "buah pala",
+          "kacang tanah",
+          "kacang soya",
+          "kacang hijau",
+          "kacang merah",
+          "kacang pis"
         ]
       }
     },
@@ -1456,6 +1739,13 @@
         "it": [
           "sedano",
           "sedano rapa"
+        ],
+        "ko": [
+          "셀러리",
+          "양미나리"
+        ],
+        "ms": [
+          "saderi"
         ]
       },
       "exclude_keywords": {
@@ -1466,7 +1756,9 @@
         "de": [],
         "fr": [],
         "es": [],
-        "it": []
+        "it": [],
+        "ko": [],
+        "ms": []
       }
     },
     "mustard": {
@@ -1518,6 +1810,15 @@
         "it": [
           "senape",
           "semi di senape"
+        ],
+        "ko": [
+          "겨자",
+          "머스타드",
+          "머스터드"
+        ],
+        "ms": [
+          "biji sawi",
+          "mustard"
         ]
       },
       "exclude_keywords": {
@@ -1536,7 +1837,9 @@
         "de": [],
         "fr": [],
         "es": [],
-        "it": []
+        "it": [],
+        "ko": [],
+        "ms": []
       }
     },
     "sesame": {
@@ -1547,7 +1850,8 @@
         "NZ",
         "US",
         "EU",
-        "JP"
+        "JP",
+        "SG"
       ],
       "keywords": {
         "zh-Hans": [
@@ -1601,6 +1905,17 @@
           "semi di sesamo",
           "olio di sesamo",
           "tahina"
+        ],
+        "ko": [
+          "참깨",
+          "깨",
+          "참기름",
+          "검정깨",
+          "흑임자"
+        ],
+        "ms": [
+          "bijan",
+          "minyak bijan"
         ]
       },
       "exclude_keywords": {
@@ -1615,7 +1930,12 @@
         "de": [],
         "fr": [],
         "es": [],
-        "it": []
+        "it": [],
+        "ko": [
+          "들깨",
+          "들기름"
+        ],
+        "ms": []
       }
     },
     "sulphites": {
@@ -1625,7 +1945,10 @@
         "AU",
         "NZ",
         "HK",
-        "CN"
+        "CN",
+        "SG",
+        "MY",
+        "KR"
       ],
       "keywords": {
         "zh-Hans": [
@@ -1678,6 +2001,20 @@
           "solfiti",
           "anidride solforosa",
           "metabisolfito di sodio"
+        ],
+        "ko": [
+          "아황산류",
+          "아황산나트륨",
+          "산성아황산나트륨",
+          "메타중아황산나트륨",
+          "메타중아황산칼륨",
+          "이산화황",
+          "무수아황산"
+        ],
+        "ms": [
+          "sulfit",
+          "sulfur dioksida",
+          "natrium metabisulfit"
         ]
       },
       "exclude_keywords": {
@@ -1688,7 +2025,9 @@
         "de": [],
         "fr": [],
         "es": [],
-        "it": []
+        "it": [],
+        "ko": [],
+        "ms": []
       }
     },
     "lupin": {
@@ -1735,6 +2074,13 @@
           "lupino",
           "lupini",
           "farina di lupini"
+        ],
+        "ko": [
+          "루핀",
+          "루핀콩"
+        ],
+        "ms": [
+          "lupin"
         ]
       },
       "exclude_keywords": {
@@ -1745,7 +2091,9 @@
         "de": [],
         "fr": [],
         "es": [],
-        "it": []
+        "it": [],
+        "ko": [],
+        "ms": []
       }
     },
     "molluscs": {
@@ -1754,7 +2102,8 @@
         "EU",
         "AU",
         "NZ",
-        "HK"
+        "HK",
+        "KR"
       ],
       "keywords": {
         "zh-Hans": [
@@ -1845,6 +2194,31 @@
           "vongole",
           "ostriche",
           "capesante"
+        ],
+        "ko": [
+          "연체동물",
+          "오징어",
+          "조개류",
+          "굴",
+          "전복",
+          "홍합",
+          "바지락",
+          "가리비",
+          "문어",
+          "낙지",
+          "소라",
+          "꼬막",
+          "백합"
+        ],
+        "ms": [
+          "moluska",
+          "sotong",
+          "kurita",
+          "tiram",
+          "kupang",
+          "kerang",
+          "kekapis",
+          "abalon"
         ]
       },
       "exclude_keywords": {
@@ -1855,14 +2229,19 @@
         "de": [],
         "fr": [],
         "es": [],
-        "it": []
+        "it": [],
+        "ko": [
+          "굴소스향"
+        ],
+        "ms": []
       }
     },
     "buckwheat": {
       "codex_core": false,
       "jurisdictions": [
         "JP",
-        "CN"
+        "CN",
+        "KR"
       ],
       "keywords": {
         "zh-Hans": [
@@ -1897,6 +2276,14 @@
         ],
         "it": [
           "grano saraceno"
+        ],
+        "ko": [
+          "메밀",
+          "쓴메밀"
+        ],
+        "ms": [
+          "gandum kuda",
+          "soba"
         ]
       },
       "exclude_keywords": {
@@ -1907,6 +2294,585 @@
         "de": [],
         "fr": [],
         "es": [],
+        "it": [],
+        "ko": [],
+        "ms": []
+      }
+    },
+    "pork": {
+      "codex_core": false,
+      "jurisdictions": [
+        "KR",
+        "JP"
+      ],
+      "keywords": {
+        "zh-Hans": [
+          "猪肉",
+          "猪骨",
+          "猪油",
+          "猪皮",
+          "猪肚",
+          "培根",
+          "火腿"
+        ],
+        "zh-Hant": [
+          "豬肉",
+          "豬骨",
+          "豬油",
+          "豬皮",
+          "豬肚",
+          "煙肉",
+          "培根",
+          "火腿"
+        ],
+        "en": [
+          "pork",
+          "lard",
+          "bacon",
+          "ham",
+          "pork bone",
+          "pork fat"
+        ],
+        "ja": [
+          "豚肉",
+          "ポーク",
+          "ラード",
+          "豚脂",
+          "豚骨"
+        ],
+        "ko": [
+          "돼지고기",
+          "돈육",
+          "돈골",
+          "돈지",
+          "정제돈지",
+          "베이컨",
+          "돼지뼈"
+        ],
+        "ms": [
+          "daging babi",
+          "khinzir",
+          "lemak babi"
+        ],
+        "de": [
+          "schweinefleisch",
+          "schweineschmalz",
+          "speck"
+        ],
+        "fr": [
+          "porc",
+          "viande de porc",
+          "saindoux",
+          "lard"
+        ],
+        "es": [
+          "cerdo",
+          "carne de cerdo",
+          "manteca de cerdo",
+          "tocino"
+        ],
+        "it": [
+          "maiale",
+          "carne suina",
+          "strutto",
+          "pancetta"
+        ]
+      },
+      "exclude_keywords": {
+        "zh-Hans": [
+          "猪苓",
+          "豪猪"
+        ],
+        "zh-Hant": [
+          "豬苓",
+          "豪豬"
+        ],
+        "en": [
+          "pork flavour",
+          "artificial pork flavor"
+        ],
+        "ja": [],
+        "ko": [
+          "돼지감자"
+        ],
+        "ms": [],
+        "de": [],
+        "fr": [],
+        "es": [],
+        "it": []
+      }
+    },
+    "beef": {
+      "codex_core": false,
+      "jurisdictions": [
+        "KR",
+        "JP"
+      ],
+      "keywords": {
+        "zh-Hans": [
+          "牛肉",
+          "牛骨",
+          "牛油",
+          "牛脂",
+          "牛筋",
+          "牛肚",
+          "牛杂"
+        ],
+        "zh-Hant": [
+          "牛肉",
+          "牛骨",
+          "牛脂",
+          "牛筋",
+          "牛肚",
+          "牛雜"
+        ],
+        "en": [
+          "beef",
+          "veal",
+          "beef tallow",
+          "tallow",
+          "beef extract",
+          "beef bone"
+        ],
+        "ja": [
+          "牛肉",
+          "ビーフ",
+          "牛脂",
+          "牛骨"
+        ],
+        "ko": [
+          "쇠고기",
+          "소고기",
+          "우육",
+          "사골",
+          "우골",
+          "우지",
+          "정제우지",
+          "소뼈"
+        ],
+        "ms": [
+          "daging lembu",
+          "lemak lembu"
+        ],
+        "de": [
+          "rindfleisch",
+          "rinderfett",
+          "kalbfleisch"
+        ],
+        "fr": [
+          "bœuf",
+          "boeuf",
+          "viande bovine",
+          "suif"
+        ],
+        "es": [
+          "res",
+          "carne de vacuno",
+          "ternera",
+          "sebo de res"
+        ],
+        "it": [
+          "manzo",
+          "carne bovina",
+          "vitello",
+          "sego"
+        ]
+      },
+      "exclude_keywords": {
+        "zh-Hans": [
+          "牛乳",
+          "生牛乳",
+          "牛奶",
+          "牛初乳",
+          "牛油果",
+          "牛蒡",
+          "牛磺酸",
+          "牛至",
+          "蜗牛",
+          "水牛芝士",
+          "无水牛油",
+          "花生牛油"
+        ],
+        "zh-Hant": [
+          "牛乳",
+          "生牛乳",
+          "牛奶",
+          "牛油",
+          "無水牛油",
+          "花生牛油",
+          "牛油果",
+          "牛蒡",
+          "牛磺酸",
+          "牛至",
+          "蝸牛"
+        ],
+        "en": [
+          "beefsteak plant"
+        ],
+        "ja": [
+          "牛乳",
+          "牛蒡",
+          "ごぼう"
+        ],
+        "ko": [
+          "우유",
+          "산양유"
+        ],
+        "ms": [
+          "susu lembu"
+        ],
+        "de": [],
+        "fr": [],
+        "es": [],
+        "it": []
+      }
+    },
+    "chicken": {
+      "codex_core": false,
+      "jurisdictions": [
+        "KR",
+        "JP"
+      ],
+      "keywords": {
+        "zh-Hans": [
+          "鸡肉",
+          "鸡胸肉",
+          "鸡腿肉",
+          "鸡骨",
+          "鸡油",
+          "鸡精",
+          "鸡粉",
+          "老母鸡"
+        ],
+        "zh-Hant": [
+          "雞肉",
+          "雞胸肉",
+          "雞腿肉",
+          "雞骨",
+          "雞油",
+          "雞粉",
+          "老母雞"
+        ],
+        "en": [
+          "chicken",
+          "chicken meat",
+          "chicken fat",
+          "chicken extract",
+          "chicken broth"
+        ],
+        "ja": [
+          "鶏肉",
+          "チキン",
+          "鶏脂",
+          "鶏ガラ",
+          "チキンエキス"
+        ],
+        "ko": [
+          "닭고기",
+          "계육",
+          "닭뼈",
+          "닭추출물",
+          "치킨추출물",
+          "계지"
+        ],
+        "ms": [
+          "daging ayam",
+          "ayam",
+          "pati ayam",
+          "lemak ayam"
+        ],
+        "de": [
+          "hühnerfleisch",
+          "hähnchenfleisch",
+          "hühnerfett"
+        ],
+        "fr": [
+          "poulet",
+          "viande de poulet",
+          "graisse de poulet"
+        ],
+        "es": [
+          "pollo",
+          "carne de pollo",
+          "grasa de pollo"
+        ],
+        "it": [
+          "pollo",
+          "carne di pollo",
+          "grasso di pollo"
+        ]
+      },
+      "exclude_keywords": {
+        "zh-Hans": [
+          "鸡蛋",
+          "鲜鸡蛋",
+          "鸡蛋粉",
+          "鸡蛋白",
+          "鸡蛋黄",
+          "鸡头米",
+          "鸡枞",
+          "鸡血藤",
+          "鸡屎藤",
+          "鹰嘴豆"
+        ],
+        "zh-Hant": [
+          "雞蛋",
+          "鮮雞蛋",
+          "雞蛋粉",
+          "雞蛋白",
+          "雞蛋黃",
+          "雞頭米",
+          "雞樅",
+          "鷹嘴豆"
+        ],
+        "en": [
+          "chickpea",
+          "chickpeas",
+          "chicken of the woods"
+        ],
+        "ja": [
+          "鶏卵"
+        ],
+        "ko": [
+          "달걀",
+          "계란"
+        ],
+        "ms": [
+          "telur ayam",
+          "kacang kuda"
+        ],
+        "de": [
+          "hühnerei",
+          "hühnereieiweiß"
+        ],
+        "fr": [
+          "pois chiche"
+        ],
+        "es": [
+          "garbanzo"
+        ],
+        "it": [
+          "ceci"
+        ]
+      }
+    },
+    "peach": {
+      "codex_core": false,
+      "jurisdictions": [
+        "KR",
+        "JP"
+      ],
+      "keywords": {
+        "zh-Hans": [
+          "水蜜桃",
+          "黄桃",
+          "白桃",
+          "桃汁",
+          "浓缩桃汁",
+          "桃肉",
+          "桃泥",
+          "桃子",
+          "油桃"
+        ],
+        "zh-Hant": [
+          "水蜜桃",
+          "黃桃",
+          "白桃",
+          "桃汁",
+          "濃縮桃汁",
+          "桃肉",
+          "桃泥",
+          "桃子",
+          "油桃"
+        ],
+        "en": [
+          "peach",
+          "peaches",
+          "nectarine",
+          "peach puree",
+          "peach juice"
+        ],
+        "ja": [
+          "もも",
+          "桃",
+          "白桃",
+          "黄桃",
+          "ピーチ",
+          "もも果汁"
+        ],
+        "ko": [
+          "복숭아",
+          "백도",
+          "황도",
+          "복숭아농축액",
+          "복숭아퓨레",
+          "천도복숭아"
+        ],
+        "ms": [
+          "pic",
+          "buah pic"
+        ],
+        "de": [
+          "pfirsich",
+          "pfirsiche",
+          "nektarine"
+        ],
+        "fr": [
+          "pêche",
+          "pêches",
+          "nectarine"
+        ],
+        "es": [
+          "melocotón",
+          "melocotones",
+          "durazno",
+          "nectarina"
+        ],
+        "it": [
+          "pesca",
+          "pesche",
+          "nettarina"
+        ]
+      },
+      "exclude_keywords": {
+        "zh-Hans": [
+          "核桃",
+          "山核桃",
+          "碧根果",
+          "猕猴桃",
+          "杨桃",
+          "樱桃",
+          "桃金娘",
+          "桃胶",
+          "仙桃"
+        ],
+        "zh-Hant": [
+          "核桃",
+          "山核桃",
+          "獼猴桃",
+          "楊桃",
+          "櫻桃",
+          "桃膠"
+        ],
+        "en": [
+          "peach palm"
+        ],
+        "ja": [
+          "くるみ",
+          "胡桃",
+          "キウイ",
+          "さくらんぼ"
+        ],
+        "ko": [
+          "호두",
+          "앵두",
+          "체리"
+        ],
+        "ms": [],
+        "de": [],
+        "fr": [
+          "pêche de mer"
+        ],
+        "es": [],
+        "it": []
+      }
+    },
+    "tomato": {
+      "codex_core": false,
+      "jurisdictions": [
+        "KR"
+      ],
+      "keywords": {
+        "zh-Hans": [
+          "番茄",
+          "西红柿",
+          "番茄酱",
+          "番茄膏",
+          "番茄粉",
+          "番茄汁"
+        ],
+        "zh-Hant": [
+          "番茄",
+          "蕃茄",
+          "西紅柿",
+          "番茄醬",
+          "番茄膏",
+          "番茄粉",
+          "番茄汁"
+        ],
+        "en": [
+          "tomato",
+          "tomatoes",
+          "tomato paste",
+          "tomato puree",
+          "tomato powder",
+          "ketchup"
+        ],
+        "ja": [
+          "トマト",
+          "トマトペースト",
+          "トマトピューレ",
+          "トマトケチャップ"
+        ],
+        "ko": [
+          "토마토",
+          "토마토페이스트",
+          "토마토퓨레",
+          "토마토케첩",
+          "토마토분말",
+          "방울토마토"
+        ],
+        "ms": [
+          "tomato",
+          "puri tomato",
+          "pes tomato",
+          "sos tomato"
+        ],
+        "de": [
+          "tomate",
+          "tomaten",
+          "tomatenmark",
+          "tomatenpulver"
+        ],
+        "fr": [
+          "tomate",
+          "tomates",
+          "concentré de tomate",
+          "purée de tomates"
+        ],
+        "es": [
+          "tomate",
+          "tomates",
+          "pasta de tomate",
+          "puré de tomate"
+        ],
+        "it": [
+          "pomodoro",
+          "pomodori",
+          "concentrato di pomodoro",
+          "passata di pomodoro"
+        ]
+      },
+      "exclude_keywords": {
+        "zh-Hans": [
+          "树番茄"
+        ],
+        "zh-Hant": [
+          "樹番茄"
+        ],
+        "en": [
+          "tomatillo",
+          "tree tomato"
+        ],
+        "ja": [],
+        "ko": [],
+        "ms": [],
+        "de": [],
+        "fr": [],
+        "es": [
+          "tomate de árbol",
+          "tomatillo"
+        ],
         "it": []
       }
     }

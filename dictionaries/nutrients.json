@@ -3,324 +3,995 @@
   "nutrients": {
     "energy": {
       "dimension": "energy",
-      "allowed_units": ["kJ", "kcal"],
-      "normalized_outputs": ["energy_kj", "energy_kcal"],
+      "allowed_units": [
+        "kJ",
+        "kcal"
+      ],
+      "normalized_outputs": [
+        "energy_kj",
+        "energy_kcal"
+      ],
       "labels": {
-        "zh-Hans": ["能量", "热量", "卡路里"],
-        "en": ["Energy", "Calories"],
-        "ja": ["熱量", "エネルギー"],
-        "de": ["Energie", "Brennwert"],
-        "fr": ["Énergie", "Valeur énergétique"],
-        "es": ["Valor energético", "Energía"],
-        "it": ["Energia", "Valore energetico"]
+        "zh-Hans": [
+          "能量",
+          "热量",
+          "卡路里"
+        ],
+        "en": [
+          "Energy",
+          "Calories"
+        ],
+        "ja": [
+          "熱量",
+          "エネルギー"
+        ],
+        "de": [
+          "Energie",
+          "Brennwert"
+        ],
+        "fr": [
+          "Énergie",
+          "Valeur énergétique"
+        ],
+        "es": [
+          "Valor energético",
+          "Energía"
+        ],
+        "it": [
+          "Energia",
+          "Valore energetico"
+        ],
+        "zh-Hant": [
+          "能量",
+          "熱量",
+          "卡路里"
+        ],
+        "ko": [
+          "열량",
+          "에너지",
+          "칼로리"
+        ],
+        "ms": [
+          "Tenaga",
+          "Kalori"
+        ]
       }
     },
     "protein": {
       "dimension": "mass",
-      "allowed_units": ["g"],
+      "allowed_units": [
+        "g"
+      ],
       "normalized_unit": "g",
       "labels": {
-        "zh-Hans": ["蛋白质"],
-        "en": ["Protein"],
-        "ja": ["たんぱく質", "タンパク質"],
-        "de": ["Eiweiß", "Protein"],
-        "fr": ["Protéines"],
-        "es": ["Proteínas"],
-        "it": ["Proteine"]
+        "zh-Hans": [
+          "蛋白质"
+        ],
+        "en": [
+          "Protein"
+        ],
+        "ja": [
+          "たんぱく質",
+          "タンパク質"
+        ],
+        "de": [
+          "Eiweiß",
+          "Protein"
+        ],
+        "fr": [
+          "Protéines"
+        ],
+        "es": [
+          "Proteínas"
+        ],
+        "it": [
+          "Proteine"
+        ],
+        "zh-Hant": [
+          "蛋白質"
+        ],
+        "ko": [
+          "단백질"
+        ],
+        "ms": [
+          "Protein"
+        ]
       }
     },
     "fat_total": {
       "dimension": "mass",
-      "allowed_units": ["g"],
+      "allowed_units": [
+        "g"
+      ],
       "normalized_unit": "g",
       "labels": {
-        "zh-Hans": ["脂肪", "总脂肪"],
-        "en": ["Total Fat", "Fat"],
-        "ja": ["脂質"],
-        "de": ["Fett"],
-        "fr": ["Matières grasses", "Lipides"],
-        "es": ["Grasas", "Lípidos"],
-        "it": ["Grassi"]
+        "zh-Hans": [
+          "脂肪",
+          "总脂肪"
+        ],
+        "en": [
+          "Total Fat",
+          "Fat"
+        ],
+        "ja": [
+          "脂質"
+        ],
+        "de": [
+          "Fett"
+        ],
+        "fr": [
+          "Matières grasses",
+          "Lipides"
+        ],
+        "es": [
+          "Grasas",
+          "Lípidos"
+        ],
+        "it": [
+          "Grassi"
+        ],
+        "zh-Hant": [
+          "總脂肪",
+          "脂肪"
+        ],
+        "ko": [
+          "지방",
+          "총지방"
+        ],
+        "ms": [
+          "Jumlah Lemak",
+          "Lemak"
+        ]
       }
     },
     "fat_saturated": {
       "dimension": "mass",
-      "allowed_units": ["g"],
+      "allowed_units": [
+        "g"
+      ],
       "normalized_unit": "g",
       "labels": {
-        "zh-Hans": ["饱和脂肪", "饱和脂肪酸"],
-        "en": ["Saturated Fat", "Saturates"],
-        "ja": ["飽和脂肪酸"],
-        "de": ["gesättigte Fettsäuren", "davon gesättigte Fettsäuren"],
-        "fr": ["acides gras saturés", "dont acides gras saturés"],
-        "es": ["ácidos grasos saturados", "de las cuales saturadas"],
-        "it": ["acidi grassi saturi", "di cui acidi grassi saturi"]
+        "zh-Hans": [
+          "饱和脂肪",
+          "饱和脂肪酸"
+        ],
+        "en": [
+          "Saturated Fat",
+          "Saturates"
+        ],
+        "ja": [
+          "飽和脂肪酸"
+        ],
+        "de": [
+          "gesättigte Fettsäuren",
+          "davon gesättigte Fettsäuren"
+        ],
+        "fr": [
+          "acides gras saturés",
+          "dont acides gras saturés"
+        ],
+        "es": [
+          "ácidos grasos saturados",
+          "de las cuales saturadas"
+        ],
+        "it": [
+          "acidi grassi saturi",
+          "di cui acidi grassi saturi"
+        ],
+        "zh-Hant": [
+          "飽和脂肪",
+          "飽和脂肪酸"
+        ],
+        "ko": [
+          "포화지방",
+          "포화지방산"
+        ],
+        "ms": [
+          "Lemak Tepu",
+          "Asid Lemak Tepu"
+        ]
       }
     },
     "fat_trans": {
       "dimension": "mass",
-      "allowed_units": ["g"],
+      "allowed_units": [
+        "g"
+      ],
       "normalized_unit": "g",
       "labels": {
-        "zh-Hans": ["反式脂肪", "反式脂肪酸"],
-        "en": ["Trans Fat"],
-        "ja": ["トランス脂肪酸"],
-        "de": ["trans-Fettsäuren"],
-        "fr": ["acides gras trans"],
-        "es": ["grasas trans", "ácidos grasos trans"],
-        "it": ["acidi grassi trans"]
+        "zh-Hans": [
+          "反式脂肪",
+          "反式脂肪酸"
+        ],
+        "en": [
+          "Trans Fat"
+        ],
+        "ja": [
+          "トランス脂肪酸"
+        ],
+        "de": [
+          "trans-Fettsäuren"
+        ],
+        "fr": [
+          "acides gras trans"
+        ],
+        "es": [
+          "grasas trans",
+          "ácidos grasos trans"
+        ],
+        "it": [
+          "acidi grassi trans"
+        ],
+        "zh-Hant": [
+          "反式脂肪",
+          "反式脂肪酸"
+        ],
+        "ko": [
+          "트랜스지방",
+          "트랜스지방산"
+        ],
+        "ms": [
+          "Lemak Trans",
+          "Asid Lemak Trans"
+        ]
       }
     },
     "fat_monounsaturated": {
       "dimension": "mass",
-      "allowed_units": ["g"],
+      "allowed_units": [
+        "g"
+      ],
       "normalized_unit": "g",
       "labels": {
-        "zh-Hans": ["单不饱和脂肪", "单不饱和脂肪酸"],
-        "en": ["Monounsaturated Fat", "Monounsaturates"],
-        "ja": ["一価不飽和脂肪酸"],
-        "de": ["einfach ungesättigte Fettsäuren"],
-        "fr": ["acides gras mono-insaturés"],
-        "es": ["ácidos grasos monoinsaturados"],
-        "it": ["acidi grassi monoinsaturi"]
+        "zh-Hans": [
+          "单不饱和脂肪",
+          "单不饱和脂肪酸"
+        ],
+        "en": [
+          "Monounsaturated Fat",
+          "Monounsaturates"
+        ],
+        "ja": [
+          "一価不飽和脂肪酸"
+        ],
+        "de": [
+          "einfach ungesättigte Fettsäuren"
+        ],
+        "fr": [
+          "acides gras mono-insaturés"
+        ],
+        "es": [
+          "ácidos grasos monoinsaturados"
+        ],
+        "it": [
+          "acidi grassi monoinsaturi"
+        ],
+        "zh-Hant": [
+          "單元不飽和脂肪",
+          "單不飽和脂肪"
+        ],
+        "ko": [
+          "단일불포화지방",
+          "단일불포화지방산"
+        ],
+        "ms": [
+          "Lemak Monotaktepu"
+        ]
       }
     },
     "fat_polyunsaturated": {
       "dimension": "mass",
-      "allowed_units": ["g"],
+      "allowed_units": [
+        "g"
+      ],
       "normalized_unit": "g",
       "labels": {
-        "zh-Hans": ["多不饱和脂肪", "多不饱和脂肪酸"],
-        "en": ["Polyunsaturated Fat", "Polyunsaturates"],
-        "ja": ["多価不飽和脂肪酸"],
-        "de": ["mehrfach ungesättigte Fettsäuren"],
-        "fr": ["acides gras polyinsaturés"],
-        "es": ["ácidos grasos poliinsaturados"],
-        "it": ["acidi grassi polinsaturi"]
+        "zh-Hans": [
+          "多不饱和脂肪",
+          "多不饱和脂肪酸"
+        ],
+        "en": [
+          "Polyunsaturated Fat",
+          "Polyunsaturates"
+        ],
+        "ja": [
+          "多価不飽和脂肪酸"
+        ],
+        "de": [
+          "mehrfach ungesättigte Fettsäuren"
+        ],
+        "fr": [
+          "acides gras polyinsaturés"
+        ],
+        "es": [
+          "ácidos grasos poliinsaturados"
+        ],
+        "it": [
+          "acidi grassi polinsaturi"
+        ],
+        "zh-Hant": [
+          "多元不飽和脂肪",
+          "多不飽和脂肪"
+        ],
+        "ko": [
+          "다중불포화지방",
+          "다중불포화지방산"
+        ],
+        "ms": [
+          "Lemak Politaktepu"
+        ]
       }
     },
     "cholesterol": {
       "dimension": "mass",
-      "allowed_units": ["mg", "g"],
+      "allowed_units": [
+        "mg",
+        "g"
+      ],
       "normalized_unit": "mg",
       "labels": {
-        "zh-Hans": ["胆固醇"],
-        "en": ["Cholesterol"],
-        "ja": ["コレステロール"],
-        "de": ["Cholesterin"],
-        "fr": ["Cholestérol"],
-        "es": ["Colesterol"],
-        "it": ["Colesterolo"]
+        "zh-Hans": [
+          "胆固醇"
+        ],
+        "en": [
+          "Cholesterol"
+        ],
+        "ja": [
+          "コレステロール"
+        ],
+        "de": [
+          "Cholesterin"
+        ],
+        "fr": [
+          "Cholestérol"
+        ],
+        "es": [
+          "Colesterol"
+        ],
+        "it": [
+          "Colesterolo"
+        ],
+        "zh-Hant": [
+          "膽固醇"
+        ],
+        "ko": [
+          "콜레스테롤"
+        ],
+        "ms": [
+          "Kolesterol"
+        ]
       }
     },
     "carbs_available": {
       "dimension": "mass",
-      "allowed_units": ["g"],
+      "allowed_units": [
+        "g"
+      ],
       "normalized_unit": "g",
       "labels": {
-        "zh-Hans": ["碳水化合物"],
-        "en": ["Carbohydrate", "Available Carbohydrate"],
-        "ja": ["糖質"],
-        "de": ["Kohlenhydrate"],
-        "fr": ["Glucides"],
-        "es": ["Hidratos de carbono", "Carbohidratos"],
-        "it": ["Carboidrati"]
+        "zh-Hans": [
+          "碳水化合物"
+        ],
+        "en": [
+          "Carbohydrate",
+          "Available Carbohydrate"
+        ],
+        "ja": [
+          "糖質"
+        ],
+        "de": [
+          "Kohlenhydrate"
+        ],
+        "fr": [
+          "Glucides"
+        ],
+        "es": [
+          "Hidratos de carbono",
+          "Carbohidratos"
+        ],
+        "it": [
+          "Carboidrati"
+        ],
+        "zh-Hant": [
+          "碳水化合物",
+          "可利用碳水化合物"
+        ],
+        "ko": [
+          "당질",
+          "가용성탄수화물"
+        ],
+        "ms": [
+          "Karbohidrat",
+          "Karbohidrat Tersedia"
+        ]
       }
     },
     "carbs_total": {
       "dimension": "mass",
-      "allowed_units": ["g"],
+      "allowed_units": [
+        "g"
+      ],
       "normalized_unit": "g",
       "labels": {
-        "zh-Hans": ["总碳水化合物"],
-        "en": ["Total Carbohydrate"],
-        "ja": ["炭水化物"],
-        "de": ["Gesamtkohlenhydrate"],
-        "fr": ["Glucides totaux"],
-        "es": ["Carbohidratos totales"],
-        "it": ["Carboidrati totali"]
+        "zh-Hans": [
+          "总碳水化合物"
+        ],
+        "en": [
+          "Total Carbohydrate"
+        ],
+        "ja": [
+          "炭水化物"
+        ],
+        "de": [
+          "Gesamtkohlenhydrate"
+        ],
+        "fr": [
+          "Glucides totaux"
+        ],
+        "es": [
+          "Carbohidratos totales"
+        ],
+        "it": [
+          "Carboidrati totali"
+        ],
+        "zh-Hant": [
+          "總碳水化合物"
+        ],
+        "ko": [
+          "탄수화물",
+          "총탄수화물"
+        ],
+        "ms": [
+          "Jumlah Karbohidrat"
+        ]
       }
     },
     "sugars_total": {
       "dimension": "mass",
-      "allowed_units": ["g"],
+      "allowed_units": [
+        "g"
+      ],
       "normalized_unit": "g",
       "labels": {
-        "zh-Hans": ["糖", "总糖"],
-        "en": ["Total Sugars", "Sugars", "of which sugars"],
-        "ja": ["糖類"],
-        "de": ["Zucker", "davon Zucker"],
-        "fr": ["sucres", "dont sucres"],
-        "es": ["azúcares", "de los cuales azúcares"],
-        "it": ["zuccheri", "di cui zuccheri"]
+        "zh-Hans": [
+          "糖",
+          "总糖"
+        ],
+        "en": [
+          "Total Sugars",
+          "Sugars",
+          "of which sugars"
+        ],
+        "ja": [
+          "糖類"
+        ],
+        "de": [
+          "Zucker",
+          "davon Zucker"
+        ],
+        "fr": [
+          "sucres",
+          "dont sucres"
+        ],
+        "es": [
+          "azúcares",
+          "de los cuales azúcares"
+        ],
+        "it": [
+          "zuccheri",
+          "di cui zuccheri"
+        ],
+        "zh-Hant": [
+          "糖",
+          "總糖"
+        ],
+        "ko": [
+          "당류",
+          "총당류"
+        ],
+        "ms": [
+          "Jumlah Gula",
+          "Gula"
+        ]
       }
     },
     "sugars_added": {
       "dimension": "mass",
-      "allowed_units": ["g"],
+      "allowed_units": [
+        "g"
+      ],
       "normalized_unit": "g",
       "labels": {
-        "zh-Hans": ["添加糖"],
-        "en": ["Added Sugars"],
-        "ja": ["添加糖"],
-        "de": ["zugesetzter Zucker"],
-        "fr": ["sucres ajoutés"],
-        "es": ["azúcares añadidos"],
-        "it": ["zuccheri aggiunti"]
+        "zh-Hans": [
+          "添加糖"
+        ],
+        "en": [
+          "Added Sugars"
+        ],
+        "ja": [
+          "添加糖"
+        ],
+        "de": [
+          "zugesetzter Zucker"
+        ],
+        "fr": [
+          "sucres ajoutés"
+        ],
+        "es": [
+          "azúcares añadidos"
+        ],
+        "it": [
+          "zuccheri aggiunti"
+        ],
+        "zh-Hant": [
+          "添加糖"
+        ],
+        "ko": [
+          "첨가당"
+        ],
+        "ms": [
+          "Gula Tambahan"
+        ]
       }
     },
     "sugar_alcohols": {
       "dimension": "mass",
-      "allowed_units": ["g"],
+      "allowed_units": [
+        "g"
+      ],
       "normalized_unit": "g",
       "labels": {
-        "zh-Hans": ["糖醇", "赤藓糖醇"],
-        "en": ["Sugar Alcohol", "Polyols"],
-        "ja": ["糖アルコール"],
-        "de": ["mehrwertige Alkohole", "Polyole"],
-        "fr": ["polyols"],
-        "es": ["polialcoholes"],
-        "it": ["polioli"]
+        "zh-Hans": [
+          "糖醇",
+          "赤藓糖醇"
+        ],
+        "en": [
+          "Sugar Alcohol",
+          "Polyols"
+        ],
+        "ja": [
+          "糖アルコール"
+        ],
+        "de": [
+          "mehrwertige Alkohole",
+          "Polyole"
+        ],
+        "fr": [
+          "polyols"
+        ],
+        "es": [
+          "polialcoholes"
+        ],
+        "it": [
+          "polioli"
+        ],
+        "zh-Hant": [
+          "糖醇",
+          "赤蘚糖醇"
+        ],
+        "ko": [
+          "당알코올",
+          "에리스리톨"
+        ],
+        "ms": [
+          "Alkohol Gula",
+          "Poliol"
+        ]
       }
     },
     "starch": {
       "dimension": "mass",
-      "allowed_units": ["g"],
+      "allowed_units": [
+        "g"
+      ],
       "normalized_unit": "g",
       "labels": {
-        "zh-Hans": ["淀粉"],
-        "en": ["Starch"],
-        "ja": ["でん粉", "デンプン"],
-        "de": ["Stärke"],
-        "fr": ["Amidon"],
-        "es": ["Almidón"],
-        "it": ["Amido"]
+        "zh-Hans": [
+          "淀粉"
+        ],
+        "en": [
+          "Starch"
+        ],
+        "ja": [
+          "でん粉",
+          "デンプン"
+        ],
+        "de": [
+          "Stärke"
+        ],
+        "fr": [
+          "Amidon"
+        ],
+        "es": [
+          "Almidón"
+        ],
+        "it": [
+          "Amido"
+        ],
+        "zh-Hant": [
+          "澱粉"
+        ],
+        "ko": [
+          "전분",
+          "녹말"
+        ],
+        "ms": [
+          "Kanji"
+        ]
       }
     },
     "dietary_fiber": {
       "dimension": "mass",
-      "allowed_units": ["g"],
+      "allowed_units": [
+        "g"
+      ],
       "normalized_unit": "g",
       "labels": {
-        "zh-Hans": ["膳食纤维"],
-        "en": ["Dietary Fiber", "Fibre"],
-        "ja": ["食物繊維"],
-        "de": ["Ballaststoffe"],
-        "fr": ["Fibres alimentaires", "Fibres"],
-        "es": ["Fibra alimentaria", "Fibra"],
-        "it": ["Fibre"]
+        "zh-Hans": [
+          "膳食纤维"
+        ],
+        "en": [
+          "Dietary Fiber",
+          "Fibre"
+        ],
+        "ja": [
+          "食物繊維"
+        ],
+        "de": [
+          "Ballaststoffe"
+        ],
+        "fr": [
+          "Fibres alimentaires",
+          "Fibres"
+        ],
+        "es": [
+          "Fibra alimentaria",
+          "Fibra"
+        ],
+        "it": [
+          "Fibre"
+        ],
+        "zh-Hant": [
+          "膳食纖維"
+        ],
+        "ko": [
+          "식이섬유"
+        ],
+        "ms": [
+          "Serabut Diet",
+          "Serat Diet",
+          "Gentian Diet"
+        ]
       }
     },
     "sodium": {
       "dimension": "mass",
-      "allowed_units": ["mg", "g"],
+      "allowed_units": [
+        "mg",
+        "g"
+      ],
       "normalized_unit": "mg",
       "labels": {
-        "zh-Hans": ["钠"],
-        "en": ["Sodium"],
-        "ja": ["ナトリウム"],
-        "de": ["Natrium"],
-        "fr": ["Sodium"],
-        "es": ["Sodio"],
-        "it": ["Sodio"]
+        "zh-Hans": [
+          "钠"
+        ],
+        "en": [
+          "Sodium"
+        ],
+        "ja": [
+          "ナトリウム"
+        ],
+        "de": [
+          "Natrium"
+        ],
+        "fr": [
+          "Sodium"
+        ],
+        "es": [
+          "Sodio"
+        ],
+        "it": [
+          "Sodio"
+        ],
+        "zh-Hant": [
+          "鈉"
+        ],
+        "ko": [
+          "나트륨"
+        ],
+        "ms": [
+          "Natrium"
+        ]
       }
     },
     "salt_equivalent": {
       "dimension": "mass",
-      "allowed_units": ["g", "mg"],
+      "allowed_units": [
+        "g",
+        "mg"
+      ],
       "normalized_unit": "g",
       "labels": {
-        "zh-Hans": ["盐", "食盐相当量"],
-        "en": ["Salt"],
-        "ja": ["食塩相当量"],
-        "de": ["Salz"],
-        "fr": ["Sel"],
-        "es": ["Sal"],
-        "it": ["Sale"]
+        "zh-Hans": [
+          "盐",
+          "食盐相当量"
+        ],
+        "en": [
+          "Salt"
+        ],
+        "ja": [
+          "食塩相当量"
+        ],
+        "de": [
+          "Salz"
+        ],
+        "fr": [
+          "Sel"
+        ],
+        "es": [
+          "Sal"
+        ],
+        "it": [
+          "Sale"
+        ],
+        "zh-Hant": [
+          "鹽",
+          "食鹽相當量"
+        ],
+        "ko": [
+          "식염상당량",
+          "소금"
+        ],
+        "ms": [
+          "Garam"
+        ]
       }
     },
     "calcium": {
       "dimension": "mass",
-      "allowed_units": ["mg", "g"],
+      "allowed_units": [
+        "mg",
+        "g"
+      ],
       "normalized_unit": "mg",
       "labels": {
-        "zh-Hans": ["钙"],
-        "en": ["Calcium"],
-        "ja": ["カルシウム"],
-        "de": ["Calcium"],
-        "fr": ["Calcium"],
-        "es": ["Calcio"],
-        "it": ["Calcio"]
+        "zh-Hans": [
+          "钙"
+        ],
+        "en": [
+          "Calcium"
+        ],
+        "ja": [
+          "カルシウム"
+        ],
+        "de": [
+          "Calcium"
+        ],
+        "fr": [
+          "Calcium"
+        ],
+        "es": [
+          "Calcio"
+        ],
+        "it": [
+          "Calcio"
+        ],
+        "zh-Hant": [
+          "鈣"
+        ],
+        "ko": [
+          "칼슘"
+        ],
+        "ms": [
+          "Kalsium"
+        ]
       }
     },
     "iron": {
       "dimension": "mass",
-      "allowed_units": ["mg"],
+      "allowed_units": [
+        "mg"
+      ],
       "normalized_unit": "mg",
       "labels": {
-        "zh-Hans": ["铁"],
-        "en": ["Iron"],
-        "ja": ["鉄"],
-        "de": ["Eisen"],
-        "fr": ["Fer"],
-        "es": ["Hierro"],
-        "it": ["Ferro"]
+        "zh-Hans": [
+          "铁"
+        ],
+        "en": [
+          "Iron"
+        ],
+        "ja": [
+          "鉄"
+        ],
+        "de": [
+          "Eisen"
+        ],
+        "fr": [
+          "Fer"
+        ],
+        "es": [
+          "Hierro"
+        ],
+        "it": [
+          "Ferro"
+        ],
+        "zh-Hant": [
+          "鐵"
+        ],
+        "ko": [
+          "철",
+          "철분"
+        ],
+        "ms": [
+          "Zat Besi",
+          "Besi"
+        ]
       }
     },
     "potassium": {
       "dimension": "mass",
-      "allowed_units": ["mg", "g"],
+      "allowed_units": [
+        "mg",
+        "g"
+      ],
       "normalized_unit": "mg",
       "labels": {
-        "zh-Hans": ["钾"],
-        "en": ["Potassium"],
-        "ja": ["カリウム"],
-        "de": ["Kalium"],
-        "fr": ["Potassium"],
-        "es": ["Potasio"],
-        "it": ["Potassio"]
+        "zh-Hans": [
+          "钾"
+        ],
+        "en": [
+          "Potassium"
+        ],
+        "ja": [
+          "カリウム"
+        ],
+        "de": [
+          "Kalium"
+        ],
+        "fr": [
+          "Potassium"
+        ],
+        "es": [
+          "Potasio"
+        ],
+        "it": [
+          "Potassio"
+        ],
+        "zh-Hant": [
+          "鉀"
+        ],
+        "ko": [
+          "칼륨"
+        ],
+        "ms": [
+          "Kalium"
+        ]
       }
     },
     "vitamin_a": {
       "dimension": "mass",
-      "allowed_units": ["ug", "mg"],
+      "allowed_units": [
+        "ug",
+        "mg"
+      ],
       "normalized_unit": "ug",
       "labels": {
-        "zh-Hans": ["维生素A"],
-        "en": ["Vitamin A"],
-        "ja": ["ビタミンA"],
-        "de": ["Vitamin A"],
-        "fr": ["Vitamine A"],
-        "es": ["Vitamina A"],
-        "it": ["Vitamina A"]
+        "zh-Hans": [
+          "维生素A"
+        ],
+        "en": [
+          "Vitamin A"
+        ],
+        "ja": [
+          "ビタミンA"
+        ],
+        "de": [
+          "Vitamin A"
+        ],
+        "fr": [
+          "Vitamine A"
+        ],
+        "es": [
+          "Vitamina A"
+        ],
+        "it": [
+          "Vitamina A"
+        ],
+        "zh-Hant": [
+          "維他命A",
+          "維生素A"
+        ],
+        "ko": [
+          "비타민A",
+          "비타민 A"
+        ],
+        "ms": [
+          "Vitamin A"
+        ]
       }
     },
     "vitamin_c": {
       "dimension": "mass",
-      "allowed_units": ["mg"],
+      "allowed_units": [
+        "mg"
+      ],
       "normalized_unit": "mg",
       "labels": {
-        "zh-Hans": ["维生素C", "抗坏血酸"],
-        "en": ["Vitamin C"],
-        "ja": ["ビタミンC"],
-        "de": ["Vitamin C"],
-        "fr": ["Vitamine C"],
-        "es": ["Vitamina C"],
-        "it": ["Vitamina C"]
+        "zh-Hans": [
+          "维生素C",
+          "抗坏血酸"
+        ],
+        "en": [
+          "Vitamin C"
+        ],
+        "ja": [
+          "ビタミンC"
+        ],
+        "de": [
+          "Vitamin C"
+        ],
+        "fr": [
+          "Vitamine C"
+        ],
+        "es": [
+          "Vitamina C"
+        ],
+        "it": [
+          "Vitamina C"
+        ],
+        "zh-Hant": [
+          "維他命C",
+          "維生素C"
+        ],
+        "ko": [
+          "비타민C",
+          "비타민 C"
+        ],
+        "ms": [
+          "Vitamin C"
+        ]
       }
     },
     "vitamin_d": {
       "dimension": "mass",
-      "allowed_units": ["ug", "mg"],
+      "allowed_units": [
+        "ug",
+        "mg"
+      ],
       "normalized_unit": "ug",
       "labels": {
-        "zh-Hans": ["维生素D"],
-        "en": ["Vitamin D"],
-        "ja": ["ビタミンD"],
-        "de": ["Vitamin D"],
-        "fr": ["Vitamine D"],
-        "es": ["Vitamina D"],
-        "it": ["Vitamina D"]
+        "zh-Hans": [
+          "维生素D"
+        ],
+        "en": [
+          "Vitamin D"
+        ],
+        "ja": [
+          "ビタミンD"
+        ],
+        "de": [
+          "Vitamin D"
+        ],
+        "fr": [
+          "Vitamine D"
+        ],
+        "es": [
+          "Vitamina D"
+        ],
+        "it": [
+          "Vitamina D"
+        ],
+        "zh-Hant": [
+          "維他命D",
+          "維生素D"
+        ],
+        "ko": [
+          "비타민D",
+          "비타민 D"
+        ],
+        "ms": [
+          "Vitamin D"
+        ]
       }
     }
   }

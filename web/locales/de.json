@@ -287,7 +287,8 @@
     "salt_vinegar_spices": "Speisesalz, Essig & Gewürze",
     "alcoholic_beverage": "Alkoholisches Getränk",
     "small_daily_intake": "Geringfügige tägliche Verzehrsmenge",
-    "small_package_area": "Kleinstverpackung (geringe Oberfläche)"
+    "small_package_area": "Kleinstverpackung (geringe Oberfläche)",
+    "general_unclaimed_exempt": "Allgemeines Lebensmittel ohne Nährwertangabenpflicht (keine Claims)"
   },
   "nutrients": {
     "energy_kj": "Energie (kJ)",
@@ -332,7 +333,12 @@
     "molluscs": "Weichtiere",
     "sulphites": "Schwefeldioxid und Sulfite",
     "soy": "Soja",
-    "wheat": "Weizen"
+    "wheat": "Weizen",
+    "pork": "Schweinefleisch",
+    "beef": "Rindfleisch",
+    "chicken": "Hühnerfleisch",
+    "peach": "Pfirsich",
+    "tomato": "Tomate"
   },
   "roles": {
     "brand_owner": "Markeninhaber",
