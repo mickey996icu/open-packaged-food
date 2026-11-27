@@ -131,11 +131,12 @@
       return `${nLabel}: ${lo}–${hi}${unit}`;
     }
 
-    function makeFilterChip({ attrName, attrVal, label, active, extraClass = "" }) {
+    function makeFilterChip({ attrName, attrVal, label, count, active, extraClass = "" }) {
       const cls = ["chip", "filter-chip", extraClass].filter(Boolean).join(" ");
+      const countHtml = count !== undefined ? `<span class="chip-count">${esc(count)}</span>` : "";
       return `<button type="button" class="${cls}" data-${attrName}="${esc(attrVal)}" aria-pressed="${active}">${
         active ? CHIP_CHECK_SVG : ""
-      }<span>${esc(label)}</span></button>`;
+      }<span>${esc(label)}</span>${countHtml}</button>`;
     }
 
     function updateWorkbenchChromeAndStrip() {
@@ -150,7 +151,7 @@
       if (panel) panel.hidden = !wbOpen;
       if (toggleBtn) {
         toggleBtn.setAttribute("aria-expanded", String(wbOpen));
-        toggleBtn.textContent = advCount ? `${t("search.wbToggle")} (${advCount})` : t("search.wbToggle");
+        toggleBtn.innerHTML = `<span class="ink-ui">${esc(advCount ? `${t("search.wbToggle")} (${advCount})` : t("search.wbToggle"))}</span>`;
       }
 
       const tags = [];
@@ -262,7 +263,8 @@
           makeFilterChip({
             attrName: "market",
             attrVal: "",
-            label: `${t("search.allMarkets")} (${catalog.length})`,
+            label: t("search.allMarkets"),
+            count: catalog.length,
             active: filter.markets.length === 0,
           }) +
           marketEntries
@@ -270,7 +272,8 @@
               makeFilterChip({
                 attrName: "market",
                 attrVal: mkt,
-                label: `${mkt} (${cnt})`,
+                label: mkt,
+                count: cnt,
                 active: filter.markets.includes(mkt),
               })
             )
@@ -287,7 +290,8 @@
               makeFilterChip({
                 attrName: "resolution",
                 attrVal: r,
-                label: `${t(`resolutions.${r}.short`)} (${resCounts[r]})`,
+                label: t(`resolutions.${r}.short`),
+                count: resCounts[r],
                 active: filter.resolutions.includes(r),
               })
             )
@@ -304,7 +308,8 @@
               makeFilterChip({
                 attrName: "level",
                 attrVal: lv,
-                label: `${t(`seals.${lv}.label`)} (${levelCounts[lv]})`,
+                label: t(`seals.${lv}.label`),
+                count: levelCounts[lv],
                 active: filter.levels.includes(lv),
               })
             )
@@ -317,7 +322,8 @@
             makeFilterChip({
               attrName: "profile",
               attrVal: pr,
-              label: `${pr.split("/")[0]}/${pr.split("/")[1].split("-")[0]} (${profileCounts[pr]})`,
+              label: pr,
+              count: profileCounts[pr],
               active: filter.profiles.includes(pr),
             })
           ),
@@ -325,7 +331,8 @@
             makeFilterChip({
               attrName: "namespace",
               attrVal: ns,
-              label: `${ns.toUpperCase()} (${nsCounts[ns]})`,
+              label: ns.toUpperCase(),
+              count: nsCounts[ns],
               active: filter.namespaces.includes(ns),
             })
           ),
@@ -337,7 +344,8 @@
             makeFilterChip({
               attrName: "brand",
               attrVal: b.slug,
-              label: `${b.name} (${b.count})`,
+              label: b.name,
+              count: b.count,
               active: filter.brands.includes(b.slug),
             })
           )
@@ -393,8 +401,8 @@
           <div>
             <div class="filter-group-head"><span class="filter-group-title">${esc(t("search.groupFeatures"))}</span></div>
             <div class="filter-chip-row">
-              <button type="button" class="chip filter-chip" data-trait="zero-additives" aria-pressed="${filter.zeroAdditives}">${filter.zeroAdditives ? CHIP_CHECK_SVG : ""}<span>${esc(t("search.zeroAdditivesChip"))} (${esc(zeroAdditivesCount)})</span></button>
-              <button type="button" class="chip filter-chip" data-trait="zero-calorie" aria-pressed="${filter.zeroCalorie}">${filter.zeroCalorie ? CHIP_CHECK_SVG : ""}<span>${esc(t("search.zeroCalorieChip"))} (${esc(zeroCalorieCount)})</span></button>
+              ${makeFilterChip({ attrName: "trait", attrVal: "zero-additives", label: t("search.zeroAdditivesChip"), count: zeroAdditivesCount, active: filter.zeroAdditives })}
+              ${makeFilterChip({ attrName: "trait", attrVal: "zero-calorie", label: t("search.zeroCalorieChip"), count: zeroCalorieCount, active: filter.zeroCalorie })}
             </div>
           </div>`;
       }

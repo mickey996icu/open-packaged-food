@@ -9,10 +9,9 @@ path = [
   "opf/**",
   "tests/**",
   ".github/**",
-  "web/app.js",
-  "web/scanner.js",
+  "web/*.js",
   "web/index.html",
-  "web/style.css",
+  "web/*.css",
   "web/locales/**",
   "pyproject.toml",
   "setup.py",
@@ -25,10 +24,20 @@ SPDX-License-Identifier = "AGPL-3.0-or-later"
 
 # Bundled third-party ZXing barcode/QR library preserves upstream Apache-2.0 terms
 [[annotations]]
-path = "web/vendor/**"
+path = "web/vendor/zxing*"
 precedence = "override"
 SPDX-FileCopyrightText = "ZXing Authors"
 SPDX-License-Identifier = "Apache-2.0"
+
+# Bundled Sarasa Mono ASCII & archival symbol WOFF subset preserves upstream SIL OFL-1.1 terms
+[[annotations]]
+path = [
+  "web/vendor/sarasa-mono-*.woff",
+  "web/vendor/LICENSE-SARASA.txt",
+]
+precedence = "override"
+SPDX-FileCopyrightText = "Renzhi Li (Belleve Invis), The Inter Project Authors, Adobe Systems Incorporated, and Google Inc."
+SPDX-License-Identifier = "OFL-1.1"
 
 # Specifications, JSON Schemas, regulatory profiles, factual dictionaries, Agent skills, and docs
 [[annotations]]

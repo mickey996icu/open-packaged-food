@@ -40,6 +40,8 @@ class BundleResourcesBuildPy(build_py):
             raise RuntimeError("Wheel resource bundle missing web/scanner.js")
         if not (bundled_root / "web" / "vendor" / "zxing.min.js").is_file():
             raise RuntimeError("Wheel resource bundle missing web/vendor/zxing.min.js")
+        if not (bundled_root / "web" / "vendor" / "sarasa-mono-regular.woff").is_file():
+            raise RuntimeError("Wheel resource bundle missing web/vendor/sarasa-mono-regular.woff")
 
 
 setup(cmdclass={"build_py": BundleResourcesBuildPy})

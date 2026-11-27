@@ -186,6 +186,17 @@ def _check_nutrition(
         if isinstance(it, dict)
     )
 
+    nc_list = core.get("net_content") or []
+    nc_label = str(attrs.get("net_content_label") or "").strip()
+    if not nc_list and nc_label:
+        _emit(findings, "ERROR", "NET_CONTENT_LABEL_WITHOUT_QUANTITY", pid, eid, path,
+              f"core.net_content 为空但填写了 attributes.net_content_label={nc_label!r}；无净含量原图证据时两者均须留空")
+    if not nc_list and pid.startswith("opf:"):
+        spec_seg = pid.split("/")[-1] if "/" in pid else ""
+        if re.search(r"[0-9]", spec_seg):
+            _emit(findings, "WARN", "OPF_SPEC_WITHOUT_NET_CONTENT", pid, eid, path,
+                  f"无条码商品 {pid} 的规格段含数值 {spec_seg!r}，但 core.net_content 为空；请确认是否有净含量实拍证据")
+
     if core.get("nutrition_declared") is None:
         ex = core.get("nutrition_exemption")
         if not isinstance(ex, dict) or not str(ex.get("category") or "").strip():

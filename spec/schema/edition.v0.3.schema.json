@@ -337,7 +337,6 @@
         },
         "net_content": {
           "type": "array",
-          "minItems": 1,
           "items": {
             "$ref": "#/$defs/CoreQuantity"
           }

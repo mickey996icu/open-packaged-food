@@ -313,7 +313,9 @@ def canonicalize_core_in_place(core: dict[str, Any]) -> None:
         if qty.get("qualifier") in (None, "="):
             qty.pop("qualifier", None)
 
-    for nc in core.get("net_content") or []:
+    if core.get("net_content") is None:
+        core["net_content"] = []
+    for nc in core["net_content"]:
         _clean_qty(nc)
     if "serving_size" in core and isinstance(core["serving_size"], dict):
         _clean_qty(core["serving_size"])

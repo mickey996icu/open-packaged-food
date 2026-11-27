@@ -595,7 +595,7 @@ def build_compact_doc(
         seen_nc: set[str] = set()
         net_content_values: list[dict[str, Any]] = []
         for e in active_editions:
-            for nc in e["core"]["net_content"]:
+            for nc in e["core"].get("net_content") or []:
                 key = _canon_json(nc)
                 if key not in seen_nc:
                     seen_nc.add(key)

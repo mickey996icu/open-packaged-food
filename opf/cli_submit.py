@@ -48,7 +48,7 @@ def _prepare_candidate_from_draft(
     draft: dict[str, Any],
     *,
     track: str,
-    specimen_id_override: str | None,
+    specimen_id_override: str | None = None,
     default_provenance: str = "external_contributor",
     default_agreement_ref: str | None = None,
 ) -> tuple[dict[str, Any], list[str]]:
@@ -93,6 +93,8 @@ def _prepare_candidate_from_draft(
                     ev["evidence_id"] = f"ev:{generate_ulid()}"
 
     core_copy = copy.deepcopy(core)
+    if core_copy.get("net_content") is None:
+        core_copy["net_content"] = []
     attrs_copy = copy.deepcopy(attrs)
     profile_id = core_copy.get("regulatory_profile")
     if not core_copy.get("ingredients_tree"):

@@ -264,14 +264,17 @@ class TestWebV02(unittest.TestCase):
                     (site_dir / "assets" / asset_name).read_text(encoding="utf-8"),
                     (REPO_ROOT / "web" / asset_name).read_text(encoding="utf-8"),
                 )
-            self.assertEqual(
-                (site_dir / "assets" / "vendor" / "zxing.min.js").read_bytes(),
-                (REPO_ROOT / "web" / "vendor" / "zxing.min.js").read_bytes(),
-            )
-            self.assertEqual(
-                (site_dir / "assets" / "vendor" / "LICENSE-ZXING.txt").read_bytes(),
-                (REPO_ROOT / "web" / "vendor" / "LICENSE-ZXING.txt").read_bytes(),
-            )
+            for vname in (
+                "zxing.min.js",
+                "LICENSE-ZXING.txt",
+                "sarasa-mono-regular.woff",
+                "sarasa-mono-semibold.woff",
+                "LICENSE-SARASA.txt",
+            ):
+                self.assertEqual(
+                    (site_dir / "assets" / "vendor" / vname).read_bytes(),
+                    (REPO_ROOT / "web" / "vendor" / vname).read_bytes(),
+                )
             for loc in (
                 "index.json",
                 "zh-CN.json",

@@ -160,23 +160,23 @@ function renderSeal(level) {
   if (!level) return "";
   return `<span class="seal ${esc(level)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${
     SEAL_SVGS[level] || ""
-  }</svg>${esc(t(`seals.${level}.label`))}</span>`;
+  }</svg><span>${esc(t(`seals.${level}.label`))}</span></span>`;
 }
 
 function renderResolutionBadge(resolution, shortForm = false) {
   if (!resolution) return "";
   const text = shortForm ? t(`resolutions.${resolution}.short`) : t(`resolutions.${resolution}.label`);
-  return `<span class="res-badge res-${esc(resolution)}">${esc(text)}</span>`;
+  return `<span class="res-badge res-${esc(resolution)}"><span>${esc(text)}</span></span>`;
 }
 
 function renderStatusBadge(status) {
   if (!status) return "";
-  return `<span class="status-badge status-${esc(status)}">${esc(t(`statuses.${status}`))}</span>`;
+  return `<span class="status-badge status-${esc(status)}"><span>${esc(t(`statuses.${status}`))}</span></span>`;
 }
 
 function renderRevPill(rev) {
   if (rev === undefined || rev === null) return "";
-  return `<span class="rev-pill mono">rev ${esc(rev)}</span>`;
+  return `<span class="rev-pill mono"><span>rev ${esc(rev)}</span></span>`;
 }
 
 function pickLocalizedText(localizedArr) {
@@ -242,9 +242,10 @@ async function copyTextWithFeedback(btn, text, origLabel) {
       document.execCommand("copy");
       document.body.removeChild(ta);
     }
-    btn.textContent = t("detail.copiedFeedback");
+    const labelEl = btn.querySelector("span") || btn;
+    labelEl.textContent = t("detail.copiedFeedback");
     setTimeout(() => {
-      if (btn.isConnected) btn.textContent = origLabel;
+      if (btn.isConnected) labelEl.textContent = origLabel;
     }, 1400);
   } catch (_) {}
 }
@@ -391,19 +392,13 @@ function applyStaticChrome() {
 }
 
 function renderStats(meta) {
-  const marketEntries = Object.entries(meta.counts_by_market || {}).sort(
-    (a, b) => b[1] - a[1] || a[0].localeCompare(b[0])
-  );
-  const marketPillsHtml = marketEntries.length
-    ? `<div class="stat-badges">${marketEntries
-        .map(([mkt, cnt]) => `<span class="stat-pill">${esc(mkt)} <em>${esc(cnt)}</em></span>`)
-        .join("")}</div>`
-    : `<span class="val">—</span>`;
-
+  const mktCount = Object.keys(meta.counts_by_market || {}).length;
   $("#stats").innerHTML = `
-    <div class="stat-cell"><span class="label">${esc(t("stats.total"))}</span><span class="val">${esc(meta.total_products)}</span></div>
-    <div class="stat-cell"><span class="label">${esc(t("stats.markets"))}</span>${marketPillsHtml}</div>
-    <div class="stat-cell"><span class="label">${esc(t("stats.schema"))}</span><span class="val">v${esc(meta.opf_schema)}</span></div>`;
+    <span class="stat-inline-item">${esc(t("stats.total"))} <b>${esc(meta.total_products)}</b></span>
+    <span class="stat-sep" aria-hidden="true">·</span>
+    <span class="stat-inline-item">${esc(t("stats.markets"))} <b>${esc(mktCount)}</b></span>
+    <span class="stat-sep" aria-hidden="true">·</span>
+    <span class="stat-inline-item">${esc(t("stats.schema"))} <b>v${esc(meta.opf_schema)}</b></span>`;
 }
 
 function renderEmptyCatalogCard() {
@@ -444,35 +439,25 @@ function renderEmptyFilterResultHtml() {
 
 function renderEntryCardHtml(i) {
   const dispName = pickLocalizedProductName(i);
-  const hasMixedEv = i.lowest_active_evidence_level && i.lowest_active_evidence_level !== i.evidence_level;
-  const mixedTip = hasMixedEv
-    ? t("search.mixedEvidenceTitle", {
-        high: t(`seals.${i.evidence_level}.label`),
-        low: t(`seals.${i.lowest_active_evidence_level}.label`),
-      })
-    : "";
+  const brandStr = String(i.brand || "").trim();
+  const cleanName =
+    brandStr && String(dispName).startsWith(brandStr)
+      ? String(dispName).slice(brandStr.length).replace(/^[\s·•-]+/, "") || dispName
+      : dispName;
   const kcalDisplay =
     i.energy_kcal_100 !== null && i.energy_kcal_100 !== undefined
       ? `${i.energy_kcal_100} kcal/${i.basis}`
       : i.nutrition_exempt
         ? t("search.nutritionExemptShort")
-        : "—";
+        : "";
   const mkts = (i.markets || []).join("/");
+  const metaParts = [i.net_content, kcalDisplay, mkts].filter(Boolean);
   return `<button type="button" class="index-entry" data-id="${esc(i.id)}" aria-current="${i.id === currentId}">
-    <div class="entry-top">
-      <span class="entry-brand">${esc(i.brand)}${mkts ? ` · ${esc(mkts)}` : ""}</span>
-      <span style="display:flex;gap:4px;align-items:center;flex-wrap:wrap;justify-content:flex-end;">
-        ${renderSeal(i.evidence_level)}
-        ${hasMixedEv ? `<span class="chip mono micro" title="${esc(mixedTip)}">${esc(t("search.mixedEvidenceShort"))}</span>` : ""}
-      </span>
-    </div>
-    <div class="entry-title">${esc(dispName)}</div>
-    <div class="entry-id">${esc(i.id)}</div>
+    ${brandStr ? `<span class="entry-brand">${esc(brandStr)}</span>` : ""}
+    <div class="entry-title">${esc(cleanName)}</div>
     <div class="imprint">
-      ${renderResolutionBadge(i.resolution, true)}
-      <span>${esc(i.net_content || "—")}</span>
-      <span>${esc(kcalDisplay)}</span>
-      ${(i.additives_count ?? 0) === 0 ? `<span class="chip mono micro">${esc(t("search.zeroAdditivesShort"))}</span>` : ""}
+      <span>${esc(metaParts.join(" · "))}</span>
+      ${i.resolution === "divergent" ? renderResolutionBadge("divergent", true) : ""}
     </div>
   </button>`;
 }
@@ -603,6 +588,7 @@ function initControls() {
     const cur = root.getAttribute("data-theme");
     const isDark = cur === "dark" || (!cur && window.matchMedia("(prefers-color-scheme: dark)").matches);
     root.setAttribute("data-theme", isDark ? "light" : "dark");
+    if (typeof window.__OPF_SYNC_PAPER__ === "function") window.__OPF_SYNC_PAPER__();
   };
 
   const langSelectEl = $("#lang-select");
