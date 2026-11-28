@@ -4,15 +4,25 @@ from __future__ import annotations
 
 import re
 
-# Matches quantitative qualifiers such as ">=4g/L", "≥95%", "添加量≥4g/L", "含量不少于90%", "12%", "约5%"
+_QUAL_UNITS = r"(?:%|％|g/L|mg/kg|mg/L|g/kg|g/100g|ml/100ml|g|mg|ml)"
+_QUAL_CMP = r"(?:[≥≤><~≈]|>=|<=|不少于|不低于|不超过|不少於|不低於|不超過|约|約)"
+_QUAL_PREFIX = r"(?:添加量|含量|固形物|干物质|總固形物|乾物質)"
+_QUAL_NUM_RANGE = (
+    rf"[0-9]+(?:\.[0-9]+)?(?:\s*{_QUAL_UNITS})?(?:\s*[-~～—–]\s*[0-9]+(?:\.[0-9]+)?)?\s*{_QUAL_UNITS}"
+)
+_PCT_NUM_RANGE = (
+    r"[0-9]+(?:\.[0-9]+)?(?:\s*(?:%|％))?(?:\s*[-~～—–]\s*[0-9]+(?:\.[0-9]+)?)?\s*(?:%|％)"
+)
+
+# Matches quantitative qualifiers including intervals, e.g. ">=4g/L", "≥95%", "20%-25%", "添加量18%~22%"
 QUALIFIER_ONLY_RE = re.compile(
-    r"^(?:(?:添加量|含量|固形物|干物质|總固形物|乾物質)\s*)?(?:[≥≤><~≈]|>=|<=|不少于|不低于|不超过|不少於|不低於|不超過|约|約)?\s*[0-9]+(?:\.[0-9]+)?\s*(?:%|％|g/L|mg/kg|mg/L|g/kg|g/100g|ml/100ml|g|mg|ml)$",
+    rf"^(?:{_QUAL_PREFIX}\s*)?(?:{_QUAL_CMP}\s*)?{_QUAL_NUM_RANGE}$",
     re.IGNORECASE,
 )
 
-# Matches trailing inline qualifier attached to an ingredient name, e.g. "牛肉≥95%", "牛肉含量≥95%", "食用盐 <= 3%"
+# Matches trailing inline qualifier attached to an ingredient name, e.g. "牛肉≥95%", "饮用水20%-25%"
 INLINE_QUALIFIER_RE = re.compile(
-    r"^(?P<head>.+?)\s*(?P<qual>(?:(?:添加量|含量|固形物|干物质|總固形物|乾物質)\s*)(?:[≥≤><~≈]|>=|<=|不少于|不低于|不超过|不少於|不低於|不超過)?\s*[0-9]+(?:\.[0-9]+)?\s*(?:%|％|g/L|mg/kg|mg/L|g/kg|g/100g|ml/100ml|g|mg|ml)|(?:[≥≤><~≈]|>=|<=|不少于|不低于|不超过|不少於|不低於|不超過)\s*[0-9]+(?:\.[0-9]+)?\s*(?:%|％|g/L|mg/kg|mg/L|g/kg|g/100g|ml/100ml|g|mg|ml)|[0-9]+(?:\.[0-9]+)?\s*(?:%|％))$",
+    rf"^(?P<head>.+?)\s*(?<![0-9.\-~～—–])(?P<qual>(?:{_QUAL_PREFIX}\s*)(?:{_QUAL_CMP}\s*)?{_QUAL_NUM_RANGE}|{_QUAL_CMP}\s*{_QUAL_NUM_RANGE}|(?<![A-Za-z]){_PCT_NUM_RANGE})$",
     re.IGNORECASE,
 )
 
@@ -102,10 +112,46 @@ FUNCTIONAL_CLASS_TERMS = {
     "colours",
     "color",
     "colors",
+    "colourant",
+    "colourants",
+    "colouring",
+    "colourings",
+    "coloring",
+    "colorings",
+    "food colour",
+    "food colours",
+    "food color",
+    "food colors",
     "flavour enhancer",
     "flavour enhancers",
     "flavor enhancer",
     "flavor enhancers",
+    "flavouring",
+    "flavourings",
+    "flavoring",
+    "flavorings",
+    "food conditioner",
+    "food conditioners",
+    "permitted food conditioner",
+    "permitted food conditioners",
+    "permitted flavouring",
+    "permitted flavourings",
+    "permitted flavoring",
+    "permitted flavorings",
+    "permitted colouring",
+    "permitted colourings",
+    "permitted coloring",
+    "permitted colorings",
+    "permitted preservative",
+    "permitted preservatives",
+    "sequestrant",
+    "sequestrants",
+    "bulking agent",
+    "bulking agents",
+    "foaming agent",
+    "foaming agents",
+    "modified starch",
+    "modified food starch",
     "humectant",
     "humectants",
     "anticaking agent",
@@ -244,20 +290,55 @@ FUNCTIONAL_CLASS_TERMS = {
     "pengemulsi",
     "penstabil",
     "pengawal asid",
+    "pengatur keasidan",
     "agen antipengerakan",
     "agen anti-pengerakan",
     "pemekat",
     "pengawet",
+    "pengawet yang dibenarkan",
     "pewarna",
+    "pewarna yang dibenarkan",
+    "bahan pewarna",
+    "bahan pewarna yang dibenarkan",
     "perisa",
+    "perisa yang dibenarkan",
     "bahan perisa",
+    "bahan perisa yang dibenarkan",
     "penambah perisa",
     "pemanis",
     "antioksidan",
     "agen penaik",
     "agen pengilat",
     "humektan",
+    "kondisioner makanan",
+    "kondisioner makanan yang dibenarkan",
 }
+
+HAN_PREFIX_SAFE_HEADS = {
+    "食用香精",
+    "食品用香精",
+    "食用香料",
+    "食用香精香料",
+    "香精",
+    "香料",
+    "复合调味料",
+}
+
+# Word-boundary structural connectors and statutory permission clauses allowed between AST tokens
+STRUCTURAL_CONNECTOR_RE = re.compile(
+    r"(?:"
+    r"sebagai\s+kondisioner\s+makanan\s+yang\s+dibenarkan"
+    r"|as\s+permitted\s+food\s+conditioners?"
+    r"|contains\s+(?:2%\s+or\s+less|less\s+than\s+2%)\s+of"
+    r"|mengandungi\s+2%\s+atau\s+kurang\s+daripada"
+    r"|yang\s+dibenarkan"
+    r"|of\s+which"
+    r"|and\s*/\s*or"
+    r"|mengandungi|termasuk|contains|including|sebagai"
+    r"|and|or|dan|atau|serta|und|oder|et|ou|dont|contiene"
+    r")",
+    re.IGNORECASE,
+)
 
 OPEN_TO_CLOSE = {"（": "）", "(": ")", "[": "]", "【": "】", "［": "］", "{": "}"}
 CLOSE_BRACKETS = set(OPEN_TO_CLOSE.values())

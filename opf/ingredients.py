@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import copy
+import re
 from typing import Any
 
 from opf.ingredients_lexicon import (
@@ -11,14 +12,21 @@ from opf.ingredients_lexicon import (
     COLON_CHARS,
     DEFAULT_DELIMITERS,
     FUNCTIONAL_CLASS_TERMS,
+    HAN_PREFIX_SAFE_HEADS,
     HEADER_PREFIX_RE,
     INLINE_QUALIFIER_RE,
     KR_ORIGIN_HEAD_RE,
     OPEN_TO_CLOSE,
     QUALIFIER_ONLY_RE,
     SPAN_KEYS,
+    STRUCTURAL_CONNECTOR_RE,
 )
-from opf.registries import get_profile, lookup_additive_ins, match_allergens_in_name
+from opf.registries import (
+    ATOMIC_ADDITIVE_CODE_RE,
+    get_profile,
+    lookup_additive_ins,
+    match_allergens_in_name,
+)
 
 __all__ = [
     "FUNCTIONAL_CLASS_TERMS",
@@ -39,11 +47,27 @@ def _strip_span(text: str, start: int, end: int) -> tuple[int, int]:
     return start, end
 
 
+_TRAILING_PERMISSION_CLAUSE_RE = re.compile(
+    r"\s+(?:sebagai\s+kondisioner\s+makanan\s+yang\s+dibenarkan|as\s+permitted\s+food\s+conditioners?|yang\s+dibenarkan)$",
+    re.IGNORECASE,
+)
+_LEADING_CONTAINS_WORD_RE = re.compile(
+    r"^(?P<kw>mengandungi|contains|including|termasuk)\s+",
+    re.IGNORECASE,
+)
+_CONJUNCTION_TOKEN_RE = re.compile(r"\s+(?:dan|and)\s+", re.IGNORECASE)
+
+
+def _strip_permission_tail(s: str) -> str:
+    m = _TRAILING_PERMISSION_CLAUSE_RE.search(s)
+    return s[: m.start()].strip() if m else s.strip()
+
+
 def _split_top_level(
     text: str, start: int, end: int, delimiters: set[str]
 ) -> list[tuple[int, int]]:
-    """Split text[start:end] by delimiters at bracket depth 0, returning (seg_start, seg_end) spans."""
-    segments: list[tuple[int, int]] = []
+    """Split text[start:end] by delimiters at bracket depth 0, plus 'dan'/'and' before additive classes."""
+    raw_segments: list[tuple[int, int]] = []
     depth = 0
     seg_start = start
     for i in range(start, end):
@@ -55,12 +79,43 @@ def _split_top_level(
         elif depth == 0 and ch in delimiters:
             s, e = _strip_span(text, seg_start, i)
             if s < e:
-                segments.append((s, e))
+                raw_segments.append((s, e))
             seg_start = i + 1
     s, e = _strip_span(text, seg_start, end)
     if s < e:
-        segments.append((s, e))
-    return segments
+        raw_segments.append((s, e))
+
+    refined: list[tuple[int, int]] = []
+    for seg_s, seg_e in raw_segments:
+        cur_s = seg_s
+        for m in _CONJUNCTION_TOKEN_RE.finditer(text, seg_s, seg_e):
+            if m.start() <= cur_s:
+                continue
+            d_check = 0
+            for k in range(cur_s, m.start()):
+                if text[k] in OPEN_TO_CLOSE:
+                    d_check += 1
+                elif text[k] in CLOSE_BRACKETS:
+                    d_check = max(0, d_check - 1)
+            if d_check != 0:
+                continue
+            rhs_raw = _strip_permission_tail(text[m.end() : seg_e].rstrip("。. "))
+            rhs_head = rhs_raw
+            for idx, ch in enumerate(rhs_raw):
+                if ch in OPEN_TO_CLOSE:
+                    rhs_head = rhs_raw[:idx].strip()
+                    break
+            if rhs_head and (
+                _is_functional_class_name(rhs_head) or lookup_additive_ins(rhs_head) is not None
+            ):
+                ls, le = _strip_span(text, cur_s, m.start())
+                if ls < le:
+                    refined.append((ls, le))
+                cur_s = m.end()
+        rs, re_end = _strip_span(text, cur_s, seg_e)
+        if rs < re_end:
+            refined.append((rs, re_end))
+    return refined
 
 
 def _find_slash_outside_brackets(text: str, start: int, end: int, slashes: set[str]) -> int | None:
@@ -81,6 +136,42 @@ def _is_functional_class_name(name: str) -> bool:
     return low in FUNCTIONAL_CLASS_TERMS or ("添加剂" in low) or ("添加劑" in low)
 
 
+def _can_strip_han_prefix(rest: str) -> bool:
+    """Return True only when text after '含'/'内含' is a known additive or functional term (avoids '含水柠檬酸'/'含气水')."""
+    if not rest:
+        return False
+    if lookup_additive_ins(rest) is not None:
+        return True
+    head = rest
+    for idx, ch in enumerate(rest):
+        if ch in OPEN_TO_CLOSE:
+            head = rest[:idx].strip()
+            break
+    m_in = INLINE_QUALIFIER_RE.match(head)
+    if m_in:
+        head = m_in.group("head").strip()
+    return bool(
+        head
+        and (
+            lookup_additive_ins(head) is not None
+            or _is_functional_class_name(head)
+            or head in HAN_PREFIX_SAFE_HEADS
+        )
+    )
+
+
+def _merge_qualifier(
+    cur_qual: str | None,
+    cur_span: list[int] | None,
+    new_qual: str,
+    new_span: list[int],
+) -> tuple[str, list[int]]:
+    if cur_qual is None or cur_span is None:
+        return new_qual, new_span
+    sep = "；" if any("\u4e00" <= ch <= "\u9fff" for ch in (cur_qual + new_qual)) else "; "
+    return f"{cur_qual}{sep}{new_qual}", [cur_span[0], new_span[1]]
+
+
 def _parse_segment(
     text: str,
     seg_start: int,
@@ -92,6 +183,11 @@ def _parse_segment(
     while seg_end > seg_start and text[seg_end - 1] in {"。", "."}:
         seg_end -= 1
     seg_start, seg_end = _strip_span(text, seg_start, seg_end)
+    m_perm = _TRAILING_PERMISSION_CLAUSE_RE.search(text[seg_start:seg_end])
+    if m_perm and m_perm.start() > 0:
+        cand_s, cand_e = _strip_span(text, seg_start, seg_start + m_perm.start())
+        if cand_s < cand_e:
+            seg_start, seg_end = cand_s, cand_e
 
     func_class: str | None = None
     func_span: list[int] | None = None
@@ -128,13 +224,39 @@ def _parse_segment(
             func_class = text[fc_s:fc_e]
             func_span = [fc_s, fc_e]
             seg_start, seg_end = rest_s, rest_e
+    elif func_class is None:
+        seg_slice = text[seg_start:seg_end]
+        m_lead = _LEADING_CONTAINS_WORD_RE.match(seg_slice)
+        if m_lead:
+            fc_s = seg_start
+            fc_e = seg_start + len(m_lead.group("kw"))
+            rest_s, rest_e = _strip_span(text, seg_start + m_lead.end(), seg_end)
+            if rest_s < rest_e:
+                func_class = text[fc_s:fc_e]
+                func_span = [fc_s, fc_e]
+                seg_start, seg_end = rest_s, rest_e
+        else:
+            for han_pfx in ("内含", "含"):
+                if seg_slice.startswith(han_pfx) and len(seg_slice) > len(han_pfx):
+                    fc_s = seg_start
+                    fc_e = seg_start + len(han_pfx)
+                    rest_s, rest_e = _strip_span(text, fc_e, seg_end)
+                    if rest_s < rest_e and (
+                        text[fc_e].isspace() or _can_strip_han_prefix(text[rest_s:rest_e])
+                    ):
+                        func_class = text[fc_s:fc_e]
+                        func_span = [fc_s, fc_e]
+                        seg_start, seg_end = rest_s, rest_e
+                    break
 
-    whole_seg_ins = lookup_additive_ins(text[seg_start:seg_end])
+    seg_body = text[seg_start:seg_end]
+    whole_seg_ins = lookup_additive_ins(seg_body)
+    is_atomic_code = bool(whole_seg_ins or ATOMIC_ADDITIVE_CODE_RE.match(seg_body))
     paren_groups: list[tuple[int, int, int, int]] = []
     depth = 0
     open_idx = -1
     head_end: int | None = None
-    if not whole_seg_ins:
+    if not is_atomic_code:
         for i in range(seg_start, seg_end):
             ch = text[i]
             if ch in OPEN_TO_CLOSE:
@@ -178,12 +300,14 @@ def _parse_segment(
     children: list[dict[str, Any]] = []
     for _open_i, in_s, in_e, _close_i in paren_groups:
         inner_str = text[in_s:in_e]
-        if QUALIFIER_ONLY_RE.match(inner_str) and qualifier is None:
-            qualifier = inner_str
-            qualifier_span = [in_s, in_e]
+        if QUALIFIER_ONLY_RE.match(inner_str):
+            qualifier, qualifier_span = _merge_qualifier(
+                qualifier, qualifier_span, inner_str, [in_s, in_e]
+            )
         else:
             ins_match = lookup_additive_ins(inner_str)
-            if ins_match and len(_split_top_level(text, in_s, in_e, delimiters)) == 1:
+            is_inner_atomic = bool(ins_match or ATOMIC_ADDITIVE_CODE_RE.match(inner_str))
+            if is_inner_atomic and len(_split_top_level(text, in_s, in_e, delimiters)) == 1:
                 child_node = _parse_segment(text, in_s, in_e, delimiters, force_additive=True)
                 children.append(child_node)
             else:
@@ -199,9 +323,10 @@ def _parse_segment(
         tail_s, tail_e = _strip_span(text, last_close + 1, seg_end)
         if tail_s < tail_e:
             tail_str = text[tail_s:tail_e]
-            if QUALIFIER_ONLY_RE.match(tail_str) and qualifier is None:
-                qualifier = tail_str
-                qualifier_span = [tail_s, tail_e]
+            if QUALIFIER_ONLY_RE.match(tail_str):
+                qualifier, qualifier_span = _merge_qualifier(
+                    qualifier, qualifier_span, tail_str, [tail_s, tail_e]
+                )
 
     node_name = text[name_s:name_e]
     node: dict[str, Any] = {
@@ -219,7 +344,7 @@ def _parse_segment(
     if ins_code:
         node["ins"] = ins_code
         node["is_additive"] = True
-    elif force_additive or is_head_func_class:
+    elif force_additive or is_head_func_class or is_atomic_code:
         node["is_additive"] = True
 
     allergens = match_allergens_in_name(node_name)
@@ -379,9 +504,24 @@ def _align_semantic_tree(
     n_chars = len(raw_text)
     cursor = _skip_header_prefix(raw_text, prefixes)
 
-    def _skip_structural(pos: int) -> int:
+    def _skip_chars(pos: int) -> int:
         while pos < n_chars and raw_text[pos] in allowed_chars:
             pos += 1
+        return pos
+
+    def _skip_structural(pos: int) -> int:
+        while pos < n_chars:
+            if raw_text[pos] in allowed_chars:
+                pos += 1
+                continue
+            if pos == 0 or raw_text[pos - 1] in allowed_chars:
+                m_conn = STRUCTURAL_CONNECTOR_RE.match(raw_text, pos)
+                if m_conn:
+                    end_pos = m_conn.end()
+                    if end_pos == n_chars or raw_text[end_pos] in allowed_chars:
+                        pos = end_pos
+                        continue
+            break
         return pos
 
     def _match_token(expected: Any, label: str, explicit_span: Any = None) -> list[int] | None:
@@ -389,7 +529,9 @@ def _align_semantic_tree(
         if not isinstance(expected, str) or not expected:
             errors.append(f"Invalid empty token for {label}")
             return None
-        cursor = _skip_structural(cursor)
+        cursor = _skip_chars(cursor)
+        if not raw_text.startswith(expected, cursor):
+            cursor = _skip_structural(cursor)
         if raw_text.startswith(expected, cursor):
             span = [cursor, cursor + len(expected)]
             if explicit_span is not None and explicit_span != span:
@@ -402,18 +544,14 @@ def _align_semantic_tree(
 
         later = raw_text.find(expected, cursor)
         if later != -1:
-            skipped_segment = raw_text[cursor:later]
             bad_runs: list[str] = []
-            i = 0
-            while i < len(skipped_segment):
-                if skipped_segment[i] not in allowed_chars:
-                    j = i + 1
-                    while j < len(skipped_segment) and skipped_segment[j] not in allowed_chars:
-                        j += 1
-                    bad_runs.append(f"{skipped_segment[i:j]!r} at [{cursor + i}:{cursor + j}]")
-                    i = j
-                else:
-                    i += 1
+            i = _skip_structural(cursor)
+            while i < later:
+                j = i + 1
+                while j < later and raw_text[j] not in allowed_chars:
+                    j += 1
+                bad_runs.append(f"{raw_text[i:j]!r} at [{i}:{j}]")
+                i = _skip_structural(j)
             if bad_runs:
                 errors.append(
                     "Ingredient round-trip check failed: uncaptured text in ingredients_text: "
@@ -432,6 +570,47 @@ def _align_semantic_tree(
                 f"({_context_snippet(raw_text, cursor)})"
             )
         return None
+
+    def _qualifier_starts_at(qual_val: Any, pos: int) -> bool:
+        if not isinstance(qual_val, str) or not qual_val:
+            return False
+        if raw_text.startswith(qual_val, pos):
+            return True
+        if "；" in qual_val or ";" in qual_val:
+            parts = [p.strip() for p in re.split(r"[；;]", qual_val) if p.strip()]
+            if len(parts) >= 2 and raw_text.startswith(parts[0], pos):
+                return True
+        return False
+
+    def _match_qualifier(qual_val: Any, explicit_span: Any = None) -> list[int] | None:
+        nonlocal cursor
+        if not isinstance(qual_val, str) or not qual_val:
+            errors.append(f"Invalid empty token for qualifier({qual_val})")
+            return None
+        peek = _skip_structural(cursor)
+        if raw_text.startswith(qual_val, peek):
+            return _match_token(qual_val, f"qualifier({qual_val})", explicit_span=explicit_span)
+        if "；" in qual_val or ";" in qual_val:
+            parts = [p.strip() for p in re.split(r"[；;]", qual_val) if p.strip()]
+            if len(parts) >= 2:
+                first_span: list[int] | None = None
+                last_span: list[int] | None = None
+                for idx, part in enumerate(parts):
+                    sp = _match_token(part, f"qualifier_part[{idx}]({part})", explicit_span=None)
+                    if sp is None:
+                        return None
+                    if first_span is None:
+                        first_span = sp
+                    last_span = sp
+                assert first_span is not None and last_span is not None
+                combined = [first_span[0], last_span[1]]
+                if explicit_span is not None and explicit_span != combined:
+                    errors.append(
+                        f"Explicit span {explicit_span!r} for qualifier({qual_val}) disagrees with monotonic span {combined!r}"
+                    )
+                    return None
+                return combined
+        return _match_token(qual_val, f"qualifier({qual_val})", explicit_span=explicit_span)
 
     def _walk(node: dict[str, Any]) -> dict[str, Any] | None:
         if not isinstance(node, dict):
@@ -465,10 +644,9 @@ def _align_semantic_tree(
 
         if has_qual and children:
             peek = _skip_structural(cursor)
-            if isinstance(node["qualifier"], str) and raw_text.startswith(node["qualifier"], peek):
-                q_span = _match_token(
+            if _qualifier_starts_at(node["qualifier"], peek):
+                q_span = _match_qualifier(
                     node["qualifier"],
-                    f"qualifier({node['qualifier']})",
                     explicit_span=node.get("qualifier_span"),
                 )
                 if q_span is None:
@@ -489,9 +667,8 @@ def _align_semantic_tree(
                         return None
                     annotated_children.append(c_out)
                 out["children"] = annotated_children
-                q_span = _match_token(
+                q_span = _match_qualifier(
                     node["qualifier"],
-                    f"qualifier({node['qualifier']})",
                     explicit_span=node.get("qualifier_span"),
                 )
                 if q_span is None:
@@ -507,9 +684,8 @@ def _align_semantic_tree(
                     annotated_children.append(c_out)
                 out["children"] = annotated_children
             if has_qual:
-                q_span = _match_token(
+                q_span = _match_qualifier(
                     node["qualifier"],
-                    f"qualifier({node['qualifier']})",
                     explicit_span=node.get("qualifier_span"),
                 )
                 if q_span is None:
@@ -527,16 +703,13 @@ def _align_semantic_tree(
 
     if not errors:
         uncaptured_ranges: list[tuple[int, int, str]] = []
-        i = cursor
+        i = _skip_structural(cursor)
         while i < n_chars:
-            if raw_text[i] not in allowed_chars:
-                j = i + 1
-                while j < n_chars and raw_text[j] not in allowed_chars:
-                    j += 1
-                uncaptured_ranges.append((i, j, raw_text[i:j]))
-                i = j
-            else:
-                i += 1
+            j = i + 1
+            while j < n_chars and raw_text[j] not in allowed_chars:
+                j += 1
+            uncaptured_ranges.append((i, j, raw_text[i:j]))
+            i = _skip_structural(j)
         if uncaptured_ranges:
             formatted = ", ".join(
                 f"{sub!r} at [{s}:{e}] ({_context_snippet(raw_text, s)})"

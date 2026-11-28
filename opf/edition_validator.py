@@ -16,7 +16,7 @@ from opf.fingerprints import (
 from opf.ids import is_valid_ulid, validate_product_id, validate_track_key
 from opf.ingredients import SPAN_KEYS, verify_ingredients_round_trip
 from opf.json_schema import load_json_schema, validate_against_json_schema
-from opf.normalize import normalize_edition
+from opf.normalize import ALLOWED_BASIS_UNITS, ALLOWED_MASS_VOL_UNITS, normalize_edition
 from opf.patches import (
     PatchError,
     _json_equal,
@@ -348,12 +348,38 @@ def validate_edition_doc(doc: dict[str, Any]) -> list[str]:
                     "$.core.nutrition_exemption: forbidden when nutrition_declared is non-null"
                 )
             basis = decl.get("basis")
-            if isinstance(basis, dict) and "value" in basis:
-                try:
-                    if Decimal(str(basis["value"])) <= Decimal("0"):
-                        errors.append("$.core.nutrition_declared.basis.value: must be positive")
-                except Exception:
-                    errors.append("$.core.nutrition_declared.basis.value: invalid decimal")
+            if isinstance(basis, dict):
+                if "value" in basis:
+                    try:
+                        if Decimal(str(basis["value"])) <= Decimal("0"):
+                            errors.append("$.core.nutrition_declared.basis.value: must be positive")
+                            can_normalize = False
+                    except Exception:
+                        errors.append("$.core.nutrition_declared.basis.value: invalid decimal")
+                        can_normalize = False
+                b_unit = str(basis.get("unit") or "").strip().lower()
+                if b_unit not in ALLOWED_BASIS_UNITS:
+                    errors.append(
+                        f"$.core.nutrition_declared.basis.unit: must be one of {sorted(ALLOWED_BASIS_UNITS)}, got {basis.get('unit')!r}"
+                    )
+                    can_normalize = False
+                elif b_unit == "serving":
+                    serv = core.get("serving_size")
+                    s_unit_ok = (
+                        isinstance(serv, dict)
+                        and str(serv.get("unit") or "").strip().lower() in ALLOWED_MASS_VOL_UNITS
+                    )
+                    s_val_ok = False
+                    if s_unit_ok and isinstance(serv, dict) and serv.get("value") is not None:
+                        try:
+                            s_val_ok = Decimal(str(serv["value"])) > Decimal("0")
+                        except Exception:
+                            s_val_ok = False
+                    if not (s_unit_ok and s_val_ok):
+                        errors.append(
+                            "$.core.nutrition_declared.basis: unit 'serving' requires core.serving_size with a positive g/ml/kg/l quantity"
+                        )
+                        can_normalize = False
 
             rows = decl.get("rows")
             if isinstance(rows, list):

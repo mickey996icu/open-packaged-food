@@ -57,7 +57,7 @@ You can prepare `draft.json` starting from [`skills/opf/examples/draft.minimal.j
 ### Optional One-Step Automation (`uvx` + `gh` / Phase 2 HTTP Relay)
 - **Optional Developer Shortcut (`uvx` + `gh`)**: Developers who prefer zero pre-cloning and already have `uvx` + authenticated `gh` (`gh auth login`) can optionally automate transcoding, sparse shallow forks, and dual-PR creation in one command:
   ```bash
-  uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.3.3 \
+  uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.3.4 \
     opf pr --input draft.json \
     --photo nutrition_table=crop_nutrition.jpg \
     --photo ingredients_box=crop_ingredients.jpg \

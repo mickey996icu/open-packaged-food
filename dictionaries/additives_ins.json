@@ -66,7 +66,8 @@
           "FD&C Yellow No. 5"
         ],
         "ja": [
-          "黄色4号"
+          "黄色4号",
+          "黄4"
         ],
         "de": [
           "Tartrazin"
@@ -108,7 +109,8 @@
           "FD&C Yellow No. 6"
         ],
         "ja": [
-          "黄色5号"
+          "黄色5号",
+          "黄5"
         ],
         "de": [
           "Gelborange S"
@@ -127,6 +129,160 @@
         ],
         "ms": [
           "kuning senja fcf"
+        ]
+      }
+    },
+    "120": {
+      "ins": "120",
+      "e_number": "E120",
+      "cn_cns": "08.101",
+      "functional_classes": [
+        "colour"
+      ],
+      "names": {
+        "zh-Hans": [
+          "胭脂虫红",
+          "胭脂虫红铝色淀"
+        ],
+        "zh-Hant": [
+          "胭脂蟲紅"
+        ],
+        "en": [
+          "Carmines",
+          "Carmine",
+          "Cochineal",
+          "Carminic acid"
+        ],
+        "ja": [
+          "コチニール色素",
+          "カルミン酸色素"
+        ],
+        "de": [
+          "echtes Karmin",
+          "Karmin"
+        ],
+        "fr": [
+          "Acide carminique",
+          "Carmins"
+        ],
+        "es": [
+          "Ácido carmínico",
+          "Carmines"
+        ],
+        "it": [
+          "Cocciniglia",
+          "Acido carminico"
+        ],
+        "ko": [
+          "코치닐추출색소",
+          "카민"
+        ],
+        "ms": [
+          "karmin",
+          "kokineal"
+        ]
+      }
+    },
+    "123": {
+      "ins": "123",
+      "e_number": "E123",
+      "cn_cns": "08.001",
+      "functional_classes": [
+        "colour"
+      ],
+      "names": {
+        "zh-Hans": [
+          "苋菜红"
+        ],
+        "zh-Hant": [
+          "莧菜紅"
+        ],
+        "en": [
+          "Amaranth"
+        ],
+        "ja": [
+          "赤色2号",
+          "赤2"
+        ],
+        "ko": [
+          "식용색소적색제2호"
+        ],
+        "ms": [
+          "amaran"
+        ]
+      }
+    },
+    "124": {
+      "ins": "124",
+      "e_number": "E124",
+      "cn_cns": "08.002",
+      "functional_classes": [
+        "colour"
+      ],
+      "names": {
+        "zh-Hans": [
+          "胭脂红",
+          "丽春红4R"
+        ],
+        "zh-Hant": [
+          "胭脂紅",
+          "麗春紅4R"
+        ],
+        "en": [
+          "Ponceau 4R",
+          "Cochineal Red A"
+        ],
+        "ja": [
+          "赤色102号",
+          "赤102"
+        ],
+        "de": [
+          "Cochenillerot A"
+        ],
+        "fr": [
+          "Ponceau 4R"
+        ],
+        "es": [
+          "Ponceau 4R"
+        ],
+        "it": [
+          "Ponceau 4R"
+        ],
+        "ko": [
+          "식용색소적색제102호"
+        ],
+        "ms": [
+          "ponceau 4r"
+        ]
+      }
+    },
+    "127": {
+      "ins": "127",
+      "e_number": "E127",
+      "cn_cns": "08.003",
+      "functional_classes": [
+        "colour"
+      ],
+      "names": {
+        "zh-Hans": [
+          "赤藓红"
+        ],
+        "zh-Hant": [
+          "赤蘚紅"
+        ],
+        "en": [
+          "Erythrosine",
+          "FD&C Red No. 3"
+        ],
+        "ja": [
+          "赤色3号",
+          "赤3"
+        ],
+        "ko": [
+          "식용색소적색제3호"
+        ],
+        "ms": [
+          "eritrosin"
         ]
       }
     },
@@ -149,7 +305,8 @@
           "FD&C Red No. 40"
         ],
         "ja": [
-          "赤色40号"
+          "赤色40号",
+          "赤40"
         ],
         "de": [
           "Allurarot AC"
@@ -168,6 +325,37 @@
         ],
         "ms": [
           "merah allura ac"
+        ]
+      }
+    },
+    "132": {
+      "ins": "132",
+      "e_number": "E132",
+      "cn_cns": "08.008",
+      "functional_classes": [
+        "colour"
+      ],
+      "names": {
+        "zh-Hans": [
+          "靛蓝"
+        ],
+        "zh-Hant": [
+          "靛藍"
+        ],
+        "en": [
+          "Indigotine",
+          "Indigo carmine",
+          "FD&C Blue No. 2"
+        ],
+        "ja": [
+          "青色2号",
+          "青2"
+        ],
+        "ko": [
+          "식용색소청색제2호"
+        ],
+        "ms": [
+          "indigotin"
         ]
       }
     },
@@ -190,7 +378,8 @@
           "FD&C Blue No. 1"
         ],
         "ja": [
-          "青色1号"
+          "青色1号",
+          "青1"
         ],
         "de": [
           "Brillantblau FCF"
@@ -209,6 +398,37 @@
         ],
         "ms": [
           "biru berlian fcf"
+        ]
+      }
+    },
+    "141(ii)": {
+      "ins": "141(ii)",
+      "e_number": "E141",
+      "cn_cns": "08.009",
+      "functional_classes": [
+        "colour"
+      ],
+      "names": {
+        "zh-Hans": [
+          "叶绿素铜钠盐",
+          "叶绿素铜钠"
+        ],
+        "zh-Hant": [
+          "葉綠素銅鈉鹽"
+        ],
+        "en": [
+          "Copper complexes of chlorophyllins",
+          "Sodium copper chlorophyllin"
+        ],
+        "ja": [
+          "銅クロロフィリンNa",
+          "銅クロロフィリンナトリウム"
+        ],
+        "ko": [
+          "동클로로필린나트륨"
+        ],
+        "ms": [
+          "natrium kuprum klorofilin"
         ]
       }
     },
@@ -261,6 +481,84 @@
         ]
       }
     },
+    "150c": {
+      "ins": "150c",
+      "e_number": "E150c",
+      "cn_cns": "08.108",
+      "functional_classes": [
+        "colour"
+      ],
+      "names": {
+        "zh-Hans": [
+          "氨法焦糖色",
+          "焦糖色(氨法)"
+        ],
+        "zh-Hant": [
+          "氨法焦糖色"
+        ],
+        "en": [
+          "Ammonia caramel"
+        ],
+        "ko": [
+          "카라멜색소III"
+        ],
+        "ms": [
+          "karamel ammonia"
+        ]
+      }
+    },
+    "150d": {
+      "ins": "150d",
+      "e_number": "E150d",
+      "cn_cns": "08.108",
+      "functional_classes": [
+        "colour"
+      ],
+      "names": {
+        "zh-Hans": [
+          "亚硫酸铵法焦糖色",
+          "焦糖色(亚硫酸铵法)"
+        ],
+        "zh-Hant": [
+          "亞硫酸銨法焦糖色"
+        ],
+        "en": [
+          "Sulphite ammonia caramel",
+          "Sulfite ammonia caramel"
+        ],
+        "ko": [
+          "카라멜색소IV"
+        ],
+        "ms": [
+          "karamel sulfit ammonia"
+        ]
+      }
+    },
+    "153": {
+      "ins": "153",
+      "e_number": "E153",
+      "cn_cns": "08.138",
+      "functional_classes": [
+        "colour"
+      ],
+      "names": {
+        "zh-Hans": [
+          "植物炭黑"
+        ],
+        "zh-Hant": [
+          "植物炭黑"
+        ],
+        "en": [
+          "Vegetable carbon"
+        ],
+        "ja": [
+          "植物炭末色素"
+        ],
+        "ms": [
+          "karbon sayuran"
+        ]
+      }
+    },
     "160a": {
       "ins": "160a",
       "e_number": "E160a",
@@ -307,6 +605,86 @@
         ],
         "ms": [
           "beta-karotena"
+        ]
+      }
+    },
+    "160b": {
+      "ins": "160b",
+      "e_number": "E160b",
+      "cn_cns": "08.104",
+      "functional_classes": [
+        "colour"
+      ],
+      "names": {
+        "zh-Hans": [
+          "胭脂树橙"
+        ],
+        "zh-Hant": [
+          "胭脂樹橙"
+        ],
+        "en": [
+          "Annatto extracts",
+          "Annatto"
+        ],
+        "ja": [
+          "アナトー色素"
+        ],
+        "ko": [
+          "아나토색소"
+        ],
+        "ms": [
+          "ekstrak anato",
+          "anato"
+        ]
+      }
+    },
+    "160b(i)": {
+      "ins": "160b(i)",
+      "e_number": "E160b(i)",
+      "cn_cns": "08.104",
+      "functional_classes": [
+        "colour"
+      ],
+      "names": {
+        "zh-Hans": [
+          "胭脂树橙(油溶性)",
+          "红木素"
+        ],
+        "zh-Hant": [
+          "油溶性胭脂樹橙"
+        ],
+        "en": [
+          "Annatto extracts, bixin-based",
+          "Bixin"
+        ],
+        "ms": [
+          "biksin"
+        ]
+      }
+    },
+    "160b(ii)": {
+      "ins": "160b(ii)",
+      "e_number": "E160b(ii)",
+      "cn_cns": "08.104",
+      "functional_classes": [
+        "colour"
+      ],
+      "names": {
+        "zh-Hans": [
+          "降胭脂树橙",
+          "水溶性胭脂树橙",
+          "降红木素"
+        ],
+        "zh-Hant": [
+          "水溶性胭脂樹橙",
+          "降胭脂樹橙"
+        ],
+        "en": [
+          "Annatto extracts, norbixin-based",
+          "Norbixin"
+        ],
+        "ms": [
+          "norbiksin"
         ]
       }
     },
@@ -361,6 +739,214 @@
         ],
         "ms": [
           "ekstrak paprika"
+        ]
+      }
+    },
+    "160d": {
+      "ins": "160d",
+      "e_number": "E160d",
+      "cn_cns": "08.117",
+      "functional_classes": [
+        "colour"
+      ],
+      "names": {
+        "zh-Hans": [
+          "番茄红素",
+          "番茄红"
+        ],
+        "zh-Hant": [
+          "番茄紅素"
+        ],
+        "en": [
+          "Lycopene"
+        ],
+        "ja": [
+          "トマト色素",
+          "リコピン"
+        ],
+        "ko": [
+          "토마토색소",
+          "라이코펜"
+        ],
+        "ms": [
+          "likopena"
+        ]
+      }
+    },
+    "162": {
+      "ins": "162",
+      "e_number": "E162",
+      "cn_cns": "08.106",
+      "functional_classes": [
+        "colour"
+      ],
+      "names": {
+        "zh-Hans": [
+          "甜菜红"
+        ],
+        "zh-Hant": [
+          "甜菜紅"
+        ],
+        "en": [
+          "Beet red",
+          "Betanin"
+        ],
+        "ja": [
+          "ビートレッド"
+        ],
+        "ko": [
+          "비트레드"
+        ],
+        "ms": [
+          "merah bit"
+        ]
+      }
+    },
+    "163": {
+      "ins": "163",
+      "e_number": "E163",
+      "functional_classes": [
+        "colour"
+      ],
+      "names": {
+        "zh-Hans": [
+          "花青素",
+          "葡萄皮红",
+          "紫甘薯色素"
+        ],
+        "zh-Hant": [
+          "花青素",
+          "葡萄皮紅"
+        ],
+        "en": [
+          "Anthocyanins"
+        ],
+        "ja": [
+          "アントシアニン",
+          "アントシアニン色素"
+        ],
+        "ko": [
+          "안토시아닌"
+        ],
+        "ms": [
+          "antosianin"
+        ]
+      }
+    },
+    "164": {
+      "ins": "164",
+      "cn_cns": "08.112",
+      "functional_classes": [
+        "colour"
+      ],
+      "names": {
+        "zh-Hans": [
+          "栀子黄",
+          "藏红花素"
+        ],
+        "zh-Hant": [
+          "梔子黃"
+        ],
+        "en": [
+          "Gardenia yellow",
+          "Saffron"
+        ],
+        "ja": [
+          "クチナシ黄色素",
+          "クチナシ色素",
+          "クチナシ"
+        ],
+        "ko": [
+          "치자황색소"
+        ],
+        "ms": [
+          "kuning gardenia"
+        ]
+      }
+    },
+    "165": {
+      "ins": "165",
+      "cn_cns": "08.113",
+      "functional_classes": [
+        "colour"
+      ],
+      "names": {
+        "zh-Hans": [
+          "栀子蓝"
+        ],
+        "zh-Hant": [
+          "梔子藍"
+        ],
+        "en": [
+          "Gardenia blue"
+        ],
+        "ja": [
+          "クチナシ青色素"
+        ],
+        "ko": [
+          "치자청색소"
+        ],
+        "ms": [
+          "biru gardenia"
+        ]
+      }
+    },
+    "170(i)": {
+      "ins": "170(i)",
+      "e_number": "E170",
+      "cn_cns": "00.002",
+      "functional_classes": [
+        "acidity_regulator",
+        "anticaking_agent",
+        "colour"
+      ],
+      "names": {
+        "zh-Hans": [
+          "碳酸钙"
+        ],
+        "zh-Hant": [
+          "碳酸鈣"
+        ],
+        "en": [
+          "Calcium carbonate"
+        ],
+        "ja": [
+          "炭酸カルシウム",
+          "炭酸Ca"
+        ],
+        "ko": [
+          "탄산칼슘"
+        ],
+        "ms": [
+          "kalsium karbonat"
+        ]
+      }
+    },
+    "171": {
+      "ins": "171",
+      "e_number": "E171",
+      "cn_cns": "08.011",
+      "functional_classes": [
+        "colour"
+      ],
+      "names": {
+        "zh-Hans": [
+          "二氧化钛"
+        ],
+        "zh-Hant": [
+          "二氧化鈦"
+        ],
+        "en": [
+          "Titanium dioxide"
+        ],
+        "ja": [
+          "二酸化チタン"
+        ],
+        "ko": [
+          "이산화티타늄"
+        ],
+        "ms": [
+          "titanium dioksida"
         ]
       }
     },
@@ -706,6 +1292,98 @@
         ]
       }
     },
+    "262(i)": {
+      "ins": "262(i)",
+      "e_number": "E262(i)",
+      "cn_cns": "01.309",
+      "functional_classes": [
+        "acidity_regulator",
+        "preservative"
+      ],
+      "names": {
+        "zh-Hans": [
+          "乙酸钠",
+          "醋酸钠"
+        ],
+        "zh-Hant": [
+          "乙酸鈉",
+          "醋酸鈉"
+        ],
+        "en": [
+          "Sodium acetate"
+        ],
+        "ja": [
+          "酢酸ナトリウム",
+          "酢酸Na"
+        ],
+        "ko": [
+          "초산나트륨"
+        ],
+        "ms": [
+          "natrium asetat"
+        ]
+      }
+    },
+    "262(ii)": {
+      "ins": "262(ii)",
+      "e_number": "E262(ii)",
+      "cn_cns": "17.013",
+      "functional_classes": [
+        "acidity_regulator",
+        "preservative"
+      ],
+      "names": {
+        "zh-Hans": [
+          "双乙酸钠",
+          "二醋酸钠"
+        ],
+        "zh-Hant": [
+          "雙乙酸鈉",
+          "二醋酸鈉"
+        ],
+        "en": [
+          "Sodium diacetate",
+          "Sodium hydrogen diacetate"
+        ],
+        "ko": [
+          "이초산나트륨"
+        ],
+        "ms": [
+          "natrium diasetat"
+        ]
+      }
+    },
+    "266": {
+      "ins": "266",
+      "e_number": "E266",
+      "cn_cns": "17.009",
+      "functional_classes": [
+        "preservative"
+      ],
+      "names": {
+        "zh-Hans": [
+          "脱氢乙酸钠",
+          "脱氢醋酸钠"
+        ],
+        "zh-Hant": [
+          "脫氫乙酸鈉",
+          "去水醋酸鈉"
+        ],
+        "en": [
+          "Sodium dehydroacetate"
+        ],
+        "ja": [
+          "デヒドロ酢酸ナトリウム",
+          "デヒドロ酢酸Na"
+        ],
+        "ko": [
+          "데히드로초산나트륨"
+        ],
+        "ms": [
+          "natrium dehidroasetat"
+        ]
+      }
+    },
     "270": {
       "ins": "270",
       "e_number": "E270",
@@ -744,6 +1422,35 @@
         ],
         "ms": [
           "asid laktik"
+        ]
+      }
+    },
+    "281": {
+      "ins": "281",
+      "e_number": "E281",
+      "cn_cns": "17.006",
+      "functional_classes": [
+        "preservative"
+      ],
+      "names": {
+        "zh-Hans": [
+          "丙酸钠"
+        ],
+        "zh-Hant": [
+          "丙酸鈉"
+        ],
+        "en": [
+          "Sodium propionate"
+        ],
+        "ja": [
+          "プロピオン酸ナトリウム",
+          "プロピオン酸Na"
+        ],
+        "ko": [
+          "프로피온산나트륨"
+        ],
+        "ms": [
+          "natrium propionat"
         ]
       }
     },
@@ -1035,6 +1742,28 @@
         "ms": [
           "alfa-tokoferol",
           "tokoferol"
+        ]
+      }
+    },
+    "307b": {
+      "ins": "307b",
+      "e_number": "E307b",
+      "cn_cns": "04.011",
+      "functional_classes": [
+        "antioxidant"
+      ],
+      "names": {
+        "zh-Hans": [
+          "浓缩混合生育酚"
+        ],
+        "zh-Hant": [
+          "濃縮混合生育酚"
+        ],
+        "en": [
+          "Mixed tocopherol concentrate"
+        ],
+        "ms": [
+          "pekat tokoferol campuran"
         ]
       }
     },
@@ -1383,10 +2112,15 @@
       ],
       "names": {
         "zh-Hans": [
-          "柠檬酸"
+          "柠檬酸",
+          "一水柠檬酸",
+          "无水柠檬酸",
+          "含水柠檬酸"
         ],
         "zh-Hant": [
-          "檸檬酸"
+          "檸檬酸",
+          "一水檸檬酸",
+          "無水檸檬酸"
         ],
         "en": [
           "Citric acid"
@@ -1468,6 +2202,36 @@
         ]
       }
     },
+    "334": {
+      "ins": "334",
+      "e_number": "E334",
+      "cn_cns": "01.105",
+      "functional_classes": [
+        "acidity_regulator"
+      ],
+      "names": {
+        "zh-Hans": [
+          "酒石酸",
+          "L(+)-酒石酸"
+        ],
+        "zh-Hant": [
+          "酒石酸"
+        ],
+        "en": [
+          "Tartaric acid",
+          "L(+)-Tartaric acid"
+        ],
+        "ja": [
+          "酒石酸"
+        ],
+        "ko": [
+          "주석산"
+        ],
+        "ms": [
+          "asid tartarik"
+        ]
+      }
+    },
     "338": {
       "ins": "338",
       "e_number": "E338",
@@ -1505,6 +2269,46 @@
         ],
         "ms": [
           "asid fosforik"
+        ]
+      }
+    },
+    "339": {
+      "ins": "339",
+      "e_number": "E339",
+      "functional_classes": [
+        "acidity_regulator",
+        "emulsifier",
+        "stabilizer"
+      ],
+      "names": {
+        "zh-Hans": [
+          "磷酸钠",
+          "磷酸二氢钠",
+          "磷酸氢二钠",
+          "磷酸三钠"
+        ],
+        "zh-Hant": [
+          "磷酸鈉",
+          "磷酸二氫鈉",
+          "磷酸氫二鈉",
+          "磷酸三鈉"
+        ],
+        "en": [
+          "Sodium phosphates",
+          "Monosodium phosphate",
+          "Disodium phosphate",
+          "Trisodium phosphate"
+        ],
+        "ja": [
+          "リン酸ナトリウム",
+          "リン酸Na"
+        ],
+        "ko": [
+          "인산나트륨",
+          "제이인산나트륨"
+        ],
+        "ms": [
+          "natrium fosfat"
         ]
       }
     },
@@ -1559,6 +2363,57 @@
         ]
       }
     },
+    "340(i)": {
+      "ins": "340(i)",
+      "e_number": "E340(i)",
+      "cn_cns": "15.009",
+      "functional_classes": [
+        "acidity_regulator",
+        "humectant"
+      ],
+      "names": {
+        "en": [
+          "Potassium dihydrogen phosphate"
+        ],
+        "ms": [
+          "monokalium fosfat"
+        ]
+      }
+    },
+    "340(ii)": {
+      "ins": "340(ii)",
+      "e_number": "E340(ii)",
+      "cn_cns": "15.004",
+      "functional_classes": [
+        "acidity_regulator",
+        "stabilizer"
+      ],
+      "names": {
+        "en": [
+          "Dipotassium hydrogen phosphate"
+        ],
+        "ja": [
+          "リン酸二カリウム"
+        ]
+      }
+    },
+    "340(iii)": {
+      "ins": "340(iii)",
+      "e_number": "E340(iii)",
+      "cn_cns": "15.010",
+      "functional_classes": [
+        "acidity_regulator",
+        "emulsifier"
+      ],
+      "names": {
+        "en": [
+          "Tripotassium phosphate"
+        ],
+        "ms": [
+          "trikalium fosfat"
+        ]
+      }
+    },
     "341": {
       "ins": "341",
       "e_number": "E341",
@@ -1608,6 +2463,19 @@
         "ms": [
           "kalsium fosfat",
           "trikalsium fosfat"
+        ]
+      }
+    },
+    "341(iii)": {
+      "ins": "341(iii)",
+      "e_number": "E341(iii)",
+      "cn_cns": "15.007",
+      "functional_classes": [
+        "anticaking_agent"
+      ],
+      "names": {
+        "ja": [
+          "リン酸三カルシウム"
         ]
       }
     },
@@ -2187,6 +3055,47 @@
         ]
       }
     },
+    "450(i)": {
+      "ins": "450(i)",
+      "e_number": "E450(i)",
+      "cn_cns": "15.008",
+      "functional_classes": [
+        "raising_agent",
+        "humectant"
+      ],
+      "names": {
+        "zh-Hans": [
+          "酸式焦磷酸钠"
+        ],
+        "zh-Hant": [
+          "酸性焦磷酸鈉"
+        ],
+        "en": [
+          "Disodium diphosphate"
+        ],
+        "ms": [
+          "dinatrium difosfat"
+        ]
+      }
+    },
+    "450(iii)": {
+      "ins": "450(iii)",
+      "e_number": "E450(iii)",
+      "cn_cns": "15.004",
+      "functional_classes": [
+        "humectant",
+        "stabilizer"
+      ],
+      "names": {
+        "en": [
+          "Tetrasodium diphosphate",
+          "Sodium pyrophosphate"
+        ],
+        "ms": [
+          "tetranatrium difosfat"
+        ]
+      }
+    },
     "451(i)": {
       "ins": "451(i)",
       "e_number": "E451(i)",
@@ -2248,6 +3157,38 @@
         ],
         "ms": [
           "natrium polifosfat"
+        ]
+      }
+    },
+    "460(i)": {
+      "ins": "460(i)",
+      "e_number": "E460(i)",
+      "cn_cns": "02.008",
+      "functional_classes": [
+        "anticaking_agent",
+        "stabilizer",
+        "thickener"
+      ],
+      "names": {
+        "zh-Hans": [
+          "微晶纤维素"
+        ],
+        "zh-Hant": [
+          "微晶纖維素"
+        ],
+        "en": [
+          "Microcrystalline cellulose",
+          "Cellulose gel"
+        ],
+        "ja": [
+          "結晶セルロース",
+          "セルロース"
+        ],
+        "ko": [
+          "결정셀룰로스"
+        ],
+        "ms": [
+          "selulosa mikrokristalin"
         ]
       }
     },
@@ -2345,6 +3286,29 @@
         ]
       }
     },
+    "472e": {
+      "ins": "472e",
+      "e_number": "E472e",
+      "cn_cns": "10.011",
+      "functional_classes": [
+        "emulsifier"
+      ],
+      "names": {
+        "zh-Hans": [
+          "双乙酰酒石酸单双甘油酯"
+        ],
+        "zh-Hant": [
+          "雙乙酰酒石酸單雙甘油酯"
+        ],
+        "en": [
+          "Diacetyltartaric and fatty acid esters of glycerol",
+          "DATEM"
+        ],
+        "ms": [
+          "datem"
+        ]
+      }
+    },
     "473": {
       "ins": "473",
       "e_number": "E473",
@@ -2382,6 +3346,113 @@
         ],
         "ms": [
           "ester sukrosa asid lemak"
+        ]
+      }
+    },
+    "476": {
+      "ins": "476",
+      "e_number": "E476",
+      "cn_cns": "10.022",
+      "functional_classes": [
+        "emulsifier"
+      ],
+      "names": {
+        "zh-Hans": [
+          "聚甘油蓖麻醇酸酯"
+        ],
+        "zh-Hant": [
+          "聚甘油蓖麻醇酸酯"
+        ],
+        "en": [
+          "Polyglycerol polyricinoleate",
+          "PGPR"
+        ],
+        "ko": [
+          "글리세린지방산에스테르(PGPR)"
+        ],
+        "ms": [
+          "poligliserol polirisinoleat",
+          "pgpr"
+        ]
+      }
+    },
+    "481": {
+      "ins": "481",
+      "e_number": "E481",
+      "cn_cns": "10.009",
+      "functional_classes": [
+        "emulsifier",
+        "stabilizer"
+      ],
+      "names": {
+        "zh-Hans": [
+          "硬脂酰乳酸钠"
+        ],
+        "zh-Hant": [
+          "硬脂醯乳酸鈉",
+          "硬脂酰乳酸鈉"
+        ],
+        "en": [
+          "Sodium stearoyl lactylate",
+          "Sodium lactylate"
+        ],
+        "ja": [
+          "ステアロイル乳酸ナトリウム",
+          "ステアロイル乳酸Na"
+        ],
+        "ko": [
+          "스테아로일젖산나트륨"
+        ],
+        "ms": [
+          "natrium stearoil laktilat"
+        ]
+      }
+    },
+    "481(i)": {
+      "ins": "481(i)",
+      "e_number": "E481",
+      "cn_cns": "10.009",
+      "functional_classes": [
+        "emulsifier",
+        "stabilizer"
+      ],
+      "names": {
+        "zh-Hans": [
+          "硬脂酰乳酸钠(i)"
+        ],
+        "en": [
+          "Sodium stearoyl-2-lactylate"
+        ]
+      }
+    },
+    "482": {
+      "ins": "482",
+      "e_number": "E482",
+      "cn_cns": "10.010",
+      "functional_classes": [
+        "emulsifier",
+        "stabilizer"
+      ],
+      "names": {
+        "zh-Hans": [
+          "硬脂酰乳酸钙"
+        ],
+        "zh-Hant": [
+          "硬脂醯乳酸鈣",
+          "硬脂酰乳酸鈣"
+        ],
+        "en": [
+          "Calcium stearoyl lactylate"
+        ],
+        "ja": [
+          "ステアロイル乳酸カルシウム",
+          "ステアロイル乳酸Ca"
+        ],
+        "ko": [
+          "스테아로일젖산칼슘"
+        ],
+        "ms": [
+          "kalsium stearoil laktilat"
         ]
       }
     },
@@ -2527,6 +3598,125 @@
         ]
       }
     },
+    "508": {
+      "ins": "508",
+      "e_number": "E508",
+      "functional_classes": [
+        "gelling_agent",
+        "seasoning"
+      ],
+      "names": {
+        "zh-Hans": [
+          "氯化钾"
+        ],
+        "zh-Hant": [
+          "氯化鉀"
+        ],
+        "en": [
+          "Potassium chloride"
+        ],
+        "ja": [
+          "塩化カリウム",
+          "塩化K"
+        ],
+        "ko": [
+          "염화칼륨"
+        ],
+        "ms": [
+          "kalium klorida"
+        ]
+      }
+    },
+    "509": {
+      "ins": "509",
+      "e_number": "E509",
+      "cn_cns": "18.003",
+      "functional_classes": [
+        "firming_agent",
+        "stabilizer"
+      ],
+      "names": {
+        "zh-Hans": [
+          "氯化钙"
+        ],
+        "zh-Hant": [
+          "氯化鈣"
+        ],
+        "en": [
+          "Calcium chloride"
+        ],
+        "ja": [
+          "塩化カルシウム",
+          "塩化Ca"
+        ],
+        "ko": [
+          "염화칼슘"
+        ],
+        "ms": [
+          "kalsium klorida"
+        ]
+      }
+    },
+    "511": {
+      "ins": "511",
+      "e_number": "E511",
+      "cn_cns": "18.002",
+      "functional_classes": [
+        "firming_agent"
+      ],
+      "names": {
+        "zh-Hans": [
+          "氯化镁"
+        ],
+        "zh-Hant": [
+          "氯化鎂"
+        ],
+        "en": [
+          "Magnesium chloride"
+        ],
+        "ja": [
+          "塩化マグネシウム",
+          "塩化Mg"
+        ],
+        "ko": [
+          "염화마그네슘"
+        ],
+        "ms": [
+          "magnesium klorida"
+        ]
+      }
+    },
+    "516": {
+      "ins": "516",
+      "e_number": "E516",
+      "cn_cns": "18.001",
+      "functional_classes": [
+        "firming_agent",
+        "flour_treatment_agent"
+      ],
+      "names": {
+        "zh-Hans": [
+          "硫酸钙"
+        ],
+        "zh-Hant": [
+          "硫酸鈣"
+        ],
+        "en": [
+          "Calcium sulphate",
+          "Calcium sulfate"
+        ],
+        "ja": [
+          "硫酸カルシウム",
+          "硫酸Ca"
+        ],
+        "ko": [
+          "황산칼슘"
+        ],
+        "ms": [
+          "kalsium sulfat"
+        ]
+      }
+    },
     "551": {
       "ins": "551",
       "e_number": "E551",
@@ -2567,6 +3757,37 @@
         ],
         "ms": [
           "silikon dioksida"
+        ]
+      }
+    },
+    "575": {
+      "ins": "575",
+      "e_number": "E575",
+      "cn_cns": "18.005",
+      "functional_classes": [
+        "acidity_regulator",
+        "raising_agent"
+      ],
+      "names": {
+        "zh-Hans": [
+          "葡萄糖酸-δ-内酯",
+          "内酯"
+        ],
+        "zh-Hant": [
+          "葡萄糖酸-δ-內酯"
+        ],
+        "en": [
+          "Glucono delta-lactone",
+          "GDL"
+        ],
+        "ja": [
+          "グルコノデルタラクトン"
+        ],
+        "ko": [
+          "글루코노델타락톤"
+        ],
+        "ms": [
+          "glukono delta-lakton"
         ]
       }
     },
@@ -2713,6 +3934,174 @@
         ]
       }
     },
+    "636": {
+      "ins": "636",
+      "e_number": "E636",
+      "functional_classes": [
+        "flavour_enhancer"
+      ],
+      "names": {
+        "zh-Hans": [
+          "麦芽酚"
+        ],
+        "zh-Hant": [
+          "麥芽酚"
+        ],
+        "en": [
+          "Maltol"
+        ],
+        "ko": [
+          "말톨"
+        ],
+        "ms": [
+          "maltol"
+        ]
+      }
+    },
+    "637": {
+      "ins": "637",
+      "e_number": "E637",
+      "functional_classes": [
+        "flavour_enhancer"
+      ],
+      "names": {
+        "zh-Hans": [
+          "乙基麦芽酚"
+        ],
+        "zh-Hant": [
+          "乙基麥芽酚"
+        ],
+        "en": [
+          "Ethyl maltol"
+        ],
+        "ko": [
+          "에틸말톨"
+        ],
+        "ms": [
+          "etil maltol"
+        ]
+      }
+    },
+    "640": {
+      "ins": "640",
+      "e_number": "E640",
+      "cn_cns": "12.007",
+      "functional_classes": [
+        "flavour_enhancer"
+      ],
+      "names": {
+        "zh-Hans": [
+          "甘氨酸",
+          "氨基乙酸"
+        ],
+        "zh-Hant": [
+          "甘氨酸",
+          "氨基乙酸"
+        ],
+        "en": [
+          "Glycine"
+        ],
+        "ja": [
+          "グリシン"
+        ],
+        "ko": [
+          "글리신"
+        ],
+        "ms": [
+          "glisina"
+        ]
+      }
+    },
+    "901": {
+      "ins": "901",
+      "e_number": "E901",
+      "cn_cns": "14.002",
+      "functional_classes": [
+        "glazing_agent"
+      ],
+      "names": {
+        "zh-Hans": [
+          "蜂蜡",
+          "黄蜂蜡",
+          "白蜂蜡"
+        ],
+        "zh-Hant": [
+          "蜂蠟"
+        ],
+        "en": [
+          "Beeswax",
+          "Beeswax, white and yellow"
+        ],
+        "ja": [
+          "ミツロウ"
+        ],
+        "ko": [
+          "밀납"
+        ],
+        "ms": [
+          "lilin lebah"
+        ]
+      }
+    },
+    "903": {
+      "ins": "903",
+      "e_number": "E903",
+      "cn_cns": "14.005",
+      "functional_classes": [
+        "glazing_agent"
+      ],
+      "names": {
+        "zh-Hans": [
+          "巴西棕榈蜡",
+          "卡那巴蜡"
+        ],
+        "zh-Hant": [
+          "巴西棕櫚蠟"
+        ],
+        "en": [
+          "Carnauba wax"
+        ],
+        "ja": [
+          "カルナウバロウ"
+        ],
+        "ko": [
+          "카나우바왁스"
+        ],
+        "ms": [
+          "lilin karnauba"
+        ]
+      }
+    },
+    "904": {
+      "ins": "904",
+      "e_number": "E904",
+      "cn_cns": "14.001",
+      "functional_classes": [
+        "glazing_agent"
+      ],
+      "names": {
+        "zh-Hans": [
+          "紫胶",
+          "虫胶"
+        ],
+        "zh-Hant": [
+          "紫膠",
+          "蟲膠"
+        ],
+        "en": [
+          "Shellac"
+        ],
+        "ja": [
+          "シェラック"
+        ],
+        "ko": [
+          "셸락"
+        ],
+        "ms": [
+          "syelak"
+        ]
+      }
+    },
     "950": {
       "ins": "950",
       "e_number": "E950",
@@ -2768,18 +4157,22 @@
       "names": {
         "zh-Hans": [
           "阿斯巴甜",
-          "阿斯巴甜（含苯丙氨酸）"
+          "阿斯巴甜（含苯丙氨酸）",
+          "阿斯巴甜(含苯丙氨酸)"
         ],
         "zh-Hant": [
           "阿斯巴甜",
-          "天冬酰胺"
+          "天冬酰胺",
+          "阿斯巴甜(含苯丙氨酸)",
+          "阿斯巴甜（含苯丙氨酸）"
         ],
         "en": [
           "Aspartame"
         ],
         "ja": [
           "アスパルテーム",
-          "L-フェニルアラニン化合物"
+          "L-フェニルアラニン化合物",
+          "アスパルテーム・L-フェニルアラニン化合物"
         ],
         "de": [
           "Aspartam"
@@ -2798,6 +4191,99 @@
         ],
         "ms": [
           "aspartam"
+        ]
+      }
+    },
+    "952": {
+      "ins": "952",
+      "e_number": "E952",
+      "cn_cns": "19.002",
+      "functional_classes": [
+        "sweetener"
+      ],
+      "names": {
+        "zh-Hans": [
+          "甜蜜素",
+          "环己基氨基磺酸钠",
+          "环己基氨基磺酸钙"
+        ],
+        "zh-Hant": [
+          "甜蜜素",
+          "環己基氨基磺酸鈉"
+        ],
+        "en": [
+          "Cyclamates",
+          "Sodium cyclamate",
+          "Cyclamic acid"
+        ],
+        "de": [
+          "Cyclamat",
+          "Natriumcyclamat"
+        ],
+        "fr": [
+          "Cyclamate",
+          "Cyclamate de sodium"
+        ],
+        "es": [
+          "Ciclamato",
+          "Ciclamato sódico"
+        ],
+        "it": [
+          "Ciclamato",
+          "Ciclamato di sodio"
+        ],
+        "ko": [
+          "사이클라메이트"
+        ],
+        "ms": [
+          "siklamat",
+          "natrium siklamat"
+        ]
+      }
+    },
+    "954": {
+      "ins": "954",
+      "e_number": "E954",
+      "cn_cns": "19.001",
+      "functional_classes": [
+        "sweetener"
+      ],
+      "names": {
+        "zh-Hans": [
+          "糖精钠",
+          "糖精"
+        ],
+        "zh-Hant": [
+          "糖精鈉",
+          "糖精"
+        ],
+        "en": [
+          "Saccharin",
+          "Sodium saccharin"
+        ],
+        "ja": [
+          "サッカリンナトリウム",
+          "サッカリンNa"
+        ],
+        "de": [
+          "Saccharin",
+          "Natriumsaccharin"
+        ],
+        "fr": [
+          "Saccharine"
+        ],
+        "es": [
+          "Sacarina"
+        ],
+        "it": [
+          "Saccarina"
+        ],
+        "ko": [
+          "사카린나트륨"
+        ],
+        "ms": [
+          "sakarin",
+          "natrium sakarin"
         ]
       }
     },
@@ -2842,6 +4328,22 @@
         ]
       }
     },
+    "960": {
+      "ins": "960",
+      "e_number": "E960",
+      "cn_cns": "19.008",
+      "functional_classes": [
+        "sweetener"
+      ],
+      "names": {
+        "zh-Hans": [
+          "甜菊糖苷(通用)"
+        ],
+        "zh-Hant": [
+          "甜菊糖苷(通用)"
+        ]
+      }
+    },
     "960a": {
       "ins": "960a",
       "e_number": "E960a",
@@ -2881,6 +4383,34 @@
         ],
         "ms": [
           "glikosida steviol"
+        ]
+      }
+    },
+    "961": {
+      "ins": "961",
+      "e_number": "E961",
+      "cn_cns": "19.016",
+      "functional_classes": [
+        "sweetener"
+      ],
+      "names": {
+        "zh-Hans": [
+          "纽甜"
+        ],
+        "zh-Hant": [
+          "紐甜"
+        ],
+        "en": [
+          "Neotame"
+        ],
+        "ja": [
+          "ネオテーム"
+        ],
+        "ko": [
+          "네오탐"
+        ],
+        "ms": [
+          "neotam"
         ]
       }
     },
@@ -3014,6 +4544,242 @@
         ],
         "ms": [
           "eritritol"
+        ]
+      }
+    },
+    "1200": {
+      "ins": "1200",
+      "e_number": "E1200",
+      "functional_classes": [
+        "bulking_agent",
+        "stabilizer",
+        "thickener"
+      ],
+      "names": {
+        "zh-Hans": [
+          "聚葡萄糖"
+        ],
+        "zh-Hant": [
+          "聚葡萄糖"
+        ],
+        "en": [
+          "Polydextrose"
+        ],
+        "ja": [
+          "ポリデキストロース"
+        ],
+        "ko": [
+          "폴리덱스트로스"
+        ],
+        "ms": [
+          "polidekstrosa"
+        ]
+      }
+    },
+    "1404": {
+      "ins": "1404",
+      "e_number": "E1404",
+      "cn_cns": "20.004",
+      "functional_classes": [
+        "thickener",
+        "stabilizer"
+      ],
+      "names": {
+        "zh-Hans": [
+          "氧化淀粉"
+        ],
+        "zh-Hant": [
+          "氧化澱粉"
+        ],
+        "en": [
+          "Oxidized starch"
+        ],
+        "ms": [
+          "kanji teroksida"
+        ]
+      }
+    },
+    "1412": {
+      "ins": "1412",
+      "e_number": "E1412",
+      "cn_cns": "20.011",
+      "functional_classes": [
+        "thickener",
+        "stabilizer"
+      ],
+      "names": {
+        "zh-Hans": [
+          "二淀粉磷酸酯",
+          "磷酸酯双淀粉"
+        ],
+        "zh-Hant": [
+          "磷酸二澱粉",
+          "磷酸酯雙澱粉"
+        ],
+        "en": [
+          "Distarch phosphate"
+        ],
+        "ms": [
+          "dikanji fosfat"
+        ]
+      }
+    },
+    "1414": {
+      "ins": "1414",
+      "e_number": "E1414",
+      "cn_cns": "20.013",
+      "functional_classes": [
+        "thickener",
+        "stabilizer",
+        "emulsifier"
+      ],
+      "names": {
+        "zh-Hans": [
+          "乙酰化二淀粉磷酸酯",
+          "乙酰化双淀粉磷酸酯"
+        ],
+        "zh-Hant": [
+          "乙醯化磷酸二澱粉",
+          "乙酰化雙澱粉磷酸酯"
+        ],
+        "en": [
+          "Acetylated distarch phosphate"
+        ],
+        "ms": [
+          "dikanji fosfat terasetil"
+        ]
+      }
+    },
+    "1420": {
+      "ins": "1420",
+      "e_number": "E1420",
+      "cn_cns": "20.008",
+      "functional_classes": [
+        "thickener",
+        "stabilizer"
+      ],
+      "names": {
+        "zh-Hans": [
+          "乙酰化淀粉",
+          "醋酸酯淀粉"
+        ],
+        "zh-Hant": [
+          "乙醯化澱粉",
+          "醋酸酯澱粉"
+        ],
+        "en": [
+          "Acetylated starch",
+          "Starch acetate"
+        ],
+        "ms": [
+          "kanji terasetil"
+        ]
+      }
+    },
+    "1422": {
+      "ins": "1422",
+      "e_number": "E1422",
+      "cn_cns": "20.014",
+      "functional_classes": [
+        "thickener",
+        "stabilizer",
+        "emulsifier"
+      ],
+      "names": {
+        "zh-Hans": [
+          "乙酰化二淀粉己二酸酯",
+          "乙酰化双淀粉己二酸酯"
+        ],
+        "zh-Hant": [
+          "乙醯化己二酸二澱粉",
+          "乙酰化雙澱粉己二酸酯"
+        ],
+        "en": [
+          "Acetylated distarch adipate"
+        ],
+        "ko": [
+          "아세틸아디핀산이전분"
+        ],
+        "ms": [
+          "dikanji adipat terasetil"
+        ]
+      }
+    },
+    "1440": {
+      "ins": "1440",
+      "e_number": "E1440",
+      "cn_cns": "20.015",
+      "functional_classes": [
+        "thickener",
+        "stabilizer"
+      ],
+      "names": {
+        "zh-Hans": [
+          "羟丙基淀粉"
+        ],
+        "zh-Hant": [
+          "羥丙基澱粉"
+        ],
+        "en": [
+          "Hydroxypropyl starch"
+        ],
+        "ms": [
+          "hidroksipropil kanji"
+        ]
+      }
+    },
+    "1442": {
+      "ins": "1442",
+      "e_number": "E1442",
+      "cn_cns": "20.016",
+      "functional_classes": [
+        "thickener",
+        "stabilizer",
+        "emulsifier"
+      ],
+      "names": {
+        "zh-Hans": [
+          "羟丙基二淀粉磷酸酯",
+          "羟丙基双淀粉磷酸酯"
+        ],
+        "zh-Hant": [
+          "羥丙基磷酸二澱粉",
+          "羥丙基雙澱粉磷酸酯"
+        ],
+        "en": [
+          "Hydroxypropyl distarch phosphate"
+        ],
+        "ko": [
+          "히드록시프로필인산이전분"
+        ],
+        "ms": [
+          "hidroksipropil dikanji fosfat"
+        ]
+      }
+    },
+    "1450": {
+      "ins": "1450",
+      "e_number": "E1450",
+      "cn_cns": "10.025",
+      "functional_classes": [
+        "emulsifier",
+        "stabilizer",
+        "thickener"
+      ],
+      "names": {
+        "zh-Hans": [
+          "辛烯基琥珀酸淀粉钠",
+          "纯胶"
+        ],
+        "zh-Hant": [
+          "辛烯基丁二酸鈉澱粉",
+          "辛烯基琥珀酸澱粉鈉"
+        ],
+        "en": [
+          "Starch sodium octenyl succinate"
+        ],
+        "ms": [
+          "kanji natrium oktenil suksinat"
         ]
       }
     }

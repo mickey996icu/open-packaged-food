@@ -12,6 +12,14 @@ from opf.resources import REPO_ROOT, get_resource_root
 
 LATIN_WORD_RE = re.compile(r"^[a-z\u00c0-\u024f0-9\s\-\']+$")
 ASCII_WORD_RE = LATIN_WORD_RE
+INS_SUBCODE_RE = re.compile(
+    r"^(?P<epfx>e)?(?P<base>[0-9]{3,4}[a-z]?)\s*[（(]\s*(?P<roman>[ivx]+)\s*[）)]$",
+    re.IGNORECASE,
+)
+ATOMIC_ADDITIVE_CODE_RE = re.compile(
+    r"^(?:(?:ins|e)[\s\-]*[0-9]{3,4}[a-z]?(?:\s*[（(]\s*[ivx]+\s*[）)])?|[0-9]{3,4}[a-z]?\s*[（(]\s*[ivx]+\s*[）)])$",
+    re.IGNORECASE,
+)
 
 
 @lru_cache(maxsize=1)
@@ -71,17 +79,45 @@ def _build_additive_lookup() -> dict[str, str]:
 
 
 def lookup_additive_ins(name_or_code: str) -> str | None:
-    """Return canonical Codex INS code if name_or_code matches known additive, else None."""
+    """Return canonical Codex INS code if name_or_code matches known additive, else None.
+
+    Supports exact INS/E/localized names as well as Roman-numeral subdivisions
+    such as 'INS 481(i)' or 'INS 160b(ii)': if the exact subcode is registered,
+    returns it; otherwise if the base code (e.g. '481', '160b') is registered,
+    preserves the canonicalized subcode '481(i)' / '160b(ii)'.
+    """
     key = re.sub(r"\s+", " ", name_or_code.strip().lower())
     m_ins = re.match(r"^ins[\s\-]+(.+)$", key)
     if m_ins:
         key = m_ins.group(1).strip()
-    elif key.startswith("ins"):
+    elif key.startswith("ins") and len(key) > 3 and (key[3].isdigit() or key[3].isspace()):
         key = key[3:].strip()
     m_e = re.match(r"^e[\s\-]+([0-9].*)$", key)
     if m_e:
         key = "e" + m_e.group(1).strip()
-    return _build_additive_lookup().get(key)
+
+    lookup = _build_additive_lookup()
+    direct = lookup.get(key)
+    if direct is not None:
+        return direct
+    if key.startswith("e") and len(key) > 1 and key[1].isdigit():
+        by_num = lookup.get(key[1:])
+        if by_num is not None:
+            return by_num
+
+    m_sub = INS_SUBCODE_RE.match(key)
+    if m_sub:
+        base = m_sub.group("base").lower()
+        roman = m_sub.group("roman").lower()
+        norm_sub = f"{base}({roman})"
+        exact_sub = lookup.get(norm_sub) or lookup.get("e" + norm_sub)
+        if exact_sub is not None:
+            return exact_sub
+        parent = lookup.get(base) or lookup.get("e" + base)
+        if parent is not None:
+            parent_base = parent.split("(", 1)[0]
+            return f"{parent_base}({roman})"
+    return None
 
 
 @lru_cache(maxsize=1)

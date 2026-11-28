@@ -17,6 +17,9 @@ description: Queries, verifies, disambiguates, and contributes industrial packag
 | :--- | :--- | :--- | :--- |
 | **CN** (China Mainland) | `CN/GB28050-2011` / `CN/GB28050-2025` | `zh-Hans` | `zh-CN` (简体中文) |
 | **HK** (Hong Kong SAR) | `HK/CFS-132W` | `zh-Hant`, `en` | `zh-CN`, `en` |
+| **SG** (Singapore) | `SG/SFA-FR` | `en`, `zh-Hans`, `ms` | `en`, `zh-CN` |
+| **MY** (Malaysia) | `MY/MOH-R18B` | `ms`, `en`, `zh-Hans` | `en`, `zh-CN` |
+| **KR** (South Korea) | `KR/MFDS-2024` | `ko` | `ko` (한국어) |
 | **AU / NZ** (Australia & New Zealand) | `AU/FSANZ-1.2.8` *(use `track: "AU/default"` or `"NZ/default"`)* | `en` | `en` (English) |
 | **US** (United States) | `US/FDA-NLEA` | `en` | `en` (English) |
 | **JP** (Japan) | `JP/CAA-2015` | `ja` | `ja` (日本語) |
@@ -111,6 +114,10 @@ Start from the minimal `v0.3` draft template [examples/draft.minimal.json](./exa
   - **South Korea (`KR/MFDS-2024`)**: Use `"KR/MFDS-2024"` on `track: "KR/default"` for Korean MFDS labels (9 mandatory nutrients: `energy`, `sodium`, `carbs_total`, `sugars_total`, `fat_total`, `fat_trans` [`<0.2g` zero bound], `fat_saturated`, `cholesterol`, `protein`, plus Korean statutory allergens including `pork`, `beef`, `chicken`, `peach`, `tomato`, `buckwheat`, `molluscs`, etc.).
   - **Australia & New Zealand (`AU/FSANZ-1.2.8`)**: FSANZ Standard 1.2.8 requires dual columns (`Per Serving` and `Per 100g`/`100mL`) with 1+6 rows (`energy` in `kJ`, `protein`, `fat_total`, `fat_saturated`, `carbs_available` [excluding fibre], `sugars_total`, `sodium` in `mg`; DI reference energy is `8700 kJ`). Transcribe the higher-precision `100g`/`100ml` column into `core.nutrition_declared` (recording `serving_size` alongside), preserve `LESS THAN` bounds as `qualifier: "<"`, and set `track` to `"AU/default"` or `"NZ/default"`.
 - **Strictly Evidenced Cropped Text Only (Zero Un-Evidenced Claims & Optional `net_content`)**: Every recorded field (`core.net_content`, `attributes.claims_text`, `brand`, `net_content_label`) **must come strictly from the contributor's own cropped physical-package photos**—**NEVER** upload or crop merchant/e-commerce product graphics into `opf-media`, and **NEVER** guess or copy net weight from external web titles when no net-content crop is present. On bagged foods whose back label omits net weight and no front-corner text crop was taken, leave `"net_content": []` (empty array; whole-pack `per_unit` simply stays omitted while `per 100g`/`100ml` remains exact) and omit `net_content_label`.
+- **Per-Serving Panels, Multi-Bracket Qualifiers & `parties[].license` Scope**:
+  - When a label declares nutrition per serving (`"basis": {"value": "1", "unit": "serving"}` or `{"value": "56", "unit": "g"}`), always populate `core.serving_size` (`g`/`ml`/`kg`/`l`) so `opf normalize` scales accurately to `100g`/`100ml`.
+  - In `core.ingredients_tree`, interval qualifiers (`"20%-25%"`), Roman-numeral INS subcodes (`"481(i)"`, `"160b(ii)"`), and word-bounded connectors (`and`, `dan`, `Mengandungi`, `yang dibenarkan`) are handled natively; join adjacent non-child bracket modifiers on a single ingredient with `"；"` or `"; "` (e.g. `"qualifier": "嫁接；添加量≥60%"`).
+  - Reserve `attributes.parties[].license` strictly for **food-safety manufacturing/hygiene/import regulatory licenses** (e.g. China `SC...`, GACC `C...`, Korean MFDS report numbers); corporate/commercial registration suffixes (such as Malaysia SSM `1415058-W` or Singapore UEN) MUST stay verbatim inside `parties[].name` rather than `license`.
 - **Multilingual `attributes` & EU Multi-Language Pack Rule**: `attributes.product_name` and `attributes.ingredients_text` are BCP-47 `LocalizedText[]` arrays preserving every language printed verbatim on the package. On multi-language EU labels (e.g., printed in `de`, `fr`, `es`, `it`, and `en`), capture each printed language verbatim as separate entries in `attributes.product_name[]`, `attributes.ingredients_text[]`, and `core.ingredients_tree[]`, whereas non-printed contributor translations (such as translated `"brand"` or `"product_name"` search aliases) belong in `attributes.translations[]` with `"source": "contributor_translated"`.
 
 ### 3.1 Privacy & Authenticity Guard (Non-Negotiable)
@@ -178,7 +185,7 @@ Pick the active submission path cleanly:
 - **Optional One-Step Automation (`uvx` + `gh` CLI)**:
   Developers who already have `uvx` and an authenticated `gh` session (`gh auth status`) may optionally use `opf pr` instead of manual `git` branching/pushing:
   ```bash
-  uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.3.3 \
+  uvx --from git+https://github.com/mickey996icu/open-packaged-food@v0.3.4 \
     opf pr --input draft.json \
     --photo nutrition_table=crop_nutrition.jpg \
     --photo ingredients_box=crop_ingredients.jpg \

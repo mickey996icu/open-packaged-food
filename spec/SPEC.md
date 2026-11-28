@@ -80,7 +80,8 @@ All `core.nutrition_declared.rows` and `normalized.nutrients` use canonical nutr
    - `">"` / `">="` (greater than / greater than or equal to, e.g., `"≥280mg/kg"`)
    - `"~"` (approximate)
    - `"trace"` (trace amount declared on label)
-3. **Regulatory Zero-Rounding Propagation**:
+3. **Per-Serving Basis Scaling & Regulatory Zero-Rounding Propagation**:
+   - `core.nutrition_declared.basis.unit` MUST be one of `g`, `ml`, `kg`, `l`, or `serving`. When `basis.unit` is `"serving"` (e.g. `{"value": "1", "unit": "serving"}`), `core.serving_size` MUST be present with a positive mass/volume quantity in `g`, `ml`, `kg`, or `l`; `opf normalize` scales rows by $100 / (\text{basis} \times \text{serving\_size\_base})$ and derives `normalized.basis` (`"100g"` vs. `"100ml"`) from `serving_size.unit`.
    - Under `US/FDA-NLEA` (`zero_thresholds_per_serving`), a declared `0` for `energy` (< 5 kcal/serving) or `fat_trans` (< 0.5 g/serving) is a legal rounding artifact when per-serving weight is small.
    - Under `CN/GB28050-2011`, `CN/GB28050-2025`, `HK/CFS-132W`, `SG/SFA-FR`, `MY/MOH-R18B`, `KR/MFDS-2024`, `AU/FSANZ-1.2.8`, `EU/1169-2011`, and `JP/CAA-2015` (`zero_thresholds_per_100`), a declared `0` on the label represents any value $\le$ the statutory "0" threshold (e.g., $\le 17\text{ kJ}$, $\le 0.5\text{ g}$ protein/fat/carbs, $\le 5\text{ mg}$ sodium in CN; $\le 5\text{ kcal}$ / $\le 0.3\text{ g}$ trans fat in HK; $\le 0.2\text{ g}$ trans fat in KR; $\le 0.01\text{ g}$ salt in EU).
    - `core.nutrition_declared` preserves the verbatim printed `"0"`, while `opf normalize` outputs `qualifier: "<"` and `basis: "regulatory_upper_bound"` in `normalized.nutrients` and records `REGULATORY_ZERO_ROUNDING_ARTIFACT` in `quality_flags`.
@@ -107,17 +108,17 @@ To prevent OCR punctuation noise from mutating `core` while preserving strict an
    - Within each `lang`, `nodes` preserve the exact printed descending weight order on the package.
    - Each recursive `SemanticIngredientNode` contains only structured semantic properties:
      - `name`: Ingredient name string (trimmed, Unicode NFKC-normalized in fingerprint computation).
-     - `qualifier`: Optional declared quantitative qualifier (e.g., `"≥4g/L"`, `"≥95%"`).
-     - `functional_class`: Optional additive class prefix (e.g., `"抗氧化剂"`, `"Acidity regulator"`).
-     - `ins`: Optional Codex Alimentarius INS code (e.g., `"300"`, `"500(ii)"`).
-     - `is_additive`: Optional boolean (`true` for additives after `／` in JP labels or matched INS additives).
-     - `allergens`: Optional sorted array of canonical allergen IDs (e.g., `["soy", "wheat"]`).
+     - `qualifier`: Optional declared quantitative or varietal qualifier (including intervals such as `"20%-25%"`; adjacent multi-bracket modifiers on one ingredient join with `"；"` or `"; "`, e.g., `"嫁接；添加量≥60%"`).
+     - `functional_class`: Optional additive class or clause prefix (e.g., `"抗氧化剂"`, `"含"`, `"Acidity regulator"`).
+     - `ins`: Optional Codex Alimentarius INS code preserving printed Roman-numeral subdivisions (e.g., `"300"`, `"481(i)"`, `"160b(ii)"`).
+     - `is_additive`: Optional boolean (`true` for additives after `／` in JP labels or matched INS/functional-class additives).
+     - `allergens`: Optional sorted array of canonical allergen IDs (e.g., `["soybeans", "gluten_cereals"]`).
      - `children`: Optional nested array of child ingredient nodes (compound ingredients).
    - Character offsets (`span`) are **not** stored in `core.ingredients_tree`. Fixing a full-width/half-width comma or whitespace typo in `attributes.ingredients_text` requires only an `attributes` revision without touching `core`.
 2. **Deterministic Monotonic Round-Trip Check**:
    - During `opf validate` and `opf build`, the validator walks `core.ingredients_tree[lang].nodes` in pre-order against `attributes.ingredients_text[lang].text` from `cursor = 0`:
-     1. After skipping optional profile-allowed header prefixes (e.g., `"配料："`, `"Ingredients:"`) and structural characters (delimiters, brackets, whitespace), each expected token (`functional_class`, `name`, `children`, `qualifier`) MUST match monotonically at `cursor`.
-     2. Every character between matched tokens and after the final token MUST belong to the profile's `ALLOWED_STRUCTURAL_CHARS`, and all brackets in `raw_text` MUST be balanced.
+     1. After skipping optional profile-allowed header prefixes (e.g., `"配料："`, `"Ingredients:"`, `"Ramuan:"`), structural punctuation/whitespace, and word-bounded grammatical connectors / statutory permission clauses (`and`, `or`, `dan`, `atau`, `contains`, `mengandungi`, `yang dibenarkan`, `sebagai kondisioner makanan yang dibenarkan`), each expected token (`functional_class`, `name`, `children`, `qualifier`) MUST match monotonically at `cursor` (multi-part qualifiers joined with `"；"` / `";"` align segment-by-segment across adjacent brackets).
+     2. Every character between matched tokens and after the final token MUST belong to the profile's `ALLOWED_STRUCTURAL_CHARS` or word-bounded structural connectors, and all brackets in `raw_text` MUST be balanced.
      3. Any uncaptured character or token mismatch fails CI validation. Build outputs (`.full.json`) may emit computed `[start, end)` spans for UI highlighting.
 
 ---

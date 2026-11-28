@@ -11,6 +11,31 @@ from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from typing import Any
 
+from opf.audit_lexicon import (
+    ADDR_PROVINCE_RE as _ADDR_PROVINCE_RE,
+    CN_PROVINCE_CODES,
+    COMPANY_REG_NO_RE,
+    COMPOUND_ALLERGEN_CARRIER_RE,
+    FOREIGN_REG_LICENSE_RE,
+    INDICATOR_MODIFIERS,
+    NO_BARCODE_PROOF_RE as _NO_BARCODE_PROOF_RE,
+    NON_ADMIN_ZONE_SUFFIX_RE as _NON_ADMIN_ZONE_SUFFIX_RE,
+    NON_EXACT_LOWER_QUALIFIERS as _NON_EXACT_LOWER_QUALIFIERS,
+    NON_EXACT_UPPER_QUALIFIERS as _NON_EXACT_UPPER_QUALIFIERS,
+    NUTRITION_CLAIM_RE as _NUTRITION_CLAIM_RE,
+    PRECAUTIONARY_ALLERGEN_SPLIT_RE,
+    PURE_ASCII_LATIN_RE as _PURE_ASCII_LATIN_RE,
+    REAL_SUGAR_SOURCE_RE as _REAL_SUGAR_SOURCE_RE,
+    REGIONAL_NO_INS_ADDITIVES,
+    SC_LICENSE_RE,
+    SEASONING_HEAD_MASK_RE as _SEASONING_HEAD_MASK_RE,
+    STREET_SUFFIX_RE as _STREET_SUFFIX_RE,
+    SUBSET_NUTRIENT_RULES as _SUBSET_NUTRIENT_RULES,
+    SUGAR_INTERFERENCE_MASK_RE as _SUGAR_INTERFERENCE_MASK_RE,
+    TEA_COFFEE_FORBIDDEN_ING_RE as _TEA_COFFEE_FORBIDDEN_ING_RE,
+    TRUNCATED_SUFFIX_RE as _TRUNCATED_SUFFIX_RE,
+    WATER_FORBIDDEN_ING_RE as _WATER_FORBIDDEN_ING_RE,
+)
 from opf.ingredients import FUNCTIONAL_CLASS_TERMS, parse_ingredients_semantic
 from opf.media import inspect_webp_bytes
 from opf.normalize import (
@@ -18,76 +43,8 @@ from opf.normalize import (
     format_canonical_decimal,
     nutrient_row_sort_key,
 )
-from opf.registries import get_profile, match_allergens_in_name
+from opf.registries import get_profile, lookup_additive_ins, match_allergens_in_name
 from opf.validator import public_image_sha
-
-SC_LICENSE_RE = re.compile(r"^SC[0-9]{14}$")
-FOREIGN_REG_LICENSE_RE = re.compile(r"^C[A-Z]{3}[0-9]{14}$")
-
-CN_PROVINCE_CODES: dict[str, str] = {
-    "11": "北京", "12": "天津", "13": "河北", "14": "山西", "15": "内蒙古",
-    "21": "辽宁", "22": "吉林", "23": "黑龙江", "31": "上海", "32": "江苏",
-    "33": "浙江", "34": "安徽", "35": "福建", "36": "江西", "37": "山东",
-    "41": "河南", "42": "湖北", "43": "湖南", "44": "广东", "45": "广西",
-    "46": "海南", "50": "重庆", "51": "四川", "52": "贵州", "53": "云南",
-    "54": "西藏", "61": "陕西", "62": "甘肃", "63": "青海", "64": "宁夏",
-    "65": "新疆", "71": "台湾", "81": "香港", "82": "澳门",
-}
-
-_PROVINCE_NAMES_SORTED = sorted(CN_PROVINCE_CODES.values(), key=len, reverse=True)
-_ADDR_PROVINCE_RE = re.compile(
-    r"^(?:中国)?[\s（(]*(?P<prov>"
-    + "|".join(re.escape(p) for p in _PROVINCE_NAMES_SORTED)
-    + r")(?P<suffix>省|市|维吾尔自治区|壮族自治区|回族自治区|自治区|特别行政区)?"
-)
-_STREET_SUFFIX_RE = re.compile(r"^(?:东|西|南|北|中)?(?:路|街|道|巷|弄|大道)")
-_TRUNCATED_SUFFIX_RE = re.compile(r"(?:省|市|县|旗|盟|自治州)$")
-_NON_ADMIN_ZONE_SUFFIX_RE = re.compile(
-    r"(?:开发区|工业区|产业区|园区|厂区|保税区|试验区|功能区|聚集区|集聚区|管理区|示范区|合作区|度假区|商务区|高新区|科技区|自贸区|新区|[A-Za-z0-9]区)$"
-)
-
-_SEASONING_HEAD_MASK_RE = re.compile(r"[\w\u4e00-\u9fff-]*味(?:复合|複合)?(?:调味|調味)(?:料|粉|酱|醬|汁)")
-_SUGAR_INTERFERENCE_MASK_RE = re.compile(
-    r"(?:DL-苹果酸|L-苹果酸|苹果酸|DL-蘋果酸|L-蘋果酸|蘋果酸|柠檬酸钠|柠檬酸|檸檬酸鈉|檸檬酸|乳酸|果胶|果膠|黄原胶|黃原膠|赤藓糖醇|赤蘚糖醇|木糖醇|麦芽糖醇|麥芽糖醇|山梨糖醇|异麦芽酮糖醇|異麥芽酮糖醇|乳糖醇|三氯蔗糖|蔗糖素|安赛蜜|安賽蜜|醋磺內酯鉀|阿斯巴甜|甜菊糖苷|罗汉果甜苷|羅漢果甜苷|纽甜|甜蜜素|구연산|사과산|젖산|펙틴|잔탄검|에리스리톨|자일리톨|말티톨|소비톨|수크랄로스|아세설팜칼륨|아스파탐|스테비올배당체|알룰로스|\basid\s+sitrik\b|\basid\s+malik\b|\basid\s+laktik\b|\bsukralosa\b|\beritritol\b|\bsorbitol\b|\bxilitol\b)",
-    re.IGNORECASE,
-)
-_REAL_SUGAR_SOURCE_RE = re.compile(
-    r"(?:白砂糖|砂糖|绵白糖|綿白糖|冰糖|红糖|紅糖|黑糖|黄糖|黃糖|蔗糖|果糖|葡萄糖|麦芽糖|麥芽糖|乳糖|糖浆|糖漿|蜂蜜|海藻糖|异麦芽酮糖|異麥芽酮糖|低聚果糖|低聚异麦芽糖|低聚異麥芽糖|低聚半乳糖|浓缩[^\s，、（）()]*汁|濃縮[^\s，、（）()]*汁|果酱|果醬|果泥|果浆|果漿|果汁|生牛乳|牛乳|牛奶|鲜奶|鮮奶|乳粉|奶粉|炼乳|煉乳|煉奶|乳清|红枣|紅棗|椰枣|椰棗|葡萄干|葡萄乾|蓝靛果|草莓|蓝莓|藍莓|蔓越莓|黑莓|树莓|樹莓|설탕|백설탕|흑설탕|황설탕|원당|사탕수수당|과당|액상과당|포도당|맥아당|유당|물엿|조청|시럽|올리고당|벌꿀|꿀|과즙|농축액|우유|원유|분유|연유|유청|\bsugar\b|\bsucrose\b|\bfructose\b|\bglucose\b|\bsyrup\b|\bhoney\b|\blactose\b|\bmilk\b|\bwhey\b|\bjuice\b|\bdate\b|\bgula\b|\bsirap\b|\bmadu\b|\bglukosa\b|\bfruktosa\b|\blaktosa\b|\bsusu\b|\bdadih\b|\bjus\b|\bkurma\b)",
-    re.IGNORECASE,
-)
-_WATER_FORBIDDEN_ING_RE = re.compile(
-    r"(?:白砂糖|砂糖|绵白糖|綿白糖|冰糖|红糖|紅糖|蔗糖|果糖|葡萄糖|糖浆|糖漿|蜂蜜|赤藓糖醇|赤蘚糖醇|木糖醇|麦芽糖醇|麥芽糖醇|三氯蔗糖|蔗糖素|安赛蜜|安賽蜜|醋磺內酯鉀|阿斯巴甜|甜菊糖苷|罗汉果甜苷|羅漢果甜苷|食用香精|食品用香精|香精|香料|浓缩[^\s，、（）()]*汁|濃縮[^\s，、（）()]*汁|果汁|生牛乳|牛乳|牛奶|鮮奶|乳粉|奶粉|茶粉|速溶茶|설탕|과당|시럽|수크랄로스|에리스리톨|합성향료|천연향료|과즙|우유|\bsugar\b|\bsyrup\b|\bsucralose\b|\berythritol\b|\bflavor\b|\bflavour\b|\bjuice\b|\bmilk\b|\bgula\b|\bsirap\b|\bperisa\b|\bsusu\b|\bjus\b)",
-    re.IGNORECASE,
-)
-_TEA_COFFEE_FORBIDDEN_ING_RE = re.compile(
-    r"(?:白砂糖|砂糖|绵白糖|綿白糖|冰糖|红糖|紅糖|黑糖|蔗糖|果糖|葡萄糖|麦芽糖|麥芽糖|糖浆|糖漿|蜂蜜|生牛乳|牛乳|牛奶|鮮奶|乳粉|奶粉|炼乳|煉乳|煉奶|稀奶油|忌廉|奶油|牛油|植脂末|奶精|설탕|원당|물엿|시럽|우유|분유|연유|유크림|식물성크림|프리마|\bsugar\b|\bsucrose\b|\bfructose\b|\bsyrup\b|\bhoney\b|\bmilk\b|\bcream\b|\bcreamer\b|\bgula\b|\bsirap\b|\bmadu\b|\bsusu\b|\bkrim\b|\bkrimer\b)",
-    re.IGNORECASE,
-)
-_NUTRITION_CLAIM_RE = re.compile(
-    r"(?:无糖|無糖|零糖|0糖|低糖|无蔗糖|無蔗糖|零卡|0卡|低卡|零能量|0能量|低能量|零脂|0脂|无脂|無脂|低脂|脱脂|脫脂|高钙|高鈣|富含钙|富含鈣|低钠|低鈉|无钠|無鈉|高蛋白|富含蛋白|高膳食纤维|高膳食纖維|富含膳食纤维|富含膳食纖維|高纤|高纖|무설탕|무당|제로슈거|저당|제로칼로리|저칼로리|무지방|저지방|고단백|고칼슘|저나트륨|\bsugar[- ]free\b|\bzero[- ]sugar\b|\blow[- ]sugar\b|\bfat[- ]free\b|\blow[- ]fat\b|\bhigh[- ]protein\b|\bhigh[- ]calcium\b|\blow[- ]sodium\b|\btanpa\s+gula\b|\brendah\s+gula\b|\brendah\s+lemak\b|\btinggi\s+protein\b|\btinggi\s+kalsium\b|\brendah\s+natrium\b)",
-    re.IGNORECASE,
-)
-
-INDICATOR_MODIFIERS: tuple[str, ...] = (
-    "新西兰", "澳洲", "澳大利亚", "比利时", "法国", "日本", "北海道", "宇治",
-    "进口", "有机", "NFC", "A2", "冷萃", "头道", "特级", "野生",
-)
-_NO_BARCODE_PROOF_RE = re.compile(
-    r"(?:无条码|无零售条码|散装|店内码|未印条码|no[\s_-]*barcode|bulk|in-store)",
-    re.IGNORECASE,
-)
-_PURE_ASCII_LATIN_RE = re.compile(r"^[A-Za-z0-9\s.,'&/+()_-]+$")
-_NON_EXACT_LOWER_QUALIFIERS = frozenset({"<", "<=", "trace"})
-_NON_EXACT_UPPER_QUALIFIERS = frozenset({">", ">="})
-
-_SUBSET_NUTRIENT_RULES: tuple[tuple[str, str, str], ...] = (
-    ("fat_saturated", "fat_total", "饱和脂肪"),
-    ("fat_trans", "fat_total", "反式脂肪"),
-    ("sugars_total", "carbs_available", "糖"),
-    ("sugars_total", "carbs_total", "糖"),
-    ("sugars_added", "sugars_total", "添加糖"),
-    ("dietary_fiber", "carbs_total", "膳食纤维"),
-)
 
 
 @dataclass
@@ -353,6 +310,12 @@ def _check_parties_and_sc(
                 if addr_prov and addr_prov != expected_prov:
                     _emit(findings, "ERROR", "SC_PROVINCE_MISMATCH", pid, eid, path,
                           f"parties[{idx}] 许可证 {lic} 省码 {prov_code}({expected_prov}) 与同条地址省份 {addr_prov!r} 矛盾")
+        elif COMPANY_REG_NO_RE.match(lic):
+            _emit(findings, "WARN", "COMPANY_REG_IN_FOOD_LICENSE", pid, eid, path,
+                  f"parties[{idx}] ({name or role}) 的 license={lic!r} 疑似商事/公司注册号而非食品生产卫生许可；请随原文保留在 name 中并清空 license")
+        else:
+            _emit(findings, "INFO", "VERIFY_FOREIGN_LICENSE_SEMANTICS", pid, eid, path,
+                  f"parties[{idx}] ({name or role}) 填写了境外/特殊证照号 {lic!r}；请对照原图确认其为食品生产/卫生监管许可而非公司商事注册号")
 
     if not is_cn_domestic:
         return
@@ -420,6 +383,7 @@ def _check_ingredients_and_allergens(
     doc: dict[str, Any], *, pid: str, eid: str | None, path: str, findings: list[AuditFinding]
 ) -> None:
     core = doc.get("core") or {}
+    attrs = doc.get("attributes") or {}
     all_nodes: list[dict[str, Any]] = []
     for lang_entry in _effective_ingredients_tree(doc):
         if isinstance(lang_entry, dict) and isinstance(lang_entry.get("nodes"), list):
@@ -433,9 +397,12 @@ def _check_ingredients_and_allergens(
         name = str(node.get("name") or "").strip()
         if name:
             inferred.update(match_allergens_in_name(name))
+        low_name = name.lower()
         if (
             node.get("is_additive") is True and not node.get("ins") and not node.get("children")
-            and name and name.lower() not in FUNCTIONAL_CLASS_TERMS
+            and name and low_name not in FUNCTIONAL_CLASS_TERMS
+            and low_name not in REGIONAL_NO_INS_ADDITIVES
+            and lookup_additive_ins(name) is None
             and "添加剂" not in name and "添加劑" not in name and name not in seen
         ):
             seen.add(name)
@@ -444,8 +411,30 @@ def _check_ingredients_and_allergens(
     declared = ((core.get("allergens_declared") or {}).get("contains")) or []
     unmatched = [str(a) for a in declared if str(a) not in inferred]
     if unmatched:
-        _emit(findings, "WARN", "DECLARED_ALLERGEN_UNMATCHED_IN_INGREDIENTS", pid, eid, path,
-              f"core.allergens_declared.contains 声明致敏原在配料树（含子配料）中未匹配到: {', '.join(unmatched)}")
+        raw_alg_text = str(attrs.get("allergens_raw_text") or "").strip()
+        contains_clause = PRECAUTIONARY_ALLERGEN_SPLIT_RE.split(raw_alg_text, maxsplit=1)[0] if raw_alg_text else ""
+        stmt_matched = set(match_allergens_in_name(contains_clause)) if contains_clause else set()
+        raw_ing_joined = " ".join(
+            str(it.get("text") or "")
+            for it in (attrs.get("ingredients_text") or [])
+            if isinstance(it, dict)
+        )
+        has_compound_carrier = bool(COMPOUND_ALLERGEN_CARRIER_RE.search(raw_ing_joined))
+
+        plausible: list[str] = []
+        suspicious: list[str] = []
+        for alg_id in unmatched:
+            if alg_id in stmt_matched or (has_compound_carrier and not raw_alg_text):
+                plausible.append(alg_id)
+            else:
+                suspicious.append(alg_id)
+
+        if plausible:
+            _emit(findings, "INFO", "DECLARED_ALLERGEN_VIA_STATEMENT_OR_COMPOUND", pid, eid, path,
+                  f"声明致敏原 {', '.join(plausible)} 未在配料展开项直接命中，但与致敏原原文或未展开复合配料吻合，请对照原图确认")
+        if suspicious:
+            _emit(findings, "WARN", "DECLARED_ALLERGEN_UNMATCHED_IN_INGREDIENTS", pid, eid, path,
+                  f"core.allergens_declared.contains 声明致敏原在配料树及致敏原原文“含有”段均未匹配到: {', '.join(suspicious)}")
     if candidates:
         _emit(findings, "INFO", "UNMAPPED_ADDITIVE_CANDIDATES", pid, eid, path,
               f"未映射 INS 的候选添加剂词: {', '.join(candidates)}")

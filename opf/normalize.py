@@ -28,6 +28,8 @@ from opf.media import normalize_evidence_region
 from opf.registries import get_profile
 
 __all__ = [
+    "ALLOWED_BASIS_UNITS",
+    "ALLOWED_MASS_VOL_UNITS",
     "CANONICAL_NUTRIENT_ORDER",
     "SUPPLEMENTAL_NUTRIENT_SPECS",
     "canonicalize_core_in_place",
@@ -44,6 +46,9 @@ __all__ = [
     "normalize_edition",
     "nutrient_row_sort_key",
 ]
+
+ALLOWED_MASS_VOL_UNITS: frozenset[str] = frozenset({"g", "ml", "kg", "l"})
+ALLOWED_BASIS_UNITS: frozenset[str] = frozenset({"g", "ml", "kg", "l", "serving"})
 
 
 def _fmt_dec(val: Decimal, quant: str = "0.01") -> str:
@@ -69,13 +74,52 @@ def _unit_to_base(value: Decimal, unit: str) -> tuple[Decimal, str]:
     return value, unit.strip()
 
 
+def _resolve_declared_basis(
+    basis_obj: dict[str, Any], serving_size: Any
+) -> tuple[Decimal, str, str, bool]:
+    """Resolve nutrition_declared.basis (including 'serving' via core.serving_size) to base g/ml."""
+    raw_basis_val = Decimal(basis_obj["value"])
+    if raw_basis_val <= Decimal("0"):
+        raise ValueError(
+            f"core.nutrition_declared.basis.value must be positive, got {basis_obj['value']!r}"
+        )
+    raw_unit = str(basis_obj.get("unit") or "").strip()
+    b_unit = raw_unit.lower()
+    if b_unit in ALLOWED_MASS_VOL_UNITS:
+        basis_val, basis_base_unit = _unit_to_base(raw_basis_val, raw_unit)
+        return basis_val, basis_base_unit, f"{basis_obj['value']}{raw_unit}", False
+    if b_unit == "serving":
+        if not isinstance(serving_size, dict) or serving_size.get("value") is None:
+            raise ValueError(
+                "core.nutrition_declared.basis.unit='serving' requires core.serving_size with a positive g/ml/kg/l quantity"
+            )
+        s_unit_raw = str(serving_size.get("unit") or "").strip()
+        if s_unit_raw.lower() not in ALLOWED_MASS_VOL_UNITS:
+            raise ValueError(
+                f"core.serving_size.unit must be one of g, ml, kg, l when basis.unit='serving', got {s_unit_raw!r}"
+            )
+        s_raw = Decimal(serving_size["value"])
+        if s_raw <= Decimal("0"):
+            raise ValueError(
+                f"core.serving_size.value must be positive when basis.unit='serving', got {serving_size['value']!r}"
+            )
+        s_val, basis_base_unit = _unit_to_base(s_raw, s_unit_raw)
+        basis_desc = f"{basis_obj['value']} serving ({serving_size['value']}{s_unit_raw})"
+        return raw_basis_val * s_val, basis_base_unit, basis_desc, True
+    raise ValueError(
+        f"Unsupported core.nutrition_declared.basis.unit {raw_unit!r}; expected one of g, ml, kg, l, serving"
+    )
+
+
 def _compile_declared_rows(
     *,
     panel: dict[str, Any],
     profile_id: str,
     norm_basis: str,
+    basis_desc: str,
     scale_factor: Decimal,
     is_scaled: bool,
+    is_serving_basis: bool = False,
     zero_thresholds_serving: dict[str, str],
     zero_thresholds_100: dict[str, str],
     nrv_reference: dict[str, str],
@@ -83,10 +127,10 @@ def _compile_declared_rows(
 ) -> tuple[dict[str, dict[str, Any]], dict[str, Any] | None, dict[str, Any] | None]:
     """Normalize nutrition_declared.rows into per-100g/ml values with regulatory zero bounds."""
     nutrients_dict = get_nutrients_registry()
-    basis_obj = panel["basis"]
     norm_nutrients: dict[str, dict[str, Any]] = {}
     declared_energy_kj: dict[str, Any] | None = None
     declared_energy_kcal: dict[str, Any] | None = None
+    use_serving_zero = is_scaled or is_serving_basis
 
     for row in panel.get("rows", []):
         nid = row["nutrient"]
@@ -97,7 +141,7 @@ def _compile_declared_rows(
         if nid == "energy":
             threshold_key = "energy_kcal" if unit == "kcal" else "energy_kj"
             if (
-                is_scaled
+                use_serving_zero
                 and val_dec == Decimal("0")
                 and qual in (None, "=")
                 and threshold_key in zero_thresholds_serving
@@ -115,7 +159,7 @@ def _compile_declared_rows(
                         "code": "REGULATORY_ZERO_ROUNDING_ARTIFACT",
                         "field": f"energy_{unit.lower()}",
                         "detail": (
-                            f"Declared 0 {unit} per {basis_obj['value']}{basis_obj['unit']} under {profile_id} "
+                            f"Declared 0 {unit} per {basis_desc} under {profile_id} "
                             f"implies <{thresh} {unit}/serving (<{_fmt_dec(scaled_ub, '0.01')} {unit}/{norm_basis})"
                         ),
                     }
@@ -192,7 +236,7 @@ def _compile_declared_rows(
             val_in_target = val_dec * Decimal("1000")
 
         if (
-            is_scaled
+            use_serving_zero
             and val_in_target == Decimal("0")
             and qual in (None, "=")
             and nid in zero_thresholds_serving
@@ -210,7 +254,7 @@ def _compile_declared_rows(
                     "code": "REGULATORY_ZERO_ROUNDING_ARTIFACT",
                     "field": nid,
                     "detail": (
-                        f"Declared 0 {unit} per {basis_obj['value']}{basis_obj['unit']} under {profile_id} "
+                        f"Declared 0 {unit} per {basis_desc} under {profile_id} "
                         f"implies <{thresh} {target_unit}/serving (<{_fmt_dec(scaled_ub, '0.01')} {target_unit}/{norm_basis})"
                     ),
                 }
@@ -500,12 +544,9 @@ def normalize_edition(edition: dict[str, Any]) -> dict[str, Any]:
         nrv_reference: dict[str, str] = profile.get("nrv_reference", {})
 
         basis_obj = panel["basis"]
-        raw_basis_val = Decimal(basis_obj["value"])
-        basis_val, basis_base_unit = _unit_to_base(raw_basis_val, basis_obj["unit"])
-        if basis_val <= Decimal("0"):
-            raise ValueError(
-                f"core.nutrition_declared.basis.value must be positive, got {basis_obj['value']!r}"
-            )
+        basis_val, basis_base_unit, basis_desc, is_serving_basis = _resolve_declared_basis(
+            basis_obj, core.get("serving_size")
+        )
 
         norm_basis = "100ml" if basis_base_unit.lower() == "ml" else "100g"
         scale_factor = Decimal("100") / basis_val
@@ -516,7 +557,7 @@ def normalize_edition(edition: dict[str, Any]) -> dict[str, Any]:
                 {
                     "code": "DERIVED_FROM_SERVING_BASIS",
                     "field": "nutrition_declared.basis",
-                    "detail": f"Normalized to {norm_basis} from declared basis {basis_obj['value']}{basis_obj['unit']}",
+                    "detail": f"Normalized to {norm_basis} from declared basis {basis_desc}",
                 }
             )
 
@@ -524,8 +565,10 @@ def normalize_edition(edition: dict[str, Any]) -> dict[str, Any]:
             panel=panel,
             profile_id=profile_id,
             norm_basis=norm_basis,
+            basis_desc=basis_desc,
             scale_factor=scale_factor,
             is_scaled=is_scaled,
+            is_serving_basis=is_serving_basis,
             zero_thresholds_serving=zero_thresholds_serving,
             zero_thresholds_100=zero_thresholds_100,
             nrv_reference=nrv_reference,
